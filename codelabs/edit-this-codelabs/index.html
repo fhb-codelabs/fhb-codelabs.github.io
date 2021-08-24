@@ -1,0 +1,127 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Creating/changing this codelabs</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="edit-this-codelabs"
+                  title="Creating/changing this codelabs"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Overview" duration="1">
+        <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<ul class="checklist">
+<li>Installing Prerequisites</li>
+<li>Checking out this repository</li>
+<li>Create/update content</li>
+<li>Test your changes</li>
+<li>Updating the codelab</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install prerequisites" duration="2">
+        <p>To compile tutorials, you&#39;ll need a working go environment and the claat CLI.</p>
+<p>Instructions how to install claat can be found <a href="github.com/googlecodelabs/tools/claat" target="_blank">here</a>.</p>
+<p>If you already have got a running go environment, you can install claat using <code>go get github.com/googlecodelabs/tools/claat</code>. Ensure that your /bin directory is in your PATH.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prepare your git environment" duration="0">
+        <h2 is-upgraded>Create a fork of this repository</h2>
+<ul>
+<li>Navigate to https://github.com/fhb-codelabs/fhb-codelabs.github.io and click &#34;Fork&#34;</li>
+<li>Select the Account or Organization in which the fork should be created</li>
+<li>Afterwards you should have got a fork of this repository in your account</li>
+</ul>
+<h2 is-upgraded>Check out your Fork</h2>
+<ul>
+<li>Open a shell</li>
+<li>Change to the directory, in which the repository should be cloned</li>
+<li>Clone the repository (replace fhb-codelabs against your username/org).</li>
+</ul>
+<pre><code>git clone https://github.com/fhb-codelabs/fhb-codelabs.github.io.git
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create/Update content" duration="0">
+        <ul>
+<li>The tutorials can be found in the site/codelabs directory of the repository.</li>
+<li>To create/update a tutorial, you&#39;ll simply have to write in Markdown Syntax. This codelab is named &#34;edit-this-codelabs.md&#34;</li>
+<li>After you finished editing, you need to compile the codelab:</li>
+</ul>
+<pre><code>cd sites/codelabs
+claat export &lt;your-filename&gt;.md
+</code></pre>
+<ul>
+<li>Afterwards, you can test this using gulp</li>
+</ul>
+<pre><code>cd sites
+
+# Install dependencies if not already done
+npm install
+gulp serve --codelabs-dir=codelabs
+</code></pre>
+<ul>
+<li>Now a webserver should be started and you can navigate to the server with your browser using http://localhost:8000</li>
+<li>Take a look on your work and proceed to the next step if you like your codelab :-)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a PR to push your changes to production" duration="0">
+        <ul>
+<li>Commit your changes to the github repository</li>
+</ul>
+<pre><code>git add &lt;filename&gt; or -A
+git commit -m &#34;a nice commit message&#34;
+git push
+</code></pre>
+<ul>
+<li>Open https://github.com/fhb-codelabs/fhb-codelabs.github.io in your browser</li>
+<li>Click on &#34;Pull requests&#34;</li>
+<li>Create a new Pull Request</li>
+<li>Select the source of your PR, select &#34;master&#34; as base</li>
+<li>Write a nice description and title regarding your changes.</li>
+<li>Wait until your changes get approved</li>
+<li>Afterwards, the tutorial website gets updated</li>
+<li>Thank you for your contribution :-)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
