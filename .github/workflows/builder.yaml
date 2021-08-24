@@ -22,7 +22,7 @@ jobs:
     # built afterwards (in other jobs that depend on this one).
     runs-on: ubuntu-20.04
     env:
-      working-directory: ./site
+      
 
     steps:
       - name: Check out code
@@ -34,4 +34,6 @@ jobs:
         with:
           node-version: '14'
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./site
