@@ -37,7 +37,7 @@ jobs:
           npm install
           gulp dist 
           rm -f ./dist/codelabs
-          cp -r ../codelabs ./dist/ 
+          cp -r ./codelabs ./dist/ 
         working-directory: ./site
 
       - name: Deploy 🚀
