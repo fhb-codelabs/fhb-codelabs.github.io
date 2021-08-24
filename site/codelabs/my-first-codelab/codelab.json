@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-08-24T18:03:21+02:00",
+  "id": "my-first-codelab",
+  "duration": 3,
+  "title": "My first codelab sample#",
+  "authors": "Thomas Schuetz",
+  "summary": "My first sample codelab",
+  "source": "run_first_container.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "sample"
+  ],
+  "tags": [
+    "medium"
+  ],
+  "url": "my-first-codelab"
+}
