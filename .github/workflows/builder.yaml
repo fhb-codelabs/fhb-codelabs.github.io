@@ -33,5 +33,15 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          gulp dist
         working-directory: ./site
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          repository: fhb-codelabs/fhb-codelabs.github.io
+          branch: production # The branch the action should deploy to.
+          folder: ./site/dist # The folder the action should deploy.
+          target-folder: /
