@@ -1,0 +1,34 @@
+name: builder
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'release-*'
+
+  pull_request:
+    branches:
+      - 'main'
+      - 'release-*'
+  
+defaults:
+  run:
+    shell: bash
+jobs:
+  prepare_ci_run:
+    name: Build Website
+    # Prepare CI Run looks at what has been changed in this commit/PR/... and determines which artifacts should be
+    # built afterwards (in other jobs that depend on this one).
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # need to checkout "all commits" for certain features to work (e.g., get all changed files)
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - run: npm install
