@@ -98,7 +98,12 @@ Codelabs provide a guided, tutorial, hands-on coding experience. Most codelabs w
 </a>
 </paper-listbox>
 </paper-dropdown-menu>
-</div>
+<paper-dropdown-menu label="Filter by category" class="dropdown-filter" no-label-float noink no-animations>
+<paper-listbox id="categorylist" slot="dropdown-content" class="dropdown-content" on-iron-activate="onCategoryActivate" attr-for-selected="filter">
+<paper-item filter="general">general</paper-item>
+<paper-item filter="ssoa-pt">ssoa-pt</paper-item>
+</paper-listbox>
+</paper-dropdown-menu></div>
 <card-sorter id="cards" class="site-width">
 <a href="/codelabs/edit-this-codelabs/index.html?index=..%2F..index" on-tap="navigate" class="codelab-card category-general" data-category="general" data-title="Creating/changing this codelabs" data-duration="3" data-updated="2021-08-24T20:14:12+02:00" data-tags="general" data-pin="">
 <div class="description">Creating/changing this codelabs</div>
@@ -109,6 +114,17 @@ Codelabs provide a guided, tutorial, hands-on coding experience. Most codelabs w
 <div class="card-footer">
 <div class="category-icon general-icon"></div>
 <paper-button class="general-bg">Start</paper-button>
+</div>
+</a>
+<a href="/codelabs/ssoa-pt-oauth-lab/index.html?index=..%2F..index" on-tap="navigate" class="codelab-card category-ssoa-pt" data-category="ssoa-pt" data-title="SSOA Lab 1 - Enable a legacy application to use OIDC" data-duration="0" data-updated="2021-09-16T21:20:24+02:00" data-tags="aws,oauth" data-pin="">
+<div class="description">SSOA Lab 1 - Enable a legacy application to use OIDC</div>
+<div class="card-duration">
+<span></span>
+<span>Updated Sep 16, 2021</span>
+</div>
+<div class="card-footer">
+<div class="category-icon ssoa-pt-icon"></div>
+<paper-button class="ssoa-pt-bg">Start</paper-button>
 </div>
 </a>
 </card-sorter>

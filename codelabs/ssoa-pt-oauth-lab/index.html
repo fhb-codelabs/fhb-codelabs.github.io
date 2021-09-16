@@ -1,0 +1,282 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>SSOA Lab 1 - Enable a legacy application to use OIDC</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="ssoa-pt-oauth-lab"
+                  title="SSOA Lab 1 - Enable a legacy application to use OIDC"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Overview" duration="0">
+        <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<p class="image-container"><img alt="PodTatoHead-BigPicture" src="img/206416af54e1f4b8.png"></p>
+<ul>
+<li>Set Up an AWS Instance</li>
+<li>Install Docker</li>
+<li>Run a container on a specific port</li>
+<li>Configure an oauth-application in GitHub</li>
+<li>Use oauth-proxy to authenticate via GitHub</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Set up an AWS Instance" duration="0">
+        <ul>
+<li>Open the AWS Console</li>
+<li>Search for EC2</li>
+<li>Click on Launch Instances <ul>
+<li>Step 1: Choose an Amazon Machine Image (AMI) <ul>
+<li>Amazon Linux 2 AMI (HVM), SSD Volume Type (x86)</li>
+</ul>
+</li>
+<li>Step 2: Choose an Instance Type <ul>
+<li>t2.micro</li>
+</ul>
+</li>
+<li>Step 3: Configure Instance Details <ul>
+<li>Keep Default</li>
+</ul>
+</li>
+<li>Step 4: Add Storage <ul>
+<li>Keep Default</li>
+</ul>
+</li>
+<li>Step 5: Add Tags <ul>
+<li>Name: podtatohead-oauth</li>
+</ul>
+</li>
+<li>Step 6: Configure Security Group <ul>
+<li>Create New Security Group <ul>
+<li>Security Group Name: podtatohead</li>
+<li>Add Rule <ul>
+<li>Type: HTTP</li>
+<li>Rest: Default</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Review and Launch</li>
+</ul>
+</li>
+<li>Launch</li>
+<li>Select an existing key-pair or create one</li>
+<li>Launch instance</li>
+</ul>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Open a shell to your ec2-instance" duration="0">
+        <ul>
+<li>Get the instance hostname from the AWS console (Public IPv4 DNS or Public IPv4 Address)</li>
+<li>Open a shell</li>
+</ul>
+<pre><code> ssh -i ~/.ssh/labsuser.pem user@&lt;instance_hostname&gt;
+
+      __|  __|_  )
+      _|  (     /   Amazon Linux 2 AMI
+     ___|\___|___|
+
+ https://aws.amazon.com/amazon-linux-2/ 
+</code></pre>
+<ul>
+<li>Now you&#39;re connected to your AWS Instance</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install Docker" duration="0">
+        <ul>
+<li>Update Package List: <code>sudo yum update -y</code></li>
+<li>Install Docker: <code>sudo yum install docker -y</code></li>
+<li>Start Docker Service: <code>sudo service docker start</code></li>
+<li>Add ec2-user to docker-group: <code>sudo usermod -a -G docker ec2-user</code></li>
+<li>Log out and log in again</li>
+<li>Try if docker works</li>
+</ul>
+<pre><code>$&gt; docker run hello-world
+
+ec2-user@ip-172-31-85-66 ~]$ docker run hello-world
+Unable to find image &#39;hello-world:latest&#39; locally
+latest: Pulling from library/hello-world
+b8dfde127a29: Pull complete 
+Digest: sha256:61bd3cb6014296e214ff4c6407a5a7e7092dfa8eefdbbec539e133e97f63e09f
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &#34;hello-world&#34; image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+</code></pre>
+<ul>
+<li>Your machine is now able to run docker containers</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Run your first container" duration="0">
+        <ul>
+<li>Run the container on the port 8080 daemonized</li>
+</ul>
+<pre><code>docker run -p 8080:9000 ghcr.io/podtato-head/podtatoserver:v0.1.2 -d
+</code></pre>
+<ul>
+<li>Let&#39;s see if our app works</li>
+</ul>
+<pre><code>$&gt; curl http://localhost:8080
+
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Hello server&lt;/title&gt;
+    &lt;link rel=&#34;stylesheet&#34; href=&#34;./static/styles.css&#34;/&gt;
+    &lt;link rel=&#34;stylesheet&#34; href=&#34;./static/custom.css&#34;/&gt;
+  &lt;/head&gt;
+  &lt;body style=&#34;background-color: #849abd;color: #faebd7;&#34;&gt;
+  &lt;main class=&#34;container&#34;&gt;
+
+  &lt;div class=&#34;text-center&#34;&gt;
+    &lt;h1&gt;Hello from Podtato Head&lt;/h1&gt;
+    &lt;div style=&#34;width:700px;height:800px;margin:auto;position:relative;&#34;&gt;
+      &lt;img src=&#34;./static/images/body.svg&#34; style=&#34;position:absolute;margin-top:80px;margin-left:200px;&#34;&gt;
+      &lt;img src=&#34;./static/images/hats/hat-03.svg&#34; style=&#34;position:absolute;margin-left:200px;margin-top:0px;&#34;&gt;
+      &lt;img src=&#34;./static/images/left-arm/left-arm-03.svg&#34; style=&#34;position:absolute;top:100px;left:-50px;&#34;&gt;
+      &lt;img src=&#34;./static/images/right-arm/right-arm-03.svg&#34; style=&#34;position:absolute;top:100px;left:450px;&#34;&gt;
+      &lt;img src=&#34;./static/images/left-leg/left-leg-03.svg&#34; style=&#34;position:absolute;top:480px;left: -0px;&#34; &gt;
+      &lt;img src=&#34;./static/images/right-leg/right-leg-03.svg&#34; style=&#34;position:absolute;top:480px;left: 400px;&#34;&gt;
+    &lt;/div&gt;
+    &lt;h2&gt; Version 0.1.2 &lt;/h2&gt;
+  &lt;/div&gt;
+
+&lt;/main&gt;  
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<ul>
+<li>Seems like the podtatohead is running on our machine</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Configure a GitHub oAuth Application" duration="0">
+        <ul>
+<li>Open https://github.com/settings/developers</li>
+<li>Click on &#34;New OAuth App&#34;<ul>
+<li>Application Name: podtatohead-on-aws</li>
+<li>HomePage URL: http://</li>
+<li>Authorization callback URL: http:///oauth2/callback</li>
+</ul>
+</li>
+<li>Always use HTTPS when doing this &#34;in the real world&#34;!</li>
+<li>Click on the application:<ul>
+<li>Note client-id</li>
+<li>Create client-secret and keep it open</li>
+</ul>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Run and configure oauth2-proxy" duration="0">
+        <ul>
+<li>Download oauth2-proxy</li>
+</ul>
+<pre><code>mkdir oauth2-proxy
+cd oauth2-proxy
+curl -sfL https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v7.1.3/oauth2-proxy-v7.1.3.linux-amd64.tar.gz | tar -xzv -
+</code></pre>
+<ul>
+<li>Create cookie secret<ul>
+<li>Generate cookie-secret: <code>export COOKIE_SECRET=$(python -c 'import os,base64; print(base64.urlsafe_b64encode(os.urandom(16)).decode())')</code></li>
+</ul>
+</li>
+<li>Set some variables</li>
+</ul>
+<pre><code>export GITHUB_USER=&lt;GITHUB_USER&gt;
+export GITHUB_CLIENT_ID=&lt;GITHUB_CLIENT_ID&gt;
+export GITHUB_CLIENT_SECRET=&lt;GITHUB_CLIENT_SECRET&gt;
+export URL=&lt;INSTANCE_NAME&gt;
+</code></pre>
+<ul>
+<li>Run oauth2-proxy</li>
+</ul>
+<pre><code>sudo ./oauth2-proxy --github-user=&#34;${GITHUB_USER}&#34;  --cookie-secret=&#34;${COOKIE_SECRET}&#34; --client-id=&#34;${GITHUB_CLIENT_ID}&#34; --client-secret=&#34;${GITHUB_CLIENT_SECRET}&#34; --email-domain=&#34;*&#34; --upstream=http://127.0.0.1:8080 --provider github --cookie-secure false --redirect-url=http://${URL}/oauth2/callback --http-address=http://${URL}:80
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Open the PodTatoHead" duration="0">
+        <ul>
+<li>Open a Browser</li>
+<li>Browse to http://&lt;INSTANCE_NAME&gt;</li>
+<li>Click on &#34;Log In&#34;</li>
+<li>Now you should see the following:<img alt="PodTatoHead" src="img/163bce8db02079fb.png"></li>
+<li>If you see the PodTatoHead, Congratulations!</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Clean Up" duration="0">
+        <ul>
+<li>Open the AWS Console</li>
+<li>Navigate to EC2</li>
+<li>Delete the Instance</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
