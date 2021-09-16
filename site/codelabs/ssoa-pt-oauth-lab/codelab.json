@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-09-16T21:20:24+02:00",
+  "id": "ssoa-pt-oauth-lab",
+  "duration": 0,
+  "title": "SSOA Lab 1 - Enable a legacy application to use OIDC",
+  "authors": "Thomas Schuetz",
+  "summary": "Lab 1 - Enable a legacy application to use OIDC",
+  "source": "ssoa-pt-oauth-lab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "ssoa-pt"
+  ],
+  "tags": [
+    "aws",
+    "oauth"
+  ],
+  "url": "ssoa-pt-oauth-lab"
+}
