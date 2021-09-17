@@ -29,11 +29,13 @@
     
       <google-codelab-step label="Overview" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-<p class="image-container"><img alt="PodTatoHead-BigPicture" src="img/206416af54e1f4b8.png"></p>
+<p class="image-container"><img alt="PodTatoHead-BigPicture" src="img/8d02c05bb3c9351e.png"></p>
 <ul>
 <li>Set Up an AWS Instance</li>
 <li>Install Docker</li>
 <li>Run a container on a specific port</li>
+<li>Getting Information from a metadata endpoint</li>
+<li>Issue a LetsEncrypt Certificate (Staging)</li>
 <li>Configure an oauth-application in GitHub</li>
 <li>Use oauth-proxy to authenticate via GitHub</li>
 </ul>
@@ -68,10 +70,11 @@
 </li>
 <li>Step 6: Configure Security Group <ul>
 <li>Create New Security Group <ul>
-<li>Security Group Name: podtatohead</li>
-<li>Add Rule <ul>
+<li>Security Group Name: podtatohead-http-in</li>
+<li>Add Rules <ul>
 <li>Type: HTTP</li>
-<li>Rest: Default</li>
+<li>Type: HTTPS</li>
+<li>Rest Default</li>
 </ul>
 </li>
 </ul>
@@ -89,12 +92,46 @@
 
       </google-codelab-step>
     
+      <google-codelab-step label="Getting your Instance Name on the AWS CLI" duration="0">
+        <ul>
+<li>Prerequisites:<ul>
+<li>Installed awscli</li>
+</ul>
+</li>
+<li>Open a Shell</li>
+<li>Ensure that aws-cli is configured</li>
+</ul>
+<pre><code>cat ~/.aws/credentials
+</code></pre>
+<ul>
+<li>Describe all Instances</li>
+</ul>
+<pre><code>aws ec2 describe-instances 
+</code></pre>
+<ul>
+<li>You should see all EC2 Instances (in our case one)</li>
+<li>Query the Instance Name</li>
+</ul>
+<pre><code>aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=podtatohead-oauth&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs
+[
+    &#34;&lt;instance-name&gt;.compute-1.amazonaws.com&#34;
+]
+</code></pre>
+<ul>
+<li>Put the Instance Name in a Variable</li>
+</ul>
+<pre><code>  INSTANCE_HOSTNAME=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=podtatohead-oauth&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs)
+</code></pre>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Open a shell to your ec2-instance" duration="0">
         <ul>
 <li>Get the instance hostname from the AWS console (Public IPv4 DNS or Public IPv4 Address)</li>
 <li>Open a shell</li>
 </ul>
-<pre><code> ssh -i ~/.ssh/labsuser.pem user@&lt;instance_hostname&gt;
+<pre><code> ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
 
       __|  __|_  )
       _|  (     /   Amazon Linux 2 AMI
@@ -102,9 +139,8 @@
 
  https://aws.amazon.com/amazon-linux-2/ 
 </code></pre>
-<ul>
-<li>Now you&#39;re connected to your AWS Instance</li>
-</ul>
+<aside class="special"><p> :Now you&#39;re connected to your AWS Instance   </p>
+</aside>
 
 
       </google-codelab-step>
@@ -159,7 +195,7 @@ For more examples and ideas, visit:
         <ul>
 <li>Run the container on the port 8080 daemonized</li>
 </ul>
-<pre><code>docker run -p 8080:9000 ghcr.io/podtato-head/podtatoserver:v0.1.2 -d
+<pre><code>docker run -d -p 8080:9000 ghcr.io/podtato-head/podtatoserver:v0.1.2 
 </code></pre>
 <ul>
 <li>Let&#39;s see if our app works</li>
@@ -192,23 +228,47 @@ For more examples and ideas, visit:
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<ul>
-<li>Seems like the podtatohead is running on our machine</li>
-</ul>
+<aside class="special"><p> Seems like the podtatohead is running on our machine </p>
+</aside>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Configure a GitHub oAuth Application" duration="0">
         <ul>
+<li>Get your Public IP Address:</li>
+</ul>
+<pre><code>export PUBLIC_IPV4_ADDRESS=&#34;$(curl http://169.254.169.254/latest/meta-data/public-ipv4)&#34;
+</code></pre>
+<ul>
+<li>Generate your needed parameters</li>
+</ul>
+<pre><code>cat &lt;&lt; EOF
+
+
+=======
+Application name: 
+-- podtatohead-on-aws
+
+Homepage URL:     
+- https://$PUBLIC_IPV4_ADDRESS.nip.io
+
+Authorization callback URL: 
+- https://$PUBLIC_IPV4_ADDRESS.nip.io/oauth2/callback
+=======
+
+
+EOF
+
+</code></pre>
+<ul>
 <li>Open https://github.com/settings/developers</li>
 <li>Click on &#34;New OAuth App&#34;<ul>
 <li>Application Name: podtatohead-on-aws</li>
-<li>HomePage URL: http://</li>
-<li>Authorization callback URL: http:///oauth2/callback</li>
+<li>HomePage URL: <code>https://<Instance-Name></code></li>
+<li>Authorization callback URL: <code>https://<Instance-Name>/oauth2/callback</code></li>
 </ul>
 </li>
-<li>Always use HTTPS when doing this &#34;in the real world&#34;!</li>
 <li>Click on the application:<ul>
 <li>Note client-id</li>
 <li>Create client-secret and keep it open</li>
@@ -219,30 +279,70 @@ For more examples and ideas, visit:
 
       </google-codelab-step>
     
+      <google-codelab-step label="Install and configure LetsEncrypt" duration="0">
+        <ul>
+<li>As we only have ephemeral dns names, we will use LetsEncrypt Staging</li>
+<li>Enable EPEL Repositories</li>
+</ul>
+<pre><code>sudo amazon-linux-extras install epel -y
+sudo yum-config-manager --enable epel
+</code></pre>
+<ul>
+<li>Install CertBot</li>
+</ul>
+<pre><code>sudo yum install certbot -y
+</code></pre>
+<ul>
+<li>Get your Hostname from Metadata Endpoint</li>
+</ul>
+<pre><code>export PUBLIC_IPV4_ADDRESS=&#34;$(curl http://169.254.169.254/latest/meta-data/public-ipv4)&#34;
+export PUBLIC_INSTANCE_NAME=&#34;$(curl http://169.254.169.254/latest/meta-data/public-hostname)&#34;
+</code></pre>
+<ul>
+<li>Do cert-bot dry-run</li>
+</ul>
+<pre><code>sudo certbot certonly --standalone --preferred-challenges http -d $PUBLIC_IPV4_ADDRESS.nip.io --dry-run
+</code></pre>
+<ul>
+<li>If this is successful, run cert-bot staging</li>
+</ul>
+<pre><code>sudo certbot certonly --standalone --preferred-challenges http -d $PUBLIC_IPV4_ADDRESS.nip.io --staging
+</code></pre>
+<ul>
+<li>In the real world, you would now do the same thing without staging ...</li>
+</ul>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Run and configure oauth2-proxy" duration="0">
         <ul>
 <li>Download oauth2-proxy</li>
 </ul>
-<pre><code>mkdir oauth2-proxy
-cd oauth2-proxy
-curl -sfL https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v7.1.3/oauth2-proxy-v7.1.3.linux-amd64.tar.gz | tar -xzv -
+<pre><code>mkdir -p /tmp/oauth2-proxy
+sudo mkdir -p /opt/oauth2-proxy
+
+cd /tmp/oauth2-proxy
+curl -sfL https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v7.1.3/oauth2-proxy-v7.1.3.linux-amd64.tar.gz | tar -xzvf -
+
+sudo mv oauth2-proxy-v7.1.3.linux-amd64/oauth2-proxy /opt/oauth2-proxy/
 </code></pre>
 <ul>
 <li>Create cookie secret<ul>
 <li>Generate cookie-secret: <code>export COOKIE_SECRET=$(python -c 'import os,base64; print(base64.urlsafe_b64encode(os.urandom(16)).decode())')</code></li>
 </ul>
 </li>
-<li>Set some variables</li>
+<li>Set some variables (could also be a script)</li>
 </ul>
 <pre><code>export GITHUB_USER=&lt;GITHUB_USER&gt;
 export GITHUB_CLIENT_ID=&lt;GITHUB_CLIENT_ID&gt;
 export GITHUB_CLIENT_SECRET=&lt;GITHUB_CLIENT_SECRET&gt;
-export URL=&lt;INSTANCE_NAME&gt;
+export PUBLIC_URL=$(curl http://169.254.169.254/latest/meta-data/public-ipv4).nip.io
 </code></pre>
 <ul>
 <li>Run oauth2-proxy</li>
 </ul>
-<pre><code>sudo ./oauth2-proxy --github-user=&#34;${GITHUB_USER}&#34;  --cookie-secret=&#34;${COOKIE_SECRET}&#34; --client-id=&#34;${GITHUB_CLIENT_ID}&#34; --client-secret=&#34;${GITHUB_CLIENT_SECRET}&#34; --email-domain=&#34;*&#34; --upstream=http://127.0.0.1:8080 --provider github --cookie-secure false --redirect-url=http://${URL}/oauth2/callback --http-address=http://${URL}:80
+<pre><code>sudo /opt/oauth2-proxy/oauth2-proxy --github-user=&#34;${GITHUB_USER}&#34;  --cookie-secret=&#34;${COOKIE_SECRET}&#34; --client-id=&#34;${GITHUB_CLIENT_ID}&#34; --client-secret=&#34;${GITHUB_CLIENT_SECRET}&#34; --email-domain=&#34;*&#34; --upstream=http://127.0.0.1:8080 --provider github --cookie-secure false --redirect-url=https://${PUBLIC_URL}/oauth2/callback --https-address=&#34;:443&#34; --force-https --tls-cert-file=/etc/letsencrypt/live/$PUBLIC_URL/fullchain.pem --tls-key-file=/etc/letsencrypt/live/$PUBLIC_URL/privkey.pem
 </code></pre>
 
 
@@ -251,11 +351,13 @@ export URL=&lt;INSTANCE_NAME&gt;
       <google-codelab-step label="Open the PodTatoHead" duration="0">
         <ul>
 <li>Open a Browser</li>
-<li>Browse to http://&lt;INSTANCE_NAME&gt;</li>
+<li>Browse to &#34;https://${PUBLIC_URL}&#34;</li>
+<li>Inspect the certificate and ignore the warning (only here!)</li>
 <li>Click on &#34;Log In&#34;</li>
 <li>Now you should see the following:<img alt="PodTatoHead" src="img/163bce8db02079fb.png"></li>
-<li>If you see the PodTatoHead, Congratulations!</li>
 </ul>
+<aside class="special"><p> If you see the PodTatoHead, Congratulations! </p>
+</aside>
 
 
       </google-codelab-step>
@@ -263,8 +365,24 @@ export URL=&lt;INSTANCE_NAME&gt;
       <google-codelab-step label="Clean Up" duration="0">
         <ul>
 <li>Open the AWS Console</li>
-<li>Navigate to EC2</li>
-<li>Delete the Instance</li>
+<li>Navigate to EC2 / Shell</li>
+<li>Delete the Instance <ul>
+<li>on the shell</li>
+</ul>
+<pre><code>INSTANCE_ID=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=podtatohead-oauth&#34; --query &#34;Reservations[].Instances[].InstanceId&#34; --out text)
+
+aws ec2 terminate-instances --instance-ids $INSTANCE_ID
+</code></pre>
+</li>
+<li>Clean up the applicaton on GitHub (https://github.com/settings/developers)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Advanced Version" duration="0">
+        <ul>
+<li>Try to run the oauth-proxy with environment variables (as described here: https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview#environment-variables)</li>
 </ul>
 
 
