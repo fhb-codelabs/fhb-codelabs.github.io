@@ -184,9 +184,8 @@ Share images, automate workflows, and more with a free Docker ID:
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/
 </code></pre>
-<ul>
-<li>Your machine is now able to run docker containers</li>
-</ul>
+<aside class="special"><p> - Your machine is now able to run docker containers </p>
+</aside>
 
 
       </google-codelab-step>
@@ -264,9 +263,7 @@ EOF
 <ul>
 <li>Open https://github.com/settings/developers</li>
 <li>Click on &#34;New OAuth App&#34;<ul>
-<li>Application Name: podtatohead-on-aws</li>
-<li>HomePage URL: <code>https://<Instance-Name></code></li>
-<li>Authorization callback URL: <code>https://<Instance-Name>/oauth2/callback</code></li>
+<li>Add the parameters according to the output above</li>
 </ul>
 </li>
 <li>Click on the application:<ul>
@@ -308,9 +305,8 @@ export PUBLIC_INSTANCE_NAME=&#34;$(curl http://169.254.169.254/latest/meta-data/
 </ul>
 <pre><code>sudo certbot certonly --standalone --preferred-challenges http -d $PUBLIC_IPV4_ADDRESS.nip.io --staging
 </code></pre>
-<ul>
-<li>In the real world, you would now do the same thing without staging ...</li>
-</ul>
+<aside class="warning"><p> - In the real world, you would now do the same thing without staging ... </p>
+</aside>
 
 
       </google-codelab-step>

@@ -135,7 +135,9 @@ For more examples and ideas, visit:
  https://docs.docker.com/get-started/
  ```
 
+<aside class="positive">
 - Your machine is now able to run docker containers
+</aside>
 
 ## Run your first container
 
@@ -211,9 +213,7 @@ EOF
 ```
 - Open https://github.com/settings/developers
 - Click on "New OAuth App"
-  * Application Name: podtatohead-on-aws
-  * HomePage URL: `https://<Instance-Name>`
-  * Authorization callback URL: `https://<Instance-Name>/oauth2/callback`
+  * Add the parameters according to the output above
 
 - Click on the application:
   - Note client-id
@@ -248,7 +248,9 @@ sudo certbot certonly --standalone --preferred-challenges http -d $PUBLIC_IPV4_A
 sudo certbot certonly --standalone --preferred-challenges http -d $PUBLIC_IPV4_ADDRESS.nip.io --staging
 ```
 
+<aside class="negative">
 - In the real world, you would now do the same thing without staging ...
+</aside>
 
 ## Run and configure oauth2-proxy
 
