@@ -16,6 +16,8 @@ authors: Thomas Schuetz
 - Set Up an AWS Instance
 - Install Docker
 - Run a container on a specific port
+- Getting Information from a metadata endpoint
+- Issue a LetsEncrypt Certificate (Staging)
 - Configure an oauth-application in GitHub
 - Use oauth-proxy to authenticate via GitHub
 
@@ -35,21 +37,52 @@ authors: Thomas Schuetz
     * Name: podtatohead-oauth
   * Step 6: Configure Security Group
     * Create New Security Group
-      * Security Group Name: podtatohead
-      * Add Rule
+      * Security Group Name: podtatohead-http-in
+      * Add Rules
         * Type: HTTP
-        * Rest: Default
+        * Type: HTTPS
+        * Rest Default
     * Review and Launch
   * Launch
   * Select an existing key-pair or create one
   * Launch instance
 
+## Getting your Instance Name on the AWS CLI
+- Prerequisites:
+  * Installed awscli
+
+- Open a Shell
+
+- Ensure that aws-cli is configured
+```
+cat ~/.aws/credentials
+```
+
+- Describe all Instances
+```
+aws ec2 describe-instances 
+```
+
+- You should see all EC2 Instances (in our case one)
+
+- Query the Instance Name
+```
+aws ec2 describe-instances --filters "Name=tag:Name,Values=podtatohead-oauth" --query "Reservations[].Instances[].PublicDnsName" --out text | xargs
+[
+    "<instance-name>.compute-1.amazonaws.com"
+]
+```
+
+- Put the Instance Name in a Variable
+```
+  INSTANCE_HOSTNAME=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=podtatohead-oauth" --query "Reservations[].Instances[].PublicDnsName" --out text | xargs)
+```
 ## Open a shell to your ec2-instance
 
 - Get the instance hostname from the AWS console (Public IPv4 DNS or Public IPv4 Address)
 - Open a shell
  ```
-  ssh -i ~/.ssh/labsuser.pem user@<instance_hostname>
+  ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
 
        __|  __|_  )
        _|  (     /   Amazon Linux 2 AMI
@@ -58,7 +91,9 @@ authors: Thomas Schuetz
   https://aws.amazon.com/amazon-linux-2/ 
 ```
 
-- Now you're connected to your AWS Instance  
+<aside class="positive">
+:Now you're connected to your AWS Instance  
+</aside>
 
 ## Install Docker
 
@@ -107,7 +142,7 @@ For more examples and ideas, visit:
 - Run the container on the port 8080 daemonized
 
 ```
-docker run -p 8080:9000 ghcr.io/podtato-head/podtatoserver:v0.1.2 -d
+docker run -d -p 8080:9000 ghcr.io/podtato-head/podtatoserver:v0.1.2 
 ```
 
 - Let's see if our app works
@@ -142,62 +177,136 @@ $> curl http://localhost:8080
 </html>
 ````
 
-- Seems like the podtatohead is running on our machine
+<aside class="positive">
+Seems like the podtatohead is running on our machine
+</aside>
+
 
 ## Configure a GitHub oAuth Application
 
+- Get your Public IP Address: 
+```
+export PUBLIC_IPV4_ADDRESS="$(curl http://169.254.169.254/latest/meta-data/public-ipv4)"
+```
+
+- Generate your needed parameters
+```
+cat << EOF
+
+
+=======
+Application name: 
+-- podtatohead-on-aws
+
+Homepage URL:     
+- https://$PUBLIC_IPV4_ADDRESS.nip.io
+
+Authorization callback URL: 
+- https://$PUBLIC_IPV4_ADDRESS.nip.io/oauth2/callback
+=======
+
+
+EOF
+
+```
 - Open https://github.com/settings/developers
 - Click on "New OAuth App"
   * Application Name: podtatohead-on-aws
-  * HomePage URL: http://<Instance-Name>
-  * Authorization callback URL: http://<Instance-Name>/oauth2/callback
-  
-- Always use HTTPS when doing this "in the real world"!
+  * HomePage URL: `https://<Instance-Name>`
+  * Authorization callback URL: `https://<Instance-Name>/oauth2/callback`
 
 - Click on the application:
   - Note client-id
   - Create client-secret and keep it open
 
+## Install and configure LetsEncrypt
+- As we only have ephemeral dns names, we will use LetsEncrypt Staging
+
+- Enable EPEL Repositories
+```
+sudo amazon-linux-extras install epel -y
+sudo yum-config-manager --enable epel
+````
+
+- Install CertBot
+```
+sudo yum install certbot -y
+```
+
+- Get your Hostname from Metadata Endpoint
+```
+export PUBLIC_IPV4_ADDRESS="$(curl http://169.254.169.254/latest/meta-data/public-ipv4)"
+export PUBLIC_INSTANCE_NAME="$(curl http://169.254.169.254/latest/meta-data/public-hostname)"
+```
+- Do cert-bot dry-run
+```
+sudo certbot certonly --standalone --preferred-challenges http -d $PUBLIC_IPV4_ADDRESS.nip.io --dry-run
+```
+
+- If this is successful, run cert-bot staging
+```
+sudo certbot certonly --standalone --preferred-challenges http -d $PUBLIC_IPV4_ADDRESS.nip.io --staging
+```
+
+- In the real world, you would now do the same thing without staging ...
 
 ## Run and configure oauth2-proxy
 
 - Download oauth2-proxy
 ```
-mkdir oauth2-proxy
-cd oauth2-proxy
-curl -sfL https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v7.1.3/oauth2-proxy-v7.1.3.linux-amd64.tar.gz | tar -xzv -
+mkdir -p /tmp/oauth2-proxy
+sudo mkdir -p /opt/oauth2-proxy
+
+cd /tmp/oauth2-proxy
+curl -sfL https://github.com/oauth2-proxy/oauth2-proxy/releases/download/v7.1.3/oauth2-proxy-v7.1.3.linux-amd64.tar.gz | tar -xzvf -
+
+sudo mv oauth2-proxy-v7.1.3.linux-amd64/oauth2-proxy /opt/oauth2-proxy/
 ```
+
 
 - Create cookie secret
   * Generate cookie-secret: `export COOKIE_SECRET=$(python -c 'import os,base64; print(base64.urlsafe_b64encode(os.urandom(16)).decode())')`
 
-- Set some variables 
+- Set some variables (could also be a script) 
 ```
 export GITHUB_USER=<GITHUB_USER>
 export GITHUB_CLIENT_ID=<GITHUB_CLIENT_ID>
 export GITHUB_CLIENT_SECRET=<GITHUB_CLIENT_SECRET>
-export URL=<INSTANCE_NAME>
+export PUBLIC_URL=$(curl http://169.254.169.254/latest/meta-data/public-ipv4).nip.io
 ```
 - Run oauth2-proxy
 ```
-sudo ./oauth2-proxy --github-user="${GITHUB_USER}"  --cookie-secret="${COOKIE_SECRET}" --client-id="${GITHUB_CLIENT_ID}" --client-secret="${GITHUB_CLIENT_SECRET}" --email-domain="*" --upstream=http://127.0.0.1:8080 --provider github --cookie-secure false --redirect-url=http://${URL}/oauth2/callback --http-address=http://${URL}:80
+sudo /opt/oauth2-proxy/oauth2-proxy --github-user="${GITHUB_USER}"  --cookie-secret="${COOKIE_SECRET}" --client-id="${GITHUB_CLIENT_ID}" --client-secret="${GITHUB_CLIENT_SECRET}" --email-domain="*" --upstream=http://127.0.0.1:8080 --provider github --cookie-secure false --redirect-url=https://${PUBLIC_URL}/oauth2/callback --https-address=":443" --force-https --tls-cert-file=/etc/letsencrypt/live/$PUBLIC_URL/fullchain.pem --tls-key-file=/etc/letsencrypt/live/$PUBLIC_URL/privkey.pem
 ```
 
 ## Open the PodTatoHead
 
 - Open a Browser
 
-- Browse to http://<INSTANCE_NAME>
+- Browse to "https://${PUBLIC_URL}"
+- Inspect the certificate and ignore the warning (only here!)
 - Click on "Log In"
 
 - Now you should see the following:
   
   ![PodTatoHead](./img/podtatohead.png)
-- If you see the PodTatoHead, Congratulations!
 
+<aside class="positive">
+If you see the PodTatoHead, Congratulations!
+</aside>
 
 ## Clean Up
 
 - Open the AWS Console
-- Navigate to EC2
+- Navigate to EC2 / Shell
 - Delete the Instance
+  * on the shell
+  ```
+  INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=podtatohead-oauth" --query "Reservations[].Instances[].InstanceId" --out text)
+
+  aws ec2 terminate-instances --instance-ids $INSTANCE_ID
+  ```
+- Clean up the applicaton on GitHub (https://github.com/settings/developers)
+
+## Advanced Version
+- Try to run the oauth-proxy with environment variables (as described here: https://oauth2-proxy.github.io/oauth2-proxy/docs/configuration/overview#environment-variables)
