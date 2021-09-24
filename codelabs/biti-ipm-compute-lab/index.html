@@ -92,17 +92,24 @@ DESCRIPTION
 <h2 is-upgraded>Root privileges for Debian</h2>
 <p>Installing additional software from Debian repositories requires root privileges. There are three ways how to get root access.</p>
 <ol type="1">
-<li>Log in as root:  <pre><code>Debian GNU/Linux 11 icinga tty1
+<li>Log in as root:</li>
+</ol>
+<pre><code>Debian GNU/Linux 11 icinga tty1
 icinga login: _
 </code></pre>
-During the installation process, you were promted to set the root password. However, most modern Linux distributions disable the login for the root user due to security reason. If the login does not work, continue with the next step.</li>
-<li>When logged in as non-privileged user, open the shell and run the following command:  <pre><code>su - 
-</code></pre>
-Typically, you will be prompted for the root password. If unknown, ask your instructor for the password and run the above command again.</li>
-<li>When you are logged in as non-privileged user and if you are a member of the <strong>sudo</strong> group, then open the shell and run the following command:  <pre><code>sudo -s
-</code></pre>
-Normally, you will be asked for the user (not root) password. If you don&#39;t know it, ask your instructor for the password and run the above command again. If you have set up a different password, as recommended, and can no longer log into the system, then you will probably need to restart the installation.</li>
+<p>During the installation process, you were promted to set the root password. However, most modern Linux distributions disable the login for the root user due to security reason. If the login does not work, continue with the next step.</p>
+<ol type="1" start="2">
+<li>When logged in as non-privileged user, open the shell and run the following command:</li>
 </ol>
+<pre><code>su - 
+</code></pre>
+<p>Typically, you will be prompted for the root password. If unknown, ask your instructor for the password and run the above command again.</p>
+<ol type="1" start="3">
+<li>When you are logged in as non-privileged user and if you are a member of the <strong>sudo</strong> group, then open the shell and run the following command:</li>
+</ol>
+<pre><code>sudo -s
+</code></pre>
+<p>Normally, you will be asked for the user (not root) password. If you don&#39;t know it, ask your instructor for the password and run the above command again. If you have set up a different password, as recommended, and can no longer log into the system, then you will probably need to restart the installation.</p>
 
 
       </google-codelab-step>
@@ -112,9 +119,16 @@ Normally, you will be asked for the user (not root) password. If you don&#39;t k
 <h3 is-upgraded>Debian</h3>
 <ol type="1">
 <li>Log in as root</li>
-<li>Run the following command to update the local package lists. <br><code>apt update<br></code></li>
-<li>Install the software with the following command: <br><code>apt install <package name></code><br> If prompted, confirm the installation of software packages with Y(es)</li>
+<li>Run the following command to update the local package lists.</li>
 </ol>
+<pre><code>apt update
+</code></pre>
+<ol type="1" start="3">
+<li>Install the software with the following command:</li>
+</ol>
+<pre><code>apt install &lt;package name&gt;
+</code></pre>
+<p>If prompted, confirm the installation of software packages with Y(es)</p>
 <h3 is-upgraded>Windows</h3>
 <p>Follow the instruction of the downloaded software.</p>
 
