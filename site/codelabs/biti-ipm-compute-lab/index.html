@@ -27,16 +27,11 @@
                   environment="web"
                   feedback-link="">
     
-      <google-codelab-step label="Overview" duration="0">
+      <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>Every computer system benefits from proper administration and monitoring. A computer operates more quickly if few CPU-intensive processes are running at the same time. Consequently, it makes sense that administrators check the CPU usage on a regular basis to identify programs that unnecessarly burden the system.</p>
 <p>There are plenty of command line utilities created for this purpose. This codelab will introduce you to some of the most helpful applications, how to install and use them.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Documentation" duration="0">
-        <h2 is-upgraded>Man-Pages</h2>
+<h2 is-upgraded>Where You Can Look Up</h2>
 <p>The <strong>man</strong> is a short term for manual page and acts as an interface to view the reference manual of a command.</p>
 <p>Syntax of man:</p>
 <pre><code>man [option(s)] keyword(s)
@@ -60,28 +55,68 @@ DESCRIPTION
 ...
 ...
 </code></pre>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Host operating system (Host OS)</h3>
+<p>This is the OS of the physical computer on which Oracle VM VirtualBox is installed.</p>
+<p>This can be Microsoft Windows, Linux, or Mac OS host. Check the Documentation on the <a href="https://www.virtualbox.org/" target="_blank">official web site</a> for more details.</p>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Prerequisities" duration="0">
-        <h2 is-upgraded>Root privileges</h2>
-<p>Installing additional software from Debian repositories requires root privileges. There are three ways how you get root access.</p>
+      <google-codelab-step label="Get set up" duration="0">
+        <p>For this codelab, it is recommanded to use VirtualBox and Debian 11 (Bullseye).</p>
+<h2 is-upgraded>VirtualBox.org</h2>
+<ul>
+<li>Download VirtalBox (packaged for your Host-OS) from the <a href="https://www.virtualbox.org/" target="_blank">official web site</a>.</li>
+<li>Install it on your host. For Windows: make sure to disable all Hyper-V features first.</li>
+<li>Download the VirtualBox Extension Pack from the <a href="https://www.virtualbox.org/" target="_blank">official web site</a>.</li>
+<li>Install the VirtualBox Extension Pack via File –&gt; Preferences –&gt; Extensions. <img alt="VirtualBox Extension" src="img/50bb6b4f41e22ef1.png">.</li>
+<li>Setup a Virtual Machine for Debian installation.</li>
+<li>Ensure that the virtual network is attached to a Bridge Adapter (Open Settings -&gt; Network -&gt; Adapter 1 -&gt; Attached to Bridge Adapter). <img alt="VirtualBox Extension" src="img/4bd5337522d1f684.png"></li>
+</ul>
+<h2 is-upgraded>Debian 11 Bullseye</h2>
+<ul>
+<li>Download Debian 11 Bullseye from from the <a href="https://www.debian.org/" target="_blank">official web site</a>.</li>
+<li>Ask your instructur for non-privileged user and password to ensure smooth administration.</li>
+<li>Start the virtual Machine and install Debian.</li>
+<li>Keep the installation simple.</li>
+<li>Set up the given user and password.</li>
+<li>After installation has finished, reboot the VM, log in with user and password, open a shell and fire a ping to a server of your choice. If you get a response, then you have done a good job. Congratulations!</li>
+<li>Good luck for the next steps!</li>
+</ul>
+<h2 is-upgraded>Root privileges for Debian</h2>
+<p>Installing additional software from Debian repositories requires root privileges. There are three ways how to get root access.</p>
 <ol type="1">
-<li>Log in as root (instead with the user account)  <pre><code>Debian GNU/Linux 11 icinga tty1
+<li>Log in as root:  <pre><code>Debian GNU/Linux 11 icinga tty1
 icinga login: _
 </code></pre>
-</li>
-<li>When logged in as regular user, open the shell and run the following command:  <pre><code>su - 
+During the installation process, you were promted to set the root password. However, most modern Linux distributions disable the login for the root user due to security reason. If the login does not work, continue with the next step.</li>
+<li>When logged in as non-privileged user, open the shell and run the following command:  <pre><code>su - 
 </code></pre>
-</li>
-<li>When you are logged in as regular user and if you are a member of the <strong>sudo</strong> group, then open the shell and run the following command:  <pre><code>sudo -s
+Typically, you will be prompted for the root password. If unknown, ask your instructor for the password and run the above command again.</li>
+<li>When you are logged in as non-privileged user and if you are a member of the <strong>sudo</strong> group, then open the shell and run the following command:  <pre><code>sudo -s
 </code></pre>
-</li>
+Normally, you will be asked for the user (not root) password. If you don&#39;t know it, ask your instructor for the password and run the above command again. If you have set up a different password, as recommended, and can no longer log into the system, then you will probably need to restart the installation.</li>
 </ol>
-<aside class="special"><p> Note:<br> 1. Typically, you will be prompted for the root password. If unknown, ask your instructor for the password and run the above command again.<br> 2. Modern Linux distributions disable the login for the root user. In this case, log in as regular user. Afterwards, use the &#39;&#39;su -&#39;&#39; or the &#39;&#39;sudo -s&#39;&#39; command. Good luck!  </p>
-</aside>
-<h2 is-upgraded>Man-Pages</h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Software installation" duration="0">
+        <p>In this codelab, you will need to install software packages.</p>
+<h3 is-upgraded>Debian</h3>
+<ol type="1">
+<li>Log in as root</li>
+<li>Run the following command to update the local package lists. <br><code>apt update<br></code></li>
+<li>Install the software with the following command: <br><code>apt install <package name></code><br> If prompted, confirm the installation of software packages with Y(es)</li>
+</ol>
+<h3 is-upgraded>Windows</h3>
+<p>Follow the instruction of the downloaded software.</p>
 
 
       </google-codelab-step>
@@ -130,13 +165,146 @@ L3 cache:            3072K
 NUMA node0 CPU(s):   0-3
 Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
 </code></pre>
+<h2 is-upgraded>cpuinfo</h2>
+<p>All Linux distributions allows you to run <strong>cat /proc/cpuinfo</strong>. This file contains details about the processors installed. Note that /proc is a pseudo-filesystem, it is used as an interface to kernel data structures.</p>
+<p>Open a shell and run the following command:</p>
+<pre><code>cat /proc/cpuinfo
+</code></pre>
+<p>Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description.</p>
+<pre><code>processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz
+stepping	: 3
+microcode	: 0x28
+cpu MHz		: 948.796
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit srbds
+bogomips	: 6185.65
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz
+stepping	: 3
+microcode	: 0x28
+cpu MHz		: 1104.746
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit srbds
+bogomips	: 6185.65
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz
+stepping	: 3
+microcode	: 0x28
+cpu MHz		: 1171.670
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 2
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit srbds
+bogomips	: 6185.65
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 60
+model name	: Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz
+stepping	: 3
+microcode	: 0x28
+cpu MHz		: 1125.178
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 2
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit srbds
+bogomips	: 6185.65
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+</code></pre>
+<aside class="special"><p> Consult the documentation and man-pages for more details. Try to identify keywords and details of the CPU.  </p>
+</aside>
+<p>To count the number of processing units use grep command.</p>
+<pre><code>cat /proc/cpuinfo | grep processor
+</code></pre>
+<pre><code>processor	: 0
+processor	: 1
+processor	: 2
+processor	: 3
+</code></pre>
+<aside class="special"><p> The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores. </p>
+</aside>
+<h2 is-upgraded>Windows Registry</h2>
+<ul>
+<li>Open the Windows Registry Editor</li>
+<li>Browse to the Windows Registry Key named <strong>Computer\HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor</strong></li>
+<li>Click on one of the subkeys to get information about the CPU (here 0).</li>
+</ul>
+<p class="image-container"><img alt="Windows Registry" src="img/dcb8ec573359a290.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Monitor the CPU" duration="0">
+      <google-codelab-step label="Monitor the CPU on Linux" duration="0">
         <h2 is-upgraded>uptime</h2>
-<p>The command <strong>uptime</strong> shows the basic information. The tool requires few system resources only and can be helpful when a system is responding slow.</p>
+<p>The command <strong>uptime</strong> shows the basic information. The Linux tool requires few system resources only and can be helpful when a system is responding slow.</p>
 <p>Open a shell  and run the command as follows:</p>
 <pre><code>uptime
 </code></pre>
@@ -153,7 +321,7 @@ Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cm
 <aside class="special"><p> Consult your documentation about the CPU load average, its meaning and how to interpret the numbers. </p>
 </aside>
 <h2 is-upgraded>top</h2>
-<p>One of the most common tools for checking the CPU utilization is <strong>top</strong>. <br><br> Like <strong>uptime</strong>, the command <strong>top</strong> displays the CPU load averages. In addition, the command provides real-time CPU usage information as well as other performance metrics. Furthermore, top stays in the foreground and refreshes at regular intervals.</p>
+<p>One of the most common Linux tools for checking the CPU utilization is <strong>top</strong>. <br><br> Like <strong>uptime</strong>, the command <strong>top</strong> displays the CPU load averages. In addition, the command provides real-time CPU usage information as well as other performance metrics. Furthermore, top stays in the foreground and refreshes at regular intervals.</p>
 <p>Run the <strong>top</strong> command as follows:</p>
 <pre><code>top
 </code></pre>
@@ -162,7 +330,7 @@ Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cm
 <aside class="special"><p> Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it. </p>
 </aside>
 <h2 is-upgraded>htop</h2>
-<p>This tool is another interactive real-time process monitoring application. It has numerous nice user-friendly features which are not availble under the <strong>top</strong> command.</p>
+<p>This tool is another interactive real-time process monitoring application for Linux. It has numerous nice user-friendly features which are not availble under the <strong>top</strong> command.</p>
 <p>Unfortunately, the program is not installed by default. Run the following command to install <strong>htop</strong> with the privileges of the root account:</p>
 <pre><code>apt update; apt install htop
 </code></pre>
@@ -176,7 +344,7 @@ Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cm
 <aside class="special"><p> Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it. </p>
 </aside>
 <h2 is-upgraded>mpstat</h2>
-<p>The tool <strong>mpstat</strong> is a command that is used to report processor related statistics. It displays the statistics of the CPU usage of the system and information about CPU utilization. It initializes the first processor with CPU 0, the second one with CPU 1, and so on.</p>
+<p>The tool <strong>mpstat</strong> is a Linux command that is used to report processor related statistics. It displays the statistics of the CPU usage of the system and information about CPU utilization. It initializes the first processor with CPU 0, the second one with CPU 1, and so on.</p>
 <p>The tool <strong>mpstat</strong> is part of the software package <strong>sysstat</strong>. Like <strong>htop</strong>, the program is not installed by default. Run the following command to install the <strong>systat</strong> package with the privileges of the root account:</p>
 <pre><code>apt update; apt install sysstat
 </code></pre>
@@ -242,6 +410,55 @@ Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cm
 
 </code></pre>
 <aside class="special"><p> Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Monitor the CPU on Windows" duration="0">
+        <h2 is-upgraded>Windows Task Manager</h2>
+<p>The <strong>Windows Task Manager (Taskmon)</strong> is a system tool found in all versions of Microsoft Windows platform&#39;s. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.</p>
+<p>To use Taskmon, open Start, do a search for <strong>taskman</strong>, and confirm the result.</p>
+<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/a96f1237b3ba2789.png"></p>
+<h2 is-upgraded>Windows Resource Monitor</h2>
+<p>The <strong>Windows Resource Monitor (Resmon)</strong> is a system application included in Windows Vista and later versions of Windows that allows users to look at the presence and allocation of resources on a computer.</p>
+<p>The Windows Task Manager can best be described as a tool that runs <strong>on</strong> the surface. It lists processes and services, and general resource usage. In contrast, the Resource Monitor gives you the option to look <strong>under</strong> the surface to get more information that the Task Manager does not provide.</p>
+<p>The Windows Resource Monitor can be used to determine extensive and detailed information about the current performance and resource consumption in real time. The program is therefore also suitable for error analysis. The view is divided into the following sections:</p>
+<ul>
+<li>Overview (CPU, disk, network, memory)</li>
+<li>CPU</li>
+<li>Memory</li>
+<li>Disk</li>
+<li>Network</li>
+</ul>
+<p>To use Resmon, open Start, do a search for <strong>resmon</strong>, and confirm the result.</p>
+<p class="image-container"><img alt="htop" src="img/b327c367a936cab1.png"></p>
+<h2 is-upgraded>Windows Performance Monitor (Perfmon)</h2>
+<p>On Windows 10, users can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
+<p>To use Permon, open Start, do a search for <strong>perfmon</strong>, and confirm the result.</p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/6af70eaf4fb5255c.png"></p>
+<p>When you open the tool, the main page will show up with a brief overview, a system summary with real-time data about Memory, Network Interface, Physical Disk, and Processor Information. On the keft side, you will find the navigation pane with access to Monitoring Tools, Data Collector Sets, and Reports.<br><br> When you switch to the Performance Monitor, you will see a screen with a single counter. This is typically the <strong>Processor Time</strong> counter, which displays the processor load. <br></p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/60f00358e8319ef5.png"></p>
+<p>However, you can add a lot of other counters to monitor virtually anything on your computer. To add new counters to monitor applications and hardware performance on your computer, do the following steps:</p>
+<ul>
+<li>Click on the green <strong>Plus</strong> button above the Performance Monitor graph.</li>
+<li>Select Local computer (or the name of your computer) from the drop-down menu.</li>
+<li>Select and expand the category of the item you want to monitor.</li>
+<li>If applicable, select the instances you want to monitor. Click the <strong>Add</strong> button to add the new counters. <br></li>
+</ul>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/32bdffaa9a19e184.png"></p>
+<ul>
+<li>Finally, click on the <strong>OK</strong> button to confirm. Here you are !</li>
+</ul>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/e612bf43b9d273c5.png"></p>
+<p>The Performance Monitor also includes so-called Data Collectors Sets, which is where you can use existing sets or create custom sets containing performance counters and alerts based on specific criteria.</p>
+<p>In this lab, we will use the Data Collectors Set for Hyper-V. You can right-click your Data Collector Set under &#34;User Defined,&#34; and click <strong>Start</strong> to run it.</p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/9e30a83d7dc4197d.png"></p>
+<p>Wait 30 seconds, while <strong>Performance Monitor</strong> is collecting data. Then right-click the Data Collector set for Hyper-V and click on <strong>Stop</strong> to shut it down.</p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/9aea1ef85fb54b6a.png"></p>
+<p>The tools generates Reports for each run. To view these reports, click on the lastest Hyper-V report in the Report section and browse through the statistics.</p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/a9e5029122493140.png"></p>
+<aside class="special"><p> Consult the online documents for more details about this tool. Do your own research about the output and how to interpret the results. </p>
 </aside>
 
 
