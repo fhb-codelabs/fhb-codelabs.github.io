@@ -27,7 +27,7 @@
                   environment="web"
                   feedback-link="">
     
-      <google-codelab-step label="Overview" duration="0">
+      <google-codelab-step label="Overview" duration="2">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p class="image-container"><img alt="PodTatoHead-BigPicture" src="img/8d02c05bb3c9351e.png"></p>
 <ul>
@@ -43,7 +43,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Set up an AWS Instance" duration="0">
+      <google-codelab-step label="Set up an AWS Instance" duration="5">
         <ul>
 <li>Open the AWS Console</li>
 <li>Search for EC2</li>
@@ -92,7 +92,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Getting your Instance Name on the AWS CLI" duration="0">
+      <google-codelab-step label="Getting your Instance Name on the AWS CLI" duration="3">
         <ul>
 <li>Prerequisites:<ul>
 <li>Installed awscli</li>
@@ -126,7 +126,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Open a shell to your ec2-instance" duration="0">
+      <google-codelab-step label="Open a shell to your ec2-instance" duration="1">
         <ul>
 <li>Get the instance hostname from the AWS console (Public IPv4 DNS or Public IPv4 Address)</li>
 <li>Open a shell</li>
@@ -145,7 +145,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Install Docker" duration="0">
+      <google-codelab-step label="Install Docker" duration="5">
         <ul>
 <li>Update Package List: <code>sudo yum update -y</code></li>
 <li>Install Docker: <code>sudo yum install docker -y</code></li>
@@ -190,7 +190,7 @@ For more examples and ideas, visit:
 
       </google-codelab-step>
     
-      <google-codelab-step label="Run your first container" duration="0">
+      <google-codelab-step label="Run your first container" duration="2">
         <ul>
 <li>Run the container on the port 8080 daemonized</li>
 </ul>
@@ -233,7 +233,7 @@ For more examples and ideas, visit:
 
       </google-codelab-step>
     
-      <google-codelab-step label="Configure a GitHub oAuth Application" duration="0">
+      <google-codelab-step label="Configure a GitHub oAuth Application" duration="5">
         <ul>
 <li>Get your Public IP Address:</li>
 </ul>
@@ -276,7 +276,7 @@ EOF
 
       </google-codelab-step>
     
-      <google-codelab-step label="Install and configure LetsEncrypt" duration="0">
+      <google-codelab-step label="Install and configure LetsEncrypt" duration="5">
         <ul>
 <li>As we only have ephemeral dns names, we will use LetsEncrypt Staging</li>
 <li>Enable EPEL Repositories</li>
@@ -311,7 +311,7 @@ export PUBLIC_INSTANCE_NAME=&#34;$(curl http://169.254.169.254/latest/meta-data/
 
       </google-codelab-step>
     
-      <google-codelab-step label="Run and configure oauth2-proxy" duration="0">
+      <google-codelab-step label="Run and configure oauth2-proxy" duration="3">
         <ul>
 <li>Download oauth2-proxy</li>
 </ul>
@@ -344,7 +344,7 @@ export PUBLIC_URL=$(curl http://169.254.169.254/latest/meta-data/public-ipv4).ni
 
       </google-codelab-step>
     
-      <google-codelab-step label="Open the PodTatoHead" duration="0">
+      <google-codelab-step label="Open the PodTatoHead" duration="2">
         <ul>
 <li>Open a Browser</li>
 <li>Browse to &#34;https://${PUBLIC_URL}&#34;</li>
@@ -358,7 +358,7 @@ export PUBLIC_URL=$(curl http://169.254.169.254/latest/meta-data/public-ipv4).ni
 
       </google-codelab-step>
     
-      <google-codelab-step label="Clean Up" duration="0">
+      <google-codelab-step label="Clean Up" duration="5">
         <ul>
 <li>Open the AWS Console</li>
 <li>Navigate to EC2 / Shell</li>
