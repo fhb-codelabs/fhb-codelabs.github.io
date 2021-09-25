@@ -1,0 +1,9 @@
+{
+  "title": "BITI - IT Performance Management",
+  "description": "Come and learn about IT Performance Management and practice the challenges we mastered in the course at home",
+  "tags": ["ipm"],
+  "exclude": [
+    ".*-about$",
+    "^lang-.*"
+  ]
+}

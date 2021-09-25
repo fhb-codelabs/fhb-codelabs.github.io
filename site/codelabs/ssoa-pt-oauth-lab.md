@@ -1,13 +1,16 @@
 summary: Lab 1 - Enable a legacy application to use OIDC
 id: ssoa-pt-oauth-lab
-categories: SSOA-PT
-tags: oauth, aws
+categories: MCCE-SSOA-PT
+tags: oauth, aws, MCCE, ssoa-pt
 status: Published 
 authors: Thomas Schuetz
 
 # SSOA Lab 1 - Enable a legacy application to use OIDC
 <!-- ------------------------ -->
+
+
 ## Overview 
+Duration: 2
 
 ### What You’ll Learn 
 
@@ -22,6 +25,8 @@ authors: Thomas Schuetz
 - Use oauth-proxy to authenticate via GitHub
 
 ## Set up an AWS Instance
+Duration: 5
+
 - Open the AWS Console
 - Search for EC2
 - Click on Launch Instances
@@ -48,6 +53,8 @@ authors: Thomas Schuetz
   * Launch instance
 
 ## Getting your Instance Name on the AWS CLI
+Duration: 3 
+
 - Prerequisites:
   * Installed awscli
 
@@ -78,6 +85,7 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=podtatohead-oauth" --
   INSTANCE_HOSTNAME=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=podtatohead-oauth" --query "Reservations[].Instances[].PublicDnsName" --out text | xargs)
 ```
 ## Open a shell to your ec2-instance
+Duration: 1 
 
 - Get the instance hostname from the AWS console (Public IPv4 DNS or Public IPv4 Address)
 - Open a shell
@@ -96,6 +104,7 @@ aws ec2 describe-instances --filters "Name=tag:Name,Values=podtatohead-oauth" --
 </aside>
 
 ## Install Docker
+Duration: 5
 
 - Update Package List: `sudo yum update -y`
 - Install Docker: `sudo yum install docker -y`
@@ -140,6 +149,7 @@ For more examples and ideas, visit:
 </aside>
 
 ## Run your first container
+Duration: 2
 
 - Run the container on the port 8080 daemonized
 
@@ -177,7 +187,7 @@ $> curl http://localhost:8080
 </main>  
 </body>
 </html>
-````
+```
 
 <aside class="positive">
 Seems like the podtatohead is running on our machine
@@ -185,6 +195,7 @@ Seems like the podtatohead is running on our machine
 
 
 ## Configure a GitHub oAuth Application
+Duration: 5
 
 - Get your Public IP Address: 
 ```
@@ -220,13 +231,15 @@ EOF
   - Create client-secret and keep it open
 
 ## Install and configure LetsEncrypt
+Duration: 5
+
 - As we only have ephemeral dns names, we will use LetsEncrypt Staging
 
 - Enable EPEL Repositories
 ```
 sudo amazon-linux-extras install epel -y
 sudo yum-config-manager --enable epel
-````
+```
 
 - Install CertBot
 ```
@@ -253,6 +266,7 @@ sudo certbot certonly --standalone --preferred-challenges http -d $PUBLIC_IPV4_A
 </aside>
 
 ## Run and configure oauth2-proxy
+Duration: 3
 
 - Download oauth2-proxy
 ```
@@ -282,7 +296,7 @@ sudo /opt/oauth2-proxy/oauth2-proxy --github-user="${GITHUB_USER}"  --cookie-sec
 ```
 
 ## Open the PodTatoHead
-
+Duration: 2
 - Open a Browser
 
 - Browse to "https://${PUBLIC_URL}"
@@ -298,6 +312,7 @@ If you see the PodTatoHead, Congratulations!
 </aside>
 
 ## Clean Up
+Duration: 5
 
 - Open the AWS Console
 - Navigate to EC2 / Shell

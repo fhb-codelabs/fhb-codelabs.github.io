@@ -1,0 +1,9 @@
+{
+  "title": "MCCE - Security and SOA - PT",
+  "description": "Come and learn about cloud security, microservices and practice the challenges we mastered in the course at home",
+  "tags": ["ssoa-pt"],
+  "exclude": [
+    ".*-about$",
+    "^lang-.*"
+  ]
+}
