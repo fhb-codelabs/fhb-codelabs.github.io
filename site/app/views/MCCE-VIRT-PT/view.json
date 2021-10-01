@@ -1,0 +1,9 @@
+{
+  "title": "MCCE - Virtualization - PT",
+  "description": "Come and learn about infrastructure-as-code and creating virtual infrastructure in AWS",
+  "tags": ["virt-pt"],
+  "exclude": [
+    ".*-about$",
+    "^lang-.*"
+  ]
+}
