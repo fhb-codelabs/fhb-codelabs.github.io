@@ -19,7 +19,7 @@ Duration: 1
 
 <!-- ------------------------ -->
 ## Install prerequisites
-Duration: 2
+
 
 To compile tutorials, you'll need a working go environment and the claat CLI.
 

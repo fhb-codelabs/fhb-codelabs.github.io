@@ -1,7 +1,7 @@
 summary: BITI IPM Lab 1 - How to monitor CPU Usage
 id: biti-ipm-compute-lab
 categories: BITI-IPM
-tags: ipm, compute, cpu, biti
+tags: ipm, compute, cpu, BITI
 status: Published
 authors: Roland Pellegrini
 

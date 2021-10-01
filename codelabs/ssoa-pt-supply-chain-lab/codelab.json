@@ -1,0 +1,27 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-01T09:47:51+02:00",
+  "id": "ssoa-pt-supply-chain-lab",
+  "duration": 0,
+  "title": "SSOA Lab 2 - Supply Chain",
+  "authors": "Thomas Schuetz",
+  "summary": "Lab 2 - Supply Chain",
+  "source": "ssoa-pt-supply-chain-lab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "mcce-ssoa-pt"
+  ],
+  "tags": [
+    "aws",
+    "mcce",
+    "ssoa-pt",
+    "supply-chain"
+  ],
+  "url": "ssoa-pt-supply-chain-lab"
+}
