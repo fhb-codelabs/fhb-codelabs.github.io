@@ -1,6 +1,6 @@
 summary: Lab 1 - Enable a legacy application to use OIDC
 id: ssoa-pt-oauth-lab
-categories: MCCE-SSOA-PT
+categories: aws
 tags: oauth, aws, MCCE, ssoa-pt
 status: Published 
 authors: Thomas Schuetz

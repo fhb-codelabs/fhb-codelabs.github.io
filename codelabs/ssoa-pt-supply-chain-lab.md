@@ -1,6 +1,6 @@
 summary: Lab 2 - Supply Chain
 id: ssoa-pt-supply-chain-lab
-categories: MCCE-SSOA-PT
+categories: github
 tags: supply-chain, aws, MCCE, ssoa-pt
 status: Published
 authors: Thomas Schuetz

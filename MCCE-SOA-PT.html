@@ -88,28 +88,33 @@ window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 <paper-tab>Duration</paper-tab>
 </paper-tabs>
 </div>
-</div>
+<paper-dropdown-menu label="Filter by category" class="dropdown-filter" no-label-float noink no-animations>
+<paper-listbox id="categorylist" slot="dropdown-content" class="dropdown-content" on-iron-activate="onCategoryActivate" attr-for-selected="filter">
+<paper-item filter="aws">aws</paper-item>
+<paper-item filter="github">github</paper-item>
+</paper-listbox>
+</paper-dropdown-menu></div>
 <card-sorter id="cards" class="site-width">
-<a href="/codelabs/ssoa-pt-oauth-lab/index.html?index=..%2F..MCCE-SOA-PT" on-tap="navigate" class="codelab-card category-mcce-ssoa-pt" data-category="mcce-ssoa-pt" data-title="SSOA Lab 1 - Enable a legacy application to use OIDC" data-duration="38" data-updated="2021-09-25T09:49:24+02:00" data-tags="aws,mcce,oauth,ssoa-pt" data-pin="">
+<a href="/codelabs/ssoa-pt-oauth-lab/index.html?index=..%2F..MCCE-SOA-PT" on-tap="navigate" class="codelab-card category-aws" data-category="aws" data-title="SSOA Lab 1 - Enable a legacy application to use OIDC" data-duration="38" data-updated="2021-10-07T15:11:09+02:00" data-tags="aws,mcce,oauth,ssoa-pt" data-pin="">
 <div class="description">SSOA Lab 1 - Enable a legacy application to use OIDC</div>
 <div class="card-duration">
 <span>38 min </span>
-<span>Updated Sep 25, 2021</span>
+<span>Updated Oct 7, 2021</span>
 </div>
 <div class="card-footer">
-<div class="category-icon mcce-ssoa-pt-icon"></div>
-<paper-button class="mcce-ssoa-pt-bg">Start</paper-button>
+<div class="category-icon aws-icon"></div>
+<paper-button class="aws-bg">Start</paper-button>
 </div>
 </a>
-<a href="/codelabs/ssoa-pt-supply-chain-lab/index.html?index=..%2F..MCCE-SOA-PT" on-tap="navigate" class="codelab-card category-mcce-ssoa-pt" data-category="mcce-ssoa-pt" data-title="SSOA Lab 2 - Supply Chain" data-duration="0" data-updated="2021-10-01T09:47:51+02:00" data-tags="aws,mcce,ssoa-pt,supply-chain" data-pin="">
+<a href="/codelabs/ssoa-pt-supply-chain-lab/index.html?index=..%2F..MCCE-SOA-PT" on-tap="navigate" class="codelab-card category-github" data-category="github" data-title="SSOA Lab 2 - Supply Chain" data-duration="0" data-updated="2021-10-07T15:11:44+02:00" data-tags="aws,mcce,ssoa-pt,supply-chain" data-pin="">
 <div class="description">SSOA Lab 2 - Supply Chain</div>
 <div class="card-duration">
 <span></span>
-<span>Updated Oct 1, 2021</span>
+<span>Updated Oct 7, 2021</span>
 </div>
 <div class="card-footer">
-<div class="category-icon mcce-ssoa-pt-icon"></div>
-<paper-button class="mcce-ssoa-pt-bg">Start</paper-button>
+<div class="category-icon github-icon"></div>
+<paper-button class="github-bg">Start</paper-button>
 </div>
 </a>
 </card-sorter>
