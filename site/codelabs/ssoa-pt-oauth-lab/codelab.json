@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-09-25T09:49:24+02:00",
+  "updated": "2021-10-07T15:11:09+02:00",
   "id": "ssoa-pt-oauth-lab",
   "duration": 38,
   "title": "SSOA Lab 1 - Enable a legacy application to use OIDC",
@@ -15,7 +15,7 @@
     "published"
   ],
   "category": [
-    "mcce-ssoa-pt"
+    "aws"
   ],
   "tags": [
     "aws",

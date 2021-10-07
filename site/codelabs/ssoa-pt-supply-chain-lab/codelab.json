@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-01T09:47:51+02:00",
+  "updated": "2021-10-07T15:11:44+02:00",
   "id": "ssoa-pt-supply-chain-lab",
   "duration": 0,
   "title": "SSOA Lab 2 - Supply Chain",
@@ -15,7 +15,7 @@
     "published"
   ],
   "category": [
-    "mcce-ssoa-pt"
+    "github"
   ],
   "tags": [
     "aws",
