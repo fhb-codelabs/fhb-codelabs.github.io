@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-01T22:56:29+02:00",
+  "updated": "2021-10-07T15:32:53+02:00",
   "id": "virt-pt-terraform-intro",
   "duration": 0,
   "title": "VIRT Lab 1 - Terraform Introduction",
@@ -15,7 +15,7 @@
     "published"
   ],
   "category": [
-    "mcce-virt-pt"
+    "terraform"
   ],
   "tags": [
     "aws",
