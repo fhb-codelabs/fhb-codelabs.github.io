@@ -1,7 +1,7 @@
 summary: Lab 1 - Terraform Introduction
 id: virt-pt-terraform-intro
 categories: terraform
-tags: supply-chain, aws, MCCE, virt-pt
+tags: supply-chain, aws, MCCE, virt-pt, introduction
 status: Published
 authors: Thomas Schuetz
 
@@ -25,7 +25,7 @@ To install terraform, refer to the respective documentation [here](https://learn
 
 
 ## Get your AWS Configuration
-* In the AWS Acedemy
+* In the AWS Academy
   * Click on AWS Details
   * Show AWS CLI Credentials and copy them
   

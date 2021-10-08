@@ -1,0 +1,28 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-08T20:40:13+02:00",
+  "id": "ssoa-pt-sops-kms",
+  "duration": 0,
+  "title": "SSOA Extra Lab - Encrypting Secrets with SOPS and KMS",
+  "authors": "Thomas Schuetz",
+  "summary": "SSOA Extra Lab - Mozilla SOPS and Amazon KMS",
+  "source": "ssoa-pt-secrets-aws-sops.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "aws"
+  ],
+  "tags": [
+    "advanced",
+    "aws",
+    "mcce",
+    "secrets",
+    "ssoa-pt"
+  ],
+  "url": "ssoa-pt-sops-kms"
+}

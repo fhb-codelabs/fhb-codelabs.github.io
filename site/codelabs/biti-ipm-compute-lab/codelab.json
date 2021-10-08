@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-07T15:40:31+02:00",
+  "updated": "2021-10-08T18:36:02+02:00",
   "id": "biti-ipm-compute-lab",
   "duration": 0,
   "title": "BITI IPM Lab 1 - How to monitor CPU Usage",
@@ -21,6 +21,7 @@
     "biti",
     "compute",
     "cpu",
+    "introduction",
     "ipm"
   ],
   "url": "biti-ipm-compute-lab"

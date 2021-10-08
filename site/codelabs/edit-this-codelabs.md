@@ -1,7 +1,7 @@
 summary: How to create/edit codelabs
 id: edit-this-codelabs
 categories: codelab
-tags: general
+tags: general, introduction
 status: Published 
 authors: Thomas Schuetz
 
