@@ -84,15 +84,23 @@ $card-col-height: 200px; // column mode
     -webkit-font-smoothing: antialiased;
   }
 
-  .mcce {
+  .introduction {
     color: white;
-    background-color:blue;
+    background-color: green;
     padding: 0px 5px 0px 5px;
+
   }
 
-  .biti {
+  .intermediate {
     color: white;
-    background-color:lightblue;
+    background-color: orange;
+    padding: 0px 5px 0px 5px;
+
+  }
+
+  .advanced {
+    color: white;
+    background-color:red;
     padding: 0px 5px 0px 5px;
   }
 }
