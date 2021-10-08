@@ -34,6 +34,8 @@ Nevertheless, the secret exist in clear-text on the server (as environment varia
 * Finally, we will use the defined secrets in a web application
 
 References:
+* https://github.com/mozilla/sops
+* https://aws.amazon.com/kms/
 * https://medium.com/mercos-engineering/secrets-as-a-code-with-mozilla-sops-and-aws-kms-d069c45ae1b9
 * https://daveops.xyz/en/2020/10/17/encrypting-helm-secrets-with-mozilla-sops-and-aws-ksm
 * https://poweruser.blog/how-to-encrypt-secrets-in-config-files-1dbb794f7352
