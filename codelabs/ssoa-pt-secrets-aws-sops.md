@@ -173,7 +173,7 @@ sudo cp /tmp/sops /usr/local/bin/
   * execute following steps
 ```
   ARN="The ARN you noted down"
-  sops --kms $ARN secret.env`
+  sops --kms $ARN secret.env
 ```
 
 * An editor will open, remove everything and add the following:
@@ -194,6 +194,11 @@ APP_SECRET="my-super-secret-string"
 scp -i ~/.ssh/labsuser.pem secret.env ec2-user@${INSTANCE_HOSTNAME}:/tmp/secret.env
 ```
 
+* SSH to the Instance
+```
+ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
+```
+
 ### Install the sample application
 * Download the sample application
 ```bash
@@ -210,7 +215,7 @@ fi
 
 * Move the Binary 
 ```bash
-sudo  mv /tmp/secret-demo-app /opt/demo-app
+sudo mv /tmp/secret-demo-app /opt/demo-app
 ```
 
 ### Set the environment and start the application
@@ -226,7 +231,7 @@ sudo  mv /tmp/secret-demo-app /opt/demo-app
 ```
 
 <aside class="negative">
-If the environment variable APP_PORT is not set, it will support to Port 8080 (therefore, the port is configurable). If it doesn't find a secret in the APP_SECRET environment variable, it will fail as now
+If the environment variable APP_PORT is not set, it will default to Port 8080 (therefore, the port is configurable). If it doesn't find a secret in the APP_SECRET environment variable, it will fail as now
 </aside>
 
 * Set the environment variables from our secret file using sops
@@ -261,43 +266,43 @@ Congratulations, you have successfully created your SOPS secret and used KMS to 
 ## Counter-Check
 If we create a virtual machine without the instance profile, we shouldn't be able to decrypt the secret.
 
-Therefore, we create a new machine:
+* Therefore, we create a new machine:
 ```
 aws ec2 run-instances --image-id ami-087c17d1fe0178315 --instance-type t2.micro --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=sops-instance-2}]" --key-name vockey --security-groups "sops-lab-ssh-in" --output table
 ```
 
-Get the name of the Instance and write it to an environment variable
+* Get the name of the Instance and write it to an environment variable
 ```
 INSTANCE_HOSTNAME_2=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=sops-instance-2" --query "Reservations[].Instances[].PublicDnsName" --out text | xargs)
 ```
-Print the hostname
+* Print the hostname
 ```
 echo "ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME_2}"
 ```
 
-SSH to the Instance
+* SSH to the Instance
 ```
 ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME_2}
 ```
 
-Install SOPS
+* Install SOPS
 ```
 curl -sfL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /tmp/sops
 chmod a+x /tmp/sops
 sudo cp /tmp/sops /usr/local/bin/ 
 ```
 
-Copy the encrypted secret from the Developer Machine
+* Copy the encrypted secret from the Developer Machine
 ```bash
 scp -i ~/.ssh/labsuser.pem secret.env ec2-user@${INSTANCE_HOSTNAME_2}:/tmp/secret.env
 ```
 
-Try to open the secret (on the server)
+* Try to open the secret (on the server)
 ```
 sops --decrypt /tmp/secret.env
 ```
 
-You should see the following error message:
+* You should see the following error message:
 ```
 Failed to get the data key required to decrypt the SOPS file.
 
@@ -315,4 +320,3 @@ but none were.
 <aside class="positive">
 The secret can only be decrypted, when the InstanceProfile is assigned
 </aside>
-

@@ -210,7 +210,7 @@ sudo cp /tmp/sops /usr/local/bin/
 </li>
 </ul>
 <pre><code>  ARN=&#34;The ARN you noted down&#34;
-  sops --kms $ARN secret.env`
+  sops --kms $ARN secret.env
 </code></pre>
 <ul>
 <li>An editor will open, remove everything and add the following:</li>
@@ -237,6 +237,11 @@ sudo cp /tmp/sops /usr/local/bin/
 </ul>
 <pre><code language="language-bash" class="language-bash">scp -i ~/.ssh/labsuser.pem secret.env ec2-user@${INSTANCE_HOSTNAME}:/tmp/secret.env
 </code></pre>
+<ul>
+<li>SSH to the Instance</li>
+</ul>
+<pre><code>ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
+</code></pre>
 <h2 is-upgraded>Install the sample application</h2>
 <ul>
 <li>Download the sample application</li>
@@ -254,7 +259,7 @@ fi
 <ul>
 <li>Move the Binary</li>
 </ul>
-<pre><code language="language-bash" class="language-bash">sudo  mv /tmp/secret-demo-app /opt/demo-app
+<pre><code language="language-bash" class="language-bash">sudo mv /tmp/secret-demo-app /opt/demo-app
 </code></pre>
 <h2 is-upgraded>Set the environment and start the application</h2>
 <ul>
@@ -268,7 +273,7 @@ fi
 <pre><code>2021/10/08 16:56:49 No port is set, defaulting to 8080
 2021/10/08 16:56:49 Secret to start this up is missing, the APP_SECRET environment variable might be unset
 </code></pre>
-<aside class="warning"><p> If the environment variable APP_PORT is not set, it will support to Port 8080 (therefore, the port is configurable). If it doesn&#39;t find a secret in the APP_SECRET environment variable, it will fail as now </p>
+<aside class="warning"><p> If the environment variable APP_PORT is not set, it will default to Port 8080 (therefore, the port is configurable). If it doesn&#39;t find a secret in the APP_SECRET environment variable, it will fail as now </p>
 </aside>
 <ul>
 <li>Set the environment variables from our secret file using sops</li>
@@ -304,30 +309,46 @@ Hi there, your secret is my-super-secret-string
     
       <google-codelab-step label="Counter-Check" duration="0">
         <p>If we create a virtual machine without the instance profile, we shouldn&#39;t be able to decrypt the secret.</p>
-<p>Therefore, we create a new machine:</p>
+<ul>
+<li>Therefore, we create a new machine:</li>
+</ul>
 <pre><code>aws ec2 run-instances --image-id ami-087c17d1fe0178315 --instance-type t2.micro --tag-specifications &#34;ResourceType=instance,Tags=[{Key=Name,Value=sops-instance-2}]&#34; --key-name vockey --security-groups &#34;sops-lab-ssh-in&#34; --output table
 </code></pre>
-<p>Get the name of the Instance and write it to an environment variable</p>
+<ul>
+<li>Get the name of the Instance and write it to an environment variable</li>
+</ul>
 <pre><code>INSTANCE_HOSTNAME_2=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=sops-instance-2&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs)
 </code></pre>
-<p>Print the hostname</p>
+<ul>
+<li>Print the hostname</li>
+</ul>
 <pre><code>echo &#34;ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME_2}&#34;
 </code></pre>
-<p>SSH to the Instance</p>
+<ul>
+<li>SSH to the Instance</li>
+</ul>
 <pre><code>ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME_2}
 </code></pre>
-<p>Install SOPS</p>
+<ul>
+<li>Install SOPS</li>
+</ul>
 <pre><code>curl -sfL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /tmp/sops
 chmod a+x /tmp/sops
 sudo cp /tmp/sops /usr/local/bin/ 
 </code></pre>
-<p>Copy the encrypted secret from the Developer Machine</p>
+<ul>
+<li>Copy the encrypted secret from the Developer Machine</li>
+</ul>
 <pre><code language="language-bash" class="language-bash">scp -i ~/.ssh/labsuser.pem secret.env ec2-user@${INSTANCE_HOSTNAME_2}:/tmp/secret.env
 </code></pre>
-<p>Try to open the secret (on the server)</p>
+<ul>
+<li>Try to open the secret (on the server)</li>
+</ul>
 <pre><code>sops --decrypt /tmp/secret.env
 </code></pre>
-<p>You should see the following error message:</p>
+<ul>
+<li>You should see the following error message:</li>
+</ul>
 <pre><code>Failed to get the data key required to decrypt the SOPS file.
 
 Group 0: FAILED
