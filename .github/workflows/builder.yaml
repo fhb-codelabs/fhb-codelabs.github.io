@@ -52,7 +52,7 @@ jobs:
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
-        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release-*' }}
+        if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/release-*' }}
         with:
           branch: production # The branch the action should deploy to.
           folder: ./site/dist # The folder the action should deploy.
