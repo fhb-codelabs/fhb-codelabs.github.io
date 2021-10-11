@@ -4,12 +4,12 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2021-10-11T21:44:27Z",
-  "id": "biti-ipm-memory-lab",
+  "id": "biti-ipm-stress-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Memory",
+  "title": "BITI IPM Lab - Stress the computer",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Memory",
-  "source": "biti-ipm-memory-lab.md",
+  "summary": "BITI IPM Lab - Stress the computer",
+  "source": "biti-ipm-stress-lab.md",
   "theme": "",
   "status": [
     "published"
@@ -19,10 +19,10 @@
   ],
   "tags": [
     "biti",
+    "compute",
+    "cpu",
     "introduction",
-    "ipm",
-    "memory",
-    "ram"
+    "ipm"
   ],
-  "url": "biti-ipm-memory-lab"
+  "url": "biti-ipm-stress-lab"
 }
