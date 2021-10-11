@@ -1,0 +1,28 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-11T20:46:32+02:00",
+  "id": "biti-ipm-stress-lab",
+  "duration": 0,
+  "title": "BITI IPM Lab - Stress the computer",
+  "authors": "Roland Pellegrini",
+  "summary": "BITI IPM Lab - Stress the computer",
+  "source": "biti-ipm-stress-lab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "linux"
+  ],
+  "tags": [
+    "biti",
+    "compute",
+    "cpu",
+    "introduction",
+    "ipm"
+  ],
+  "url": "biti-ipm-stress-lab"
+}
