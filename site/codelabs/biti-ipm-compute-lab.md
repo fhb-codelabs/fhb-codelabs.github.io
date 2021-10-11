@@ -50,7 +50,7 @@ DESCRIPTION
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian 11 (Bullseye).
+This is the OS of the virtual machine. This will be Debian 11 (Bullseye) or Microsoft Windows.
 
 #### Administators privileges
 
