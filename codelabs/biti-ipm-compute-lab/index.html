@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>BITI IPM Lab 1 - How to monitor CPU Usage</title>
+  <title>BITI IPM Lab - Compute</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,14 +23,15 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="biti-ipm-compute-lab"
-                  title="BITI IPM Lab 1 - How to monitor CPU Usage"
+                  title="BITI IPM Lab - Compute"
                   environment="web"
                   feedback-link="">
     
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-<p>Every computer system benefits from proper administration and monitoring. A computer operates more quickly if few CPU-intensive processes are running at the same time. Consequently, it makes sense that administrators check the CPU usage on a regular basis to identify programs that unnecessarly burden the system.</p>
-<p>There are plenty of command line utilities created for this purpose. This codelab will introduce you to some of the most helpful applications, how to install and use them.</p>
+<p>Every computer system benefits from proper administration and monitoring. A computer operates more quickly if few CPU-intensive processes are running at the same time.</p>
+<p>Therefore, it is important to know about the CPUs, how they are used and how fast they are. Additionally, it makes sense that administrators check the CPU usage on a regular basis to identify programs that unnecessarly burden the system.</p>
+<p>Luckily, IT administrators don&#39;t need special system information programs to find this information.There are plenty of command line utilities created for this purpose. This codelab will introduce you to some of the most helpful applications and how to use them.</p>
 <h2 is-upgraded>Where You Can Look Up</h2>
 <p>The <strong>man</strong> is a short term for manual page and acts as an interface to view the reference manual of a command.</p>
 <p>Syntax of man:</p>
@@ -56,9 +57,6 @@ DESCRIPTION
 ...
 </code></pre>
 <h2 is-upgraded>What You&#39;ll need</h2>
-<h3 is-upgraded>Host operating system (Host OS)</h3>
-<p>This is the OS of the physical computer on which Oracle VM VirtualBox is installed.</p>
-<p>This can be Microsoft Windows, Linux, or Mac OS host. Check the Documentation on the <a href="https://www.virtualbox.org/" target="_blank">official web site</a> for more details.</p>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
 <p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
 <h3 is-upgraded>Administators privileges</h3>
@@ -68,132 +66,123 @@ DESCRIPTION
 
       </google-codelab-step>
     
-      <google-codelab-step label="Get set up" duration="0">
-        <p>For this codelab, it is recommanded to use VirtualBox and Debian 11 (Bullseye).</p>
-<h2 is-upgraded>VirtualBox.org</h2>
+      <google-codelab-step label="Display CPU information on Linux" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use one of the following commands to find detailed information about the physical CPUs (pCPU) including all cores on Linux:</p>
 <ul>
-<li>Download VirtalBox (packaged for your Host-OS) from the <a href="https://www.virtualbox.org/" target="_blank">official web site</a>.</li>
-<li>Install it on your host. For Windows: make sure to disable all Hyper-V features first.</li>
-<li>Download the VirtualBox Extension Pack from the <a href="https://www.virtualbox.org/" target="_blank">official web site</a>.</li>
-<li>Install the VirtualBox Extension Pack via File –&gt; Preferences –&gt; Extensions. <img alt="VirtualBox Extension" src="img/50bb6b4f41e22ef1.png">.</li>
-<li>Setup a Virtual Machine for Debian installation.</li>
-<li>Ensure that the virtual network is attached to a Bridge Adapter (Open Settings -&gt; Network -&gt; Adapter 1 -&gt; Attached to Bridge Adapter). <img alt="VirtualBox Extension" src="img/4bd5337522d1f684.png"></li>
+<li>nproc command</li>
+<li>lscpu command</li>
+<li>cat /proc/cpuinfo</li>
+<li>hwinfo command</li>
+<li>dmidecode -t processor command</li>
+<li>getconf _NPROCESSORS_ONLN command</li>
 </ul>
-<h2 is-upgraded>Debian 11 Bullseye</h2>
-<ul>
-<li>Download Debian 11 Bullseye from from the <a href="https://www.debian.org/" target="_blank">official web site</a>.</li>
-<li>Ask your instructur for non-privileged user and password to ensure smooth administration.</li>
-<li>Start the virtual Machine and install Debian.</li>
-<li>Keep the installation simple.</li>
-<li>Set up the given user and password.</li>
-<li>After installation has finished, reboot the VM, log in with user and password, open a shell and fire a ping to a server of your choice. If you get a response, then you have done a good job. Congratulations!</li>
-<li>Good luck for the next steps!</li>
-</ul>
-<h2 is-upgraded>Root privileges for Debian</h2>
-<p>Installing additional software from Debian repositories requires root privileges. There are three ways how to get root access.</p>
-<ol type="1">
-<li>Log in as root:</li>
-</ol>
-<pre><code>Debian GNU/Linux 11 icinga tty1
-icinga login: _
-</code></pre>
-<p>During the installation process, you were promted to set the root password. However, most modern Linux distributions disable the login for the root user due to security reason. If the login does not work, continue with the next step.</p>
-<ol type="1" start="2">
-<li>When logged in as non-privileged user, open the shell and run the following command:</li>
-</ol>
-<pre><code>su - 
-</code></pre>
-<p>Typically, you will be prompted for the root password. If unknown, ask your instructor for the password and run the above command again.</p>
-<ol type="1" start="3">
-<li>When you are logged in as non-privileged user and if you are a member of the <strong>sudo</strong> group, then open the shell and run the following command:</li>
-</ol>
-<pre><code>sudo -s
-</code></pre>
-<p>Normally, you will be asked for the user (not root) password. If you don&#39;t know it, ask your instructor for the password and run the above command again. If you have set up a different password, as recommended, and can no longer log into the system, then you will probably need to restart the installation.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Software installation" duration="0">
-        <p>In this codelab, you will need to install software packages.</p>
-<h3 is-upgraded>Debian</h3>
-<ol type="1">
-<li>Log in as root</li>
-<li>Run the following command to update the local package lists.</li>
-</ol>
-<pre><code>apt update
-</code></pre>
-<ol type="1" start="3">
-<li>Install the software with the following command:</li>
-</ol>
-<pre><code>apt install &lt;package name&gt;
-</code></pre>
-<p>If prompted, confirm the installation of software packages with Y(es)</p>
-<h3 is-upgraded>Windows</h3>
-<p>Follow the instruction of the downloaded software.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Display CPU Information" duration="0">
-        <h2 is-upgraded>nproc</h2>
+<h2 is-upgraded>#1. The nproc command</h2>
 <p>The <strong>nproc</strong> command displays the number of available processing units. The command is a built-in command in a Linux system.</p>
 <p>Open a shell and run <strong>nproc</strong> with the following option:</p>
-<pre><code>nproc --all
+<pre><code>echo &#34;Threads/core: $(nproc --all)&#34;
 </code></pre>
-<p>The output should look like this:</p>
-<pre><code>4
+<p>Sample output:</p>
+<pre><code>Threads/core: 4
 </code></pre>
 <aside class="special"><p> Without the --all flag, nproc will display the number of processing units available to the current process.<br> Use the --help flag for more information. </p>
 </aside>
-<h2 is-upgraded>lscpu</h2>
+<h2 is-upgraded>#2. The lscpu command</h2>
 <p>On most Linux distributions, you can also use the <strong>lscpu</strong> command. It displays not only the number of processors but also the architecture, model name, speed, much more.</p>
 <p>Open a shell and run the following command:</p>
 <pre><code>lscpu
+lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
 </code></pre>
-<p>The output will probably be very different from yours:</p>
-<pre><code>Architecture:        x86_64
-CPU op-mode(s):      32-bit, 64-bit
-Byte Order:          Little Endian
-Address sizes:       39 bits physical, 48 bits virtual
-CPU(s):              4
-On-line CPU(s) list: 0-3
-Thread(s) per core:  2
-Core(s) per socket:  2
-Socket(s):           1
-NUMA node(s):        1
-Vendor ID:           GenuineIntel
-CPU family:          6
-Model:               60
-Model name:          Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz
-Stepping:            3
-CPU MHz:             1696.113
-CPU max MHz:         3100.0000
-CPU min MHz:         800.0000
-BogoMIPS:            6185.65
-Virtualization:      VT-x
-L1d cache:           32K
-L1i cache:           32K
-L2 cache:            256K
-L3 cache:            3072K
-NUMA node0 CPU(s):   0-3
-Flags:               fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
+<p>Sample outputs:</p>
+<pre><code>icinga@server:/# lscpu
+Architecture:                    x86_64
+CPU op-mode(s):                  32-bit, 64-bit
+Byte Order:                      Little Endian
+Address sizes:                   39 bits physical, 48 bits virtual
+CPU(s):                          4
+On-line CPU(s) list:             0-3
+Thread(s) per core:              2
+Core(s) per socket:              2
+Socket(s):                       1
+NUMA node(s):                    1
+Vendor ID:                       GenuineIntel
+CPU family:                      6
+Model:                           78
+Model name:                      Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
+Stepping:                        3
+CPU MHz:                         800.076
+CPU max MHz:                     3400.0000
+CPU min MHz:                     400.0000
+BogoMIPS:                        5599.85
+Virtualization:                  VT-x
+L1d cache:                       64 KiB
+L1i cache:                       64 KiB
+L2 cache:                        512 KiB
+L3 cache:                        4 MiB
+NUMA node0 CPU(s):               0-3
+Vulnerability Itlb multihit:     KVM: Mitigation: VMX disabled
+Vulnerability L1tf:              Mitigation; PTE Inversion; VMX conditional cach
+                                 e flushes, SMT vulnerable
+Vulnerability Mds:               Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Meltdown:          Mitigation; PTI
+Vulnerability Spec store bypass: Mitigation; Speculative Store Bypass disabled v
+                                 ia prctl and seccomp
+Vulnerability Spectre v1:        Mitigation; usercopy/swapgs barriers and __user
+                                  pointer sanitization
+Vulnerability Spectre v2:        Mitigation; Full generic retpoline, IBPB condit
+                                 ional, IBRS_FW, STIBP conditional, RSB filling
+Vulnerability Srbds:             Vulnerable: No microcode
+Vulnerability Tsx async abort:   Mitigation; Clear CPU buffers; SMT vulnerable
+Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
+                                 r pge mca cmov pat pse36 clflush dts acpi mmx f
+                                 xsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rd
+                                 tscp lm constant_tsc art arch_perfmon pebs bts 
+                                 rep_good nopl xtopology nonstop_tsc cpuid aperf
+                                 mperf pni pclmulqdq dtes64 monitor ds_cpl vmx s
+                                 mx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid s
+                                 se4_1 sse4_2 x2apic movbe popcnt tsc_deadline_t
+                                 imer aes xsave avx f16c rdrand lahf_lm abm 3dno
+                                 wprefetch cpuid_fault epb invpcid_single pti ss
+                                 bd ibrs ibpb stibp tpr_shadow vnmi flexpriority
+                                  ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle a
+                                 vx2 smep bmi2 erms invpcid rtm mpx rdseed adx s
+                                 map clflushopt intel_pt xsaveopt xsavec xgetbv1
+                                  xsaves dtherm ida arat pln pts hwp hwp_notify 
+                                 hwp_act_window hwp_epp md_clear flush_l1d
+
+icinga@server:$ lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
+CPU(s):                          4
+On-line CPU(s) list:             0-3
+Thread(s) per core:              2
+Socket(s):                       1
+NUMA node(s):                    1
+Model name:                      Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
+NUMA node0 CPU(s):               0-3
 </code></pre>
-<h2 is-upgraded>cpuinfo</h2>
+<p>The output shows the CPU information:</p>
+<ul>
+<li>CPU model: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz</li>
+<li>Socket: 1</li>
+<li>CPU Cores: 2</li>
+<li>Thread per core: 2</li>
+<li>Total threads: 4</li>
+</ul>
+<h2 is-upgraded>#3. cpuinfo</h2>
 <p>All Linux distributions allows you to run <strong>cat /proc/cpuinfo</strong>. This file contains details about the processors installed. Note that /proc is a pseudo-filesystem, it is used as an interface to kernel data structures.</p>
 <p>Open a shell and run the following command:</p>
-<pre><code>cat /proc/cpuinfo
+<pre><code>cat /proc/cpuinfo | more
 </code></pre>
 <p>Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description.</p>
-<pre><code>processor	: 0
+<pre><code>icinga@server:/# cat /proc/cpuinfo | more
+processor	: 0
 vendor_id	: GenuineIntel
 cpu family	: 6
-model		: 60
-model name	: Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz
+model		: 78
+model name	: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
 stepping	: 3
-microcode	: 0x28
-cpu MHz		: 948.796
-cache size	: 3072 KB
+microcode	: 0xcc
+cpu MHz		: 2144.824
+cache size	: 4096 KB
 physical id	: 0
 siblings	: 4
 core id		: 0
@@ -202,11 +191,16 @@ apicid		: 0
 initial apicid	: 0
 fpu		: yes
 fpu_exception	: yes
-cpuid level	: 13
+cpuid level	: 22
 wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
-bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit srbds
-bogomips	: 6185.65
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp l
+m constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16
+ xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ssbd ibrs
+ ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx rdseed adx smap clflushopt intel_pt xsaveop
+t xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp md_clear flush_l1d
+vmx flags	: vnmi preemption_timer invvpid ept_x_only ept_ad ept_1gb flexpriority tsc_offset vtpr mtf vapic ept vpid unrestricted_guest ple shadow_vmcs pml
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs taa itlb_multihit srbds
+bogomips	: 5599.85
 clflush size	: 64
 cache_alignment	: 64
 address sizes	: 39 bits physical, 48 bits virtual
@@ -215,12 +209,12 @@ power management:
 processor	: 1
 vendor_id	: GenuineIntel
 cpu family	: 6
-model		: 60
-model name	: Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz
+model		: 78
+model name	: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
 stepping	: 3
-microcode	: 0x28
-cpu MHz		: 1104.746
-cache size	: 3072 KB
+microcode	: 0xcc
+cpu MHz		: 2354.343
+cache size	: 4096 KB
 physical id	: 0
 siblings	: 4
 core id		: 1
@@ -229,95 +223,215 @@ apicid		: 2
 initial apicid	: 2
 fpu		: yes
 fpu_exception	: yes
-cpuid level	: 13
-wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
-bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit srbds
-bogomips	: 6185.65
-clflush size	: 64
-cache_alignment	: 64
-address sizes	: 39 bits physical, 48 bits virtual
-power management:
-
-processor	: 2
-vendor_id	: GenuineIntel
-cpu family	: 6
-model		: 60
-model name	: Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz
-stepping	: 3
-microcode	: 0x28
-cpu MHz		: 1171.670
-cache size	: 3072 KB
-physical id	: 0
-siblings	: 4
-core id		: 0
-cpu cores	: 2
-apicid		: 1
-initial apicid	: 1
-fpu		: yes
-fpu_exception	: yes
-cpuid level	: 13
-wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
-bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit srbds
-bogomips	: 6185.65
-clflush size	: 64
-cache_alignment	: 64
-address sizes	: 39 bits physical, 48 bits virtual
-power management:
-
-processor	: 3
-vendor_id	: GenuineIntel
-cpu family	: 6
-model		: 60
-model name	: Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz
-stepping	: 3
-microcode	: 0x28
-cpu MHz		: 1125.178
-cache size	: 3072 KB
-physical id	: 0
-siblings	: 4
-core id		: 1
-cpu cores	: 2
-apicid		: 3
-initial apicid	: 3
-fpu		: yes
-fpu_exception	: yes
-cpuid level	: 13
-wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm cpuid_fault epb invpcid_single pti ssbd ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid xsaveopt dtherm arat pln pts md_clear flush_l1d
-bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit srbds
-bogomips	: 6185.65
-clflush size	: 64
-cache_alignment	: 64
-address sizes	: 39 bits physical, 48 bits virtual
-power management:
+cpuid level	: 22
+--More--
 </code></pre>
 <aside class="special"><p> Consult the documentation and man-pages for more details. Try to identify keywords and details of the CPU.  </p>
 </aside>
 <p>To count the number of processing units use grep command.</p>
 <pre><code>cat /proc/cpuinfo | grep processor
 </code></pre>
-<pre><code>processor	: 0
+<p>Sample outputs:</p>
+<pre><code>icinga@server:/# cat /proc/cpuinfo | grep processor
+processor	: 0
 processor	: 1
 processor	: 2
 processor	: 3
 </code></pre>
+<p>Let us print cpu thread count:</p>
+<pre><code>echo &#34;CPU threads: $(grep -c processor /proc/cpuinfo)&#34;
+grep &#39;cpu cores&#39; /proc/cpuinfo | uniq
+</code></pre>
+<p>Sample outputs:</p>
+<pre><code>icinga@server:/# echo &#34;CPU threads: $(grep -c processor /proc/cpuinfo)&#34;
+CPU threads: 4
+icinga@server:/# grep &#39;cpu cores&#39; /proc/cpuinfo | uniq
+cpu cores	: 2
+</code></pre>
 <aside class="special"><p> The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores. </p>
 </aside>
-<h2 is-upgraded>Windows Registry</h2>
-<ul>
-<li>Open the Windows Registry Editor</li>
-<li>Browse to the Windows Registry Key named <strong>Computer\HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor</strong></li>
-<li>Click on one of the subkeys to get information about the CPU (here 0).</li>
-</ul>
-<p class="image-container"><img alt="Windows Registry" src="img/dcb8ec573359a290.png"></p>
+<h2 is-upgraded>#4. The hwinfo command</h2>
+<p>Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.</p>
+<aside class="special"><p> Hwinfo requires root privileges. </p>
+</aside>
+<pre><code>hwinfo | more
+</code></pre>
+<p>Sample output</p>
+<pre><code>root@server:/# hwinfo | more
+============ start debug info ============
+libhd version 21.72 (x86-64) [7688]
+using /var/lib/hardware
+kernel version is 5.10
+----- /proc/cmdline -----
+  BOOT_IMAGE=/vmlinuz-5.10.0-9-amd64 root=/dev/mapper/cat--vg-root ro quiet
+----- /proc/cmdline end -----
+debug = 0xff7ffff7
+probe = 0x15938fcdaa17fcf9fffe (+memory +pci +isapnp +net +floppy +misc +misc.serial +misc.par +misc.floppy +serial +cpu +bios +monitor +mouse +scsi +usb -usb.mods +
+modem +modem.usb +parallel +parallel.lp +parallel.zip -isa -isa.isdn +isdn +kbd +prom +sbus +int +braille +braille.alva +braille.fhp +braille.ht -ignx11 +sys -bios.v
+be -isapnp.old -isapnp.new -isapnp.mod +braille.baum -manual +fb +pppoe -scan +pcmcia +fork -parallel.imm +s390 +cpuemu -sysfs -s390disks +udev +block +block.cdrom +
+block.part +edd +edd.mod -bios.ddc -bios.fb -bios.mode +input +block.mods +bios.vesa -cpuemu.debug -scsi.noserial +wlan -bios.crc -hal +bios.vram +bios.acpi -bios.dd
+c.ports=0 +modules.pata -net.eeprom +x86emu=dump -max -lxrc)
+shm: attached segment 26 at 0x7f2ea7189000
+&gt;&gt; hal.1: read hal data
+&gt;&gt; floppy.1: get nvram
+----- /proc/nvram -----
+  Checksum status: not valid
+  # floppies     : 4
+  Floppy 0 type  : 12 (unknown)
+  Floppy 1 type  : 15 (unknown)
+  HD 0 type      : db
+  HD 1 type      : 0b
+  HD type 48 data: 64495/253/247 C/H/S, precomp 61423, lz 61135
+  HD type 49 data: 51147/70/0 C/H/S, precomp 0, lz 0
+  DOS base memory: 65478 kB
+  Extended memory: 20391 kB (configured), 50941 kB (tested)
+  Gfx adapter    : monochrome
+  FPU            : installed
+----- /proc/nvram end -----
+&gt;&gt; floppy.2: nvram info
+&gt;&gt; bios.1: cmdline
+&gt;&gt; bios.1.1: apm
+&gt;&gt; bios.2: ram
+  bios: 0 disks
+&gt;&gt; bios.2: rom
+----- SMBIOS Entry Point (sysfs) 0x00000 - 0x00017 -----
+  000  5f 53 4d 33 5f fa 18 03 02 00 01 00 13 04 00 00  &#34;_SM3_...........&#34;
+  010  00 d0 e5 8b 00 00 00 00  &#34;........&#34;
+----- SMBIOS Entry Point (sysfs) end -----
+  Found DMI table at 0x8be5d000 (0x0413 bytes max)
+  Got DMI table from sysfs (0x0413 bytes)
+----- SMBIOS Structure Table 0x8be5d000 - 0x8be5d412 -----
+  8be5d000  00 1a 00 00 01 02 00 00 03 ff 80 18 19 0c 00 00  &#34;................&#34;
+  8be5d010  00 00 03 0d ff ff ff ff 00 00 4d 69 63 72 6f 73  &#34;..........Micros&#34;
+  8be5d020  6f 66 74 20 43 6f 72 70 6f 72 61 74 69 6f 6e 00  &#34;oft Corporation.&#34;
+  8be5d030  39 32 2e 33 31 39 32 2e 37 36 38 00 30 33 2e 32  &#34;92.3192.768.03.2&#34;
+  8be5d040  34 2e 32 30 32 30 00 00 01 1b 01 00 01 02 03 04  &#34;4.2020..........&#34;
+  8be5d050  45 c0 37 1a 5f 88 e5 5e 47 36 4c 06 5b 0d db 39  &#34;E.7._..^G6L.[..9&#34;
+  8be5d060  02 05 06 4d 69 63 72 6f 73 6f 66 74 20 43 6f 72  &#34;...Microsoft Cor&#34;
+--More--
+</code></pre>
+<p>The &#34;–short&#34; option will display brief information about the hardware and not the details. With the &#34;–cpu&#34; option, hwinfo would display only cpu information.</p>
+<pre><code>hwinfo --short --cpu
+</code></pre>
+<p>Sample output</p>
+<pre><code>root@server# hwinfo --short --cpu
+cpu:                                                            
+                       Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2550 MHz
+                       Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1075 MHz
+                       Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1841 MHz
+                       Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2463 MHz
+</code></pre>
+<p>Finally, the hwinfo has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.</p>
+<pre><code>hwinfo --all --log hardware_info.txt
+</code></pre>
+<h2 is-upgraded>#5. The dmidecode command</h2>
+<p>The Linux command <strong>dmidecode</strong> reads the data from DMI (Desktop Management Interface) table which holds information for system&#39;s hardware components like BIOS Revision, Serial Number, CPU, RAM, etc.</p>
+<p>The tools is useful when users run into situations where they need to find out maximum RAM supported by the BIOS and motherboard, a serial number or a key piece of hardware information during troubleshooting.</p>
+<aside class="special"><p> Hwinfo requires root privileges. </p>
+</aside>
+<p>To get information about the CPU, run dmidecode with -t option as shown below:</p>
+<pre><code>dmidecode -t processor | more
+</code></pre>
+<p>Sample output:</p>
+<pre><code>root@server# dmidecode -t processor | more
+# dmidecode 3.3
+Getting SMBIOS data from sysfs.
+SMBIOS 3.2.0 present.
+
+Handle 0x000D, DMI type 4, 48 bytes
+Processor Information
+	Socket Designation: U3E1
+	Type: Central Processor
+	Family: Core i7
+	Manufacturer: Intel(R) Corporation
+	ID: E3 06 04 00 FF FB EB BF
+	Signature: Type 0, Family 6, Model 78, Stepping 3
+	Flags:
+		FPU (Floating-point unit on-chip)
+		VME (Virtual mode extension)
+		DE (Debugging extension)
+		PSE (Page size extension)
+		TSC (Time stamp counter)
+		MSR (Model specific registers)
+		PAE (Physical address extension)
+		MCE (Machine check exception)
+		CX8 (CMPXCHG8 instruction supported)
+		APIC (On-chip APIC hardware supported)
+		SEP (Fast system call)
+		MTRR (Memory type range registers)
+		PGE (Page global enable)
+		MCA (Machine check architecture)
+		CMOV (Conditional move instruction supported)
+		PAT (Page attribute table)
+		PSE-36 (36-bit page size extension)
+		CLFSH (CLFLUSH instruction supported)
+		DS (Debug store)
+		ACPI (ACPI supported)
+		MMX (MMX technology supported)
+		FXSR (FXSAVE and FXSTOR instructions supported)
+		SSE (Streaming SIMD extensions)
+		SSE2 (Streaming SIMD extensions 2)
+		SS (Self-snoop)
+		HTT (Multi-threading)
+		TM (Thermal monitor supported)
+		PBE (Pending break enabled)
+	Version: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
+	Voltage: 0.9 V
+	External Clock: 100 MHz
+	Max Speed: Unknown
+	Current Speed: 2500 MHz
+	Status: Populated, Enabled
+	Upgrade: Socket BGA1356
+	L1 Cache Handle: 0x000A
+	L2 Cache Handle: 0x000B
+--More--
+</code></pre>
+<p>You can further filter details with egrep command to filter only the required details.</p>
+<pre><code>dmidecode -t processor | egrep &#34;Family|Manufacturer|Version|Max Speed|Core Count|Thread Count&#34; 
+</code></pre>
+<p>Sample output:</p>
+<pre><code>	Family: Core i7
+	Manufacturer: Intel(R) Corporation
+	Signature: Type 0, Family 6, Model 78, Stepping 3
+	Version: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
+	Max Speed: Unknown
+	Core Count: 2
+	Thread Count: 4
+</code></pre>
+<h2 is-upgraded>#6. The getconf command</h2>
+<p>The Linux command <strong>getconf</strong> displays the value of a specified configuration variable on the standard output. The <strong>getconf</strong> command is most portable solution as it runs on Linux and Mac OS X as well.</p>
+<p>The option <code>-a</code> displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command</p>
+<pre><code>getconf -a
+</code></pre>
+<p>Sample output:</p>
+<pre><code>getconf -a | more
+LINK_MAX                           65000
+_POSIX_LINK_MAX                    65000
+MAX_CANON                          255
+_POSIX_MAX_CANON                   255
+MAX_INPUT                          255
+--More--
+</code></pre>
+<p>To get the number of CPU/Cores, run the following command:</p>
+<pre><code>echo &#34;Number of CPU/cores online at $HOSTNAME: $(getconf _NPROCESSORS_ONLN)&#34;
+</code></pre>
+<p>Sample output:</p>
+<pre><code>Number of CPU/cores online at server: 4
+</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Monitor the CPU on Linux" duration="0">
-        <h2 is-upgraded>uptime</h2>
+      <google-codelab-step label="CPU monitoring tools on Linux" duration="0">
+        <h2 is-upgraded>What you will learn:</h2>
+<p>You can use one of the following command to monitor the physical CPU cores including all cores on Linux:</p>
+<ul>
+<li>uptime command</li>
+<li>top program</li>
+<li>htop program</li>
+<li>mpstat command</li>
+</ul>
+<h2 is-upgraded>#1. The uptime command</h2>
 <p>The command <strong>uptime</strong> shows the basic information. The Linux tool requires few system resources only and can be helpful when a system is responding slow.</p>
 <p>Open a shell  and run the command as follows:</p>
 <pre><code>uptime
@@ -332,18 +446,21 @@ processor	: 3
 <li>how many connections users had to the machine (here: 1 user)</li>
 <li>the CPU load average for the past one, five, and fifteen minutes (here: 0.54, 0.51, 0.69)</li>
 </ul>
+<p>To see load changes on screen, run the <code>watch</code> command as follows:</p>
+<pre><code>watch uptime
+</code></pre>
 <aside class="special"><p> Consult your documentation about the CPU load average, its meaning and how to interpret the numbers. </p>
 </aside>
-<h2 is-upgraded>top</h2>
+<h2 is-upgraded>#2. top</h2>
 <p>One of the most common Linux tools for checking the CPU utilization is <strong>top</strong>. <br><br> Like <strong>uptime</strong>, the command <strong>top</strong> displays the CPU load averages. In addition, the command provides real-time CPU usage information as well as other performance metrics. Furthermore, top stays in the foreground and refreshes at regular intervals.</p>
 <p>Run the <strong>top</strong> command as follows:</p>
 <pre><code>top
 </code></pre>
-<p>The output will probably be very different from yours: <img alt="top" src="img/6a4f08958882e626.png"></p>
+<p>The output will probably be very different from yours: <img alt="top" src="img/58d98ef842e325a3.png"></p>
 <p>The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table  (the Process Table) with information about each individual process.</p>
 <aside class="special"><p> Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it. </p>
 </aside>
-<h2 is-upgraded>htop</h2>
+<h2 is-upgraded>#3. htop</h2>
 <p>This tool is another interactive real-time process monitoring application for Linux. It has numerous nice user-friendly features which are not availble under the <strong>top</strong> command.</p>
 <p>Unfortunately, the program is not installed by default. Run the following command to install <strong>htop</strong> with the privileges of the root account:</p>
 <pre><code>apt update; apt install htop
@@ -353,11 +470,11 @@ processor	: 3
 <p>After successful installation, run the <strong>htop</strong> command as follows:</p>
 <pre><code>htop
 </code></pre>
-<p>The output will probably be very different from yours: <img alt="htop" src="img/5cf1322a234e05c5.png"></p>
+<p>The output will probably be very different from yours: <img alt="htop" src="img/545cd098a8dc4d86.png"></p>
 <p>The top section is more easier to read and the bottom section is better organized.</p>
 <aside class="special"><p> Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it. </p>
 </aside>
-<h2 is-upgraded>mpstat</h2>
+<h2 is-upgraded>#4. mpstat</h2>
 <p>The tool <strong>mpstat</strong> is a Linux command that is used to report processor related statistics. It displays the statistics of the CPU usage of the system and information about CPU utilization. It initializes the first processor with CPU 0, the second one with CPU 1, and so on.</p>
 <p>The tool <strong>mpstat</strong> is part of the software package <strong>sysstat</strong>. Like <strong>htop</strong>, the program is not installed by default. Run the following command to install the <strong>systat</strong> package with the privileges of the root account:</p>
 <pre><code>apt update; apt install sysstat
@@ -429,12 +546,110 @@ processor	: 3
 
       </google-codelab-step>
     
+      <google-codelab-step label="Display CPU information on Microsoft Windows" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use one of the following commands to find some information about the physical CPUs (pCPU) including all cores on Windows:</p>
+<ul>
+<li>msinfo32 command</li>
+<li>systeminfo command</li>
+<li>wmic command</li>
+<li>Windows Registry</li>
+</ul>
+<h2 is-upgraded>#1. msinfo32 / System Information</h2>
+<p>The tool <strong>msinfo32</strong> is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.</p>
+<p>To launch <strong>msinfo32</strong>, simple press the <strong>Win+R</strong> keys, type <strong>msinfo32</strong> and click the <strong>OK</strong>-button.</p>
+<p class="image-container"><img alt="Windows Registry" src="img/cbd2d308ff633caf.png"></p>
+<p>Details about the CPU can be found in the System Summary section at the Processor value in the right pane.</p>
+<h2 is-upgraded>#2. Systeminfo</h2>
+<p>Using this method, you can find out system information in Windows PowerShell.</p>
+<ul>
+<li>Launch Windows PowerShell as an administrator, enter the command:</li>
+</ul>
+<pre><code>systeminfo
+</code></pre>
+<ul>
+<li>The Windows PowerShell window displays some information about the processor on this computer.</li>
+</ul>
+<pre><code>Host Name:                 DESKTOP-325I5B9
+OS Name:                   Microsoft Windows 10 Education
+OS Version:                10.0.19042 N/A Build 19042
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          Windows User
+Registered Organization:
+Product ID:                00328-00000-00000-AA697
+Original Install Date:     03/11/2020, 08:01:50
+System Boot Time:          10/10/2021, 22:58:45
+System Manufacturer:       innotek GmbH
+System Model:              VirtualBox
+System Type:               x64-based PC
+Processor(s):              1 Processor(s) Installed.
+                           [01]: Intel64 Family 6 Model 60 Stepping 3 GenuineIntel ~3093 Mhz
+BIOS Version:              innotek GmbH VirtualBox, 01/12/2006
+Windows Directory:         C:\Windows
+System Directory:          C:\Windows\system32
+Boot Device:               \Device\HarddiskVolume1
+System Locale:             en-us;English (United States)
+Input Locale:              de;German (Germany)
+Time Zone:                 (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
+Total Physical Memory:     8.192 MB
+Available Physical Memory: 4.974 MB
+Virtual Memory: Max Size:  9.472 MB
+Virtual Memory: Available: 6.322 MB
+Virtual Memory: In Use:    3.150 MB
+Page File Location(s):     C:\pagefile.sys
+Domain:                    WORKGROUP
+Logon Server:              \\DESKTOP-325I5B9
+Hotfix(s):                 8 Hotfix(s) Installed.
+                           [01]: KB4586876
+                           [02]: KB4537759
+                           [03]: KB4557968
+                           [04]: KB4562830
+                           [05]: KB4577266
+                           [06]: KB4580325
+                           [07]: KB4598481
+                           [08]: KB4598242
+Network Card(s):           1 NIC(s) Installed.
+                           [01]: Intel(R) PRO/1000 MT Desktop Adapter
+                                 Connection Name: Ethernet
+                                 DHCP Enabled:    Yes
+                                 DHCP Server:     10.0.2.2
+                                 IP address(es)
+                                 [01]: 10.0.2.15
+                                 [02]: fa80::aae:127a:4ae6:5a5a
+Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.
+</code></pre>
+<p>Details about the CPU can be found at the Processor value in the right pane, in this case a virtual CPU (vCPU).</p>
+<h2 is-upgraded>#3. Windows Powershell / Command Prompt</h2>
+<ul>
+<li>Open a command prompt</li>
+<li>Type and execute the following command:</li>
+</ul>
+<pre><code>wmic cpu get caption,deviceid,name,numberofcores,maxclockspeed,status
+</code></pre>
+<ul>
+<li>The command produces the following output:</li>
+</ul>
+<pre><code>Caption                               DeviceID  MaxClockSpeed  Name                                      NumberOfCores  Status
+Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz  2              OK
+</code></pre>
+<h2 is-upgraded>#4. Windows Registry</h2>
+<ul>
+<li>Open the Windows Registry Editor</li>
+<li>Browse to the Windows Registry Key named <strong>Computer\HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor</strong></li>
+<li>Click on one of the subkeys to get information about the CPU (here 0). <img alt="Windows Registry" src="img/dcb8ec573359a290.png"></li>
+</ul>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Monitor the CPU on Windows" duration="0">
-        <h2 is-upgraded>Windows Task Manager</h2>
+        <h2 is-upgraded>#1. Windows Task Manager</h2>
 <p>The <strong>Windows Task Manager (Taskmon)</strong> is a system tool found in all versions of Microsoft Windows platform&#39;s. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.</p>
 <p>To use Taskmon, open Start, do a search for <strong>taskman</strong>, and confirm the result.</p>
 <p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/a96f1237b3ba2789.png"></p>
-<h2 is-upgraded>Windows Resource Monitor</h2>
+<h2 is-upgraded>#2. Windows Resource Monitor</h2>
 <p>The <strong>Windows Resource Monitor (Resmon)</strong> is a system application included in Windows Vista and later versions of Windows that allows users to look at the presence and allocation of resources on a computer.</p>
 <p>The Windows Task Manager can best be described as a tool that runs <strong>on</strong> the surface. It lists processes and services, and general resource usage. In contrast, the Resource Monitor gives you the option to look <strong>under</strong> the surface to get more information that the Task Manager does not provide.</p>
 <p>The Windows Resource Monitor can be used to determine extensive and detailed information about the current performance and resource consumption in real time. The program is therefore also suitable for error analysis. The view is divided into the following sections:</p>
@@ -447,7 +662,7 @@ processor	: 3
 </ul>
 <p>To use Resmon, open Start, do a search for <strong>resmon</strong>, and confirm the result.</p>
 <p class="image-container"><img alt="htop" src="img/b327c367a936cab1.png"></p>
-<h2 is-upgraded>Windows Performance Monitor (Perfmon)</h2>
+<h2 is-upgraded>#3. Windows Performance Monitor (Perfmon)</h2>
 <p>On Windows 10, users can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
 <p>To use Permon, open Start, do a search for <strong>perfmon</strong>, and confirm the result.</p>
 <p class="image-container"><img alt="Windows Performance Monitor" src="img/6af70eaf4fb5255c.png"></p>
@@ -474,6 +689,76 @@ processor	: 3
 <p class="image-container"><img alt="Windows Performance Monitor" src="img/a9e5029122493140.png"></p>
 <aside class="special"><p> Consult the online documents for more details about this tool. Do your own research about the output and how to interpret the results. </p>
 </aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Hands-On: CPU Monitoring on Linux" duration="0">
+        <h2 is-upgraded>What you will learn:</h2>
+<p>In this codelab, you will learn</p>
+<ul>
+<li>how to use the htop programm</li>
+<li>how to generate workload</li>
+<li>how to limit CPU time that the workload generator may consume</li>
+</ul>
+<h2 is-upgraded>What you will need:</h2>
+<p>In this codelab, you will need the following tools:</p>
+<ul>
+<li>Stress</li>
+<li>htop</li>
+<li>uptime</li>
+<li>cpulimit</li>
+</ul>
+<p>Details of these two (2) tools can be found in the corresponding Codelab named <code>Stress the computer</code>. Create workloads with Yes and/or Stress to see how the CPU responds.</p>
+<p>For example, run the following command to create a CPU workload for 2 cores for the next two (2) minutes:</p>
+<pre><code>stress -c 2 -t 120s
+</code></pre>
+<p>This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.</p>
+<h2 is-upgraded>Scenario</h2>
+<p>In this codelab, the target is a Virtual Machine with 2 CPUs and 4 GB RAM. The operating system is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64.</p>
+<ul>
+<li>Open a shell terminal and execute the following command:</li>
+</ul>
+<pre><code>htop
+</code></pre>
+<ul>
+<li>Open another shell terminal and execute the following command:</li>
+</ul>
+<pre><code>watch uptime
+</code></pre>
+<ul>
+<li>Open another shell terminal and start the workload generator with the following option.</li>
+</ul>
+<pre><code>stress -c 2
+</code></pre>
+<p>Notice that the workload generator runs without a time limit.</p>
+<ul>
+<li>Observe how the CPU utilization changes.</li>
+<li>Sample output for <strong>uptime</strong>: <img alt="Exercise" src="img/b056ed6b6953f089.png"></li>
+<li>Sample output for <strong>htop</strong><img alt="Exercise" src="img/d4637113fc40e757.png"></li>
+</ul>
+<p>As you can see, the CPU Load rises above 3.0, indicating that the CPU is overloaded. At this point, we will try to limit the stress processes to 10% each.</p>
+<ul>
+<li>Get the identifiers of all stress processes. In this case the PID&#39;s are: 31210, 31211, and 31212</li>
+<li>Open a shell and execute the following command.</li>
+</ul>
+<pre><code>cpulimit -p 31210 --limit 10 &amp;
+</code></pre>
+<p>Sample output</p>
+<pre><code>root@server&#39; Process 31210 detected
+</code></pre>
+<ul>
+<li>Repeat the command above for the PID 31211 and 31212.</li>
+<li>Observe how the CPU utilization changes in the two tools <strong>htop</strong> and <strong>uptime</strong>.</li>
+<li>Sample output for <strong>htop</strong>: <img alt="Exercise" src="img/296937596c255a0a.png"></li>
+<li>Sample output for <strong>uptime</strong>: <img alt="Exercise" src="img/5bdf0301f0fae783.png"></li>
+<li>As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.</li>
+</ul>
+<p>To clean up, stop all running stress processes with the following command:</p>
+<pre><code>killall stress
+</code></pre>
+<p>Finally, you can close all open terminals.</p>
+<p>This is the end of the hands-on.</p>
 
 
       </google-codelab-step>
