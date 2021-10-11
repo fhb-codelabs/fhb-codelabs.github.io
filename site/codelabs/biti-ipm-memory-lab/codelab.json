@@ -1,0 +1,28 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-11T23:03:24+02:00",
+  "id": "biti-ipm-memory-lab",
+  "duration": 0,
+  "title": "BITI IPM Lab - Memory",
+  "authors": "Roland Pellegrini",
+  "summary": "BITI IPM Lab - Memory",
+  "source": "biti-ipm-memory-lab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "linux"
+  ],
+  "tags": [
+    "biti",
+    "introduction",
+    "ipm",
+    "memory",
+    "ram"
+  ],
+  "url": "biti-ipm-memory-lab"
+}
