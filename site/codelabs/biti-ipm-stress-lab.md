@@ -100,7 +100,7 @@ htop
 The output will look something like this:
 ![VirtualBox Extension](./img/biti-ipm-stress-result-htop.png)
 
-### Run RAM Stress
+### Run Memory Stress
 
 Open a shell and run the following command with root privileges:
 
@@ -113,6 +113,16 @@ Where,
 * `--vm-bytes 1024M` : malloc 1024MB per vm worker
 * `-t 20s` : Timeout after 20 seconds
 
+
+### Watch the results
+
+To see how the stress commmand utilize Memory, open a shell and start the `htop` application:
+```
+htop
+```
+
+The output will look something like this:
+![VirtualBox Extension](./img/biti-ipm-stress-result-htop-memory.png)
 
 ## Stress CPU with CPUStres (Windows)
 

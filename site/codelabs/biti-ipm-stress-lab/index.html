@@ -87,7 +87,7 @@ apt install stress
 <pre><code>htop
 </code></pre>
 <p>The output will look something like this: <img alt="VirtualBox Extension" src="img/c91b40b2108c0533.png"></p>
-<h2 is-upgraded>Run RAM Stress</h2>
+<h2 is-upgraded>Run Memory Stress</h2>
 <p>Open a shell and run the following command with root privileges:</p>
 <pre><code>stress -m 2 --vm-bytes 1024M  -t 20s -v
 </code></pre>
@@ -97,6 +97,11 @@ apt install stress
 <li><code>--vm-bytes 1024M</code> : malloc 1024MB per vm worker</li>
 <li><code>-t 20s</code> : Timeout after 20 seconds</li>
 </ul>
+<h2 is-upgraded>Watch the results</h2>
+<p>To see how the stress commmand utilize Memory, open a shell and start the <code>htop</code> application:</p>
+<pre><code>htop
+</code></pre>
+<p>The output will look something like this: <img alt="VirtualBox Extension" src="img/e51db0ca3eb97dc8.png"></p>
 
 
       </google-codelab-step>
