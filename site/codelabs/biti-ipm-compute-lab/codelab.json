@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-08T18:36:02+02:00",
+  "updated": "2021-10-11T23:35:47+02:00",
   "id": "biti-ipm-compute-lab",
   "duration": 0,
-  "title": "BITI IPM Lab 1 - How to monitor CPU Usage",
+  "title": "BITI IPM Lab - Compute",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab 1 - How to monitor CPU Usage",
-  "source": "biti-compute-lab.md",
+  "summary": "BITI IPM Lab - Compute",
+  "source": "biti-ipm-compute-lab.md",
   "theme": "",
   "status": [
     "published"
