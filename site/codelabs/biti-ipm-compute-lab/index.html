@@ -546,21 +546,82 @@ MAX_INPUT                          255
 
       </google-codelab-step>
     
+      <google-codelab-step label="Hands-On: CPU Monitoring on Linux" duration="0">
+        <h2 is-upgraded>What you will learn:</h2>
+<p>In this codelab, you will learn</p>
+<ul>
+<li>how to use the htop programm</li>
+<li>how to generate workload</li>
+<li>how to limit CPU time that the workload generator may consume</li>
+</ul>
+<h2 is-upgraded>What you will need:</h2>
+<p>In this codelab, you will need the following tools:</p>
+<ul>
+<li>Stress</li>
+<li>htop</li>
+<li>uptime</li>
+<li>cpulimit</li>
+</ul>
+<p>Details of these two (2) tools can be found in the corresponding Codelab named <code>Stress the computer</code>. Create workloads with Yes and/or Stress to see how the CPU responds.</p>
+<p>For example, run the following command to create a CPU workload for 2 cores for the next two (2) minutes:</p>
+<pre><code>stress -c 2 -t 120s
+</code></pre>
+<p>This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.</p>
+<h2 is-upgraded>Scenario</h2>
+<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<h2 is-upgraded>Test Run</h2>
+<ul>
+<li>Open a shell terminal and execute the following command:  <pre><code>htop
+</code></pre>
+</li>
+<li>Open another shell terminal and execute the following command:  <pre><code>watch uptime
+</code></pre>
+</li>
+<li>Open another shell terminal and start the workload generator with the following option.  <pre><code>stress -c 2
+</code></pre>
+Notice that the workload generator runs without a time limit.</li>
+<li>Observe how the CPU utilization changes in the uptime window.</li>
+<li>Sample output for <strong>uptime</strong>: <img alt="Exercise" src="img/b056ed6b6953f089.png"></li>
+<li>Sample output for <strong>htop</strong><img alt="Exercise" src="img/d4637113fc40e757.png"></li>
+</ul>
+<p>As you can see, the CPU Load rises above 3.0, indicating that the CPU is overloaded. At this point, we will try to limit the stress processes to 10% each.</p>
+<ul>
+<li>Get the identifiers of all stress processes. In this example the PID&#39;s are: 31210, 31211, and 31212</li>
+<li>Open a shell and execute the following command.  <pre><code>cpulimit -p 31210 --limit 10 &amp;
+</code></pre>
+Sample output  <pre><code>root@server&#39; Process 31210 detected
+</code></pre>
+</li>
+<li>Repeat the command above for the PID 31211 and 31212.</li>
+<li>Observe how the CPU utilization changes in the two tools <strong>htop</strong> and <strong>uptime</strong>.</li>
+<li>Sample output for <strong>htop</strong>: <img alt="Exercise" src="img/296937596c255a0a.png"></li>
+<li>Sample output for <strong>uptime</strong>: <img alt="Exercise" src="img/5bdf0301f0fae783.png"></li>
+<li>As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.</li>
+</ul>
+<p>To clean up, stop all running stress processes with the following command:</p>
+<pre><code>killall stress
+</code></pre>
+<p>Finally, you can close all open terminals.</p>
+<p>This is the end of the hands-on.</p>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Display CPU information on Microsoft Windows" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
 <p>You can use one of the following commands to find some information about the physical CPUs (pCPU) including all cores on Windows:</p>
 <ul>
-<li>msinfo32 command</li>
+<li>msinfo32 application</li>
 <li>systeminfo command</li>
 <li>wmic command</li>
 <li>Windows Registry</li>
 </ul>
-<h2 is-upgraded>#1. msinfo32 / System Information</h2>
+<h2 is-upgraded>#1. The msinfo32 application</h2>
 <p>The tool <strong>msinfo32</strong> is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.</p>
 <p>To launch <strong>msinfo32</strong>, simple press the <strong>Win+R</strong> keys, type <strong>msinfo32</strong> and click the <strong>OK</strong>-button.</p>
 <p class="image-container"><img alt="Windows Registry" src="img/cbd2d308ff633caf.png"></p>
 <p>Details about the CPU can be found in the System Summary section at the Processor value in the right pane.</p>
-<h2 is-upgraded>#2. Systeminfo</h2>
+<h2 is-upgraded>#2. Systeminfo (Powershell)</h2>
 <p>Using this method, you can find out system information in Windows PowerShell.</p>
 <ul>
 <li>Launch Windows PowerShell as an administrator, enter the command:  <pre><code>systeminfo
@@ -685,66 +746,6 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
 <p class="image-container"><img alt="Windows Performance Monitor" src="img/a9e5029122493140.png"></p>
 <aside class="special"><p> Consult the online documents for more details about this tool. Do your own research about the output and how to interpret the results. </p>
 </aside>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Hands-On: CPU Monitoring on Linux" duration="0">
-        <h2 is-upgraded>What you will learn:</h2>
-<p>In this codelab, you will learn</p>
-<ul>
-<li>how to use the htop programm</li>
-<li>how to generate workload</li>
-<li>how to limit CPU time that the workload generator may consume</li>
-</ul>
-<h2 is-upgraded>What you will need:</h2>
-<p>In this codelab, you will need the following tools:</p>
-<ul>
-<li>Stress</li>
-<li>htop</li>
-<li>uptime</li>
-<li>cpulimit</li>
-</ul>
-<p>Details of these two (2) tools can be found in the corresponding Codelab named <code>Stress the computer</code>. Create workloads with Yes and/or Stress to see how the CPU responds.</p>
-<p>For example, run the following command to create a CPU workload for 2 cores for the next two (2) minutes:</p>
-<pre><code>stress -c 2 -t 120s
-</code></pre>
-<p>This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.</p>
-<h2 is-upgraded>Scenario</h2>
-<p>In this codelab, the target is a Virtual Machine with 2 CPUs and 4 GB RAM. The operating system is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64.</p>
-<ul>
-<li>Open a shell terminal and execute the following command:  <pre><code>htop
-</code></pre>
-</li>
-<li>Open another shell terminal and execute the following command:  <pre><code>watch uptime
-</code></pre>
-</li>
-<li>Open another shell terminal and start the workload generator with the following option.  <pre><code>stress -c 2
-</code></pre>
-Notice that the workload generator runs without a time limit.</li>
-<li>Observe how the CPU utilization changes.</li>
-<li>Sample output for <strong>uptime</strong>: <img alt="Exercise" src="img/b056ed6b6953f089.png"></li>
-<li>Sample output for <strong>htop</strong><img alt="Exercise" src="img/d4637113fc40e757.png"></li>
-</ul>
-<p>As you can see, the CPU Load rises above 3.0, indicating that the CPU is overloaded. At this point, we will try to limit the stress processes to 10% each.</p>
-<ul>
-<li>Get the identifiers of all stress processes. In this case the PID&#39;s are: 31210, 31211, and 31212</li>
-<li>Open a shell and execute the following command.  <pre><code>cpulimit -p 31210 --limit 10 &amp;
-</code></pre>
-Sample output  <pre><code>root@server&#39; Process 31210 detected
-</code></pre>
-</li>
-<li>Repeat the command above for the PID 31211 and 31212.</li>
-<li>Observe how the CPU utilization changes in the two tools <strong>htop</strong> and <strong>uptime</strong>.</li>
-<li>Sample output for <strong>htop</strong>: <img alt="Exercise" src="img/296937596c255a0a.png"></li>
-<li>Sample output for <strong>uptime</strong>: <img alt="Exercise" src="img/5bdf0301f0fae783.png"></li>
-<li>As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.</li>
-</ul>
-<p>To clean up, stop all running stress processes with the following command:</p>
-<pre><code>killall stress
-</code></pre>
-<p>Finally, you can close all open terminals.</p>
-<p>This is the end of the hands-on.</p>
 
 
       </google-codelab-step>

@@ -688,27 +688,112 @@ Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results.
 </aside>
 
+## Hands-On: CPU Monitoring on Linux
+
+### What you will learn:
+
+In this codelab, you will learn 
+
+* how to use the htop programm
+* how to generate workload
+* how to limit CPU time that the workload generator may consume
+
+### What you will need:
+
+In this codelab, you will need the following tools:
+
+* Stress
+* htop
+* uptime
+* cpulimit
+
+Details of these two (2) tools can be found in the corresponding Codelab named `Stress the computer`. Create workloads with Yes and/or Stress to see how the CPU responds.
+
+For example, run the following command to create a CPU workload for 2 cores for the next two (2) minutes:
+```
+stress -c 2 -t 120s
+```
+
+This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.
+
+### Scenario
+
+In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
+
+### Test Run
+
+* Open a shell terminal and execute the following command:
+```
+htop
+```
+
+* Open another shell terminal and execute the following command:
+```
+watch uptime
+```
+
+* Open another shell terminal and start the workload generator with the following option.
+```
+stress -c 2
+```
+Notice that the workload generator runs without a time limit.
+
+* Observe how the CPU utilization changes in the uptime window. 
+* Sample output for **uptime**:
+![Exercise](./img/biti-ipm-compute-exercise-uptime.png) 
+* Sample output for **htop** 
+![Exercise](./img/biti-ipm-compute-exercise-htop.png)
+
+As you can see, the CPU Load rises above 3.0, indicating that the CPU is overloaded. At this point, we will try to limit the stress processes to 10% each.
+
+* Get the identifiers of all stress processes. In this example the PID's are: 31210, 31211, and 31212
+
+* Open a shell and execute the following command.
+```
+cpulimit -p 31210 --limit 10 &
+```
+Sample output
+```
+root@server' Process 31210 detected
+```
+* Repeat the command above for the PID 31211 and 31212.
+* Observe how the CPU utilization changes in the two tools **htop** and **uptime**.
+* Sample output for **htop**:
+![Exercise](./img/biti-ipm-compute-exercise-htop-low.png)
+* Sample output for **uptime**:
+![Exercise](./img/biti-ipm-compute-exercise-uptime-low.png)
+* As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.
+
+To clean up, stop all running stress processes with the following command:
+```
+killall stress
+```
+
+Finally, you can close all open terminals. 
+
+This is the end of the hands-on.
+
 ## Display CPU information on Microsoft Windows
 
 ### What You will learn:
 
 You can use one of the following commands to find some information about the physical CPUs (pCPU) including all cores on Windows:
 
-* msinfo32 command
+* msinfo32 application
 * systeminfo command
 * wmic command
 * Windows Registry
 
-### #1. msinfo32 / System Information
+### #1. The msinfo32 application
 The tool **msinfo32** is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.
 
 To launch **msinfo32**, simple press the **Win+R** keys, type **msinfo32** and click the **OK**-button.
 
-![Windows Registry](./img/biti-ipm-compute-windows-msinfo32.png)
+![Windows Registry](./img/biti-ipm-compute-windows-msinfo32-cpu.png)
 
 Details about the CPU can be found in the System Summary section at the Processor value in the right pane.
 
-### #2. Systeminfo
+### #2. Systeminfo (Powershell)
 
 Using this method, you can find out system information in Windows PowerShell.
 
@@ -874,87 +959,3 @@ The tools generates Reports for each run. To view these reports, click on the la
 <aside class="positive">
 Consult the online documents for more details about this tool. Do your own research about the output and how to interpret the results.
 </aside>
-
-
-## Hands-On: CPU Monitoring on Linux
-
-### What you will learn:
-
-In this codelab, you will learn 
-
-* how to use the htop programm
-* how to generate workload
-* how to limit CPU time that the workload generator may consume
-
-### What you will need:
-
-In this codelab, you will need the following tools:
-
-* Stress
-* htop
-* uptime
-* cpulimit
-
-Details of these two (2) tools can be found in the corresponding Codelab named `Stress the computer`. Create workloads with Yes and/or Stress to see how the CPU responds.
-
-For example, run the following command to create a CPU workload for 2 cores for the next two (2) minutes:
-```
-stress -c 2 -t 120s
-```
-
-This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.
-
-### Scenario
-
-In this codelab, the target is a Virtual Machine with 2 CPUs and 4 GB RAM. The operating system is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64.
-
-* Open a shell terminal and execute the following command:
-```
-htop
-```
-
-* Open another shell terminal and execute the following command:
-```
-watch uptime
-```
-
-* Open another shell terminal and start the workload generator with the following option.
-```
-stress -c 2
-```
-Notice that the workload generator runs without a time limit.
-
-* Observe how the CPU utilization changes. 
-* Sample output for **uptime**:
-![Exercise](./img/biti-ipm-compute-exercise-uptime.png) 
-* Sample output for **htop** 
-![Exercise](./img/biti-ipm-compute-exercise-htop.png)
-
-As you can see, the CPU Load rises above 3.0, indicating that the CPU is overloaded. At this point, we will try to limit the stress processes to 10% each.
-
-* Get the identifiers of all stress processes. In this case the PID's are: 31210, 31211, and 31212
-
-* Open a shell and execute the following command.
-```
-cpulimit -p 31210 --limit 10 &
-```
-Sample output
-```
-root@server' Process 31210 detected
-```
-* Repeat the command above for the PID 31211 and 31212.
-* Observe how the CPU utilization changes in the two tools **htop** and **uptime**.
-* Sample output for **htop**:
-![Exercise](./img/biti-ipm-compute-exercise-htop-low.png)
-* Sample output for **uptime**:
-![Exercise](./img/biti-ipm-compute-exercise-uptime-low.png)
-* As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.
-
-To clean up, stop all running stress processes with the following command:
-```
-killall stress
-```
-
-Finally, you can close all open terminals. 
-
-This is the end of the hands-on.
