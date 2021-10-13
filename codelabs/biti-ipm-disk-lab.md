@@ -406,7 +406,9 @@ Details of the **Stress** tool can be found in the corresponding Codelab named `
 
 ### Scenario
 
-In this codelab, the target is a Virtual Machine with 2 CPUs and 4 GB RAM. The operating system is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64.
+In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
+
+### Test Run
 
 * Open a shell terminal and execute the following command:
 ```
@@ -466,3 +468,193 @@ Sample output:
 ```
 
 This is the end of the hands-on.
+
+
+
+## Display CPU information on Microsoft Windows
+
+### What You will learn:
+
+You can use one of the following commands to find some information about the physical CPUs (pCPU) including all cores on Windows:
+
+* msinfo32 application
+
+### #1. The msinfo32 application
+The tool **msinfo32** is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.
+
+To launch **msinfo32**, simple press the **Win+R** keys, type **msinfo32** and click the **OK**-button.
+
+![Windows Registry](./img/biti-ipm-compute-windows-msinfo32-disk.png)
+
+Details about the Disks can be found in the **Components -> Storage** Section at the **Disks** value in the right pane.
+
+
+
+## Hands-on: Disk Monitoring on Windows
+
+Application performance often depends on how well and quickly storage systems can be provisioned to end users. Storage performance is usually an important factor in the deployment of an application. For this reason, the appropriate storage system must be evaluated, designed and selected in terms of IOPS as well as throughput, speed and bandwidth.
+
+The following section describes the Microsoft tool Diskspd.exe for evaluating the performance of disk and storage systems.
+### What you will learn:
+
+In this codelab, you will learn 
+
+* how to generate workload with the diskspd.exe tool
+
+### What you will need:
+
+In this codelab, you will need the following tools:
+
+* diskspd.exe
+
+
+### The diskspd.exe command
+
+The free Microsoft tool called [Diskspd.exe](https://github.com/microsoft/diskspd/releases) measures the performance of a storage system for Windows, Windows Server and Cloud Server infrastructure at Microsoft Azure and simulates various application loads. Values are given in IOPS, or Input/Output Operations per Second, and provide a benchmark for performance. Please visit the following [page](https://github.com/Microsoft/diskspd/wiki) for updated documentation.
+
+For applications such as Microsoft Exchange or SQL Server, it may be necessary to determine the performance of the storage system in advance, The results help Administrators to specify the required Read/Write performance including latency.
+
+The program can be downloaded [here](https://github.com/microsoft/diskspd/releases)) and copied to any directory on the target server.  The zipfile contains several versions, including a 64-bit variant in the amd64 folder. If you need a graphical user interface instead of the console window, you can get the Diskspd GUI from the [DiskSpeed](https://gallery.technet.microsoft.com/DiskSpeed-90d37d55) project.
+
+To use the tool on the console, open a command prompt with **administrator rights** and then navigate to the directory where you copied and unpacked the zipfile. Finally go to the subdirectory corresponding to your target architecture (e.g. amd64).
+
+### Scenario
+
+In this codelab, the target is a virtual Machine with 2 CPU Cores and 8 GB RAM. The operating system is based on Windows 10 Educatuinm Version 10,0,19042 Build 19042. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6,1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
+
+### Test Run
+
+This Run is based on the Online Transaction Processing (OLTP) workload, which involves high levels of write activity. 
+#### SQL Server OLTP
+
+Open a Powershell terminal as Administrator and execute disksdo.exe with the following options:
+
+```
+diskspd.exe -b8K -d180 -h -L -o32 -t3 -r -w75 -c5G sqldata.dat > result.txt
+```
+
+Where, 
+* -b - Block size of the input/output, specified as (K/M/G). For example, -b8K means a block size of 8 KB, which is relevant for SQL Server.
+* -d - Test duration in seconds. Tests of 30-60 seconds are usually long enough to get valid results. Here, test duration is defined with 180 seconds.
+* -h - Disables operating system-level software caching and hardware write caching. Here it is disabled becauseSQL Server works this way.
+* -L - Captures latency information during the test
+* -o - Pending I/Os (i.e. queue depth) per target, per worker thread.
+* -t - worker threads per test file target. Here it is defined with 3 workers.
+* -r - If the -r option is used, random tests are performed, otherwise sequential tests are performed. Here, SQL Server accesses data files randomly.
+* -w - Specifies the percentage. For example, -w75 means that 75% write and 25% read operations are performed. Here, value is set to 75 because OLTP workloads involves more writung activities than reading.
+* sqldata.at - the sample sql file name that will be used in the test. 
+* -c -Creates workload file(s) of the specified size, specified as (K/M/G).
+* - result.txt - the output file of the test results
+
+After the execution of the test, the results are written to the file named **result.txt**. The results of the test are divided into 5 sections. The first section of the test result shows us the input parameters and all other settings.
+
+```
+Command Line: C:\Users\icinga\Downloads\DiskSpd\amd64\diskspd.exe -b8K -d180 -h -L -o32 -t3 -r -w75 -c5G sqldata.dat
+
+Input parameters:
+
+	timespan:   1
+	-------------
+	duration: 180s
+	warm up time: 5s
+	cool down time: 0s
+	measuring latency
+	random seed: 0
+	path: 'sqldata.dat'
+		think time: 0ms
+		burst size: 0
+		software cache disabled
+		hardware write cache disabled, writethrough on
+		performing mix test (read/write ratio: 25/75)
+		block size: 8KiB
+		using random I/O (alignment: 8KiB)
+		number of outstanding I/O operations per thread: 32
+		threads per file: 3
+		using I/O Completion Ports
+		IO priority: normal
+
+System information:
+
+	computer name: DESKTOP-12345678
+	start time: 2021/10/13 17:19:51 UTC
+```
+
+In the second section we can read the details of the average CPU load.
+```
+Results for timespan 1:
+*******************************************************************************
+
+actual test time:	180.01s
+thread count:		3
+proc count:		2
+
+CPU |  Usage |  User  |  Kernel |  Idle
+-------------------------------------------
+   0|   8.53%|   0.72%|    7.81%|  91.47%
+   1|   8.35%|   0.68%|    7.67%|  91.65%
+-------------------------------------------
+avg.|   8.44%|   0.70%|    7.74%|  91.56%
+```
+
+The third section **Total IO** gives us all the performance details about the Storage performance. The total number of IOPS generated for this test is **274106**. The test duration is 180 seconds, therefore the IOPS per second is rounded up to **1523** (=result of 274106/180, note the variance to 1522.76). The AvgLat column indicates the average latency, and the result is **63.514**. The throughput per second is **11.90** MB/s.
+```
+Total IO
+thread |       bytes     |     I/Os     |    MiB/s   |  I/O per s |  AvgLat  | LatStdDev |  file
+-----------------------------------------------------------------------------------------------------
+     0 |       653434880 |        79765 |       3.46 |     443.12 |   72.773 |   787.590 | sqldata.dat (5GiB)
+     1 |       922140672 |       112566 |       4.89 |     625.35 |   51.558 |   658.417 | sqldata.dat (5GiB)
+     2 |       669900800 |        81775 |       3.55 |     454.29 |   70.941 |   777.118 | sqldata.dat (5GiB)
+-----------------------------------------------------------------------------------------------------
+total:        2245476352 |       274106 |      11.90 |    1522.76 |   63.514 |   734.032
+```
+
+
+The fourth section is split in **Read IO** and **Write IO** operations. 
+The **Read IO** section contains details about the read operations. 
+The **Write IO** section contains details about the write operations.
+
+```
+Read IO
+thread |       bytes     |     I/Os     |    MiB/s   |  I/O per s |  AvgLat  | LatStdDev |  file
+-----------------------------------------------------------------------------------------------------
+     0 |       163168256 |        19918 |       0.86 |     110.65 |   90.790 |   787.774 | sqldata.dat (5GiB)
+     1 |       231997440 |        28320 |       1.23 |     157.33 |   65.074 |   681.015 | sqldata.dat (5GiB)
+     2 |       166477824 |        20322 |       0.88 |     112.90 |   82.196 |   717.981 | sqldata.dat (5GiB)
+-----------------------------------------------------------------------------------------------------
+total:         561643520 |        68560 |       2.98 |     380.88 |   77.620 |   724.422
+
+Write IO
+thread |       bytes     |     I/Os     |    MiB/s   |  I/O per s |  AvgLat  | LatStdDev |  file
+-----------------------------------------------------------------------------------------------------
+     0 |       490266624 |        59847 |       2.60 |     332.47 |   66.776 |   787.437 | sqldata.dat (5GiB)
+     1 |       690143232 |        84246 |       3.66 |     468.02 |   47.015 |   650.582 | sqldata.dat (5GiB)
+     2 |       503422976 |        61453 |       2.67 |     341.39 |   67.219 |   795.673 | sqldata.dat (5GiB)
+-----------------------------------------------------------------------------------------------------
+total:        1683832832 |       205546 |       8.92 |    1141.88 |   58.809 |   737.150
+```
+
+The last section of the test results shows us the latency percentile analysis of the storage performance from the minimum to the maximum value. This result helps us to find out how the storage or the disks behave under different work loads.
+
+```
+total:
+  %-ile |  Read (ms) | Write (ms) | Total (ms)
+----------------------------------------------
+    min |      0.244 |      0.149 |      0.149
+   25th |      3.845 |      2.094 |      2.335
+   50th |      6.232 |      3.223 |      3.896
+   75th |     12.455 |      7.059 |      8.611
+   90th |    145.098 |     48.302 |     63.730
+   95th |    282.831 |    109.626 |    148.808
+   99th |    557.531 |    451.447 |    501.254
+3-nines |  13625.524 |  13619.105 |  13619.118
+4-nines |  23442.732 |  23443.295 |  23443.262
+5-nines |  23444.205 |  23819.563 |  23819.563
+6-nines |  23444.205 |  23829.449 |  23829.449
+7-nines |  23444.205 |  23829.449 |  23829.449
+8-nines |  23444.205 |  23829.449 |  23829.449
+9-nines |  23444.205 |  23829.449 |  23829.449
+    max |  23444.205 |  23829.449 |  23829.449
+```
+
+This is the end of the hands-on.
+
