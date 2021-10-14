@@ -1,5 +1,5 @@
 summary: BITI IPM Lab - Compute
-id: biti-ipm-compute-lab
+id: biti-ipm-compute-linux-lab
 categories: linux
 tags: ipm, compute, cpu, BITI, introduction
 status: Published
@@ -10,11 +10,11 @@ authors: Roland Pellegrini
 ## Before You Begin 
 
 ### What You’ll Learn
-Every computer system benefits from proper administration and monitoring. A computer operates more quickly if few CPU-intensive processes are running at the same time.
+In this codelab you will learn
 
-Therefore, it is important to know about the CPUs, how they are used and how fast they are. Additionally, it makes sense that administrators check the CPU usage on a regular basis to identify programs that unnecessarly burden the system.
-
-Luckily, IT administrators don't need special system information programs to find this information.There are plenty of command line utilities created for this purpose. This codelab will introduce you to some of the most helpful applications and how to use them.
+* how to get information about the CPU 
+* how to monitor CPU with Linux Tools
+* how to perform a test run
 
 ###  Where You Can Look Up
 The **man** is a short term for manual page and acts as an interface to view the reference manual of a command.
@@ -43,14 +43,14 @@ DESCRIPTION
        ps displays information about a selection of the active processes.  If
        you want a repetitive update of the selection and the displayed
        information, use top(1) instead.
-...
-...
+--More--
 ```
+
 ### What You'll need
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian 11 (Bullseye) or Microsoft Windows.
+This is the OS of the virtual machine. This will be Debian 11 (Bullseye).
 
 #### Administators privileges
 
@@ -59,7 +59,6 @@ By default, administrator privileges are required on the Host OS to install addi
 For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
 
 ## Display CPU information on Linux
-
 
 ### What You will learn:
 
@@ -73,9 +72,13 @@ You can use one of the following commands to find detailed information about the
 * getconf _NPROCESSORS_ONLN command
 
 
-### #1. The nproc command
+## nproc
+
+### Description
 
 The **nproc** command displays the number of available processing units. The command is a built-in command in a Linux system.
+
+### Sample code
 
 Open a shell and run **nproc** with the following option:
 ```
@@ -93,9 +96,13 @@ Use the --help flag for more information.
 </aside>
 
 
-### #2. The lscpu command
+## lscpu
+
+### Description
 
 On most Linux distributions, you can also use the **lscpu** command. It displays not only the number of processors but also the architecture, model name, speed, much more.
+
+### Sample code
 
 Open a shell and run the following command:
 ```
@@ -179,9 +186,13 @@ The output shows the CPU information:
 * Thread per core: 2 
 * Total threads: 4
 
-### #3. cpuinfo
+### cpuinfo
+
+### Description
 
 All Linux distributions allows you to run **cat /proc/cpuinfo**. This file contains details about the processors installed. Note that /proc is a pseudo-filesystem, it is used as an interface to kernel data structures.
+
+### Sample code
 
 Open a shell and run the following command:
 ```
@@ -249,6 +260,8 @@ cpuid level	: 22
 Consult the documentation and man-pages for more details. Try to identify keywords and details of the CPU. 
 </aside>
 
+### Sample code
+
 To count the number of processing units use grep command.
 ```
 cat /proc/cpuinfo | grep processor
@@ -282,7 +295,9 @@ cpu cores	: 2
 The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores.
 </aside>
 
-### #4. The hwinfo command
+### hwinfo
+
+### Description
 
 Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.
 
@@ -290,6 +305,9 @@ Hwinfo checks details of the hardware present in a Linux system and displays the
 Hwinfo requires root privileges.
 </aside>
 
+### Sample code
+
+Run the following command:
 ```
 hwinfo | more
 ```
@@ -376,7 +394,9 @@ hwinfo --all --log hardware_info.txt
 ```
 
 
-### #5. The dmidecode command
+### dmidecode
+
+### Description
 
 The Linux command **dmidecode** reads the data from DMI (Desktop Management Interface) table which holds information for system’s hardware components like BIOS Revision, Serial Number, CPU, RAM, etc.
 
@@ -385,6 +405,8 @@ The tools is useful when users run into situations where they need to find out m
 <aside class="positive">
 Hwinfo requires root privileges.
 </aside>
+
+### Sample code
 
 To get information about the CPU, run dmidecode with -t option as shown below:
 
@@ -466,14 +488,21 @@ Sample output:
 	Thread Count: 4
 ```
 
-### #6. The getconf command
+### getconf
+
+### Description
+
 The Linux command **getconf** displays the value of a specified configuration variable on the standard output. The **getconf** command is most portable solution as it runs on Linux and Mac OS X as well.
 
-The option `-a` displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command
+### Sample code
+
+Run the following code:
 
 ```
 getconf -a
 ```
+The option `-a` displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command
+
 
 Sample output:
 ```
@@ -508,10 +537,13 @@ You can use one of the following command to monitor the physical CPU cores inclu
 * mpstat command
 
 
-### #1. The uptime command 
+## uptime 
+
+### Description
 
 The command **uptime** shows the basic information. The Linux tool requires few system resources only and can be helpful when a system is responding slow.
 
+### Sample code
 
 Open a shell  and run the command as follows:
 
@@ -543,10 +575,14 @@ Consult your documentation about the CPU load average, its meaning and how to in
 </aside>
 
 
-### #2. top
+## top
+
+### Description
 
 One of the most common Linux tools for checking the CPU utilization is **top**. <br><br>
 Like **uptime**, the command **top** displays the CPU load averages. In addition, the command provides real-time CPU usage information as well as other performance metrics. Furthermore, top stays in the foreground and refreshes at regular intervals.
+
+### Sample code
 
 Run the **top** command as follows:
 ```
@@ -562,21 +598,15 @@ The first five lines (also called the Header Block) provide a summary about the 
 Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it.
 </aside>
 
-### #3. htop 
+## htop 
+
+### Description
 
 This tool is another interactive real-time process monitoring application for Linux. It has numerous nice user-friendly features which are not availble under the **top** command.
 
-Unfortunately, the program is not installed by default. Run the following command to install **htop** with the privileges of the root account:
-```
-apt update; apt install htop
-```
+### Sample code
 
-<aside class="positive">
-If errors occur due to lack of root privilegues, check the section Prerequisites for more details. 
-</aside>
-
-
-After successful installation, run the **htop** command as follows:
+Run the command as follows:
 ```
 htop
 ```
@@ -592,22 +622,17 @@ Consult the man-pages for more details about htop. Run your own research about t
 </aside>
 
 
-### #4. mpstat 
+## mpstat 
+
+### Description
 
 The tool **mpstat** is a Linux command that is used to report processor related statistics. It displays the statistics of the CPU usage of the system and information about CPU utilization. It initializes the first processor with CPU 0, the second one with CPU 1, and so on.
 
 
-The tool **mpstat** is part of the software package **sysstat**. Like **htop**, the program is not installed by default. Run the following command to install the **systat** package with the privileges of the root account:
-```
-apt update; apt install sysstat
-```
+### Sample code
 
-<aside class="positive">
-If errors occur, execute the command **su -** first before running the installation process. You will be prompted for the root password. Ask your instructor for the password and run the above command again. 
-</aside>
+Run the **mpstat** command as follows:
 
-
-After successful installation, run the **mpstat** command as follows:
 ```
 mpstat
 ```
@@ -688,7 +713,7 @@ Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results.
 </aside>
 
-## Hands-On: CPU Monitoring on Linux
+## Hands-On: CPU Monitoring
 
 ### What you will learn:
 
@@ -716,11 +741,11 @@ stress -c 2 -t 120s
 
 This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.
 
-### Scenario
+## Scenario
 
 In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
 
-### Test Run
+## Test Run
 
 * Open a shell terminal and execute the following command:
 ```
@@ -772,190 +797,3 @@ killall stress
 Finally, you can close all open terminals. 
 
 This is the end of the hands-on.
-
-## Display CPU information on Microsoft Windows
-
-### What You will learn:
-
-You can use one of the following commands to find some information about the physical CPUs (pCPU) including all cores on Windows:
-
-* msinfo32 application
-* systeminfo command
-* wmic command
-* Windows Registry
-
-### #1. The msinfo32 application
-The tool **msinfo32** is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.
-
-To launch **msinfo32**, simple press the **Win+R** keys, type **msinfo32** and click the **OK**-button.
-
-![Windows Registry](./img/biti-ipm-compute-windows-msinfo32-cpu.png)
-
-Details about the CPU can be found in the System Summary section at the Processor value in the right pane.
-
-### #2. Systeminfo (Powershell)
-
-Using this method, you can find out system information in Windows PowerShell.
-
-* Launch Windows PowerShell as an administrator, enter the command:
-
-```
-systeminfo
-```
-
-* The Windows PowerShell window displays some information about the processor on this computer.
-```
-Host Name:                 DESKTOP-325I5B9
-OS Name:                   Microsoft Windows 10 Education
-OS Version:                10.0.19042 N/A Build 19042
-OS Manufacturer:           Microsoft Corporation
-OS Configuration:          Standalone Workstation
-OS Build Type:             Multiprocessor Free
-Registered Owner:          Windows User
-Registered Organization:
-Product ID:                00328-00000-00000-AA697
-Original Install Date:     03/11/2020, 08:01:50
-System Boot Time:          10/10/2021, 22:58:45
-System Manufacturer:       innotek GmbH
-System Model:              VirtualBox
-System Type:               x64-based PC
-Processor(s):              1 Processor(s) Installed.
-                           [01]: Intel64 Family 6 Model 60 Stepping 3 GenuineIntel ~3093 Mhz
-BIOS Version:              innotek GmbH VirtualBox, 01/12/2006
-Windows Directory:         C:\Windows
-System Directory:          C:\Windows\system32
-Boot Device:               \Device\HarddiskVolume1
-System Locale:             en-us;English (United States)
-Input Locale:              de;German (Germany)
-Time Zone:                 (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
-Total Physical Memory:     8.192 MB
-Available Physical Memory: 4.974 MB
-Virtual Memory: Max Size:  9.472 MB
-Virtual Memory: Available: 6.322 MB
-Virtual Memory: In Use:    3.150 MB
-Page File Location(s):     C:\pagefile.sys
-Domain:                    WORKGROUP
-Logon Server:              \\DESKTOP-325I5B9
-Hotfix(s):                 8 Hotfix(s) Installed.
-                           [01]: KB4586876
-                           [02]: KB4537759
-                           [03]: KB4557968
-                           [04]: KB4562830
-                           [05]: KB4577266
-                           [06]: KB4580325
-                           [07]: KB4598481
-                           [08]: KB4598242
-Network Card(s):           1 NIC(s) Installed.
-                           [01]: Intel(R) PRO/1000 MT Desktop Adapter
-                                 Connection Name: Ethernet
-                                 DHCP Enabled:    Yes
-                                 DHCP Server:     10.0.2.2
-                                 IP address(es)
-                                 [01]: 10.0.2.15
-                                 [02]: fa80::aae:127a:4ae6:5a5a
-Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.
-```
-
-Details about the CPU can be found at the Processor value in the right pane, in this case a virtual CPU (vCPU).
-
-### #3. Windows Powershell / Command Prompt
-* Open a command prompt
-* Type and execute the following command:
-
-```
-wmic cpu get caption,deviceid,name,numberofcores,maxclockspeed,status
-```
-
-* The command produces the following output:
-
-```
-Caption                               DeviceID  MaxClockSpeed  Name                                      NumberOfCores  Status
-Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz  2              OK
-```
-
-### #4. Windows Registry
-
-* Open the Windows Registry Editor
-* Browse to the Windows Registry Key named **Computer\HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor**
-* Click on one of the subkeys to get information about the CPU (here 0).
-![Windows Registry](./img/biti-ipm-compute-windows-registry.png)
-
-
-## Monitor the CPU on Windows
-
-### #1. Windows Task Manager
-
-The **Windows Task Manager (Taskmon)** is a system tool found in all versions of Microsoft Windows platform's. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.
-
-To use Taskmon, open Start, do a search for **taskman**, and confirm the result.
-
-![Windows Task Manager (advanced view)](./img/biti-ipm-compute-windows-taskman.png)
-
-
-### #2. Windows Resource Monitor
-
-
-The **Windows Resource Monitor (Resmon)** is a system application included in Windows Vista and later versions of Windows that allows users to look at the presence and allocation of resources on a computer.
-
-The Windows Task Manager can best be described as a tool that runs **on** the surface. It lists processes and services, and general resource usage. In contrast, the Resource Monitor gives you the option to look **under** the surface to get more information that the Task Manager does not provide.
-
-The Windows Resource Monitor can be used to determine extensive and detailed information about the current performance and resource consumption in real time. The program is therefore also suitable for error analysis. The view is divided into the following sections:
-
-- Overview (CPU, disk, network, memory)
-- CPU 
-- Memory 
-- Disk 
-- Network 
-
-To use Resmon, open Start, do a search for **resmon**, and confirm the result.
-
-![htop](./img/biti-ipm-compute-windows-resmon.png)
-
-
-### #3. Windows Performance Monitor (Perfmon)
-
-On Windows 10, users can use **Windows Performance Monitor** to analyze data, such as processor, hard drive, memory, and network usage.
-
-To use Permon, open Start, do a search for **perfmon**, and confirm the result.
-
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-main.png)
-
-When you open the tool, the main page will show up with a brief overview, a system summary with real-time data about Memory, Network Interface, Physical Disk, and Processor Information. On the keft side, you will find the navigation pane with access to Monitoring Tools, Data Collector Sets, and Reports.<br>
-<br>
-When you switch to the Performance Monitor, you will see a screen with a single counter. This is typically the **Processor Time** counter, which displays the processor load.
-<br>
-
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-performance.png)
-
-However, you can add a lot of other counters to monitor virtually anything on your computer. To add new counters to monitor applications and hardware performance on your computer, do the following steps:
-
-- Click on the green **Plus** button above the Performance Monitor graph.
-- Select Local computer (or the name of your computer) from the drop-down menu.
-- Select and expand the category of the item you want to monitor. 
-- If applicable, select the instances you want to monitor. Click the **Add** button to add the new counters.
-<br>
-
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-addcounter.png)
-
-- Finally, click on the **OK** button to confirm. Here you are !
-
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-counteradded.png)
-
-
-The Performance Monitor also includes so-called Data Collectors Sets, which is where you can use existing sets or create custom sets containing performance counters and alerts based on specific criteria.
-
-In this lab, we will use the Data Collectors Set for Hyper-V. You can right-click your Data Collector Set under "User Defined," and click **Start** to run it.
-
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-start.png)
-
-Wait 30 seconds, while **Performance Monitor** is collecting data. Then right-click the Data Collector set for Hyper-V and click on **Stop** to shut it down.
-
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-stop.png)
-
-The tools generates Reports for each run. To view these reports, click on the lastest Hyper-V report in the Report section and browse through the statistics.
-
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-view.png)
-
-<aside class="positive">
-Consult the online documents for more details about this tool. Do your own research about the output and how to interpret the results.
-</aside>

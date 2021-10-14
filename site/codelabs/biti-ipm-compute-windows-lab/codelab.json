@@ -3,19 +3,19 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-14T10:29:40+02:00",
-  "id": "biti-ipm-stress-lab",
+  "updated": "2021-10-14T10:28:17+02:00",
+  "id": "biti-ipm-compute-windows-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Stress",
+  "title": "BITI IPM Lab - Compute",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Stress",
-  "source": "biti-ipm-stress-lab.md",
+  "summary": "BITI IPM Lab - Compute",
+  "source": "biti-ipm-compute-windows-lab.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "linux"
+    "windows"
   ],
   "tags": [
     "biti",
@@ -24,5 +24,5 @@
     "introduction",
     "ipm"
   ],
-  "url": "biti-ipm-stress-lab"
+  "url": "biti-ipm-compute-windows-lab"
 }

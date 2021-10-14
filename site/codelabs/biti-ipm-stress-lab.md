@@ -1,11 +1,11 @@
-summary: BITI IPM Lab - Stress the computer
+summary: BITI IPM Lab - Stress
 id: biti-ipm-stress-lab
 categories: linux
 tags: ipm, compute, cpu, BITI, introduction
 status: Published
 authors: Roland Pellegrini
 
-# BITI IPM Lab - Stress the computer
+# BITI IPM Lab - Stress
 <!-- ------------------------ -->
 ## Before You Begin 
 

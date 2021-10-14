@@ -1,0 +1,252 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>BITI IPM Lab - Compute</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="biti-ipm-compute-windows-lab"
+                  title="BITI IPM Lab - Compute"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Before You Begin" duration="0">
+        <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<p>In this codelab you will learn</p>
+<ul>
+<li>how to get information about the CPU</li>
+<li>how to monitor CPU with Windows Tools</li>
+</ul>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Microsoft Windows.</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Display CPU information on Microsoft Windows" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use one of the following commands to find some information about the physical CPUs (pCPU) including all cores on Windows:</p>
+<ul>
+<li>msinfo32 application</li>
+<li>systeminfo command</li>
+<li>wmic command</li>
+<li>Windows Registry</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="MSINFO32" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The tool <strong>msinfo32</strong> is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>To launch <strong>msinfo32</strong>, simple press the <strong>Win+R</strong> keys, type <strong>msinfo32</strong> and click the <strong>OK</strong>-button.</p>
+<p class="image-container"><img alt="Windows Registry" src="img/cbd2d308ff633caf.png"></p>
+<p>Details about the CPU can be found in the System Summary section at the Processor value in the right pane.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Systeminfo" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The command-line tools <strong>systeminfo</strong> displays detailed configuration information about a computer and its operating system, including system configuration, security information, product details, and hardware properties.</p>
+<h2 is-upgraded>Sample code</h2>
+<ul>
+<li>Launch Windows PowerShell as an administrator, enter the command:  <pre><code>systeminfo
+</code></pre>
+</li>
+<li>The Windows PowerShell window displays some information about the processor on this computer.  <pre><code>Host Name:                 DESKTOP-325I5B9
+OS Name:                   Microsoft Windows 10 Education
+OS Version:                10.0.19042 N/A Build 19042
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          Windows User
+Registered Organization:
+Product ID:                00328-00000-00000-AA697
+Original Install Date:     03/11/2020, 08:01:50
+System Boot Time:          10/10/2021, 22:58:45
+System Manufacturer:       innotek GmbH
+System Model:              VirtualBox
+System Type:               x64-based PC
+Processor(s):              1 Processor(s) Installed.
+                       [01]: Intel64 Family 6 Model 60 Stepping 3 GenuineIntel ~3093 Mhz
+BIOS Version:              innotek GmbH VirtualBox, 01/12/2006
+Windows Directory:         C:\Windows
+System Directory:          C:\Windows\system32
+Boot Device:               \Device\HarddiskVolume1
+System Locale:             en-us;English (United States)
+Input Locale:              de;German (Germany)
+Time Zone:                 (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
+Total Physical Memory:     8.192 MB
+Available Physical Memory: 4.974 MB
+Virtual Memory: Max Size:  9.472 MB
+Virtual Memory: Available: 6.322 MB
+Virtual Memory: In Use:    3.150 MB
+Page File Location(s):     C:\pagefile.sys
+Domain:                    WORKGROUP
+Logon Server:              \\DESKTOP-325I5B9
+Hotfix(s):                 8 Hotfix(s) Installed.
+                       [01]: KB4586876
+                       [02]: KB4537759
+                       [03]: KB4557968
+                       [04]: KB4562830
+                       [05]: KB4577266
+                       [06]: KB4580325
+                       [07]: KB4598481
+                       [08]: KB4598242
+Network Card(s):           1 NIC(s) Installed.
+                       [01]: Intel(R) PRO/1000 MT Desktop Adapter
+                             Connection Name: Ethernet
+                             DHCP Enabled:    Yes
+                             DHCP Server:     10.0.2.2
+                             IP address(es)
+                             [01]: 10.0.2.15
+                             [02]: fa80::aae:127a:4ae6:5a5a
+Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.
+</code></pre>
+</li>
+</ul>
+<p>Details about the CPU can be found at the Processor value in the right pane, in this case a virtual CPU (vCPU).</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="WMIC" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>WMI (Windows Management Instrumentation) is a programming interface that can be used to capture many aspects of Windows operating systems. This ranges from hardware, operating system settings, performance data to installed applications. WMI allows to read and changed values. It also allows the execution of methods and functions.</p>
+<p>WMIC stands for WMI Command.</p>
+<h2 is-upgraded>Sample code</h2>
+<ul>
+<li>Open a command prompt</li>
+<li>Type and execute the following command:  <pre><code>wmic cpu get caption,deviceid,name,numberofcores,maxclockspeed,status
+</code></pre>
+</li>
+<li>The command produces the following output:  <pre><code>Caption                               DeviceID  MaxClockSpeed  Name                                      NumberOfCores  Status
+Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz  2              OK
+</code></pre>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Windows Registry" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The <strong>Windows registry</strong> is a database of information, settings, options and other values for software and hardware. The registry is installed on all versions of Microsoft Windows operating systems. The Windows Registry helps the operating system to manage the computer, it helps programs to use the resources, and it provides a location for keeping custom settings you make in both Windows and your programs.</p>
+<h2 is-upgraded>Sample code</h2>
+<ul>
+<li>Open the Windows Registry Editor</li>
+<li>Browse to the Windows Registry Key named <strong>Computer\HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor</strong></li>
+<li>Click on one of the subkeys to get information about the CPU (here 0). <img alt="Windows Registry" src="img/dcb8ec573359a290.png"></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Monitor the CPU on Windows" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use one of the following application to monitor the CPU on your Windows Host.</p>
+<ul>
+<li>Windows Task Manager (TaskMan)</li>
+<li>Windors Resource Monitor (ResMon)</li>
+<li>Windows Performance Monitor (PerfMon)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Windows Task Manager" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The <strong>Windows Task Manager</strong> is a utility program that reports the status of running programs. IT Administrators can use the Task Manager to monitor the performance of the computer, and to close a program that is not responding. Additionally,  Administrators can view network status, and see which users are connected to the computer.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>The <strong>Windows Task Manager (Taskmon)</strong> is a system tool found in all versions of Microsoft Windows platform&#39;s. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.</p>
+<p>To use Taskmon, open Start, do a search for <strong>taskman</strong>, and confirm the result.</p>
+<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/a96f1237b3ba2789.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Windows Resource Monitor" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The <strong>Windows Resource Monitor (Resmon)</strong> is a system application included in Windows Vista and later versions of Windows that allows users to look at the presence and allocation of resources on a computer.</p>
+<p>The Windows Task Manager can best be described as a tool that runs <strong>on</strong> the surface. It lists processes and services, and general resource usage. In contrast, the Resource Monitor gives you the option to look <strong>under</strong> the surface to get more information that the Task Manager does not provide.</p>
+<p>The Windows Resource Monitor can be used to determine extensive and detailed information about the current performance and resource consumption in real time. The program is therefore also suitable for error analysis. The view is divided into the following sections:</p>
+<ul>
+<li>Overview (CPU, disk, network, memory)</li>
+<li>CPU</li>
+<li>Memory</li>
+<li>Disk</li>
+<li>Network</li>
+</ul>
+<h2 is-upgraded>Sample code</h2>
+<p>To use Resmon, open Start, do a search for <strong>resmon</strong>, and confirm the result.</p>
+<p class="image-container"><img alt="htop" src="img/b327c367a936cab1.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Windows Performance Monitor (Perfmon)" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>On Windows 10, IT Administrators can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>To use Perfmon, open Start, do a search for <strong>perfmon</strong>, and confirm the result.</p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/6af70eaf4fb5255c.png"></p>
+<p>When you open the tool, the main page will show up with a brief overview, a system summary with real-time data about Memory, Network Interface, Physical Disk, and Processor Information. On the keft side, you will find the navigation pane with access to Monitoring Tools, Data Collector Sets, and Reports.<br><br> When you switch to the Performance Monitor, you will see a screen with a single counter. This is typically the <strong>Processor Time</strong> counter, which displays the processor load. <br></p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/60f00358e8319ef5.png"></p>
+<p>However, you can add a lot of other counters to monitor virtually anything on your computer. To add new counters to monitor applications and hardware performance on your computer, do the following steps:</p>
+<ul>
+<li>Click on the green <strong>Plus</strong> button above the Performance Monitor graph.</li>
+<li>Select Local computer (or the name of your computer) from the drop-down menu.</li>
+<li>Select and expand the category of the item you want to monitor.</li>
+<li>If applicable, select the instances you want to monitor. Click the <strong>Add</strong> button to add the new counters. <br></li>
+</ul>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/32bdffaa9a19e184.png"></p>
+<ul>
+<li>Finally, click on the <strong>OK</strong> button to confirm. Here you are !</li>
+</ul>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/e612bf43b9d273c5.png"></p>
+<p>The Performance Monitor also includes so-called Data Collectors Sets, which is where you can use existing sets or create custom sets containing performance counters and alerts based on specific criteria.</p>
+<p>In this lab, we will use the Data Collectors Set for Hyper-V. You can right-click your Data Collector Set under &#34;User Defined,&#34; and click <strong>Start</strong> to run it.</p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/9e30a83d7dc4197d.png"></p>
+<p>Wait 30 seconds, while <strong>Performance Monitor</strong> is collecting data. Then right-click the Data Collector set for Hyper-V and click on <strong>Stop</strong> to shut it down.</p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/9aea1ef85fb54b6a.png"></p>
+<p>The tools generates Reports for each run. To view these reports, click on the lastest Hyper-V report in the Report section and browse through the statistics.</p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/a9e5029122493140.png"></p>
+<aside class="special"><p> Consult the online documents for more details about this tool. Do your own research about the output and how to interpret the results. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

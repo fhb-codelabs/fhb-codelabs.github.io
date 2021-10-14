@@ -22,16 +22,19 @@
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  id="biti-ipm-compute-lab"
+                  id="biti-ipm-compute-linux-lab"
                   title="BITI IPM Lab - Compute"
                   environment="web"
                   feedback-link="">
     
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-<p>Every computer system benefits from proper administration and monitoring. A computer operates more quickly if few CPU-intensive processes are running at the same time.</p>
-<p>Therefore, it is important to know about the CPUs, how they are used and how fast they are. Additionally, it makes sense that administrators check the CPU usage on a regular basis to identify programs that unnecessarly burden the system.</p>
-<p>Luckily, IT administrators don&#39;t need special system information programs to find this information.There are plenty of command line utilities created for this purpose. This codelab will introduce you to some of the most helpful applications and how to use them.</p>
+<p>In this codelab you will learn</p>
+<ul>
+<li>how to get information about the CPU</li>
+<li>how to monitor CPU with Linux Tools</li>
+<li>how to perform a test run</li>
+</ul>
 <h2 is-upgraded>Where You Can Look Up</h2>
 <p>The <strong>man</strong> is a short term for manual page and acts as an interface to view the reference manual of a command.</p>
 <p>Syntax of man:</p>
@@ -53,12 +56,11 @@ DESCRIPTION
        ps displays information about a selection of the active processes.  If
        you want a repetitive update of the selection and the displayed
        information, use top(1) instead.
-...
-...
+--More--
 </code></pre>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye) or Microsoft Windows.</p>
+<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -77,8 +79,14 @@ DESCRIPTION
 <li>dmidecode -t processor command</li>
 <li>getconf _NPROCESSORS_ONLN command</li>
 </ul>
-<h2 is-upgraded>#1. The nproc command</h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="nproc" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>The <strong>nproc</strong> command displays the number of available processing units. The command is a built-in command in a Linux system.</p>
+<h2 is-upgraded>Sample code</h2>
 <p>Open a shell and run <strong>nproc</strong> with the following option:</p>
 <pre><code>echo &#34;Threads/core: $(nproc --all)&#34;
 </code></pre>
@@ -87,8 +95,14 @@ DESCRIPTION
 </code></pre>
 <aside class="special"><p> Without the --all flag, nproc will display the number of processing units available to the current process.<br> Use the --help flag for more information. </p>
 </aside>
-<h2 is-upgraded>#2. The lscpu command</h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="lscpu" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>On most Linux distributions, you can also use the <strong>lscpu</strong> command. It displays not only the number of processors but also the architecture, model name, speed, much more.</p>
+<h2 is-upgraded>Sample code</h2>
 <p>Open a shell and run the following command:</p>
 <pre><code>lscpu
 lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
@@ -167,8 +181,10 @@ NUMA node0 CPU(s):               0-3
 <li>Thread per core: 2</li>
 <li>Total threads: 4</li>
 </ul>
-<h2 is-upgraded>#3. cpuinfo</h2>
+<h2 is-upgraded>cpuinfo</h2>
+<h2 is-upgraded>Description</h2>
 <p>All Linux distributions allows you to run <strong>cat /proc/cpuinfo</strong>. This file contains details about the processors installed. Note that /proc is a pseudo-filesystem, it is used as an interface to kernel data structures.</p>
+<h2 is-upgraded>Sample code</h2>
 <p>Open a shell and run the following command:</p>
 <pre><code>cat /proc/cpuinfo | more
 </code></pre>
@@ -228,6 +244,7 @@ cpuid level	: 22
 </code></pre>
 <aside class="special"><p> Consult the documentation and man-pages for more details. Try to identify keywords and details of the CPU.  </p>
 </aside>
+<h2 is-upgraded>Sample code</h2>
 <p>To count the number of processing units use grep command.</p>
 <pre><code>cat /proc/cpuinfo | grep processor
 </code></pre>
@@ -250,10 +267,13 @@ cpu cores	: 2
 </code></pre>
 <aside class="special"><p> The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores. </p>
 </aside>
-<h2 is-upgraded>#4. The hwinfo command</h2>
+<h2 is-upgraded>hwinfo</h2>
+<h2 is-upgraded>Description</h2>
 <p>Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.</p>
 <aside class="special"><p> Hwinfo requires root privileges. </p>
 </aside>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the following command:</p>
 <pre><code>hwinfo | more
 </code></pre>
 <p>Sample output</p>
@@ -324,11 +344,13 @@ cpu:
 <p>Finally, the hwinfo has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.</p>
 <pre><code>hwinfo --all --log hardware_info.txt
 </code></pre>
-<h2 is-upgraded>#5. The dmidecode command</h2>
+<h2 is-upgraded>dmidecode</h2>
+<h2 is-upgraded>Description</h2>
 <p>The Linux command <strong>dmidecode</strong> reads the data from DMI (Desktop Management Interface) table which holds information for system&#39;s hardware components like BIOS Revision, Serial Number, CPU, RAM, etc.</p>
 <p>The tools is useful when users run into situations where they need to find out maximum RAM supported by the BIOS and motherboard, a serial number or a key piece of hardware information during troubleshooting.</p>
 <aside class="special"><p> Hwinfo requires root privileges. </p>
 </aside>
+<h2 is-upgraded>Sample code</h2>
 <p>To get information about the CPU, run dmidecode with -t option as shown below:</p>
 <pre><code>dmidecode -t processor | more
 </code></pre>
@@ -398,11 +420,14 @@ Processor Information
 	Core Count: 2
 	Thread Count: 4
 </code></pre>
-<h2 is-upgraded>#6. The getconf command</h2>
+<h2 is-upgraded>getconf</h2>
+<h2 is-upgraded>Description</h2>
 <p>The Linux command <strong>getconf</strong> displays the value of a specified configuration variable on the standard output. The <strong>getconf</strong> command is most portable solution as it runs on Linux and Mac OS X as well.</p>
-<p>The option <code>-a</code> displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the following code:</p>
 <pre><code>getconf -a
 </code></pre>
+<p>The option <code>-a</code> displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command</p>
 <p>Sample output:</p>
 <pre><code>getconf -a | more
 LINK_MAX                           65000
@@ -431,8 +456,14 @@ MAX_INPUT                          255
 <li>htop program</li>
 <li>mpstat command</li>
 </ul>
-<h2 is-upgraded>#1. The uptime command</h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="uptime" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>The command <strong>uptime</strong> shows the basic information. The Linux tool requires few system resources only and can be helpful when a system is responding slow.</p>
+<h2 is-upgraded>Sample code</h2>
 <p>Open a shell  and run the command as follows:</p>
 <pre><code>uptime
 </code></pre>
@@ -451,8 +482,14 @@ MAX_INPUT                          255
 </code></pre>
 <aside class="special"><p> Consult your documentation about the CPU load average, its meaning and how to interpret the numbers. </p>
 </aside>
-<h2 is-upgraded>#2. top</h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="top" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>One of the most common Linux tools for checking the CPU utilization is <strong>top</strong>. <br><br> Like <strong>uptime</strong>, the command <strong>top</strong> displays the CPU load averages. In addition, the command provides real-time CPU usage information as well as other performance metrics. Furthermore, top stays in the foreground and refreshes at regular intervals.</p>
+<h2 is-upgraded>Sample code</h2>
 <p>Run the <strong>top</strong> command as follows:</p>
 <pre><code>top
 </code></pre>
@@ -460,28 +497,30 @@ MAX_INPUT                          255
 <p>The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table  (the Process Table) with information about each individual process.</p>
 <aside class="special"><p> Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it. </p>
 </aside>
-<h2 is-upgraded>#3. htop</h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="htop" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>This tool is another interactive real-time process monitoring application for Linux. It has numerous nice user-friendly features which are not availble under the <strong>top</strong> command.</p>
-<p>Unfortunately, the program is not installed by default. Run the following command to install <strong>htop</strong> with the privileges of the root account:</p>
-<pre><code>apt update; apt install htop
-</code></pre>
-<aside class="special"><p> If errors occur due to lack of root privilegues, check the section Prerequisites for more details.  </p>
-</aside>
-<p>After successful installation, run the <strong>htop</strong> command as follows:</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the command as follows:</p>
 <pre><code>htop
 </code></pre>
 <p>The output will probably be very different from yours: <img alt="htop" src="img/545cd098a8dc4d86.png"></p>
 <p>The top section is more easier to read and the bottom section is better organized.</p>
 <aside class="special"><p> Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it. </p>
 </aside>
-<h2 is-upgraded>#4. mpstat</h2>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="mpstat" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>The tool <strong>mpstat</strong> is a Linux command that is used to report processor related statistics. It displays the statistics of the CPU usage of the system and information about CPU utilization. It initializes the first processor with CPU 0, the second one with CPU 1, and so on.</p>
-<p>The tool <strong>mpstat</strong> is part of the software package <strong>sysstat</strong>. Like <strong>htop</strong>, the program is not installed by default. Run the following command to install the <strong>systat</strong> package with the privileges of the root account:</p>
-<pre><code>apt update; apt install sysstat
-</code></pre>
-<aside class="special"><p> If errors occur, execute the command **su -** first before running the installation process. You will be prompted for the root password. Ask your instructor for the password and run the above command again.  </p>
-</aside>
-<p>After successful installation, run the <strong>mpstat</strong> command as follows:</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the <strong>mpstat</strong> command as follows:</p>
 <pre><code>mpstat
 </code></pre>
 <p>The output will probably be very different from yours:</p>
@@ -546,7 +585,7 @@ MAX_INPUT                          255
 
       </google-codelab-step>
     
-      <google-codelab-step label="Hands-On: CPU Monitoring on Linux" duration="0">
+      <google-codelab-step label="Hands-On: CPU Monitoring" duration="0">
         <h2 is-upgraded>What you will learn:</h2>
 <p>In this codelab, you will learn</p>
 <ul>
@@ -567,10 +606,18 @@ MAX_INPUT                          255
 <pre><code>stress -c 2 -t 120s
 </code></pre>
 <p>This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.</p>
-<h2 is-upgraded>Scenario</h2>
-<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
-<h2 is-upgraded>Test Run</h2>
-<ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Scenario" duration="0">
+        <p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Test Run" duration="0">
+        <ul>
 <li>Open a shell terminal and execute the following command:  <pre><code>htop
 </code></pre>
 </li>
@@ -603,149 +650,6 @@ Sample output  <pre><code>root@server&#39; Process 31210 detected
 </code></pre>
 <p>Finally, you can close all open terminals.</p>
 <p>This is the end of the hands-on.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Display CPU information on Microsoft Windows" duration="0">
-        <h2 is-upgraded>What You will learn:</h2>
-<p>You can use one of the following commands to find some information about the physical CPUs (pCPU) including all cores on Windows:</p>
-<ul>
-<li>msinfo32 application</li>
-<li>systeminfo command</li>
-<li>wmic command</li>
-<li>Windows Registry</li>
-</ul>
-<h2 is-upgraded>#1. The msinfo32 application</h2>
-<p>The tool <strong>msinfo32</strong> is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.</p>
-<p>To launch <strong>msinfo32</strong>, simple press the <strong>Win+R</strong> keys, type <strong>msinfo32</strong> and click the <strong>OK</strong>-button.</p>
-<p class="image-container"><img alt="Windows Registry" src="img/cbd2d308ff633caf.png"></p>
-<p>Details about the CPU can be found in the System Summary section at the Processor value in the right pane.</p>
-<h2 is-upgraded>#2. Systeminfo (Powershell)</h2>
-<p>Using this method, you can find out system information in Windows PowerShell.</p>
-<ul>
-<li>Launch Windows PowerShell as an administrator, enter the command:  <pre><code>systeminfo
-</code></pre>
-</li>
-<li>The Windows PowerShell window displays some information about the processor on this computer.  <pre><code>Host Name:                 DESKTOP-325I5B9
-OS Name:                   Microsoft Windows 10 Education
-OS Version:                10.0.19042 N/A Build 19042
-OS Manufacturer:           Microsoft Corporation
-OS Configuration:          Standalone Workstation
-OS Build Type:             Multiprocessor Free
-Registered Owner:          Windows User
-Registered Organization:
-Product ID:                00328-00000-00000-AA697
-Original Install Date:     03/11/2020, 08:01:50
-System Boot Time:          10/10/2021, 22:58:45
-System Manufacturer:       innotek GmbH
-System Model:              VirtualBox
-System Type:               x64-based PC
-Processor(s):              1 Processor(s) Installed.
-                       [01]: Intel64 Family 6 Model 60 Stepping 3 GenuineIntel ~3093 Mhz
-BIOS Version:              innotek GmbH VirtualBox, 01/12/2006
-Windows Directory:         C:\Windows
-System Directory:          C:\Windows\system32
-Boot Device:               \Device\HarddiskVolume1
-System Locale:             en-us;English (United States)
-Input Locale:              de;German (Germany)
-Time Zone:                 (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
-Total Physical Memory:     8.192 MB
-Available Physical Memory: 4.974 MB
-Virtual Memory: Max Size:  9.472 MB
-Virtual Memory: Available: 6.322 MB
-Virtual Memory: In Use:    3.150 MB
-Page File Location(s):     C:\pagefile.sys
-Domain:                    WORKGROUP
-Logon Server:              \\DESKTOP-325I5B9
-Hotfix(s):                 8 Hotfix(s) Installed.
-                       [01]: KB4586876
-                       [02]: KB4537759
-                       [03]: KB4557968
-                       [04]: KB4562830
-                       [05]: KB4577266
-                       [06]: KB4580325
-                       [07]: KB4598481
-                       [08]: KB4598242
-Network Card(s):           1 NIC(s) Installed.
-                       [01]: Intel(R) PRO/1000 MT Desktop Adapter
-                             Connection Name: Ethernet
-                             DHCP Enabled:    Yes
-                             DHCP Server:     10.0.2.2
-                             IP address(es)
-                             [01]: 10.0.2.15
-                             [02]: fa80::aae:127a:4ae6:5a5a
-Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.
-</code></pre>
-</li>
-</ul>
-<p>Details about the CPU can be found at the Processor value in the right pane, in this case a virtual CPU (vCPU).</p>
-<h2 is-upgraded>#3. Windows Powershell / Command Prompt</h2>
-<ul>
-<li>Open a command prompt</li>
-<li>Type and execute the following command:  <pre><code>wmic cpu get caption,deviceid,name,numberofcores,maxclockspeed,status
-</code></pre>
-</li>
-<li>The command produces the following output:  <pre><code>Caption                               DeviceID  MaxClockSpeed  Name                                      NumberOfCores  Status
-Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM) i3-4160T CPU @ 3.10GHz  2              OK
-</code></pre>
-</li>
-</ul>
-<h2 is-upgraded>#4. Windows Registry</h2>
-<ul>
-<li>Open the Windows Registry Editor</li>
-<li>Browse to the Windows Registry Key named <strong>Computer\HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor</strong></li>
-<li>Click on one of the subkeys to get information about the CPU (here 0). <img alt="Windows Registry" src="img/dcb8ec573359a290.png"></li>
-</ul>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Monitor the CPU on Windows" duration="0">
-        <h2 is-upgraded>#1. Windows Task Manager</h2>
-<p>The <strong>Windows Task Manager (Taskmon)</strong> is a system tool found in all versions of Microsoft Windows platform&#39;s. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.</p>
-<p>To use Taskmon, open Start, do a search for <strong>taskman</strong>, and confirm the result.</p>
-<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/a96f1237b3ba2789.png"></p>
-<h2 is-upgraded>#2. Windows Resource Monitor</h2>
-<p>The <strong>Windows Resource Monitor (Resmon)</strong> is a system application included in Windows Vista and later versions of Windows that allows users to look at the presence and allocation of resources on a computer.</p>
-<p>The Windows Task Manager can best be described as a tool that runs <strong>on</strong> the surface. It lists processes and services, and general resource usage. In contrast, the Resource Monitor gives you the option to look <strong>under</strong> the surface to get more information that the Task Manager does not provide.</p>
-<p>The Windows Resource Monitor can be used to determine extensive and detailed information about the current performance and resource consumption in real time. The program is therefore also suitable for error analysis. The view is divided into the following sections:</p>
-<ul>
-<li>Overview (CPU, disk, network, memory)</li>
-<li>CPU</li>
-<li>Memory</li>
-<li>Disk</li>
-<li>Network</li>
-</ul>
-<p>To use Resmon, open Start, do a search for <strong>resmon</strong>, and confirm the result.</p>
-<p class="image-container"><img alt="htop" src="img/b327c367a936cab1.png"></p>
-<h2 is-upgraded>#3. Windows Performance Monitor (Perfmon)</h2>
-<p>On Windows 10, users can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
-<p>To use Permon, open Start, do a search for <strong>perfmon</strong>, and confirm the result.</p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/6af70eaf4fb5255c.png"></p>
-<p>When you open the tool, the main page will show up with a brief overview, a system summary with real-time data about Memory, Network Interface, Physical Disk, and Processor Information. On the keft side, you will find the navigation pane with access to Monitoring Tools, Data Collector Sets, and Reports.<br><br> When you switch to the Performance Monitor, you will see a screen with a single counter. This is typically the <strong>Processor Time</strong> counter, which displays the processor load. <br></p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/60f00358e8319ef5.png"></p>
-<p>However, you can add a lot of other counters to monitor virtually anything on your computer. To add new counters to monitor applications and hardware performance on your computer, do the following steps:</p>
-<ul>
-<li>Click on the green <strong>Plus</strong> button above the Performance Monitor graph.</li>
-<li>Select Local computer (or the name of your computer) from the drop-down menu.</li>
-<li>Select and expand the category of the item you want to monitor.</li>
-<li>If applicable, select the instances you want to monitor. Click the <strong>Add</strong> button to add the new counters. <br></li>
-</ul>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/32bdffaa9a19e184.png"></p>
-<ul>
-<li>Finally, click on the <strong>OK</strong> button to confirm. Here you are !</li>
-</ul>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/e612bf43b9d273c5.png"></p>
-<p>The Performance Monitor also includes so-called Data Collectors Sets, which is where you can use existing sets or create custom sets containing performance counters and alerts based on specific criteria.</p>
-<p>In this lab, we will use the Data Collectors Set for Hyper-V. You can right-click your Data Collector Set under &#34;User Defined,&#34; and click <strong>Start</strong> to run it.</p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/9e30a83d7dc4197d.png"></p>
-<p>Wait 30 seconds, while <strong>Performance Monitor</strong> is collecting data. Then right-click the Data Collector set for Hyper-V and click on <strong>Stop</strong> to shut it down.</p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/9aea1ef85fb54b6a.png"></p>
-<p>The tools generates Reports for each run. To view these reports, click on the lastest Hyper-V report in the Report section and browse through the statistics.</p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/a9e5029122493140.png"></p>
-<aside class="special"><p> Consult the online documents for more details about this tool. Do your own research about the output and how to interpret the results. </p>
-</aside>
 
 
       </google-codelab-step>
