@@ -184,7 +184,7 @@ $color-google-blue, 'wear-os.svg');
   $color-google-maps-green, 'google-maps.svg');
 
 @include codelab-card(['linux'],
-        $color-blue-grey, 'linux-tux.svg');
+        $color-google-green, 'linux-tux.svg');
 
 @include codelab-card(['nest'],
   $color-nest-grey, 'nest.svg');
@@ -217,4 +217,4 @@ $color-weave-green, 'weave.svg');
   $color-google-blue, 'web.svg');
 
 @include codelab-card(['windows'],
-  $color-google-grey, 'windows.svg');
+  $color-google-blue, 'windows.svg');

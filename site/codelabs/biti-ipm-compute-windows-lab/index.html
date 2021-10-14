@@ -44,7 +44,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Display CPU information on Microsoft Windows" duration="0">
+      <google-codelab-step label="CPU Information" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
 <p>You can use one of the following commands to find some information about the physical CPUs (pCPU) including all cores on Windows:</p>
 <ul>
@@ -57,7 +57,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="MSINFO32" duration="0">
+      <google-codelab-step label="msinfo32" duration="0">
         <h2 is-upgraded>Description</h2>
 <p>The tool <strong>msinfo32</strong> is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.</p>
 <h2 is-upgraded>Sample code</h2>
@@ -133,7 +133,7 @@ Hyper-V Requirements:      A hypervisor has been detected. Features required for
 
       </google-codelab-step>
     
-      <google-codelab-step label="WMIC" duration="0">
+      <google-codelab-step label="wmic" duration="0">
         <h2 is-upgraded>Description</h2>
 <p>WMI (Windows Management Instrumentation) is a programming interface that can be used to capture many aspects of Windows operating systems. This ranges from hardware, operating system settings, performance data to installed applications. WMI allows to read and changed values. It also allows the execution of methods and functions.</p>
 <p>WMIC stands for WMI Command.</p>
@@ -165,7 +165,7 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
 
       </google-codelab-step>
     
-      <google-codelab-step label="Monitor the CPU on Windows" duration="0">
+      <google-codelab-step label="CPU Monitoring" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
 <p>You can use one of the following application to monitor the CPU on your Windows Host.</p>
 <ul>
@@ -183,7 +183,7 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
 <h2 is-upgraded>Sample code</h2>
 <p>The <strong>Windows Task Manager (Taskmon)</strong> is a system tool found in all versions of Microsoft Windows platform&#39;s. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.</p>
 <p>To use Taskmon, open Start, do a search for <strong>taskman</strong>, and confirm the result.</p>
-<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/a96f1237b3ba2789.png"></p>
+<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/2cb687c06bd49267.png"></p>
 
 
       </google-codelab-step>
@@ -202,40 +202,94 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
 </ul>
 <h2 is-upgraded>Sample code</h2>
 <p>To use Resmon, open Start, do a search for <strong>resmon</strong>, and confirm the result.</p>
-<p class="image-container"><img alt="htop" src="img/b327c367a936cab1.png"></p>
+<p class="image-container"><img alt="htop" src="img/e756b299991a3ba.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Windows Performance Monitor (Perfmon)" duration="0">
+      <google-codelab-step label="Windows Performance Monitor" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>On Windows 10, IT Administrators can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
+<p>On Microsoft Windows, IT Administrators can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>To use Perfmon, open Start, do a search for <strong>perfmon</strong>, and confirm the result.</p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/6af70eaf4fb5255c.png"></p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/93f6bbdc98a86e54.png"></p>
 <p>When you open the tool, the main page will show up with a brief overview, a system summary with real-time data about Memory, Network Interface, Physical Disk, and Processor Information. On the keft side, you will find the navigation pane with access to Monitoring Tools, Data Collector Sets, and Reports.<br><br> When you switch to the Performance Monitor, you will see a screen with a single counter. This is typically the <strong>Processor Time</strong> counter, which displays the processor load. <br></p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/60f00358e8319ef5.png"></p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/2bc94c09c5f2d32f.png"></p>
 <p>However, you can add a lot of other counters to monitor virtually anything on your computer. To add new counters to monitor applications and hardware performance on your computer, do the following steps:</p>
 <ul>
 <li>Click on the green <strong>Plus</strong> button above the Performance Monitor graph.</li>
 <li>Select Local computer (or the name of your computer) from the drop-down menu.</li>
 <li>Select and expand the category of the item you want to monitor.</li>
-<li>If applicable, select the instances you want to monitor. Click the <strong>Add</strong> button to add the new counters. <br></li>
+<li>If applicable, select the instances you want to monitor. Click the <strong>Add</strong> button to add the new counters. <img alt="Windows Performance Monitor" src="img/455c7aa5937d1043.png"></li>
+<li>Finally, click on the <strong>OK</strong> button to confirm. Here you are ! <img alt="Windows Performance Monitor" src="img/540af69b98642658.png"></li>
 </ul>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/32bdffaa9a19e184.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Hands-On" duration="0">
+        <h2 is-upgraded>What you will learn:</h2>
+<p>In this codelab, you will learn</p>
 <ul>
-<li>Finally, click on the <strong>OK</strong> button to confirm. Here you are !</li>
+<li>how to use the dstat tool</li>
+<li>how to generate workload</li>
+<li>how to create a report file</li>
 </ul>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/e612bf43b9d273c5.png"></p>
-<p>The Performance Monitor also includes so-called Data Collectors Sets, which is where you can use existing sets or create custom sets containing performance counters and alerts based on specific criteria.</p>
-<p>In this lab, we will use the Data Collectors Set for Hyper-V. You can right-click your Data Collector Set under &#34;User Defined,&#34; and click <strong>Start</strong> to run it.</p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/9e30a83d7dc4197d.png"></p>
-<p>Wait 30 seconds, while <strong>Performance Monitor</strong> is collecting data. Then right-click the Data Collector set for Hyper-V and click on <strong>Stop</strong> to shut it down.</p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/9aea1ef85fb54b6a.png"></p>
-<p>The tools generates Reports for each run. To view these reports, click on the lastest Hyper-V report in the Report section and browse through the statistics.</p>
-<p class="image-container"><img alt="Windows Performance Monitor" src="img/a9e5029122493140.png"></p>
-<aside class="special"><p> Consult the online documents for more details about this tool. Do your own research about the output and how to interpret the results. </p>
-</aside>
+<h2 is-upgraded>What you will need:</h2>
+<p>In this codelab, you will need the following tools:</p>
+<ul>
+<li>PerfMon</li>
+</ul>
+<h2 is-upgraded>Scenario</h2>
+<p>In this codelab, the target is a virtual Machine with 2 CPU Cores and 8 GB RAM. The operating system is based on Windows 10 Educatuinm Version 10,0,19042 Build 19042. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6,1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<h2 is-upgraded>Test Run</h2>
+<p>To add Perfmon counters to monitor CPU Utilization please execute the following steps.</p>
+<ul>
+<li>Run Performance Monitor (Perfmon.exe) this is part of the Windows Administrative tools.</li>
+<li>Navigate to Performance -&gt; Data Collector Sets -&gt; User Defined</li>
+<li>In the Right hand Pane right click and Select New - &gt; Data Collector Set</li>
+<li>Provide a Friendly name (i.e. Task Set) <img alt="Windows Performance Monitor" src="img/48fa2f151878de40.png"><br></li>
+<li>Click on &#34;Create Manually (Advanced)&#34;</li>
+<li>Click &#34;Next&#34;</li>
+<li>Under &#34;Create Data Logs&#34; select Performance Counter <img alt="Windows Performance Monitor" src="img/f12c306eae9f5e13.png"><br></li>
+<li>Click Finish</li>
+</ul>
+<p>The data set (i.e. Task Set) should now appear in the right hand pane.</p>
+<ul>
+<li>Double click on the data set (ie Task Set)</li>
+<li>&#34;DataCollector01&#34; should appear in the right hand pane. <img alt="Windows Performance Monitor" src="img/66fe8378005afbf8.png"><br></li>
+<li>Double click on the &#34;DataCollector01&#34;</li>
+<li>In the &#34;Performance Counters&#34; tab click Add.<br><img alt="Windows Performance Monitor" src="img/beb9ebdab5356c1b.png"><br></li>
+<li>A list of the available counters appears on the screen,  Navigate to &#34;LogicalDisk&#34; and click to highlight (do NOT expand the list).  Under instances of Selected objects select the specific volume (drive) where the journal files are located (ie C:) and click &#34;Add&#34;.</li>
+</ul>
+<p>This will list all Processor performance counters. You will see something like the following in the Added Counters window: <img alt="Windows Performance Monitor" src="img/e16848ca1d73d0dd.png"></p>
+<ul>
+<li>Click OK to return to the &#34;DataCollector01&#34; Properties screen.</li>
+<li>Leave the other values at default settings - Log Format set to &#34;Binary&#34; and Sample Interval set to &#34;15&#34; Seconds and Click &#34;OK&#34;</li>
+</ul>
+<p>This creates the basic dataset.</p>
+<ul>
+<li>The data set (ie Task Set) should now appear in the left hand pane.  Right click and select &#34;Properties&#34;</li>
+<li>The DataSet Properties includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png">  <ul>
+<li>Use the General tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM)</li>
+<li>Use the Directory tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.</li>
+<li>Use the schedule tab to Set the days to run and the time to commence collection.  This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am</li>
+<li>Use the Stop Condition to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).</li>
+</ul>
+</li>
+<li>Click OK when all required parameters are configured.</li>
+<li>You can start data collection by clicking on the DataSet (ie Task Set) right click and press start. <img alt="Windows Performance Monitor" src="img/9201675bd5a98527.png"></li>
+<li>You can stop data collection by clicking on the DataSet (ie Task Set) right click and press stop. <img alt="Windows Performance Monitor" src="img/306d8712ff2262c4.png"></li>
+<li>Navigate to Performance -&gt; Reports -&gt; User Defined –&gt; Data set (ie Task Set)</li>
+<li>Open the last recent report <img alt="Windows Performance Monitor" src="img/6e45a689f9e7f4c6.png"></li>
+<li>You can change the graph type from line to report if you are a fan of numbers. <img alt="Windows Performance Monitor" src="img/226410321605aa59.png"></li>
+</ul>
+<h2 is-upgraded>Clean Up</h2>
+<ul>
+<li>Finally, delete the data collector set aby clicking on the DataSet (ie Task Set) right click and press Delete. <img alt="Windows Performance Monitor" src="img/a85661b2129ddb0f.png"></li>
+<li>Repeat the step above for the Reports as well.</li>
+</ul>
+<p>This is the end of the hands-on.</p>
 
 
       </google-codelab-step>

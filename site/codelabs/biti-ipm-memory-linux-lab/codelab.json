@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-14T15:28:09+02:00",
-  "id": "biti-ipm-compute-linux-lab",
+  "updated": "2021-10-14T16:09:59+02:00",
+  "id": "biti-ipm-memory-linux-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Compute",
+  "title": "BITI IPM Lab - Memory",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Compute",
-  "source": "biti-ipm-compute-linux-lab.md",
+  "summary": "BITI IPM Lab - Memory",
+  "source": "biti-ipm-memory-windows-lab.md",
   "theme": "",
   "status": [
     "published"
@@ -19,10 +19,10 @@
   ],
   "tags": [
     "biti",
-    "compute",
-    "cpu",
     "introduction",
-    "ipm"
+    "ipm",
+    "memory",
+    "ram"
   ],
-  "url": "biti-ipm-compute-linux-lab"
+  "url": "biti-ipm-memory-linux-lab"
 }
