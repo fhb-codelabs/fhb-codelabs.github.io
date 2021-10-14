@@ -1,0 +1,208 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>BITI IPM Lab - Memory</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="biti-ipm-memory-windows-lab"
+                  title="BITI IPM Lab - Memory"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Before You Begin" duration="0">
+        <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<p>In this codelab you will learn</p>
+<ul>
+<li>how to get information about the Memory</li>
+<li>how to monitor Memory with Windows Tools</li>
+</ul>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Microsoft Windows.</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Memory information" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use one of the following commands to find detailed information about the physical CPUs (pCPU) including all cores on Linux:</p>
+<ul>
+<li>meminfo32<br></li>
+<li>systeminfo</li>
+<li>pagefile</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="msinfo32" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The tool <strong>msinfo32</strong> is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>To launch <strong>msinfo32</strong>, simple press the <strong>Win+R</strong> keys, type <strong>msinfo32</strong> and click the <strong>OK</strong>-button.</p>
+<p class="image-container"><img alt="Windows Registry" src="img/b42a4dcf2e5cd841.png"></p>
+<p>Details about the CPU can be found in the System Summary section at the Processor value in the right pane.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Systeminfo" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The command-line tools <strong>systeminfo</strong> displays detailed configuration information about a computer and its operating system, including system configuration, security information, product details, and hardware properties.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Launch Windows PowerShell as an administrator, enter the command:</p>
+<pre><code>systeminfo
+</code></pre>
+<h2 is-upgraded>Sample output</h2>
+<p>The Windows PowerShell window displays some information about the memory on this computer.</p>
+<pre><code>--More--
+Total Physical Memory:     8.192 MB
+Available Physical Memory: 4.974 MB
+Virtual Memory: Max Size:  9.472 MB
+Virtual Memory: Available: 6.322 MB
+Virtual Memory: In Use:    3.150 MB
+Page File Location(s):     C:\pagefile.sys
+--More--
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Memory Monitoring" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use one of the following application to monitor the CPU on your Windows Host.</p>
+<ul>
+<li>Windows Task Manager (TaskMan)</li>
+<li>Windors Resource Monitor (ResMon)</li>
+<li>Windows Performance Monitor (PerfMon)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Windows Task Manager" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The <strong>Windows Task Manager</strong> is a utility program that reports the status of running programs. IT Administrators can use the Task Manager to monitor the performance of the computer, and to close a program that is not responding. Additionally,  Administrators can view network status, and see which users are connected to the computer.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>The <strong>Windows Task Manager (Taskmon)</strong> is a system tool found in all versions of Microsoft Windows platform&#39;s. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.</p>
+<p>To use Taskmon, open Start, do a search for <strong>taskman</strong>, and confirm the result.</p>
+<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/5b4648e58689e2d6.png"></p>
+<p>To see applicameory used by applications, go to tab Processes and click on column Memory. <img alt="Windows Task Manager (advanced view)" src="img/d5c410416cd08806.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Windows Resource Monitor" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The <strong>Windows Resource Monitor (Resmon)</strong> is a system application included in Windows Vista and later versions of Windows that allows users to look at the presence and allocation of resources on a computer.</p>
+<p>The Windows Task Manager can best be described as a tool that runs <strong>on</strong> the surface. It lists processes and services, and general resource usage. In contrast, the Resource Monitor gives you the option to look <strong>under</strong> the surface to get more information that the Task Manager does not provide.</p>
+<p>The Windows Resource Monitor can be used to determine extensive and detailed information about the current performance and resource consumption in real time. The program is therefore also suitable for error analysis. The view is divided into the following sections:</p>
+<ul>
+<li>Overview (CPU, disk, network, memory)</li>
+<li>CPU</li>
+<li>Memory</li>
+<li>Disk</li>
+<li>Network</li>
+</ul>
+<h2 is-upgraded>Sample code</h2>
+<p>To use Resmon, open Start, do a search for <strong>resmon</strong>, and confirm the result. Click on the Tab &#34;Memory&#34;.</p>
+<p class="image-container"><img alt="htop" src="img/3566bb255b3d1cdf.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Windows Performance Monitor" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>On Microsoft Windows, IT Administrators can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>To use Perfmon, open Start, do a search for <strong>perfmon</strong>, and confirm the result.</p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/93f6bbdc98a86e54.png"></p>
+<p>When you open the tool, the main page will show up with a brief overview, a system summary with real-time data about Memory, Network Interface, Physical Disk, and Processor Information. On the keft side, you will find the navigation pane with access to Monitoring Tools, Data Collector Sets, and Reports.<br><br> When you switch to the Performance Monitor, you will see a screen with a single counter. This is typically the <strong>Processor Time</strong> counter, which displays the processor load. <br></p>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/2bc94c09c5f2d32f.png"></p>
+<p>However, you can add a lot of other counters to monitor virtually anything on your computer. To add new counters to monitor applications and hardware performance on your computer, do the following steps:</p>
+<ul>
+<li>Click on the green <strong>Plus</strong> button above the Performance Monitor graph.</li>
+<li>Select Local computer (or the name of your computer) from the drop-down menu.</li>
+<li>Select and expand the category of the item you want to monitor.</li>
+<li>If applicable, select the instances you want to monitor. Click the <strong>Add</strong> button to add the new counters.</li>
+</ul>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/9a87855f5744ad60.png"></p>
+<ul>
+<li>Finally, click on the <strong>OK</strong> button to confirm. Here you are !</li>
+</ul>
+<p class="image-container"><img alt="Windows Performance Monitor" src="img/21a02631c5da6a25.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pagefile Configuration" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>A page file (also known as a &#34;paging file&#34;) is an optional, hidden system file on a hard disk. Page files enable the system to remove infrequently accessed modified pages from physical memory to let the system use physical memory more efficiently for more frequently accessed pages.</p>
+<p>Page file sizing depends on the system crash dump setting requirements and the peak usage or expected peak usage of the system commit charge. Both considerations are unique to each system, even for systems that are identical. This means that page file sizing is also unique to each system and cannot be generalized.</p>
+<h2 is-upgraded>Pagefile size</h2>
+<p>If you want to change the the size of the pagefile, then follow me:</p>
+<ul>
+<li>Press the Windows key.</li>
+<li>Type &#34;SystemPropertiesAdvanced&#34;. You&#39;ll see this: <img alt="Windows Registry" src="img/f41baa634fa49007.png"></li>
+<li>Click on &#34;Run as administrator.&#34; You&#39;ll see the advanced properties page:</li>
+</ul>
+<p class="image-container"><img alt="Windows Registry" src="img/7390e9e101728d16.png"></p>
+<ul>
+<li>Click on &#34;Settings..&#34; You&#39;ll see the performance options tab.</li>
+</ul>
+<p class="image-container"><img alt="Windows Registry" src="img/dc7aaf5659de1eb2.png"></p>
+<ul>
+<li>Select the &#34;Advanced&#34; tab. You&#39;ll see the following panel.</li>
+</ul>
+<p class="image-container"><img alt="Windows Registry" src="img/9343a4f0dbe203f2.png"></p>
+<ul>
+<li>Select &#34;Change...&#34;. You&#39;ll see the following panel.</li>
+</ul>
+<p class="image-container"><img alt="Windows Registry" src="img/d84a808fb76259a3.png"></p>
+<ul>
+<li>Make sure the checkbox &#34;Automatically managing paging file size for all drives&#34; is not checked, as shown above. Then select &#34;Custom size:&#34; and fill in an appropriate size (here: 16MB, 512MB)</li>
+</ul>
+<p class="image-container"><img alt="Windows Registry" src="img/ac499df40c48c922.png"></p>
+<ul>
+<li>Press &#34;Set&#34;, press &#34;Ok&#34;, then exit from the Virtual Memory, Performance Options, and Systems Properties Dialog.</li>
+<li>Reboot your system.</li>
+</ul>
+<h2 is-upgraded>Committed  Memory</h2>
+<p>Page files extend how much &#34;committed memory&#34; (also known as &#34;virtual memory&#34;) is used to store modified data. The system commit memory limit is the sum of physical memory and all page files combined. It represents the maximum system-committed memory (also known as the &#34;system commit charge&#34;) that the system can support. In our case, the committed memory is 2,8 / 9,2 GB.</p>
+<p class="image-container"><img alt="Windows Registry" src="img/5b4648e58689e2d6.png"></p>
+<p>The system commit charge is the total committed or &#34;promised&#34; memory of all committed virtual memory in the system. If the system commit charge reaches the system commit limit, the system and processes might not get committed memory. This condition can cause freezing, crashing, and other malfunctions. Therefore, make sure that you set the system commit limit high enough to support the system commit charge during peak usage.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

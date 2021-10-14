@@ -28,7 +28,7 @@ By default, administrator privileges are required on the Host OS to install addi
 
 For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
 
-## Display CPU information on Microsoft Windows
+## CPU Information
 
 ### What You will learn:
 
@@ -39,7 +39,7 @@ You can use one of the following commands to find some information about the phy
 * wmic command
 * Windows Registry
 
-## MSINFO32
+## msinfo32
 
 ### Description
 
@@ -49,7 +49,7 @@ The tool **msinfo32** is a built-in system profiler for Microsoft Windows which 
 
 To launch **msinfo32**, simple press the **Win+R** keys, type **msinfo32** and click the **OK**-button.
 
-![Windows Registry](./img/biti-ipm-compute-windows-msinfo32-cpu.png)
+![Windows Registry](./img/biti-ipm-memory-windows-msinfo32.png)
 
 Details about the CPU can be found in the System Summary section at the Processor value in the right pane.
 
@@ -69,60 +69,13 @@ systeminfo
 
 * The Windows PowerShell window displays some information about the processor on this computer.
 ```
-Host Name:                 DESKTOP-325I5B9
-OS Name:                   Microsoft Windows 10 Education
-OS Version:                10.0.19042 N/A Build 19042
-OS Manufacturer:           Microsoft Corporation
-OS Configuration:          Standalone Workstation
-OS Build Type:             Multiprocessor Free
-Registered Owner:          Windows User
-Registered Organization:
-Product ID:                00328-00000-00000-AA697
-Original Install Date:     03/11/2020, 08:01:50
-System Boot Time:          10/10/2021, 22:58:45
-System Manufacturer:       innotek GmbH
-System Model:              VirtualBox
-System Type:               x64-based PC
+--MOre--
 Processor(s):              1 Processor(s) Installed.
                            [01]: Intel64 Family 6 Model 60 Stepping 3 GenuineIntel ~3093 Mhz
-BIOS Version:              innotek GmbH VirtualBox, 01/12/2006
-Windows Directory:         C:\Windows
-System Directory:          C:\Windows\system32
-Boot Device:               \Device\HarddiskVolume1
-System Locale:             en-us;English (United States)
-Input Locale:              de;German (Germany)
-Time Zone:                 (UTC+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna
-Total Physical Memory:     8.192 MB
-Available Physical Memory: 4.974 MB
-Virtual Memory: Max Size:  9.472 MB
-Virtual Memory: Available: 6.322 MB
-Virtual Memory: In Use:    3.150 MB
-Page File Location(s):     C:\pagefile.sys
-Domain:                    WORKGROUP
-Logon Server:              \\DESKTOP-325I5B9
-Hotfix(s):                 8 Hotfix(s) Installed.
-                           [01]: KB4586876
-                           [02]: KB4537759
-                           [03]: KB4557968
-                           [04]: KB4562830
-                           [05]: KB4577266
-                           [06]: KB4580325
-                           [07]: KB4598481
-                           [08]: KB4598242
-Network Card(s):           1 NIC(s) Installed.
-                           [01]: Intel(R) PRO/1000 MT Desktop Adapter
-                                 Connection Name: Ethernet
-                                 DHCP Enabled:    Yes
-                                 DHCP Server:     10.0.2.2
-                                 IP address(es)
-                                 [01]: 10.0.2.15
-                                 [02]: fa80::aae:127a:4ae6:5a5a
-Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.
+--More--
 ```
 
-Details about the CPU can be found at the Processor value in the right pane, in this case a virtual CPU (vCPU).
-
-## WMIC
+## wmic
 
 ### Description
 WMI (Windows Management Instrumentation) is a programming interface that can be used to capture many aspects of Windows operating systems. This ranges from hardware, operating system settings, performance data to installed applications. WMI allows to read and changed values. It also allows the execution of methods and functions.
@@ -137,6 +90,8 @@ WMIC stands for WMI Command.
 ```
 wmic cpu get caption,deviceid,name,numberofcores,maxclockspeed,status
 ```
+
+### Sample output
 
 * The command produces the following output:
 
@@ -158,7 +113,7 @@ The **Windows registry** is a database of information, settings, options and oth
 ![Windows Registry](./img/biti-ipm-compute-windows-registry.png)
 
 
-## Monitor the CPU on Windows
+## CPU Monitoring
 
 ### What You will learn:
 You can use one of the following application to monitor the CPU on your Windows Host.
@@ -205,24 +160,24 @@ To use Resmon, open Start, do a search for **resmon**, and confirm the result.
 ![htop](./img/biti-ipm-compute-windows-resmon.png)
 
 
-## Windows Performance Monitor (Perfmon)
+## Windows Performance Monitor
 
 ### Description
 
-On Windows 10, IT Administrators can use **Windows Performance Monitor** to analyze data, such as processor, hard drive, memory, and network usage.
+On Microsoft Windows, IT Administrators can use **Windows Performance Monitor** to analyze data, such as processor, hard drive, memory, and network usage.
 
 ### Sample code
 
 To use Perfmon, open Start, do a search for **perfmon**, and confirm the result.
 
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-main.png)
+![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-1.png)
 
 When you open the tool, the main page will show up with a brief overview, a system summary with real-time data about Memory, Network Interface, Physical Disk, and Processor Information. On the keft side, you will find the navigation pane with access to Monitoring Tools, Data Collector Sets, and Reports.<br>
 <br>
 When you switch to the Performance Monitor, you will see a screen with a single counter. This is typically the **Processor Time** counter, which displays the processor load.
 <br>
 
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-performance.png)
+![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-2.png)
 
 However, you can add a lot of other counters to monitor virtually anything on your computer. To add new counters to monitor applications and hardware performance on your computer, do the following steps:
 
@@ -230,29 +185,86 @@ However, you can add a lot of other counters to monitor virtually anything on yo
 - Select Local computer (or the name of your computer) from the drop-down menu.
 - Select and expand the category of the item you want to monitor. 
 - If applicable, select the instances you want to monitor. Click the **Add** button to add the new counters.
-<br>
-
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-addcounter.png)
-
+![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-3.png)
 - Finally, click on the **OK** button to confirm. Here you are !
+![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-4.png)
 
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-counteradded.png)
+
+## Hands-On
+
+### What you will learn:
+
+In this codelab, you will learn 
+
+* how to use the dstat tool
+* how to generate workload
+* how to create a report file
+
+### What you will need:
+
+In this codelab, you will need the following tools:
+
+* PerfMon
 
 
-The Performance Monitor also includes so-called Data Collectors Sets, which is where you can use existing sets or create custom sets containing performance counters and alerts based on specific criteria.
+### Scenario
 
-In this lab, we will use the Data Collectors Set for Hyper-V. You can right-click your Data Collector Set under "User Defined," and click **Start** to run it.
+In this codelab, the target is a virtual Machine with 2 CPU Cores and 8 GB RAM. The operating system is based on Windows 10 Educatuinm Version 10,0,19042 Build 19042. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6,1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
 
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-start.png)
+### Test Run
 
-Wait 30 seconds, while **Performance Monitor** is collecting data. Then right-click the Data Collector set for Hyper-V and click on **Stop** to shut it down.
+To add Perfmon counters to monitor CPU Utilization please execute the following steps.
 
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-stop.png)
+* Run Performance Monitor (Perfmon.exe) this is part of the Windows Administrative tools.
+* Navigate to Performance -> Data Collector Sets -> User Defined
+* In the Right hand Pane right click and Select New - > Data Collector Set
+* Provide a Friendly name (i.e. Task Set)
+![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-1.png)  
+* Click on "Create Manually (Advanced)"
+* Click "Next"
+* Under "Create Data Logs" select Performance Counter
+![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-2.png)  
+* Click Finish
 
-The tools generates Reports for each run. To view these reports, click on the lastest Hyper-V report in the Report section and browse through the statistics.
+The data set (i.e. Task Set) should now appear in the right hand pane.
 
-![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-view.png)
+* Double click on the data set (ie Task Set)
+* "DataCollector01" should appear in the right hand pane.
+![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-3.png)  
+* Double click on the "DataCollector01"
+* In the "Performance Counters" tab click Add.  
+![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-4.png)  
+* A list of the available counters appears on the screen,  Navigate to "LogicalDisk" and click to highlight (do NOT expand the list).  Under instances of Selected objects select the specific volume (drive) where the journal files are located (ie C:) and click "Add".
 
-<aside class="positive">
-Consult the online documents for more details about this tool. Do your own research about the output and how to interpret the results.
-</aside>
+This will list all Processor performance counters. You will see something like the following in the Added Counters window:
+![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-5.png)  
+* Click OK to return to the "DataCollector01" Properties screen.
+* Leave the other values at default settings - Log Format set to "Binary" and Sample Interval set to "15" Seconds and Click "OK"
+
+This creates the basic dataset. 
+
+* The data set (ie Task Set) should now appear in the left hand pane.  Right click and select "Properties"
+* The DataSet Properties includes a number of tabs.  
+![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-6.png)
+      * Use the General tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM)
+      * Use the Directory tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:\) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.
+      * Use the schedule tab to Set the days to run and the time to commence collection.  This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am
+      * Use the Stop Condition to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).
+* Click OK when all required parameters are configured.
+* You can start data collection by clicking on the DataSet (ie Task Set) right click and press start.
+![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-7.png)
+* You can stop data collection by clicking on the DataSet (ie Task Set) right click and press stop.
+![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-8.png)
+* Navigate to Performance -> Reports -> User Defined --> Data set (ie Task Set)
+* Open the last recent report
+![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-9.png)
+* You can change the graph type from line to report if you are a fan of numbers.
+![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-10.png)
+
+### Clean Up
+
+* Finally, delete the data collector set aby clicking on the DataSet (ie Task Set) right click and press Delete.
+![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-11.png)
+* Repeat the step above for the Reports as well.
+
+This is the end of the hands-on.

@@ -58,7 +58,7 @@ By default, administrator privileges are required on the Host OS to install addi
 
 For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
 
-## Display CPU information on Linux
+## CPU Information
 
 ### What You will learn:
 
@@ -85,7 +85,9 @@ Open a shell and run **nproc** with the following option:
 echo "Threads/core: $(nproc --all)"
 ```
 
-Sample output:
+### Sample output
+
+The output may look like this:
 ```
 Threads/core: 4
 ```
@@ -110,7 +112,10 @@ lscpu
 lscpu | egrep 'Model name|Socket|Thread|NUMA|CPU\(s\)'
 ```
 
-Sample outputs:
+### Sample output
+
+The output may look like this:
+
 ```
 icinga@server:/# lscpu
 Architecture:                    x86_64
@@ -199,6 +204,8 @@ Open a shell and run the following command:
 cat /proc/cpuinfo | more
 ```
 
+### Sample output
+
 Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description. 
 
 ```
@@ -267,7 +274,10 @@ To count the number of processing units use grep command.
 cat /proc/cpuinfo | grep processor
 ```
 
-Sample outputs:
+### Sample output
+
+The output may look like this:
+
 ```
 icinga@server:/# cat /proc/cpuinfo | grep processor
 processor	: 0
@@ -312,7 +322,9 @@ Run the following command:
 hwinfo | more
 ```
 
-Sample output
+### Sample output
+
+The output may look like this:
 
 ```
 root@server:/# hwinfo | more
@@ -414,7 +426,9 @@ To get information about the CPU, run dmidecode with -t option as shown below:
 dmidecode -t processor | more
 ```
 
-Sample output:
+### Sample output
+
+The output may look like this:
 
 ```
 root@server# dmidecode -t processor | more
@@ -504,7 +518,9 @@ getconf -a
 The option `-a` displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command
 
 
-Sample output:
+### Sample output
+
+The output may look like this:
 ```
 getconf -a | more
 LINK_MAX                           65000
@@ -525,7 +541,7 @@ Sample output:
 Number of CPU/cores online at server: 4
 ```
 
-## CPU monitoring tools on Linux
+## CPU Monitoring
 
 ### What you will learn:
 
@@ -550,6 +566,8 @@ Open a shell  and run the command as follows:
 ```
 uptime
 ```
+
+### Sample output
 
 The output may look like this:
 
@@ -588,8 +606,9 @@ Run the **top** command as follows:
 ```
 top
 ```
+### Sample output
 
-The output will probably be very different from yours:
+The output will probably be different from yours:
 ![top](./img/biti-ipm-compute-linux-top.png)
 
 The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table  (the Process Table) with information about each individual process.
@@ -598,7 +617,7 @@ The first five lines (also called the Header Block) provide a summary about the 
 Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it.
 </aside>
 
-## htop 
+## htop
 
 ### Description
 
@@ -610,8 +629,9 @@ Run the command as follows:
 ```
 htop
 ```
+### Sample output
 
-The output will probably be very different from yours:
+The output will probably be different from yours:
 ![htop](./img/biti-ipm-compute-linux-htop.png)
 
 The top section is more easier to read and the bottom section is better organized.
@@ -637,7 +657,9 @@ Run the **mpstat** command as follows:
 mpstat
 ```
 
-The output will probably be very different from yours:
+### Sample output
+
+The output will probably be different from yours:
 ```
 Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
@@ -713,7 +735,7 @@ Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results.
 </aside>
 
-## Hands-On: CPU Monitoring
+## Hands-On
 
 ### What you will learn:
 
@@ -741,11 +763,11 @@ stress -c 2 -t 120s
 
 This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.
 
-## Scenario
+### Scenario
 
 In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
 
-## Test Run
+### Test Run
 
 * Open a shell terminal and execute the following command:
 ```
@@ -789,11 +811,13 @@ root@server' Process 31210 detected
 ![Exercise](./img/biti-ipm-compute-exercise-uptime-low.png)
 * As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.
 
-To clean up, stop all running stress processes with the following command:
+### Clean Up
+
+* To clean up, stop all running stress processes with the following command:
 ```
 killall stress
 ```
 
-Finally, you can close all open terminals. 
+* Finally, you can close all open terminals. 
 
 This is the end of the hands-on.

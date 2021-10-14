@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-14T15:28:09+02:00",
-  "id": "biti-ipm-compute-linux-lab",
+  "updated": "2021-10-14T15:05:32+02:00",
+  "id": "biti-ipm-disk-linux-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Compute",
+  "title": "BITI IPM Lab - Disk",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Compute",
-  "source": "biti-ipm-compute-linux-lab.md",
+  "summary": "BITI IPM Lab - Disk",
+  "source": "biti-ipm-disk-linux-lab.md",
   "theme": "",
   "status": [
     "published"
@@ -19,10 +19,9 @@
   ],
   "tags": [
     "biti",
-    "compute",
-    "cpu",
+    "disk",
     "introduction",
     "ipm"
   ],
-  "url": "biti-ipm-compute-linux-lab"
+  "url": "biti-ipm-disk-linux-lab"
 }
