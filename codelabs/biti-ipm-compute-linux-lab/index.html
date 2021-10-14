@@ -68,7 +68,7 @@ DESCRIPTION
 
       </google-codelab-step>
     
-      <google-codelab-step label="Display CPU information on Linux" duration="0">
+      <google-codelab-step label="CPU Information" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
 <p>You can use one of the following commands to find detailed information about the physical CPUs (pCPU) including all cores on Linux:</p>
 <ul>
@@ -90,7 +90,8 @@ DESCRIPTION
 <p>Open a shell and run <strong>nproc</strong> with the following option:</p>
 <pre><code>echo &#34;Threads/core: $(nproc --all)&#34;
 </code></pre>
-<p>Sample output:</p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
 <pre><code>Threads/core: 4
 </code></pre>
 <aside class="special"><p> Without the --all flag, nproc will display the number of processing units available to the current process.<br> Use the --help flag for more information. </p>
@@ -107,7 +108,8 @@ DESCRIPTION
 <pre><code>lscpu
 lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
 </code></pre>
-<p>Sample outputs:</p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
 <pre><code>icinga@server:/# lscpu
 Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
@@ -188,6 +190,7 @@ NUMA node0 CPU(s):               0-3
 <p>Open a shell and run the following command:</p>
 <pre><code>cat /proc/cpuinfo | more
 </code></pre>
+<h2 is-upgraded>Sample output</h2>
 <p>Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description.</p>
 <pre><code>icinga@server:/# cat /proc/cpuinfo | more
 processor	: 0
@@ -248,7 +251,8 @@ cpuid level	: 22
 <p>To count the number of processing units use grep command.</p>
 <pre><code>cat /proc/cpuinfo | grep processor
 </code></pre>
-<p>Sample outputs:</p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
 <pre><code>icinga@server:/# cat /proc/cpuinfo | grep processor
 processor	: 0
 processor	: 1
@@ -276,7 +280,8 @@ cpu cores	: 2
 <p>Run the following command:</p>
 <pre><code>hwinfo | more
 </code></pre>
-<p>Sample output</p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
 <pre><code>root@server:/# hwinfo | more
 ============ start debug info ============
 libhd version 21.72 (x86-64) [7688]
@@ -354,7 +359,8 @@ cpu:
 <p>To get information about the CPU, run dmidecode with -t option as shown below:</p>
 <pre><code>dmidecode -t processor | more
 </code></pre>
-<p>Sample output:</p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
 <pre><code>root@server# dmidecode -t processor | more
 # dmidecode 3.3
 Getting SMBIOS data from sysfs.
@@ -428,7 +434,8 @@ Processor Information
 <pre><code>getconf -a
 </code></pre>
 <p>The option <code>-a</code> displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command</p>
-<p>Sample output:</p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
 <pre><code>getconf -a | more
 LINK_MAX                           65000
 _POSIX_LINK_MAX                    65000
@@ -447,7 +454,7 @@ MAX_INPUT                          255
 
       </google-codelab-step>
     
-      <google-codelab-step label="CPU monitoring tools on Linux" duration="0">
+      <google-codelab-step label="CPU Monitoring" duration="0">
         <h2 is-upgraded>What you will learn:</h2>
 <p>You can use one of the following command to monitor the physical CPU cores including all cores on Linux:</p>
 <ul>
@@ -467,6 +474,7 @@ MAX_INPUT                          255
 <p>Open a shell  and run the command as follows:</p>
 <pre><code>uptime
 </code></pre>
+<h2 is-upgraded>Sample output</h2>
 <p>The output may look like this:</p>
 <pre><code>17:58:21 up 1 day, 22:38,  1 user,  load average: 0.54, 0.51, 0.69
 </code></pre>
@@ -493,7 +501,8 @@ MAX_INPUT                          255
 <p>Run the <strong>top</strong> command as follows:</p>
 <pre><code>top
 </code></pre>
-<p>The output will probably be very different from yours: <img alt="top" src="img/58d98ef842e325a3.png"></p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output will probably be different from yours: <img alt="top" src="img/58d98ef842e325a3.png"></p>
 <p>The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table  (the Process Table) with information about each individual process.</p>
 <aside class="special"><p> Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it. </p>
 </aside>
@@ -508,7 +517,8 @@ MAX_INPUT                          255
 <p>Run the command as follows:</p>
 <pre><code>htop
 </code></pre>
-<p>The output will probably be very different from yours: <img alt="htop" src="img/545cd098a8dc4d86.png"></p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output will probably be different from yours: <img alt="htop" src="img/545cd098a8dc4d86.png"></p>
 <p>The top section is more easier to read and the bottom section is better organized.</p>
 <aside class="special"><p> Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it. </p>
 </aside>
@@ -523,7 +533,8 @@ MAX_INPUT                          255
 <p>Run the <strong>mpstat</strong> command as follows:</p>
 <pre><code>mpstat
 </code></pre>
-<p>The output will probably be very different from yours:</p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output will probably be different from yours:</p>
 <pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
 10:13:59 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
@@ -585,7 +596,7 @@ MAX_INPUT                          255
 
       </google-codelab-step>
     
-      <google-codelab-step label="Hands-On: CPU Monitoring" duration="0">
+      <google-codelab-step label="Hands-On" duration="0">
         <h2 is-upgraded>What you will learn:</h2>
 <p>In this codelab, you will learn</p>
 <ul>
@@ -606,18 +617,10 @@ MAX_INPUT                          255
 <pre><code>stress -c 2 -t 120s
 </code></pre>
 <p>This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Scenario" duration="0">
-        <p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Test Run" duration="0">
-        <ul>
+<h2 is-upgraded>Scenario</h2>
+<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<h2 is-upgraded>Test Run</h2>
+<ul>
 <li>Open a shell terminal and execute the following command:</li>
 </ul>
 <pre><code>htop
@@ -655,10 +658,15 @@ MAX_INPUT                          255
 <li>Sample output for <strong>uptime</strong>: <img alt="Exercise" src="img/5bdf0301f0fae783.png"></li>
 <li>As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.</li>
 </ul>
-<p>To clean up, stop all running stress processes with the following command:</p>
+<h2 is-upgraded>Clean Up</h2>
+<ul>
+<li>To clean up, stop all running stress processes with the following command:</li>
+</ul>
 <pre><code>killall stress
 </code></pre>
-<p>Finally, you can close all open terminals.</p>
+<ul>
+<li>Finally, you can close all open terminals.</li>
+</ul>
 <p>This is the end of the hands-on.</p>
 
 

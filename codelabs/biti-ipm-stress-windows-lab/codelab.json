@@ -1,0 +1,28 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-14T15:51:55Z",
+  "id": "biti-ipm-stress-windows-lab",
+  "duration": 0,
+  "title": "BITI IPM Lab - Stress",
+  "authors": "Roland Pellegrini",
+  "summary": "BITI IPM Lab - Stress",
+  "source": "biti-ipm-stress-windows-lab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "windows"
+  ],
+  "tags": [
+    "biti",
+    "compute",
+    "cpu",
+    "introduction",
+    "ipm"
+  ],
+  "url": "biti-ipm-stress-windows-lab"
+}

@@ -1,0 +1,331 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>BITI IPM Lab - Memory</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="biti-ipm-memory-linux-lab"
+                  title="BITI IPM Lab - Memory"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Before You Begin" duration="0">
+        <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<p>In this codelab you will learn</p>
+<ul>
+<li>how to get information about the Memory</li>
+<li>how to monitor Memory with Linux Tools</li>
+</ul>
+<h2 is-upgraded>Where You Can Look Up</h2>
+<p>The <strong>man</strong> is a short term for manual page and acts as an interface to view the reference manual of a command.</p>
+<p>Syntax of man:</p>
+<pre><code>man [option(s)] keyword(s)
+</code></pre>
+<p>For example, if you want top find out more about the command <strong>ps</strong> and how to use it, just open a shell and type:</p>
+<pre><code>man ps
+</code></pre>
+<p>This command will display all the information about <strong>ps</strong>.</p>
+<pre><code>PS(1)                            User Commands                           PS(1)
+
+NAME
+       ps - report a snapshot of the current processes.
+
+SYNOPSIS
+       ps [options]
+
+DESCRIPTION
+       ps displays information about a selection of the active processes.  If
+       you want a repetitive update of the selection and the displayed
+       information, use top(1) instead.
+...
+...
+</code></pre>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Memory information" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use one of the following commands to find detailed information about the physical CPUs (pCPU) including all cores on Linux:</p>
+<ul>
+<li>meminfo</li>
+<li>dmidecode</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="meminfo" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>All Linux distributions allows you to run <strong>cat /proc/meminfo</strong>. This file contains details about the memory installed. Note that /proc is a pseudo-filesystem, it is used as an interface to kernel data structures.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Open a shell and run the following command:</p>
+<pre><code>cat /proc/meminfo | more
+</code></pre>
+<h2 is-upgraded>Sample output</h2>
+<p>Check the values of MemTotal, MemFree, Buffers, Cached, SwapTotal, SwapFree. They indicate same values of memory usage as the <strong>free</strong> command (see next paragraph).</p>
+<pre><code>icinga@server:/# cat /proc/meminfo | more
+MemTotal:        4025712 kB
+MemFree:         2697848 kB
+MemAvailable:    3154120 kB
+Buffers:           32964 kB
+Cached:           622588 kB
+SwapCached:            0 kB
+Active:           246096 kB
+Inactive:         927612 kB
+Active(anon):       1188 kB
+Inactive(anon):   531128 kB
+Active(file):     244908 kB
+Inactive(file):   396484 kB
+Unevictable:        7636 kB
+Mlocked:            7636 kB
+SwapTotal:        998396 kB
+SwapFree:         998396 kB
+Dirty:              2548 kB
+Writeback:             0 kB
+AnonPages:        499488 kB
+Mapped:           264728 kB
+Shmem:             10156 kB
+KReclaimable:      35852 kB
+Slab:              80840 kB
+--More--
+</code></pre>
+<aside class="special"><p> Consult the documentation and man-pages for more details. Try to identify keywords and details of the memory.  </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="demidecode" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>To find out hardware information about the installed RAM, use the <strong>demidecode</strong> command. we used this little tool in the CPU lab. <strong>demidecode</strong> reports lots of information about the installed RAM memory.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Open a shell and run <strong>cmstat</strong> with root privileges</p>
+<pre><code>dmidecode -t memory | more
+</code></pre>
+<p>Information is grouped per memory device. That means that every memory device is listed separately and various details about the memory are included in the description.</p>
+<h2 is-upgraded>Sample output</h2>
+<p>Here is an example of an output:</p>
+<pre><code>Getting SMBIOS data from sysfs.
+SMBIOS 2.8 present.
+
+Handle 0x0026, DMI type 16, 23 bytes
+Physical Memory Array
+	Location: System Board Or Motherboard
+	Use: System Memory
+	Error Correction Type: None
+	Maximum Capacity: 16 GB
+	Error Information Handle: Not Provided
+	Number Of Devices: 2
+
+Handle 0x0027, DMI type 17, 40 bytes
+Memory Device
+	Array Handle: 0x0026
+	Error Information Handle: Not Provided
+	Total Width: 64 bits
+	Data Width: 64 bits
+	Size: 8192 MB
+	Form Factor: SODIMM
+	Set: None
+	Locator: DIMM3
+	Bank Locator: BANK 0
+	Type: DDR3
+	Type Detail: Synchronous
+	Speed: 1600 MT/s
+	Manufacturer: Samsung
+	Serial Number: 2266B43B
+	Asset Tag: 9876543210
+	Part Number: M471B1G73BH0-YK0  
+	Rank: 2
+	Configured Memory Speed: 1600 MT/s
+	Minimum Voltage: 1.35 V
+	Maximum Voltage: 1.5 V
+	Configured Voltage: 1.5 V
+
+Handle 0x0028, DMI type 17, 40 bytes
+Memory Device
+	Array Handle: 0x0026
+	Error Information Handle:
+--More--
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Memory monitoring" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use one of the following command to monitor the memory on Linux:</p>
+<ul>
+<li>free</li>
+<li>vmstat</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="free" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The <strong>free</strong> command is a simple and easy to use command to check memory usage on Linux.  It provides information about the total amount of the physical and swap memory, as well as the free and used memory.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Here is a quick example:</p>
+<pre><code>free -h
+</code></pre>
+<h2 is-upgraded>Sample output</h2>
+<p>The <code>-h</code> option presents the data in human-friendly form, scaling to the shortest three-digit unit. The sample output will include three lines, a header, one line for the memory and one for the swap:</p>
+<pre><code>               total        used        free      shared  buff/cache   available
+Mem:           3.8Gi       617Mi       2.6Gi        13Mi       680Mi       3.0Gi
+Swap:          974Mi          0B       974Mi
+</code></pre>
+<p>Where</p>
+<ul>
+<li>total - This number represents the total amount of memory that can be used by the applications.</li>
+<li>used - Used memory. It is calculated as: used = total - free - buffers - cache</li>
+<li>free - Free / Unused memory.</li>
+<li>shared - This column can be ignored as it has no meaning. It is here only for backward compatibility.</li>
+<li>buff/cache - The combined memory used by the kernel buffers and page cache. This memory can be reclaimed at any time if needed by the applications. If you want buffers and cache to be displayed in two separate columns, use the -w option.</li>
+<li>available - An estimate of the amount of memory that is available for starting new applications, without swapping.</li>
+</ul>
+<p>The free command also allows you to specify the unit in which the memory is measured. Some of the options are:</p>
+<ul>
+<li>-b, –bytes - Display output in bytes.</li>
+<li>–kilo - Display output in kilobytes (1KB = 1000bytes).</li>
+<li>–mega - Display output in megabytes.</li>
+<li>–giga - Display output in gigabytes.</li>
+<li>–tera - Display output in terabytes.</li>
+</ul>
+<aside class="special"><p> Consult the documentation and man-pages for more details. Try to identify keywords and details of the memory.  </p>
+</aside>
+<p>To continuously display the memory information on the screen, invoke <strong>free</strong> with the <code>-s (--seconds)</code> option followed by a number that specifies the delay. This is similar to the behavior of the <strong>watch</strong> command.</p>
+<pre><code>free -s 5
+watch free
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="vmstat" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The <strong>vmstat</strong> (virtual memory statistics) command is a valuable monitoring utility that collects and displays information about system memory, processes, paging and block I/O and more. Using <strong>vmstat</strong>, you can specify a sampling interval to observe system activity in near-real time.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Open a shell and run <strong>cmstat</strong> without any option:</p>
+<pre><code>vmstat
+</code></pre>
+<h2 is-upgraded>Sample output</h2>
+<p>The output will probably be different from yours:</p>
+<pre><code>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 1  0      0 2688900  34784 665548    0    0   132    23  165   71  1  0 99  0  0
+</code></pre>
+<p>As shown, the <strong>vmstat</strong> command provides information about Processes, Memory, I/O, system and CPU. In this lab we will only focus on Memory, Swap and CPU (optional):</p>
+<ul>
+<li>Memory <ul>
+<li>swpd: the amount of virtual memory used.</li>
+<li>free: the amount of idle memory.</li>
+<li>buff: the amount of memory used as buffers.</li>
+<li>cache: the amount of memory used as cache.</li>
+</ul>
+</li>
+<li>Swap <ul>
+<li>si: Amount of memory swapped in from disk (/s).</li>
+<li>so: Amount of memory swapped to disk (/s).</li>
+</ul>
+</li>
+<li>CPU <ul>
+<li>These are percentages of total CPU time.</li>
+<li>us: Time spent running non-kernel code. (user time, including nice time)</li>
+<li>sy: Time spent running kernel code. (system time)</li>
+<li>id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.</li>
+<li>wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.</li>
+<li>st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.</li>
+</ul>
+</li>
+</ul>
+<aside class="special"><p> Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more.  </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Hands-on" duration="0">
+        <h2 is-upgraded>What you will learn:</h2>
+<p>In this codelab, you will learn</p>
+<ul>
+<li>how to use the free programm</li>
+<li>how to generate workload</li>
+</ul>
+<h2 is-upgraded>What you will need:</h2>
+<p>In this codelab, you will need the following tools:</p>
+<ul>
+<li>free</li>
+<li>Stress</li>
+<li>htop</li>
+</ul>
+<p>Details of the <strong>Stress</strong> tool can be found in the corresponding Codelab named <code>Stress the computer</code>,  details of the <strong>htop</strong> can be found in the Codelab <code>Compute</code></p>
+<h2 is-upgraded>Scenario</h2>
+<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<h2 is-upgraded>Test Run</h2>
+<ul>
+<li>Open a shell terminal and execute the following command:</li>
+</ul>
+<pre><code>watch free
+</code></pre>
+<ul>
+<li>Open a second terminal and execute the following command:</li>
+</ul>
+<pre><code>htop
+</code></pre>
+<ul>
+<li>Open the last shell terminal and start the workload generator with the following option.</li>
+</ul>
+<pre><code>stress -m 2 --vm-bytes 1500M -t 30s -v
+</code></pre>
+<p>Notice that the workload generator runs with a time limit of 30 seconds.</p>
+<ul>
+<li>Observe how the memory utilization changes.</li>
+<li>Sample output for <strong>free</strong>: <img alt="Exercise" src="img/7e370e7ffad02798.png"></li>
+<li>Sample output for <strong>htop</strong><img alt="Exercise" src="img/1c3a6bb35554691e.png"></li>
+</ul>
+<h2 is-upgraded>Clean Up</h2>
+<p>The stress tool should stop working after the specified time 30. If not, you can stop the program with <code>CTRL-C</code>. You can also stop all running stress processes with the following command:</p>
+<pre><code>killall stress
+</code></pre>
+<p>Finally, you can stop the remaining programs and close all open terminals.</p>
+<p>This is the end of the hands-on.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

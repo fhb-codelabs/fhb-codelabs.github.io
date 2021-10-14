@@ -1,0 +1,108 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>BITI IPM Lab - Stress</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="biti-ipm-stress-windows-lab"
+                  title="BITI IPM Lab - Stress"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Before You Begin" duration="0">
+        <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<p>In this codelab you will learn</p>
+<ul>
+<li>how to perform stress the CPU using the CPU Stress application</li>
+<li>how to perform stress the RAM using the Testlimit application</li>
+</ul>
+<aside class="special"><p> Warning: Running the tools with Administrator privileges stress your system, so use them judiciously. </p>
+</aside>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Microsoft Windows.</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="CPUStres" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>Microsoft offers a set of tools under the name of <strong>Sysinternals Suite</strong> which a useful for IT-Administrators. One of those tools is called &#34;CPU Stress&#34;. It is a portable application and it can be used to simulate high CPU usage by running up to 64 threads (!).</p>
+<p>You can download CPU Stress from <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/cpustres" target="_blank">here</a>. After downloading, unzip the package and launch the 64-bit version of CPU Stress.</p>
+<p class="image-container"><img alt="CPU Stress" src="img/845b1b0bcd825ea9.png"></p>
+<p>After lauch, the application sets a separate thread for each of the available CPU cores (here 4). You can activate threads with a right-click.</p>
+<p class="image-container"><img alt="CPU Stress" src="img/5d681b691d9316f0.png"></p>
+<p>You can change the thread priority between idle and time critical. Other possible values are low, below normal, normal, above normal, and highest. Additionally, you can change the activity level and set it to low, medium, busy, or maximum.</p>
+<p class="image-container"><img alt="CPU Stress" src="img/ede33b74608a45c6.png"></p>
+<h2 is-upgraded>Watch the results</h2>
+<p>A higher activity level will load the CPU core with constantly running threads as shown in the Task Manager. Open TaskMon and see the result:</p>
+<p class="image-container"><img alt="CPU Stress" src="img/9d7240c5764cd066.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Testlimit" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>Testlimit is another tool from the <strong>Sysinternals Suite</strong>. TestLimit can soak up varying amounts of RAM.</p>
+<p>You can download Testlimit from <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/testlimit" target="_blank">here</a>. Check out the parameters which are listed on the website. After downloading, unzip the package. You need powershell to run the 64-bit version of Testlimit.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Open the Windows Powershell, change to the Testlimit directory and run the following command:</p>
+<pre><code>testlimit -d 1024 -c 4
+</code></pre>
+<p>Where,</p>
+<ul>
+<li><code>-d 1024</code> : Leak and touch private memory of 1024 BM</li>
+<li><code>-c 4</code>     : create four (4) objects (= 4096 MB total)</li>
+</ul>
+<h2 is-upgraded>Sample output:</h2>
+<pre><code>Testlimit v5.24 - test Windows limits
+Copyright (C) 2012-2015 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+Process ID: 7832
+
+Leaking private bytes with touch 1024 MB at a time...
+Leaked 4096 MB of private memory (4096 MB total leaked). Lasterror: 0
+The operation completed successfully.
+</code></pre>
+<h2 is-upgraded>Watch the results</h2>
+<p>Testlimit creates a process with ID 7832 with a virtual memory size of 4096 MB. Open TaskMon and see the result:</p>
+<ul>
+<li>Increase of memory usage in Task Manager <img alt="Testlimit" src="img/f985031ea4912e4f.png"></li>
+<li>Details of the reserved process memory in the tab Processes of the Task Manager. <img alt="Testlimit" src="img/e984543de6c65824.png"></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

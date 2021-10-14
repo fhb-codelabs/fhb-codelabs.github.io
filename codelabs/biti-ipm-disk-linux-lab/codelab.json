@@ -1,0 +1,27 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-14T15:51:55Z",
+  "id": "biti-ipm-disk-linux-lab",
+  "duration": 0,
+  "title": "BITI IPM Lab - Disk",
+  "authors": "Roland Pellegrini",
+  "summary": "BITI IPM Lab - Disk",
+  "source": "biti-ipm-disk-linux-lab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "linux"
+  ],
+  "tags": [
+    "biti",
+    "disk",
+    "introduction",
+    "ipm"
+  ],
+  "url": "biti-ipm-disk-linux-lab"
+}
