@@ -4,24 +4,25 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2021-10-15T20:54:01Z",
-  "id": "biti-ipm-disk-linux-lab",
+  "id": "biti-ipm-network-windows-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Disk",
+  "title": "BITI IPM Lab - Network",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Disk",
-  "source": "biti-ipm-disk-linux-lab.md",
+  "summary": "BITI IPM Lab - Network",
+  "source": "biti-ipm-network-windows-lab.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "linux"
+    "windows"
   ],
   "tags": [
     "biti",
-    "disk",
     "introduction",
-    "ipm"
+    "ipm",
+    "memory",
+    "ram"
   ],
-  "url": "biti-ipm-disk-linux-lab"
+  "url": "biti-ipm-network-windows-lab"
 }
