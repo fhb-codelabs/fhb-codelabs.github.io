@@ -222,7 +222,6 @@ Furthermore,
 You can use the following application for Windows to check the network performance.
 
 * Network Speed Test
-* iPerf
 
 ## Network Speed Test
 
