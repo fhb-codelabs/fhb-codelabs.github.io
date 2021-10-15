@@ -1,0 +1,28 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-15T21:00:21+02:00",
+  "id": "biti-ipm-network-linux-lab",
+  "duration": 0,
+  "title": "BITI IPM Lab - Network",
+  "authors": "Roland Pellegrini",
+  "summary": "BITI IPM Lab - Network",
+  "source": "biti-ipm-network-linux-lab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "linux"
+  ],
+  "tags": [
+    "biti",
+    "introduction",
+    "ipm",
+    "memory",
+    "ram"
+  ],
+  "url": "biti-ipm-network-linux-lab"
+}

@@ -126,16 +126,13 @@ You can use one of the following application to monitor the CPU on your Windows 
 
 ### Description
 
-The **Windows Task Manager** is a utility program that reports the status of running programs. IT Administrators can use the Task Manager to monitor the performance of the computer, and to close a program that is not responding. Additionally,  Administrators can view network status, and see which users are connected to the computer.
+The **Windows Task Manager (Taskmon)** is a system tool found in all versions of Microsoft Windows platform's. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.
 
 ### Sample code
 
-The **Windows Task Manager (Taskmon)** is a system tool found in all versions of Microsoft Windows platform's. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.
-
-To use Taskmon, open Start, do a search for **taskman**, and confirm the result.
+To use Taskmon, open Start, do a search for **taskman**, and confirm the result. Or do a right-click on the Windows Taskbar and select `Task Manager` from the menu.
 
 ![Windows Task Manager (advanced view)](./img/biti-ipm-compute-windows-taskman.png)
-
 
 ## Windows Resource Monitor
 
