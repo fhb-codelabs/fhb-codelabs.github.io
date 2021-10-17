@@ -183,6 +183,9 @@ $color-google-blue, 'wear-os.svg');
 @include codelab-card(['google-maps', 'googlemaps', 'maps', 'geo'],
   $color-google-maps-green, 'google-maps.svg');
 
+@include codelab-card(['icinga'],
+  $color-ar-core-purple, 'icinga.png');
+
 @include codelab-card(['linux'],
         $color-google-green, 'linux-tux.svg');
 

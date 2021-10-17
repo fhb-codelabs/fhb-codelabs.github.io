@@ -47,7 +47,7 @@
     
       <google-codelab-step label="Get your AWS Configuration" duration="0">
         <ul>
-<li>In the AWS Academy<ul>
+<li>In the AWS Academy  <ul>
 <li>Click on AWS Details</li>
 <li>Show AWS CLI Credentials and copy them</li>
 </ul>
@@ -67,52 +67,30 @@
 <h2 is-upgraded>Provider configuration</h2>
 <ul>
 <li>Create a file called <code>provider.tf</code> in your directory</li>
-<li>Copy the following block in the file</li>
+<li>Copy the following block in the file <code>terraform<br>provider "aws" {<br>region = "us-east-1"<br>}</code><br> * This should be enough to run our first terraform command <br><code>terraform init</code><br> * This leads to the following output &#34;`</li>
 </ul>
-<pre><code language="language-terraform" class="language-terraform">provider &#34;aws&#34; {
-  region = &#34;us-east-1&#34;
-}
-</code></pre>
+<p>Initializing the backend...</p>
+<p>Initializing provider plugins...</p>
 <ul>
-<li>This should be enough to run our first terraform command</li>
+<li>Finding latest version of hashicorp/aws...</li>
+<li>Installing hashicorp/aws v3.61.0...</li>
+<li>Installed hashicorp/aws v3.61.0 (signed by HashiCorp)</li>
 </ul>
-<pre><code>terraform init
-</code></pre>
-<ul>
-<li>This leads to the following output</li>
-</ul>
-<pre><code>Initializing the backend...
+<p>Terraform has created a lock file .terraform.lock.hcl to record the provider selections it made above. Include this file in your version control repository so that Terraform can guarantee to make the same selections by default when you run &#34;terraform init&#34; in the future.</p>
+<p>Terraform has been successfully initialized!</p>
+<p>You may now begin working with Terraform. Try running &#34;terraform plan&#34; to see any changes that are required for your infrastructure. All Terraform commands should now work.</p>
+<p>If you ever set or change modules or backend configuration for Terraform, rerun this command to reinitialize your working directory. If you forget, other commands will detect it and remind you to do so if necessary.</p>
+<pre><code>&lt;aside class=&#34;positive&#34;&gt;
+- Using this step, terraform initialized its (local) state and downloaded the provider from the terraform registry
+&lt;/aside&gt;
 
-Initializing provider plugins...
-- Finding latest version of hashicorp/aws...
-- Installing hashicorp/aws v3.61.0...
-- Installed hashicorp/aws v3.61.0 (signed by HashiCorp)
+In the second step, we will try to create a virtual instance ...
 
-Terraform has created a lock file .terraform.lock.hcl to record the provider
-selections it made above. Include this file in your version control repository
-so that Terraform can guarantee to make the same selections by default when
-you run &#34;terraform init&#34; in the future.
+## Running a Virtual Instance
 
-Terraform has been successfully initialized!
-
-You may now begin working with Terraform. Try running &#34;terraform plan&#34; to see
-any changes that are required for your infrastructure. All Terraform commands
-should now work.
-
-If you ever set or change modules or backend configuration for Terraform,
-rerun this command to reinitialize your working directory. If you forget, other
-commands will detect it and remind you to do so if necessary.
-</code></pre>
-<aside class="special"><p> - Using this step, terraform initialized its (local) state and downloaded the provider from the terraform registry </p>
-</aside>
-<p>In the second step, we will try to create a virtual instance ...</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Running a Virtual Instance" duration="0">
-        <p>To do so, we&#39;ll create a second file called <code>main.tf</code>. Furthermore, we copy the following configuration in this file:</p>
-<pre><code language="language-terraform" class="language-terraform">data &#34;aws_ami&#34; &#34;amazon-linux-2&#34; {
+To do so, we&#39;ll create a second file called `main.tf`. Furthermore, we copy the following configuration in this file:
+```terraform
+data &#34;aws_ami&#34; &#34;amazon-linux-2&#34; {
   most_recent = true
 
   owners = [ &#34;amazon&#34; ]
@@ -138,38 +116,28 @@ resource &#34;aws_instance&#34; &#34;web&#34; {
 </aside>
 <ul>
 <li>Now we could try to find out what this would lead to</li>
-<li>Change to your terraform directory in the shell and execute:</li>
-</ul>
-<pre><code>terraform plan
+<li>Change to your terraform directory in the shell and execute:  <pre><code>terraform plan
 </code></pre>
-<ul>
+</li>
 <li>You get some output about the things which would happen now, most probably you&#39;ll see that one instance will be created</li>
-<li>If you are happy with that, apply this configuration</li>
-</ul>
-<pre><code>terraform apply
+<li>If you are happy with that, apply this configuration  <pre><code>terraform apply
 </code></pre>
-<ul>
+</li>
 <li>You see the same output as before and get prompted if you really want to do this, accept with &#34;yes&#34;</li>
-<li>After a short period of time, you&#39;ll see the following output</li>
-</ul>
-<pre><code>Plan: 1 to add, 0 to change, 0 to destroy.
-
+<li>After a short period of time, you&#39;ll see the following output  <pre><code>Plan: 1 to add, 0 to change, 0 to destroy.
 Do you want to perform these actions?
-  Terraform will perform the actions described above.
-  Only &#39;yes&#39; will be accepted to approve.
-
-  Enter a value: yes
-
+Terraform will perform the actions described above.
+Only &#39;yes&#39; will be accepted to approve.
+Enter a value: yes
 aws_instance.web: Creating...
 aws_instance.web: Still creating... [10s elapsed]
 aws_instance.web: Still creating... [20s elapsed]
 aws_instance.web: Still creating... [30s elapsed]
 aws_instance.web: Still creating... [40s elapsed]
 aws_instance.web: Creation complete after 50s [id=i-06c97d9f8aee342a2]
-
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 </code></pre>
-<ul>
+</li>
 <li>You will see the new instance now in your AWS Console <img alt="Terraform Instance" src="img/9a6edd19949c538e.png"></li>
 </ul>
 <aside class="special"><p> - You created your first AWS Instance with Terraform </p>
@@ -181,36 +149,28 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
       <google-codelab-step label="Deleting this instance" duration="0">
         <ul>
 <li>After some time you might want to spin down your infrastructure (thing of demos for courses)</li>
-<li>You can simply tear it down by typing</li>
-</ul>
-<pre><code>terraform destroy
-</code></pre>
-<ul>
+<li>You can simply tear it down by typing <br><code>terraform destroy<br></code></li>
 <li>The tool will ask you if you are sure that you want to remove your instance</li>
 <li>Type yes</li>
-<li>After some time you see the following output:</li>
-</ul>
-<pre><code>Plan: 0 to add, 0 to change, 1 to destroy.
-
+<li>After some time you see the following output:  <pre><code>Plan: 0 to add, 0 to change, 1 to destroy.
 Do you really want to destroy all resources?
-  Terraform will destroy all your managed infrastructure, as shown above.
-  There is no undo. Only &#39;yes&#39; will be accepted to confirm.
-
-  Enter a value: yes
-
+Terraform will destroy all your managed infrastructure, as shown above.
+There is no undo. Only &#39;yes&#39; will be accepted to confirm.
+Enter a value: yes
 aws_instance.web: Destroying... [id=i-06c97d9f8aee342a2]
 aws_instance.web: Still destroying... [id=i-06c97d9f8aee342a2, 10s elapsed]
 aws_instance.web: Still destroying... [id=i-06c97d9f8aee342a2, 20s elapsed]
 aws_instance.web: Still destroying... [id=i-06c97d9f8aee342a2, 30s elapsed]
 aws_instance.web: Still destroying... [id=i-06c97d9f8aee342a2, 40s elapsed]
 aws_instance.web: Destruction complete after 44s
-
 Destroy complete! Resources: 1 destroyed.
 </code></pre>
-<ul>
+</li>
 <li>If you take a look on the AWS Console, the Instance should be terminated</li>
 </ul>
-<aside class="special"><p> - You deleted your first AWS Instance with Terraform, you made your first steps in Infrastructure-as-Code </p>
+<aside class="special"><ul>
+<li>You deleted your first AWS Instance with Terraform, you made your first steps in Infrastructure-as-Code </li>
+</ul>
 </aside>
 
 

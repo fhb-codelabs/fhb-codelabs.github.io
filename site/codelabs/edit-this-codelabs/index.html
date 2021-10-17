@@ -29,7 +29,7 @@
     
       <google-codelab-step label="Overview" duration="1">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-<ul class="checklist">
+<ul>
 <li>Installing Prerequisites</li>
 <li>Checking out this repository</li>
 <li>Create/update content</li>
@@ -59,10 +59,8 @@
 <ul>
 <li>Open a shell</li>
 <li>Change to the directory, in which the repository should be cloned</li>
-<li>Clone the repository (replace fhb-codelabs against your username/org).</li>
+<li>Clone the repository (replace fhb-codelabs against your username/org). <br><code>git clone https://github.com/fhb-codelabs/fhb-codelabs.github.io.git<br></code></li>
 </ul>
-<pre><code>git clone https://github.com/fhb-codelabs/fhb-codelabs.github.io.git
-</code></pre>
 
 
       </google-codelab-step>
@@ -71,21 +69,16 @@
         <ul>
 <li>The tutorials can be found in the site/codelabs directory of the repository.</li>
 <li>To create/update a tutorial, you&#39;ll simply have to write in Markdown Syntax. This codelab is named &#34;edit-this-codelabs.md&#34;</li>
-<li>After you finished editing, you need to compile the codelab:</li>
-</ul>
-<pre><code>cd sites/codelabs
+<li>After you finished editing, you need to compile the codelab:  <pre><code>cd sites/codelabs
 claat export &lt;your-filename&gt;.md
 </code></pre>
-<ul>
-<li>Afterwards, you can test this using gulp</li>
-</ul>
-<pre><code>cd sites
-
+</li>
+<li>Afterwards, you can test this using gulp  <pre><code>cd sites
 # Install dependencies if not already done
 npm install
 gulp serve --codelabs-dir=codelabs
 </code></pre>
-<ul>
+</li>
 <li>Now a webserver should be started and you can navigate to the server with your browser using http://localhost:8000</li>
 <li>Take a look on your work and proceed to the next step if you like your codelab :-)</li>
 </ul>
@@ -95,13 +88,11 @@ gulp serve --codelabs-dir=codelabs
     
       <google-codelab-step label="Create a PR to push your changes to production" duration="0">
         <ul>
-<li>Commit your changes to the github repository</li>
-</ul>
-<pre><code>git add &lt;filename&gt; or -A
+<li>Commit your changes to the github repository  <pre><code>git add &lt;filename&gt; or -A
 git commit -m &#34;a nice commit message&#34;
 git push
 </code></pre>
-<ul>
+</li>
 <li>Open https://github.com/fhb-codelabs/fhb-codelabs.github.io in your browser</li>
 <li>Click on &#34;Pull requests&#34;</li>
 <li>Create a new Pull Request</li>
