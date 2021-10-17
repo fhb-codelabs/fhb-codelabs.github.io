@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-14T16:09:59+02:00",
+  "updated": "2021-10-14T15:59:43+02:00",
   "id": "biti-ipm-memory-linux-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Memory",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - Memory",
-  "source": "biti-ipm-memory-windows-lab.md",
+  "source": "biti-ipm-memory-linux-lab.md",
   "theme": "",
   "status": [
     "published"

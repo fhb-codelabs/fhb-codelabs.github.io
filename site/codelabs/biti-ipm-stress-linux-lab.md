@@ -17,7 +17,7 @@ In this codelab you will learn
 * How to perform stress the CPU with an one-liner (Linux)
 * How to perform stress the CPU using the stress application (Linx)
 
-<aside class="positive">
+<aside class="negative">
 Warning: Running the following tools with root privileges stress your system, so use them judiciously.
 </aside>
 
