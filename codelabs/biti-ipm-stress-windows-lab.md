@@ -16,7 +16,7 @@ In this codelab you will learn
 * how to perform stress the CPU using the CPU Stress application
 * how to perform stress the RAM using the Testlimit application
 
-<aside class="positive">
+<aside class="negative">
 Warning: Running the tools with Administrator privileges stress your system, so use them judiciously.
 </aside>
 
