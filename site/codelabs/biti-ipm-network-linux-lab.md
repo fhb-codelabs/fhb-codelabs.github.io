@@ -99,6 +99,13 @@ lspci
 
 The list shows the model of the Ethernet controller, but not the network device interfaces. For this we need another tool.
 
+### Reference
+
+Manual Page:
+```
+man lspci
+```
+
 ## hwinfo
 
 ### Description
@@ -181,6 +188,12 @@ In addition, the tool also reports the Ethernet Network Interface (which is atta
   Config Status: cfg=new, avail=yes, need=no, active=unknown
 ```
 
+### Reference
+
+Manual Page:
+```
+man hwinfo
+```
 
 ## ip
 
@@ -215,6 +228,13 @@ The output will look different from yours:
 <aside class="positive">
 At this point, check how the outputs of lspci, hwinfo and ip are linked together! 
 </aside>
+
+### Reference
+
+Manual Page:
+```
+man ip
+```
 
 
 ## nmcli
@@ -274,6 +294,13 @@ NAME                UUID                                  TYPE      DEVICE
 Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3 
 ```
 
+### Reference
+
+Manual Page:
+```
+man nmcli
+```
+
 ## Network measurement
 
 ### What You will learn:
@@ -326,6 +353,13 @@ Where,
 * The Time to Live. - ttl=53 - How does TTL work?.
 * The ping time, measured in milliseconds which is the round trip time for the packet to reach the host, and the response to return to the sender. - time=21.2 ms.
 
+### Reference
+
+Manual Page:
+```
+man ping
+```
+
 ## speedtest-cli
 ### Description
 
@@ -351,7 +385,12 @@ Download: 10.79 Mbit/s
 Testing upload speed........................................
 Upload: 1.01 Mbit/s
 ```
- 
+ ### Reference
+
+Manual Page:
+```
+man speedtest-cli
+```
 
 ## Network monitoring
 
@@ -394,6 +433,13 @@ Where,
 * The next rows of output correspond to each network connection between a pair of hosts. In between the two hosts are arrows that let you know the direction the traffic is flowing. 
 * The final three columns provide average bandwidth for each connection during the last 2, 10 and 40 seconds, respectively.
 
+ ### Reference
+
+Manual Page:
+```
+man iftop
+```
+
 ## etherape
 
 ### Description
@@ -414,6 +460,13 @@ sudo etherape
 ![itop](./img/biti-ipm-network-linux-etherape.png)
 
 In contrast to other network monitors, Etherape visualizes the logged connections in a graphical representation. The approach of the open source program is intuitive: Each IP address is graphically represented as a node, connection lines trace the transmitted data. The thickness of the lines shows the data volume of the corresponding connection between the nodes and the color of the lines shows the protocol used in each case. 
+
+### Reference
+
+Documentation:
+```
+https://etherape.sourceforge.io/
+```
 
 ## monitorix
 
@@ -477,6 +530,13 @@ After clicking on the OK button, monitorix will show up the **Netstat statistic*
 
 ![itop](./img/biti-ipm-network-linux-monitorix-2.png)
 
+### Reference
+
+Documentation:
+```
+https://www.monitorix.org/
+```
+
 
 ## cockpit
 
@@ -517,6 +577,14 @@ The Networking section allows you to manage firewall and network interfaces. You
 <aside class="positive">
 Please note that essential software components have not been installed on this virtual machine. Therefore, some important functionalities are missing in Cockpit, such as tools for a proper firewall configuration. 
 </aside>
+
+### Reference
+
+Documentation:
+```
+https://cockpit-project.org/
+```
+
 
 ## Hands-on
 
