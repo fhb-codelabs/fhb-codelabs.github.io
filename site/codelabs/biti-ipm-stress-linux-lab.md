@@ -123,3 +123,9 @@ htop
 The output will look something like this:
 ![VirtualBox Extension](./img/biti-ipm-stress-result-htop-memory.png)
 
+### Reference
+
+Manual Page:
+```
+man stress
+```
