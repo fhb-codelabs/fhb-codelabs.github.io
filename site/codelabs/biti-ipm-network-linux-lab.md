@@ -478,6 +478,46 @@ After clicking on the OK button, monitorix will show up the **Netstat statistic*
 ![itop](./img/biti-ipm-network-linux-monitorix-2.png)
 
 
+## cockpit
+
+### Description
+Cockpit is another server management tool. It is easy to use, lightweight and simple, yet very powerful. It provides a web-based user interface that facilitates storage management tasks, starting / stopping services, checking journals and setup management for multiple servers.
+
+The tool was created for Red Hat, but runs on many Linux server distributions in addition to Red Hat Enterprise Linux (RHEL): Fedora, Arch Linux, Ubuntu, CentOS and others.
+
+### Sample output
+
+ To access the Cockpit interface, just point your browser to the following URL:
+```
+http://<ip-address>:9090/
+```
+Where
+* ip-address - The server's IP address or it's hostname.
+
+
+<aside class="negative">
+Please note that Cockpit is installed on a virtual machine, which is only used within the course. Always make sure that you secure the http connection.
+</aside>
+
+
+Log in with a normal account. Hoyever, it might be a good idea for this account to have root privileges. 
+
+
+![itop](./img/biti-ipm-network-linux-cockpit-1.png)
+
+The Dashboard view is clean and uncluttered. The image below shows a card layout. It graphs CPU, memory, network, and disk I/O. If this is your first run and you haven't yet connected any servers, you will see graphs for the local system only.
+
+![itop](./img/biti-ipm-network-linux-cockpit-2.png)
+
+The Networking section allows you to manage firewall and network interfaces. You can edit firewall rules and zones and manipulate networking with bonding, teaming, bridges, and VLANs.
+
+![itop](./img/biti-ipm-network-linux-cockpit-3.png)
+
+
+<aside class="positive">
+Please note that essential software components have not been installed on this virtual machine. Therefore, some important functionalities are missing in Cockpit, such as tools for a proper firewall configuration. 
+</aside>
+
 ## Hands-on
 
 ### What you will learn:
