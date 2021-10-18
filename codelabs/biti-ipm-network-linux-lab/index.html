@@ -431,6 +431,32 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
 
       </google-codelab-step>
     
+      <google-codelab-step label="cockpit" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>Cockpit is another server management tool. It is easy to use, lightweight and simple, yet very powerful. It provides a web-based user interface that facilitates storage management tasks, starting / stopping services, checking journals and setup management for multiple servers.</p>
+<p>The tool was created for Red Hat, but runs on many Linux server distributions in addition to Red Hat Enterprise Linux (RHEL): Fedora, Arch Linux, Ubuntu, CentOS and others.</p>
+<h2 is-upgraded>Sample output</h2>
+<p>To access the Cockpit interface, just point your browser to the following URL:</p>
+<pre><code>http://&lt;ip-address&gt;:9090/
+</code></pre>
+<p>Where</p>
+<ul>
+<li>ip-address - The server&#39;s IP address or it&#39;s hostname.</li>
+</ul>
+<aside class="warning"><p> Please note that Cockpit is installed on a virtual machine, which is only used within the course. Always make sure that you secure the http connection. </p>
+</aside>
+<p>Log in with a normal account. Hoyever, it might be a good idea for this account to have root privileges.</p>
+<p class="image-container"><img alt="itop" src="img/b90068baaa2e9f88.png"></p>
+<p>The Dashboard view is clean and uncluttered. The image below shows a card layout. It graphs CPU, memory, network, and disk I/O. If this is your first run and you haven&#39;t yet connected any servers, you will see graphs for the local system only.</p>
+<p class="image-container"><img alt="itop" src="img/1191d1e98397ecf5.png"></p>
+<p>The Networking section allows you to manage firewall and network interfaces. You can edit firewall rules and zones and manipulate networking with bonding, teaming, bridges, and VLANs.</p>
+<p class="image-container"><img alt="itop" src="img/11b174ab462a10dc.png"></p>
+<aside class="special"><p> Please note that essential software components have not been installed on this virtual machine. Therefore, some important functionalities are missing in Cockpit, such as tools for a proper firewall configuration.  </p>
+</aside>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Hands-on" duration="0">
         <h2 is-upgraded>What you will learn:</h2>
 <p>In this codelab, you will learn</p>
