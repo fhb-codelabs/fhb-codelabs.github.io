@@ -96,6 +96,10 @@ DESCRIPTION
 </code></pre>
 <aside class="special"><p> Without the --all flag, nproc will display the number of processing units available to the current process.<br> Use the --help flag for more information. </p>
 </aside>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man nproc
+</code></pre>
 
 
       </google-codelab-step>
@@ -110,8 +114,7 @@ lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
 <p>The output may look like this:</p>
-<pre><code>icinga@server:/# lscpu
-Architecture:                    x86_64
+<pre><code>Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
 Byte Order:                      Little Endian
 Address sizes:                   39 bits physical, 48 bits virtual
@@ -166,7 +169,7 @@ Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
                                   xsaves dtherm ida arat pln pts hwp hwp_notify 
                                  hwp_act_window hwp_epp md_clear flush_l1d
 
-icinga@server:$ lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
+--More--
 CPU(s):                          4
 On-line CPU(s) list:             0-3
 Thread(s) per core:              2
@@ -183,8 +186,16 @@ NUMA node0 CPU(s):               0-3
 <li>Thread per core: 2</li>
 <li>Total threads: 4</li>
 </ul>
-<h2 is-upgraded>cpuinfo</h2>
-<h2 is-upgraded>Description</h2>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man lscpu
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="cpuinfo" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>All Linux distributions allows you to run <strong>cat /proc/cpuinfo</strong>. This file contains details about the processors installed. Note that /proc is a pseudo-filesystem, it is used as an interface to kernel data structures.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>Open a shell and run the following command:</p>
@@ -192,8 +203,7 @@ NUMA node0 CPU(s):               0-3
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
 <p>Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description.</p>
-<pre><code>icinga@server:/# cat /proc/cpuinfo | more
-processor	: 0
+<pre><code>processor	: 0
 vendor_id	: GenuineIntel
 cpu family	: 6
 model		: 78
@@ -251,28 +261,33 @@ cpuid level	: 22
 <p>To count the number of processing units use grep command.</p>
 <pre><code>cat /proc/cpuinfo | grep processor
 </code></pre>
-<h2 is-upgraded>Sample output</h2>
-<p>The output may look like this:</p>
-<pre><code>icinga@server:/# cat /proc/cpuinfo | grep processor
-processor	: 0
-processor	: 1
-processor	: 2
-processor	: 3
-</code></pre>
 <p>Let us print cpu thread count:</p>
 <pre><code>echo &#34;CPU threads: $(grep -c processor /proc/cpuinfo)&#34;
 grep &#39;cpu cores&#39; /proc/cpuinfo | uniq
 </code></pre>
-<p>Sample outputs:</p>
-<pre><code>icinga@server:/# echo &#34;CPU threads: $(grep -c processor /proc/cpuinfo)&#34;
-CPU threads: 4
-icinga@server:/# grep &#39;cpu cores&#39; /proc/cpuinfo | uniq
-cpu cores	: 2
+<h2 is-upgraded>Sample output</h2>
+<p>The first output may look like this:</p>
+<pre><code>processor	: 0
+processor	: 1
+processor	: 2
+processor	: 3
+</code></pre>
+<p>The second output may look like this:</p>
+<pre><code>CPU threads : 4
+cpu cores   : 2
 </code></pre>
 <aside class="special"><p> The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores. </p>
 </aside>
-<h2 is-upgraded>hwinfo</h2>
-<h2 is-upgraded>Description</h2>
+<h2 is-upgraded>Reference</h2>
+<p>Documentation, examples, etc.:</p>
+<pre><code>https://linuxwiki.de/proc/cpuinfo
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="hwinfo" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.</p>
 <aside class="special"><p> Hwinfo requires root privileges. </p>
 </aside>
@@ -282,8 +297,7 @@ cpu cores	: 2
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
 <p>The output may look like this:</p>
-<pre><code>root@server:/# hwinfo | more
-============ start debug info ============
+<pre><code>============ start debug info ============
 libhd version 21.72 (x86-64) [7688]
 using /var/lib/hardware
 kernel version is 5.10
@@ -338,9 +352,8 @@ shm: attached segment 26 at 0x7f2ea7189000
 <p>The &#34;–short&#34; option will display brief information about the hardware and not the details. With the &#34;–cpu&#34; option, hwinfo would display only cpu information.</p>
 <pre><code>hwinfo --short --cpu
 </code></pre>
-<p>Sample output</p>
-<pre><code>root@server# hwinfo --short --cpu
-cpu:                                                            
+<p>Sample output:</p>
+<pre><code>cpu:                                                            
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2550 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1075 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1841 MHz
@@ -349,8 +362,16 @@ cpu:
 <p>Finally, the hwinfo has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.</p>
 <pre><code>hwinfo --all --log hardware_info.txt
 </code></pre>
-<h2 is-upgraded>dmidecode</h2>
-<h2 is-upgraded>Description</h2>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man hwinfo
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="dmidecode" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>The Linux command <strong>dmidecode</strong> reads the data from DMI (Desktop Management Interface) table which holds information for system&#39;s hardware components like BIOS Revision, Serial Number, CPU, RAM, etc.</p>
 <p>The tools is useful when users run into situations where they need to find out maximum RAM supported by the BIOS and motherboard, a serial number or a key piece of hardware information during troubleshooting.</p>
 <aside class="special"><p> Hwinfo requires root privileges. </p>
@@ -426,8 +447,16 @@ Processor Information
 	Core Count: 2
 	Thread Count: 4
 </code></pre>
-<h2 is-upgraded>getconf</h2>
-<h2 is-upgraded>Description</h2>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man dmidecode
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="getconf" duration="0">
+        <h2 is-upgraded>Description</h2>
 <p>The Linux command <strong>getconf</strong> displays the value of a specified configuration variable on the standard output. The <strong>getconf</strong> command is most portable solution as it runs on Linux and Mac OS X as well.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>Run the following code:</p>
@@ -449,6 +478,10 @@ MAX_INPUT                          255
 </code></pre>
 <p>Sample output:</p>
 <pre><code>Number of CPU/cores online at server: 4
+</code></pre>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man gconf
 </code></pre>
 
 
@@ -488,8 +521,12 @@ MAX_INPUT                          255
 <p>To see load changes on screen, run the <code>watch</code> command as follows:</p>
 <pre><code>watch uptime
 </code></pre>
-<aside class="special"><p> Consult your documentation about the CPU load average, its meaning and how to interpret the numbers. </p>
+<aside class="special"><p> Consult the documentation about the CPU load average, its meaning and how to interpret the numbers. </p>
 </aside>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man uptime
+</code></pre>
 
 
       </google-codelab-step>
@@ -506,6 +543,14 @@ MAX_INPUT                          255
 <p>The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table  (the Process Table) with information about each individual process.</p>
 <aside class="special"><p> Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it. </p>
 </aside>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man top
+</code></pre>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man top
+</code></pre>
 
 
       </google-codelab-step>
@@ -522,6 +567,10 @@ MAX_INPUT                          255
 <p>The top section is more easier to read and the bottom section is better organized.</p>
 <aside class="special"><p> Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it. </p>
 </aside>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man htop
+</code></pre>
 
 
       </google-codelab-step>
@@ -592,6 +641,10 @@ MAX_INPUT                          255
 </code></pre>
 <aside class="special"><p> Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results. </p>
 </aside>
+<h2 is-upgraded>References</h2>
+<p>Manual Page:</p>
+<pre><code>man mpstat
+</code></pre>
 
 
       </google-codelab-step>

@@ -103,6 +103,10 @@ DESCRIPTION
 00:0d.0 SATA controller: Intel Corporation 82801HM/HEM (ICH8M/ICH8M-E) SATA Controller [AHCI mode] (rev 02)
 </code></pre>
 <p>The list shows the model of the Ethernet controller, but not the network device interfaces. For this we need another tool.</p>
+<h2 is-upgraded>Reference</h2>
+<p>Manual Page:</p>
+<pre><code>man lspci
+</code></pre>
 
 
       </google-codelab-step>
@@ -174,6 +178,10 @@ DESCRIPTION
   Link detected: yes
   Config Status: cfg=new, avail=yes, need=no, active=unknown
 </code></pre>
+<h2 is-upgraded>Reference</h2>
+<p>Manual Page:</p>
+<pre><code>man hwinfo
+</code></pre>
 
 
       </google-codelab-step>
@@ -202,6 +210,10 @@ DESCRIPTION
 </code></pre>
 <aside class="special"><p> At this point, check how the outputs of lspci, hwinfo and ip are linked together!  </p>
 </aside>
+<h2 is-upgraded>Reference</h2>
+<p>Manual Page:</p>
+<pre><code>man ip
+</code></pre>
 
 
       </google-codelab-step>
@@ -253,6 +265,10 @@ IP6.ROUTE[1]:                           dst = ::1/128, nh = ::, mt = 256
 NAME                UUID                                  TYPE      DEVICE 
 Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3 
 </code></pre>
+<h2 is-upgraded>Reference</h2>
+<p>Manual Page:</p>
+<pre><code>man nmcli
+</code></pre>
 
 
       </google-codelab-step>
@@ -302,6 +318,10 @@ rtt min/avg/max/mdev = 21.228/34.314/57.876/16.694 ms
 <li>The Time to Live. - ttl=53 - How does TTL work?.</li>
 <li>The ping time, measured in milliseconds which is the round trip time for the packet to reach the host, and the response to return to the sender. - time=21.2 ms.</li>
 </ul>
+<h2 is-upgraded>Reference</h2>
+<p>Manual Page:</p>
+<pre><code>man ping
+</code></pre>
 
 
       </google-codelab-step>
@@ -323,6 +343,10 @@ Testing download speed....................
 Download: 10.79 Mbit/s
 Testing upload speed........................................
 Upload: 1.01 Mbit/s
+</code></pre>
+<h2 is-upgraded>Reference</h2>
+<p>Manual Page:</p>
+<pre><code>man speedtest-cli
 </code></pre>
 
 
@@ -360,6 +384,10 @@ Upload: 1.01 Mbit/s
 <li>The next rows of output correspond to each network connection between a pair of hosts. In between the two hosts are arrows that let you know the direction the traffic is flowing.</li>
 <li>The final three columns provide average bandwidth for each connection during the last 2, 10 and 40 seconds, respectively.</li>
 </ul>
+<h2 is-upgraded>Reference</h2>
+<p>Manual Page:</p>
+<pre><code>man iftop
+</code></pre>
 
 
       </google-codelab-step>
@@ -375,6 +403,10 @@ Upload: 1.01 Mbit/s
 <h2 is-upgraded>Sample output</h2>
 <p class="image-container"><img alt="itop" src="img/62b1e931f448de4c.png"></p>
 <p>In contrast to other network monitors, Etherape visualizes the logged connections in a graphical representation. The approach of the open source program is intuitive: Each IP address is graphically represented as a node, connection lines trace the transmitted data. The thickness of the lines shows the data volume of the corresponding connection between the nodes and the color of the lines shows the protocol used in each case.</p>
+<h2 is-upgraded>Reference</h2>
+<p>Documentation:</p>
+<pre><code>https://etherape.sourceforge.io/
+</code></pre>
 
 
       </google-codelab-step>
@@ -427,6 +459,10 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
 <p class="image-container"><img alt="itop" src="img/9b05fc01965cd856.png"></p>
 <p>After clicking on the OK button, monitorix will show up the <strong>Netstat statistic</strong>. By default, the page refreshes automatically every 150 seconds, displaying the network activity, packetes and errors.</p>
 <p class="image-container"><img alt="itop" src="img/1e24a60dc6593a44.png"></p>
+<h2 is-upgraded>Reference</h2>
+<p>Documentation:</p>
+<pre><code>https://www.monitorix.org/
+</code></pre>
 
 
       </google-codelab-step>
@@ -453,6 +489,10 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
 <p class="image-container"><img alt="itop" src="img/11b174ab462a10dc.png"></p>
 <aside class="special"><p> Please note that essential software components have not been installed on this virtual machine. Therefore, some important functionalities are missing in Cockpit, such as tools for a proper firewall configuration.  </p>
 </aside>
+<h2 is-upgraded>Reference</h2>
+<p>Documentation:</p>
+<pre><code>https://cockpit-project.org/
+</code></pre>
 
 
       </google-codelab-step>
