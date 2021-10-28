@@ -97,6 +97,12 @@ Without the --all flag, nproc will display the number of processing units availa
 Use the --help flag for more information.
 </aside>
 
+### Documentation
+
+Need help? Use this:
+```
+man nproc
+```
 
 ## lscpu
 
@@ -109,7 +115,6 @@ On most Linux distributions, you can also use the **lscpu** command. It displays
 Open a shell and run the following command:
 ```
 lscpu
-lscpu | egrep 'Model name|Socket|Thread|NUMA|CPU\(s\)'
 ```
 
 ### Sample output
@@ -117,7 +122,6 @@ lscpu | egrep 'Model name|Socket|Thread|NUMA|CPU\(s\)'
 The output may look like this:
 
 ```
-icinga@server:/# lscpu
 Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
 Byte Order:                      Little Endian
@@ -172,8 +176,16 @@ Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
                                  map clflushopt intel_pt xsaveopt xsavec xgetbv1
                                   xsaves dtherm ida arat pln pts hwp hwp_notify 
                                  hwp_act_window hwp_epp md_clear flush_l1d
+```
 
-icinga@server:$ lscpu | egrep 'Model name|Socket|Thread|NUMA|CPU\(s\)'
+### Sample code
+Open a shell and run the following command:
+```
+lscpu | egrep 'Model name|Socket|Thread|NUMA|CPU\(s\)'
+```
+
+### Sample output
+```
 CPU(s):                          4
 On-line CPU(s) list:             0-3
 Thread(s) per core:              2
@@ -191,7 +203,14 @@ The output shows the CPU information:
 * Thread per core: 2 
 * Total threads: 4
 
-### cpuinfo
+### Documentation
+
+Need help? Use this:
+```
+man lscpu
+```
+
+## cpuinfo
 
 ### Description
 
@@ -209,7 +228,6 @@ cat /proc/cpuinfo | more
 Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description. 
 
 ```
-icinga@server:/# cat /proc/cpuinfo | more
 processor	: 0
 vendor_id	: GenuineIntel
 cpu family	: 6
@@ -263,10 +281,6 @@ cpuid level	: 22
 --More--
 ```
 
-<aside class="positive">
-Consult the documentation and man-pages for more details. Try to identify keywords and details of the CPU. 
-</aside>
-
 ### Sample code
 
 To count the number of processing units use grep command.
@@ -279,7 +293,6 @@ cat /proc/cpuinfo | grep processor
 The output may look like this:
 
 ```
-icinga@server:/# cat /proc/cpuinfo | grep processor
 processor	: 0
 processor	: 1
 processor	: 2
@@ -305,7 +318,14 @@ cpu cores	: 2
 The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores.
 </aside>
 
-### hwinfo
+### Documentation
+
+Need help? Use this:
+```
+https://linuxwiki.de/proc/cpuinfo
+```
+
+## hwinfo
 
 ### Description
 
@@ -327,7 +347,6 @@ hwinfo | more
 The output may look like this:
 
 ```
-root@server:/# hwinfo | more
 ============ start debug info ============
 libhd version 21.72 (x86-64) [7688]
 using /var/lib/hardware
@@ -391,7 +410,6 @@ hwinfo --short --cpu
 Sample output
 
 ```
-root@server# hwinfo --short --cpu
 cpu:                                                            
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2550 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1075 MHz
@@ -405,8 +423,14 @@ Finally, the hwinfo has an option to log all data to a file. The following comma
 hwinfo --all --log hardware_info.txt
 ```
 
+### Documentation
 
-### dmidecode
+Need help? Use this:
+```
+man hwinfo
+```
+
+## dmidecode
 
 ### Description
 
@@ -431,7 +455,6 @@ dmidecode -t processor | more
 The output may look like this:
 
 ```
-root@server# dmidecode -t processor | more
 # dmidecode 3.3
 Getting SMBIOS data from sysfs.
 SMBIOS 3.2.0 present.
@@ -502,7 +525,15 @@ Sample output:
 	Thread Count: 4
 ```
 
-### getconf
+### Documentation
+
+Need help? Use this:
+```
+man dmidecode
+```
+
+
+## getconf
 
 ### Description
 
@@ -539,6 +570,13 @@ echo "Number of CPU/cores online at $HOSTNAME: $(getconf _NPROCESSORS_ONLN)"
 Sample output:
 ```
 Number of CPU/cores online at server: 4
+```
+
+### Documentation
+
+Need help? Use this:
+```
+man getconf
 ```
 
 ## CPU Monitoring
@@ -589,9 +627,15 @@ watch uptime
 ```
 
 <aside class="positive">
-Consult your documentation about the CPU load average, its meaning and how to interpret the numbers.
+Consult the documentation about the CPU load average, its meaning and how to interpret the numbers.
 </aside>
 
+### Documentation
+
+Need help? Use this:
+```
+man uptime
+```
 
 ## top
 
@@ -617,6 +661,13 @@ The first five lines (also called the Header Block) provide a summary about the 
 Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it.
 </aside>
 
+### Documentation
+
+Need help? Use this:
+```
+man top
+```
+
 ## htop
 
 ### Description
@@ -641,6 +692,12 @@ The top section is more easier to read and the bottom section is better organize
 Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it.
 </aside>
 
+### Documentation
+
+Need help? Use this:
+```
+man htop
+```
 
 ## mpstat 
 
@@ -734,6 +791,14 @@ Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 <aside class="positive">
 Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results.
 </aside>
+
+### Documentation
+
+Need help? Use this:
+```
+man mpstat
+```
+
 
 ## Hands-On
 

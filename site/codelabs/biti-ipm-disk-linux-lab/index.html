@@ -278,6 +278,63 @@ Selective Self-tests/Logging not supported
 
       </google-codelab-step>
     
+      <google-codelab-step label="Disk Space" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use one of the following commands to find detailed information about the disk usage on Linux:</p>
+<ul>
+<li>df</li>
+<li>gdu</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="df" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>Linux has a strong built-in utility called <code>df</code>. The <code>df</code> command stands for &#34;disk filesystem&#34;, it is used to get a full summary of available and used disk space usage of the file system on the Linux system.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>To run <code>df</code>, just open a terminal and run:</p>
+<pre><code>df
+</code></pre>
+<p>Using <code>-h</code> parameter with (df -h) will show the file system disk space statistics in &#34;human-readable&#34; format, means it gives the details in bytes, megabytes, and gigabyte.</p>
+<pre><code>df -h
+</code></pre>
+<h2 is-upgraded>Sample output</h2>
+<p>When running <code>df -h</code>, you can see the following output.</p>
+<pre><code>Filesystem                     Size  Used Avail Use% Mounted on
+udev                           1.8G     0  1.8G   0% /dev
+tmpfs                          394M  1.2M  393G   1% /run
+/dev/sda1                       31G   12G   18G  41% /
+tmpfs                          2.0G  143M  2.0G   0% /dev/shm
+tmpfs                          5.0M  4.0K  5.0M   1% /run/lock
+tmpfs                          394M  112K  394G   1% /run/user/1000
+</code></pre>
+<p>As can be seen in the output, the device <code>/dev/sda1</code> uses 12G of 31G of space.</p>
+<aside class="special"><p> Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more.  </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="gdu" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The tool <code>gdu</code> is a pretty fast disk usage analyzer written in Go. It is intended primarily for SSD disks where it can fully utilize parallel processing. However, HDDs work as well, but the performance gain is not so huge.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>If you run the <code>gdu</code> command without passing any argument it will scan your current working directory. To run gdu, just open a terminal and run:</p>
+<pre><code>gdu
+</code></pre>
+<p>If you want to know the arguments, just run the following:</p>
+<pre><code>gdu -h
+</code></pre>
+<h2 is-upgraded>Sample output</h2>
+<p>When running gdu, you can see from the below image the home directory is scanned sorted by size:</p>
+<p class="image-container"><img alt="gdu" src="img/86d7c93e8131dbf.png"></p>
+<p>Use the arrow keys to move up and down in the directory tree. Press <code>Enter</code> to move to a subdirectory. If you want to leave the subdirectory, move the cursor up to <code>...</code> and press <code>Enter</code>.</p>
+<p>There are few operations you can perform with the gdu command. Press <code>?</code> to access help. <img alt="gdu-help" src="img/144a8f5e1388b2ed.png"></p>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Disk monitoring" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
 <p>You can use one of the following command to monitor disks on Linux:</p>
@@ -380,7 +437,7 @@ usr sys idl wai stl| read  writ| recv  send|  in   out | int   csw
 <li>dstat</li>
 <li>Stress</li>
 </ul>
-<p>Details of the <strong>Stress</strong> tool can be found in the corresponding Codelab named <code>Stress the computer</code>.</p>
+<p>Details of the <strong>Stress</strong> tool can be found in the corresponding Codelab named <code>Stress</code>.</p>
 <h2 is-upgraded>Scenario</h2>
 <p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>

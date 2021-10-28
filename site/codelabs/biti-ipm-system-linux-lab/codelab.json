@@ -1,0 +1,27 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-10-28T17:11:41+02:00",
+  "id": "biti-ipm-system-linux-lab",
+  "duration": 0,
+  "title": "BITI IPM Lab - System Information",
+  "authors": "Roland Pellegrini",
+  "summary": "BITI IPM Lab - System Information",
+  "source": "biti-ipm-system-linux-lab.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "linux"
+  ],
+  "tags": [
+    "biti",
+    "introduction",
+    "ipm",
+    "system"
+  ],
+  "url": "biti-ipm-system-linux-lab"
+}
