@@ -68,7 +68,7 @@ You can use one of the following commands to find detailed information about the
 
 * lshw 
 * inxi
-* smartctl 
+* smartctl
 
 ## lshw 
 
@@ -296,6 +296,79 @@ Here is a short list of SMART attributes:
 * Hardware ECC Recovered - corrected bit errors during reading
 * Total LBAs Written - The total number of sectors written by the host system
 
+## Disk Space
+
+### What You will learn:
+
+You can use one of the following commands to find detailed information about the disk usage on Linux:
+
+* df
+* gdu 
+
+## df
+
+### Description
+Linux has a strong built-in utility called `df`. The `df` command stands for “disk filesystem“, it is used to get a full summary of available and used disk space usage of the file system on the Linux system.
+
+
+### Sample code
+
+To run `df`, just open a terminal and run:
+```
+df
+```
+
+Using `-h` parameter with (df -h) will show the file system disk space statistics in “human-readable” format, means it gives the details in bytes, megabytes, and gigabyte.
+```
+df -h
+```
+
+### Sample output
+
+When running `df -h`, you can see the following output.
+```
+Filesystem                     Size  Used Avail Use% Mounted on
+udev                           1.8G     0  1.8G   0% /dev
+tmpfs                          394M  1.2M  393G   1% /run
+/dev/sda1                       31G   12G   18G  41% /
+tmpfs                          2.0G  143M  2.0G   0% /dev/shm
+tmpfs                          5.0M  4.0K  5.0M   1% /run/lock
+tmpfs                          394M  112K  394G   1% /run/user/1000
+```
+
+As can be seen in the output, the device `/dev/sda1` uses 12G of 31G of space.
+
+<aside class="positive">
+Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more. 
+</aside>
+
+## gdu
+
+### Description
+
+The tool `gdu` is a pretty fast disk usage analyzer written in Go. It is intended primarily for SSD disks where it can fully utilize parallel processing. However, HDDs work as well, but the performance gain is not so huge.
+
+### Sample code
+If you run the `gdu` command without passing any argument it will scan your current working directory. To run gdu, just open a terminal and run:
+```
+gdu
+```
+
+If you want to know the arguments, just run the following:
+```
+gdu -h
+```
+
+### Sample output
+
+When running gdu, you can see from the below image the home directory is scanned sorted by size:
+
+![gdu](./img/biti-ipm-disk-linux-gdu.png) 
+
+Use the arrow keys to move up and down in the directory tree. Press `Enter` to move to a subdirectory. If you want to leave the subdirectory, move the cursor up to `...` and press `Enter`. 
+
+There are few operations you can perform with the gdu command. Press `?` to access help.
+![gdu-help](./img/biti-ipm-disk-linux-gdu-help.png) 
 
 ## Disk monitoring
 
@@ -421,7 +494,7 @@ In this codelab, you will need the following tools:
 * dstat
 * Stress
 
-Details of the **Stress** tool can be found in the corresponding Codelab named `Stress the computer`.
+Details of the **Stress** tool can be found in the corresponding Codelab named `Stress`.
 
 ### Scenario
 

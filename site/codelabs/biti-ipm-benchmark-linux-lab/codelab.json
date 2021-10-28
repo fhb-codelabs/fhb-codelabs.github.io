@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-18T21:58:49+02:00",
-  "id": "biti-ipm-compute-linux-lab",
+  "updated": "2021-10-28T17:01:59+02:00",
+  "id": "biti-ipm-benchmark-linux-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Compute",
+  "title": "BITI IPM Lab - Benchmark",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Compute",
-  "source": "biti-ipm-compute-linux-lab.md",
+  "summary": "BITI IPM Lab - Benchmark",
+  "source": "biti-ipm-benchmark-linux-lab.md",
   "theme": "",
   "status": [
     "published"
@@ -18,11 +18,10 @@
     "linux"
   ],
   "tags": [
+    "benchmark",
     "biti",
-    "compute",
-    "cpu",
     "introduction",
     "ipm"
   ],
-  "url": "biti-ipm-compute-linux-lab"
+  "url": "biti-ipm-benchmark-linux-lab"
 }
