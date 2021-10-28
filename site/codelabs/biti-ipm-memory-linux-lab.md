@@ -84,7 +84,6 @@ cat /proc/meminfo | more
 
 Check the values of MemTotal, MemFree, Buffers, Cached, SwapTotal, SwapFree. They indicate same values of memory usage as the **free** command (see next paragraph).
 ```
-icinga@server:/# cat /proc/meminfo | more
 MemTotal:        4025712 kB
 MemFree:         2697848 kB
 MemAvailable:    3154120 kB
@@ -115,6 +114,13 @@ Slab:              80840 kB
 Consult the documentation and man-pages for more details. Try to identify keywords and details of the memory. 
 </aside>
 
+
+### Reference
+
+Documentation, examples, etc.:
+```
+https://linuxwiki.de/proc/meminfo
+```
 
 ## demidecode
 
@@ -178,6 +184,13 @@ Memory Device
 --More--
 ```
 
+### Reference
+
+Manual Page:
+```
+man demidecode
+```
+
 ## Memory monitoring
 
 ### What You will learn:
@@ -236,6 +249,13 @@ free -s 5
 watch free
 ```
 
+### Reference
+
+Manual Page:
+```
+man free
+```
+
 ## vmstat
 
 ### Description 
@@ -277,6 +297,13 @@ As shown, the **vmstat** command provides information about Processes, Memory, I
 <aside class="positive">
 Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more. 
 </aside>
+
+### Reference
+
+Manual Page:
+```
+man vmstat
+```
 
 ## Hands-on
 

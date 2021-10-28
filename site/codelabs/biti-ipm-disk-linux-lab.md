@@ -127,12 +127,18 @@ The `-short` option is useful when you need the name of the drives only (here: /
 
 Sample output:
 ```
-root@server:~# lshw -short -class disk
 H/W path            Device      Class       Description
 =======================================================
 /0/100/1.1/0.0.0    /dev/cdrom  disk        CD-ROM
 /0/100/1.1/0.0.0/0  /dev/cdrom  disk        
 /0/100/d/0.0.0      /dev/sda    disk        25GB VBOX HARDDISK
+```
+
+### Reference
+
+Manual Page:
+```
+man lshw
 ```
 
 ## inxi
@@ -168,7 +174,6 @@ inxi -Dxx
 
 Sample output:
 ```
-root@server:~# inxi -Dxx
 Drives:    Local Storage: total: 24 GiB used: 13.57 GiB (56.5%) 
            ID-1: /dev/sda vendor: VirtualBox model: VBOX HARDDISK size: 24 GiB speed: 3.0 Gb/s serial: VB7b3622bd-ddc6a90c 
 ```
@@ -176,6 +181,13 @@ Drives:    Local Storage: total: 24 GiB used: 13.57 GiB (56.5%)
 <aside class="positive">
 Be aware that all commands are executed within a virtual machine. Running the tool on physical hardware provides more information. 
 </aside>
+
+### Reference
+
+Manual Page:
+```
+man inxi
+```
 
 ## smartctl
 
@@ -370,6 +382,13 @@ Use the arrow keys to move up and down in the directory tree. Press `Enter` to m
 There are few operations you can perform with the gdu command. Press `?` to access help.
 ![gdu-help](./img/biti-ipm-disk-linux-gdu-help.png) 
 
+### Reference
+
+Manual Page:
+```
+man smartctl
+```
+
 ## Disk monitoring
 
 ### What You will learn:
@@ -401,6 +420,13 @@ The **iotop** command displays columns for the I/O bandwidth read and written by
 <aside class="positive">
 Consult the documentation and man-pages for more details. 
 </aside>
+
+### Reference
+
+Manual Page:
+```
+man iotop
+```
 
 ## dstat
 
@@ -475,6 +501,13 @@ Sample output:
 12-10 23:17:58|  7  47   0  46   0| 720M 2687M 6104k  504M|   0  7428k|1.84 0.58 0.21
 12-10 23:17:59|  4  48   0  49   0| 720M 2615M 6104k  574M|   0  9320k|1.85 0.60 0.22
 12-10 23:18:00| 12  43   1  44   0| 719M 2560M 6120k  628M|  92k  113M|1.85 0.60 0.22
+```
+
+### Reference
+
+Manual Page:
+```
+man dstat
 ```
 
 ## Hands-on

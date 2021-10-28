@@ -3,7 +3,11 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
+<<<<<<< HEAD
   "updated": "2021-10-18T21:58:49+02:00",
+=======
+  "updated": "2021-10-18T23:23:43+02:00",
+>>>>>>> bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c
   "id": "biti-ipm-compute-linux-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Compute",
