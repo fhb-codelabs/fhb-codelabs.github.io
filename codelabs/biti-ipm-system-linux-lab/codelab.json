@@ -4,25 +4,24 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2021-10-28T19:16:56Z",
-  "id": "biti-ipm-compute-linux-lab",
+  "id": "biti-ipm-system-linux-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Compute",
+  "title": "BITI IPM Lab - System Information",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Compute",
-  "source": "biti-ipm-compute-linux-lab.md",
+  "summary": "BITI IPM Lab - System Information",
+  "source": "biti-ipm-system-linux-lab.md",
   "theme": "",
   "status": [
-    "published"
+    "draft"
   ],
   "category": [
     "linux"
   ],
   "tags": [
     "biti",
-    "compute",
-    "cpu",
     "introduction",
-    "ipm"
+    "ipm",
+    "system"
   ],
-  "url": "biti-ipm-compute-linux-lab"
+  "url": "biti-ipm-system-linux-lab"
 }

@@ -1,0 +1,140 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>BITI IPM Lab - System Information</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="biti-ipm-system-linux-lab"
+                  title="BITI IPM Lab - System Information"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Before You Begin" duration="0">
+        <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<p>In this codelab you will learn</p>
+<ul>
+<li>how to get system information with hwinfo</li>
+</ul>
+<h2 is-upgraded>Where You Can Look Up</h2>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="hwinfo" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.</p>
+<aside class="special"><p> Hwinfo requires root privileges. </p>
+</aside>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the following command:</p>
+<pre><code>hwinfo | more
+</code></pre>
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
+<pre><code>============ start debug info ============
+libhd version 21.72 (x86-64) [7688]
+using /var/lib/hardware
+kernel version is 5.10
+----- /proc/cmdline -----
+  BOOT_IMAGE=/vmlinuz-5.10.0-9-amd64 root=/dev/mapper/cat--vg-root ro quiet
+----- /proc/cmdline end -----
+debug = 0xff7ffff7
+probe = 0x15938fcdaa17fcf9fffe (+memory +pci +isapnp +net +floppy +misc +misc.serial +misc.par +misc.floppy +serial +cpu +bios +monitor +mouse +scsi +usb -usb.mods +
+modem +modem.usb +parallel +parallel.lp +parallel.zip -isa -isa.isdn +isdn +kbd +prom +sbus +int +braille +braille.alva +braille.fhp +braille.ht -ignx11 +sys -bios.v
+be -isapnp.old -isapnp.new -isapnp.mod +braille.baum -manual +fb +pppoe -scan +pcmcia +fork -parallel.imm +s390 +cpuemu -sysfs -s390disks +udev +block +block.cdrom +
+block.part +edd +edd.mod -bios.ddc -bios.fb -bios.mode +input +block.mods +bios.vesa -cpuemu.debug -scsi.noserial +wlan -bios.crc -hal +bios.vram +bios.acpi -bios.dd
+c.ports=0 +modules.pata -net.eeprom +x86emu=dump -max -lxrc)
+shm: attached segment 26 at 0x7f2ea7189000
+&gt;&gt; hal.1: read hal data
+&gt;&gt; floppy.1: get nvram
+----- /proc/nvram -----
+  Checksum status: not valid
+  # floppies     : 4
+  Floppy 0 type  : 12 (unknown)
+  Floppy 1 type  : 15 (unknown)
+  HD 0 type      : db
+  HD 1 type      : 0b
+  HD type 48 data: 64495/253/247 C/H/S, precomp 61423, lz 61135
+  HD type 49 data: 51147/70/0 C/H/S, precomp 0, lz 0
+  DOS base memory: 65478 kB
+  Extended memory: 20391 kB (configured), 50941 kB (tested)
+  Gfx adapter    : monochrome
+  FPU            : installed
+----- /proc/nvram end -----
+&gt;&gt; floppy.2: nvram info
+&gt;&gt; bios.1: cmdline
+&gt;&gt; bios.1.1: apm
+&gt;&gt; bios.2: ram
+  bios: 0 disks
+&gt;&gt; bios.2: rom
+----- SMBIOS Entry Point (sysfs) 0x00000 - 0x00017 -----
+  000  5f 53 4d 33 5f fa 18 03 02 00 01 00 13 04 00 00  &#34;_SM3_...........&#34;
+  010  00 d0 e5 8b 00 00 00 00  &#34;........&#34;
+----- SMBIOS Entry Point (sysfs) end -----
+  Found DMI table at 0x8be5d000 (0x0413 bytes max)
+  Got DMI table from sysfs (0x0413 bytes)
+----- SMBIOS Structure Table 0x8be5d000 - 0x8be5d412 -----
+  8be5d000  00 1a 00 00 01 02 00 00 03 ff 80 18 19 0c 00 00  &#34;................&#34;
+  8be5d010  00 00 03 0d ff ff ff ff 00 00 4d 69 63 72 6f 73  &#34;..........Micros&#34;
+  8be5d020  6f 66 74 20 43 6f 72 70 6f 72 61 74 69 6f 6e 00  &#34;oft Corporation.&#34;
+  8be5d030  39 32 2e 33 31 39 32 2e 37 36 38 00 30 33 2e 32  &#34;92.3192.768.03.2&#34;
+  8be5d040  34 2e 32 30 32 30 00 00 01 1b 01 00 01 02 03 04  &#34;4.2020..........&#34;
+  8be5d050  45 c0 37 1a 5f 88 e5 5e 47 36 4c 06 5b 0d db 39  &#34;E.7._..^G6L.[..9&#34;
+  8be5d060  02 05 06 4d 69 63 72 6f 73 6f 66 74 20 43 6f 72  &#34;...Microsoft Cor&#34;
+--More--
+</code></pre>
+<p>The &#34;–short&#34; option will display brief information about the hardware and not the details. With the &#34;–cpu&#34; option, hwinfo would display only cpu information.</p>
+<pre><code>hwinfo --short --cpu
+</code></pre>
+<p>Sample output</p>
+<pre><code>cpu:                                                            
+                       Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2550 MHz
+                       Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1075 MHz
+                       Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1841 MHz
+                       Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2463 MHz
+</code></pre>
+<p>Finally, the hwinfo has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.</p>
+<pre><code>hwinfo --all --log hardware_info.txt
+</code></pre>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
+<pre><code>man hwinfo
+</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

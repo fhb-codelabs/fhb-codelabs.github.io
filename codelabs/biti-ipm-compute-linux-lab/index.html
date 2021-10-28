@@ -96,8 +96,12 @@ DESCRIPTION
 </code></pre>
 <aside class="special"><p> Without the --all flag, nproc will display the number of processing units available to the current process.<br> Use the --help flag for more information. </p>
 </aside>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 <pre><code>man nproc
 </code></pre>
 
@@ -110,7 +114,6 @@ DESCRIPTION
 <h2 is-upgraded>Sample code</h2>
 <p>Open a shell and run the following command:</p>
 <pre><code>lscpu
-lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
 <p>The output may look like this:</p>
@@ -168,8 +171,16 @@ Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
                                  map clflushopt intel_pt xsaveopt xsavec xgetbv1
                                   xsaves dtherm ida arat pln pts hwp hwp_notify 
                                  hwp_act_window hwp_epp md_clear flush_l1d
-
+</code></pre>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Open a shell and run the following command:</p>
+<pre><code>lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
+</code></pre>
+<h2 is-upgraded>Sample output</h2>
+<pre><code>=======
 --More--
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c
 CPU(s):                          4
 On-line CPU(s) list:             0-3
 Thread(s) per core:              2
@@ -186,8 +197,12 @@ NUMA node0 CPU(s):               0-3
 <li>Thread per core: 2</li>
 <li>Total threads: 4</li>
 </ul>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 <pre><code>man lscpu
 </code></pre>
 
@@ -255,8 +270,6 @@ fpu_exception	: yes
 cpuid level	: 22
 --More--
 </code></pre>
-<aside class="special"><p> Consult the documentation and man-pages for more details. Try to identify keywords and details of the CPU.  </p>
-</aside>
 <h2 is-upgraded>Sample code</h2>
 <p>To count the number of processing units use grep command.</p>
 <pre><code>cat /proc/cpuinfo | grep processor
@@ -278,8 +291,12 @@ cpu cores   : 2
 </code></pre>
 <aside class="special"><p> The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores. </p>
 </aside>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
 <h2 is-upgraded>Reference</h2>
 <p>Documentation, examples, etc.:</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 <pre><code>https://linuxwiki.de/proc/cpuinfo
 </code></pre>
 
@@ -362,10 +379,17 @@ shm: attached segment 26 at 0x7f2ea7189000
 <p>Finally, the hwinfo has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.</p>
 <pre><code>hwinfo --all --log hardware_info.txt
 </code></pre>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
+<pre><code>man hwinfo
+</code></pre>
+<p>=======</p>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
 <pre><code>man hwinfo
 </code></pre>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 
 
       </google-codelab-step>
@@ -382,8 +406,7 @@ shm: attached segment 26 at 0x7f2ea7189000
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
 <p>The output may look like this:</p>
-<pre><code>root@server# dmidecode -t processor | more
-# dmidecode 3.3
+<pre><code># dmidecode 3.3
 Getting SMBIOS data from sysfs.
 SMBIOS 3.2.0 present.
 
@@ -447,10 +470,17 @@ Processor Information
 	Core Count: 2
 	Thread Count: 4
 </code></pre>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 <pre><code>man dmidecode
 </code></pre>
+<p>«««&lt; HEAD</p>
+<p>=======</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 
 
       </google-codelab-step>
@@ -479,10 +509,17 @@ MAX_INPUT                          255
 <p>Sample output:</p>
 <pre><code>Number of CPU/cores online at server: 4
 </code></pre>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
+<pre><code>man getconf
+</code></pre>
+<p>=======</p>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
 <pre><code>man gconf
 </code></pre>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 
 
       </google-codelab-step>
@@ -523,8 +560,12 @@ MAX_INPUT                          255
 </code></pre>
 <aside class="special"><p> Consult the documentation about the CPU load average, its meaning and how to interpret the numbers. </p>
 </aside>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 <pre><code>man uptime
 </code></pre>
 
@@ -543,12 +584,16 @@ MAX_INPUT                          255
 <p>The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table  (the Process Table) with information about each individual process.</p>
 <aside class="special"><p> Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it. </p>
 </aside>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
 <pre><code>man top
 </code></pre>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 <pre><code>man top
 </code></pre>
 
@@ -567,8 +612,12 @@ MAX_INPUT                          255
 <p>The top section is more easier to read and the bottom section is better organized.</p>
 <aside class="special"><p> Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it. </p>
 </aside>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 <pre><code>man htop
 </code></pre>
 
@@ -641,10 +690,17 @@ MAX_INPUT                          255
 </code></pre>
 <aside class="special"><p> Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results. </p>
 </aside>
+<p>«««&lt; HEAD</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help? Use this:</p>
 <h2 is-upgraded>References</h2>
 <p>Manual Page:</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 <pre><code>man mpstat
 </code></pre>
+<p>«««&lt; HEAD</p>
+<p>=======</p>
+<p>bae0e3ae6c533ee9e4c2fcdff49c8419f04a2d6c</p>
 
 
       </google-codelab-step>
