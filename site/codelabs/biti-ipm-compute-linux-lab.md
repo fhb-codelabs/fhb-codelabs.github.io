@@ -903,7 +903,7 @@ In this codelab, you will need the following tools:
 * uptime
 * cpulimit
 
-Details of these two (2) tools can be found in the corresponding Codelab named `Stress the computer`. Create workloads with Yes and/or Stress to see how the CPU responds.
+Details of these two (2) tools can be found in the corresponding Codelab named `Stress`. Create workloads with Yes and/or Stress to see how the CPU responds.
 
 For example, run the following command to create a CPU workload for 2 cores for the next two (2) minutes:
 ```
