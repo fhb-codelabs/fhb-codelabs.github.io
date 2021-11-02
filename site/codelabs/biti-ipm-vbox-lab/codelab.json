@@ -3,25 +3,24 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-11-02T17:46:44+01:00",
-  "id": "biti-ipm-disk-windows-lab",
+  "updated": "2021-11-02T17:45:45+01:00",
+  "id": "biti-ipm-vbox-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Disk",
+  "title": "BITI IPM Lab - Prepare VirtualBox",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Disk",
-  "source": "biti-ipm-disk-windows-lab.md",
+  "summary": "BITI IPM Lab - Prepare VirtualBox",
+  "source": "biti-ipm-vbox-lab.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "windows"
+    "codelab"
   ],
   "tags": [
     "biti",
-    "disk",
     "introduction",
     "ipm"
   ],
-  "url": "biti-ipm-disk-windows-lab"
+  "url": "biti-ipm-vbox-lab"
 }
