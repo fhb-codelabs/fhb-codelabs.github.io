@@ -153,7 +153,7 @@ This test run is based on the Online Transaction Processing (OLTP) workload, whi
 
 #### SQL Server OLTP
 
-Open a Powershell terminal as Administrator and execute disksdo.exe with the following options:
+Open a Powershell terminal as Administrator and execute diskspd.exe with the following options:
 
 ```
 diskspd.exe -b8K -d180 -h -L -o32 -t3 -r -w75 -c5G sqldata.dat > result.csv

@@ -4,25 +4,23 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2021-11-02T16:51:28Z",
-  "id": "biti-ipm-memory-linux-lab",
+  "id": "biti-ipm-vbox-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Memory",
+  "title": "BITI IPM Lab - Prepare VirtualBox",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Memory",
-  "source": "biti-ipm-memory-linux-lab.md",
+  "summary": "BITI IPM Lab - Prepare VirtualBox",
+  "source": "biti-ipm-vbox-lab.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "linux"
+    "codelab"
   ],
   "tags": [
     "biti",
     "introduction",
-    "ipm",
-    "memory",
-    "ram"
+    "ipm"
   ],
-  "url": "biti-ipm-memory-linux-lab"
+  "url": "biti-ipm-vbox-lab"
 }
