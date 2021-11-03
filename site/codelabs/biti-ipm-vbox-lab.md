@@ -1,11 +1,11 @@
-summary: BITI IPM Lab - Prepare VirtualBox
+summary: BITI IPM Lab - VirtualBox
 id: biti-ipm-vbox-lab
 categories: codelab
 tags: BITI, ipm, introduction
 status: Published
 authors: Roland Pellegrini
 
-# BITI IPM Lab - Prepare VirtualBox
+# BITI IPM Lab - VirtualBox
 <!-- ------------------------ -->
 ## Before You Begin 
 
