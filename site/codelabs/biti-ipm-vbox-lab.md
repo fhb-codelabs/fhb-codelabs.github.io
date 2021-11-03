@@ -94,8 +94,25 @@ The following software packages are part of the **official** Debian Repository a
 sudo apt install mc htop cpulimit stress stress-ng stressant hdparm smartmontools inxi iotop dstat speedtest-cli iftop etherape monitorix cockpit bonnie++ fio gdu
 ```
 
+Where,
+
+* mc - Midnight commander (tool ala Total Commander), a very handy tool
+* cpulimit -  Tool to interrupt execution of a process
+* stress, stress-ng, stressant - Workload generators
+* hdparm - Test performance tool for ATA HDDs
+* smartmontools - Utility programs to control and monitor computer storage systems
+* inxi - Tool to find Linux sytem details (CPU, Kernel, Memory, etc.)
+* dstat - Linux server performance tool, replacement for the vmstat, iostat, and ifstat
+* speedtest-cli - Internet bandwidth tester using speedtest.net
+* iftop - Realtime network bandwidth monitoring tool
+* etherape - A packet sniffer/network traffic monitoring tool 
+* monitorix - A lightweight system monitoring tool 
+* cockpit -  Administration of linux servers via a web browser.
+* bonnie++ - Test hard drives and file systems for performance
+* fio - Flexible io tester
+* gdu - Disk usage analyzer, primarly for SSD
 
 ###  From an external repository
-The Phoronix Test Suite is a comprehensive testing and benchmarking platform available for the Linux operating system. The software is not part of the Debian Repository but can be installed easily.
+The **Phoronix Test Suite** is a comprehensive testing and benchmarking platform available for the Windows and Linux operating system. The software is not part of the Debian Repository but can be installed very easily.
 
 The installation is documented in the codelab `BITI IPM - Benchmark`.
