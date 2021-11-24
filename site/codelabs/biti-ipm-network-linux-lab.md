@@ -247,7 +247,7 @@ man ip
 
 Open a shell and run the command twice but with different options each time:
 ```
-mncli device show
+nmcli device show
 nmcli connection show
 ```
 
@@ -309,7 +309,7 @@ You can use one of the following commands to find detailed information about the
 
 * ping
 * speedtest
-* iPerf (has been moved to the section `Hands-On`)
+* iperf3 (has been moved to the section `Hands-On`)
 
 ## ping
 ### Description
@@ -592,14 +592,14 @@ https://cockpit-project.org/
 
 In this codelab, you will learn 
 
-* how to use the iperf programm
-* how to generate workload with iperf
+* how to use the iperf3 programm
+* how to generate workload with iperf3
 
 ### What you will need:
 
 In this codelab, you will need the following tools:
 
-* iperf
+* iperf3
 
 ### Scenario
 
@@ -607,25 +607,25 @@ In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM.
 
 ### Test Run
 
-To start the server, run iperf on the HostOS with the following option:
+To start the server, run iperf3 on the HostOS with the following option:
 ```
-iperf -s
-```
-
-Where,
-* -s -  Run iPerf in server mode. iPerf can handle multiple client requests.
-
-To start the client, run iperf on the GuestOS with the following option by specifying the server's ip address 
-```
-iperf -c 192.168.7.187
+iperf3 -s
 ```
 
 Where,
-* -s 192.168.7.11 - Run iPerf in client mode, connecting to an iPerf server running on host with IP 192.168.10.2.
+* -s -  Run iperf3 in server mode. iperf3 can handle multiple client requests.
+
+To start the client, run iperf3 on the GuestOS with the following option by specifying the server's ip address 
+```
+iperf3 -c 192.168.7.187
+```
+
+Where,
+* -s 192.168.7.11 - Run iperf3 in client mode, connecting to an iperf3 server running on host with IP 192.168.10.2.
 
 ### Sample output
 
-iPerf server's output:
+iperf3 server's output:
 
 ```
 ------------------------------------------------------------
@@ -639,7 +639,7 @@ TCP window size: 128 KByte (default)
 ```
 
 
-iPerf client's output:
+iperf3 client's output:
 
 ```
 Client connecting to 192.168.0.187, TCP port 5001
