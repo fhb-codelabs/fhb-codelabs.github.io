@@ -223,7 +223,7 @@ DESCRIPTION
 <p><strong>nmcli</strong> is a command-line tool for controlling NetworkManager and reporting network status. The tool is used to create, display, edit, delete, activate, and deactivate network connections, as well as control and display network device status.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>Open a shell and run the command twice but with different options each time:</p>
-<pre><code>mncli device show
+<pre><code>nmcli device show
 nmcli connection show
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
@@ -279,7 +279,7 @@ Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3
 <ul>
 <li>ping</li>
 <li>speedtest</li>
-<li>iPerf (has been moved to the section <code>Hands-On</code>)</li>
+<li>iperf3 (has been moved to the section <code>Hands-On</code>)</li>
 </ul>
 
 
@@ -501,33 +501,33 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
         <h2 is-upgraded>What you will learn:</h2>
 <p>In this codelab, you will learn</p>
 <ul>
-<li>how to use the iperf programm</li>
-<li>how to generate workload with iperf</li>
+<li>how to use the iperf3 programm</li>
+<li>how to generate workload with iperf3</li>
 </ul>
 <h2 is-upgraded>What you will need:</h2>
 <p>In this codelab, you will need the following tools:</p>
 <ul>
-<li>iperf</li>
+<li>iperf3</li>
 </ul>
 <h2 is-upgraded>Scenario</h2>
 <p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). The HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>
-<p>To start the server, run iperf on the HostOS with the following option:</p>
-<pre><code>iperf -s
+<p>To start the server, run iperf3 on the HostOS with the following option:</p>
+<pre><code>iperf3 -s
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>-s -  Run iPerf in server mode. iPerf can handle multiple client requests.</li>
+<li>-s -  Run iperf3 in server mode. iperf3 can handle multiple client requests.</li>
 </ul>
-<p>To start the client, run iperf on the GuestOS with the following option by specifying the server&#39;s ip address</p>
-<pre><code>iperf -c 192.168.7.187
+<p>To start the client, run iperf3 on the GuestOS with the following option by specifying the server&#39;s ip address</p>
+<pre><code>iperf3 -c 192.168.7.187
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>-s 192.168.7.11 - Run iPerf in client mode, connecting to an iPerf server running on host with IP 192.168.10.2.</li>
+<li>-s 192.168.7.11 - Run iperf3 in client mode, connecting to an iperf3 server running on host with IP 192.168.10.2.</li>
 </ul>
 <h2 is-upgraded>Sample output</h2>
-<p>iPerf server&#39;s output:</p>
+<p>iperf3 server&#39;s output:</p>
 <pre><code>------------------------------------------------------------
 Server listening on TCP port 5001
 TCP window size: 128 KByte (default)
@@ -537,7 +537,7 @@ TCP window size: 128 KByte (default)
 [  4]  0.0-10.0 sec  3.09 GBytes  2.65 Gbits/sec
 
 </code></pre>
-<p>iPerf client&#39;s output:</p>
+<p>iperf3 client&#39;s output:</p>
 <pre><code>Client connecting to 192.168.0.187, TCP port 5001
 TCP window size: 85.0 KByte (default)
 ------------------------------------------------------------
