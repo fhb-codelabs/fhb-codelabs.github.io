@@ -45,6 +45,7 @@ git clone https://github.com/fhb-codelabs/fhb-codelabs.github.io.git
   * Check "Require a pull request before merging"
     * Require approvals 
   * Check "Require status checks to pass before merging"
+  * Click on "Create"
 
 ## Invite your peer to get contributor of your repository
 * Settings -> Manage Access
@@ -55,23 +56,25 @@ git clone https://github.com/fhb-codelabs/fhb-codelabs.github.io.git
   * Now your colleague should have some more permissions on your repository
 
 ## Create a PAT and add it to your Repository
+* Navigate to your personal account settings https://github.com/settings/profile
 * Settings -> Developer Settings
   * Personal Access Token
-  * Add some Name: `podtatohead-ghcr-token`
+  * Click "Generate new token"
+  * Choose a name: `podtatohead-ghcr-token`
   * Choose Permissions:
     * `write:packages`
   * Generate Token
-   * Copy your Token
+   * Copy the Token to your clipboard
 
 * Go Back to your Repository
 * Settings -> Secrets -> Actions
   * New Repository Secret
     * Name: CR_PAT
-    * Value: `"insert token here"`
+    * Value: `insert token here`
   
 ## Our First Pipeline Steps
 * Code -> Add File -> Create File
-  * Name: .github/workflows/build.yaml
+  * Name: `.github/workflows/build.yaml`
   * Add following content
   
 ```yaml
@@ -125,7 +128,7 @@ jobs:
         tags: |
            ghcr.io/${{ github.repository_owner }}/podtato-${{ matrix.component }}:${{ github.sha }}
 ```
-* Push directly to master, create a useful commit message
+* Create a useful commit message, and commit directly to the master branch
 * This lints some code and creates container images. If everything is ok, we can build and push our containers
 
 ## Find out what's happening
@@ -184,7 +187,9 @@ jobs:
   ![Initiate Pull request](./img/mcce-ssoa-ssc-lab-pr-init.png)
 * Select "Compare & Pull request"
 * Select `master` as base for that pull request
+* Select your peers repo as the base repository (not the upstream fhb-codelabs/sample-code-repo)
 * Type "Implement Vulnerability Scanning" as the name of the PR
+* Click on "Create pull request"
 * You should now see following things in the PR overview
   ![Pull request checks](./img/mcce-ssoa-ssc-lab-pr-overview.png)
 * As we instructed our workflow to automatically build on pr and defined that all actions have to pass before merging, merging is blocked now
@@ -272,15 +277,15 @@ Enter password for private key again:
 * Settings -> Secrets -> Actions
   * New Repository Secret
     * Name: `COSIGN_PASSWORD`
-    * Value: `insert token here`
+    * Value: `insert passphrase here`
 
 ## Adding cosign to your pipeline
 
 * Firstly, add the cosign installer after the "Checkout Code" Block of your pipeline
 ```yaml
-   - uses: sigstore/cosign-installer@main
-     with:
-       cosign-release: 'v1.0.0'
+    - uses: sigstore/cosign-installer@main
+      with:
+        cosign-release: 'v1.0.0'
 ```
 
 * Add a build and push step to the pipeline
@@ -300,11 +305,11 @@ Enter password for private key again:
 
 * After that, add the signing step to the end of your pipeline
 ```yaml
-      - name: Sign Container
-        if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/release-*' }}
-        env:
-          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
-        run: cosign sign -key .github/workflows/cosign.key -a GIT_HASH=${{ env.GIT_SHA }} ghcr.io/${{ github.repository_owner }}/podtato-${{ matrix.component }}:${{ github.sha }}
+    - name: Sign Container
+      if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/release-*' }}
+      env:
+        COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+      run: cosign sign -key .github/workflows/cosign.key -a GIT_HASH=${{ env.GIT_SHA }} ghcr.io/${{ github.repository_owner }}/podtato-${{ matrix.component }}:${{ github.sha }}
 ```
 
 * After the next pipeline run, the images should get signed and the pipeline should be "green"
