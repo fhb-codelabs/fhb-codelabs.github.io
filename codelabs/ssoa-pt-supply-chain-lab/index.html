@@ -71,6 +71,7 @@
 </ul>
 </li>
 <li>Check &#34;Require status checks to pass before merging&#34;</li>
+<li>Click on &#34;Create&#34;</li>
 </ul>
 </li>
 </ul>
@@ -95,22 +96,24 @@
     
       <google-codelab-step label="Create a PAT and add it to your Repository" duration="0">
         <ul>
+<li>Navigate to your personal account settings https://github.com/settings/profile</li>
 <li>Settings -&gt; Developer Settings<ul>
 <li>Personal Access Token</li>
-<li>Add some Name: <code>podtatohead-ghcr-token</code></li>
+<li>Click &#34;Generate new token&#34;</li>
+<li>Choose a name: <code>podtatohead-ghcr-token</code></li>
 <li>Choose Permissions: <ul>
 <li><code>write:packages</code></li>
 </ul>
 </li>
 <li>Generate Token</li>
-<li>Copy your Token</li>
+<li>Copy the Token to your clipboard</li>
 </ul>
 </li>
 <li>Go Back to your Repository</li>
 <li>Settings -&gt; Secrets -&gt; Actions<ul>
 <li>New Repository Secret <ul>
 <li>Name: CR_PAT</li>
-<li>Value: <code>"insert token here"</code></li>
+<li>Value: <code>insert token here</code></li>
 </ul>
 </li>
 </ul>
@@ -123,7 +126,7 @@
       <google-codelab-step label="Our First Pipeline Steps" duration="0">
         <ul>
 <li>Code -&gt; Add File -&gt; Create File <ul>
-<li>Name: .github/workflows/build.yaml</li>
+<li>Name: <code>.github/workflows/build.yaml</code></li>
 <li>Add following content</li>
 </ul>
 </li>
@@ -179,7 +182,7 @@ jobs:
            ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}
 </code></pre>
 <ul>
-<li>Push directly to master, create a useful commit message</li>
+<li>Create a useful commit message, and commit directly to the master branch</li>
 <li>This lints some code and creates container images. If everything is ok, we can build and push our containers</li>
 </ul>
 
@@ -254,7 +257,9 @@ jobs:
 <li>You should see something similar to this: <img alt="Initiate Pull request" src="img/ad67adef1736cfb5.png"></li>
 <li>Select &#34;Compare &amp; Pull request&#34;</li>
 <li>Select <code>master</code> as base for that pull request</li>
+<li>Select your peers repo as the base repository (not the upstream fhb-codelabs/sample-code-repo)</li>
 <li>Type &#34;Implement Vulnerability Scanning&#34; as the name of the PR</li>
+<li>Click on &#34;Create pull request&#34;</li>
 <li>You should now see following things in the PR overview <img alt="Pull request checks" src="img/35bdf9e8d0c00f27.png"></li>
 <li>As we instructed our workflow to automatically build on pr and defined that all actions have to pass before merging, merging is blocked now</li>
 </ul>
@@ -342,7 +347,7 @@ Enter password for private key again:
 <li>Settings -&gt; Secrets -&gt; Actions <ul>
 <li>New Repository Secret <ul>
 <li>Name: <code>COSIGN_PASSWORD</code></li>
-<li>Value: <code>insert token here</code></li>
+<li>Value: <code>insert passphrase here</code></li>
 </ul>
 </li>
 </ul>
@@ -356,9 +361,9 @@ Enter password for private key again:
         <ul>
 <li>Firstly, add the cosign installer after the &#34;Checkout Code&#34; Block of your pipeline</li>
 </ul>
-<pre><code language="language-yaml" class="language-yaml">   - uses: sigstore/cosign-installer@main
-     with:
-       cosign-release: &#39;v1.0.0&#39;
+<pre><code language="language-yaml" class="language-yaml">    - uses: sigstore/cosign-installer@main
+      with:
+        cosign-release: &#39;v1.0.0&#39;
 </code></pre>
 <ul>
 <li>Add a build and push step to the pipeline</li>
@@ -378,11 +383,11 @@ Enter password for private key again:
 <ul>
 <li>After that, add the signing step to the end of your pipeline</li>
 </ul>
-<pre><code language="language-yaml" class="language-yaml">      - name: Sign Container
-        if: $&#123;&#123; github.ref == &#39;refs/heads/master&#39; || github.ref == &#39;refs/heads/release-*&#39; }}
-        env:
-          COSIGN_PASSWORD: $&#123;&#123; secrets.COSIGN_PASSWORD }}
-        run: cosign sign -key .github/workflows/cosign.key -a GIT_HASH=$&#123;&#123; env.GIT_SHA }} ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}
+<pre><code language="language-yaml" class="language-yaml">    - name: Sign Container
+      if: $&#123;&#123; github.ref == &#39;refs/heads/master&#39; || github.ref == &#39;refs/heads/release-*&#39; }}
+      env:
+        COSIGN_PASSWORD: $&#123;&#123; secrets.COSIGN_PASSWORD }}
+      run: cosign sign -key .github/workflows/cosign.key -a GIT_HASH=$&#123;&#123; env.GIT_SHA }} ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}
 </code></pre>
 <ul>
 <li>After the next pipeline run, the images should get signed and the pipeline should be &#34;green&#34;</li>
