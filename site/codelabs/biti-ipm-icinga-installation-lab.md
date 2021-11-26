@@ -327,7 +327,7 @@ Sorry but true: you have to create a database and a database user for Icinga web
 First, log in to MariaDB shell with the following command:
 
 ```
-mysql -u root -p
+sudo mysql -u root -p
 ```
 
 Provide your root password and create a database and user for Icinga web 2 with the following command:
