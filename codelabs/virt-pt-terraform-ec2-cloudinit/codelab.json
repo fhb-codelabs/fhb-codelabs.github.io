@@ -4,12 +4,12 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2021-11-26T10:08:16Z",
-  "id": "virt-pt-terraform-intro",
+  "id": "virt-pt-terraform-ec2-cloudinit",
   "duration": 0,
-  "title": "VIRT Lab 1 - Terraform Introduction",
+  "title": "VIRT Lab 2 - Installing a Microservice Application with Terraform",
   "authors": "Thomas Schuetz",
-  "summary": "Lab 1 - Terraform Introduction",
-  "source": "virt-pt-terraform-intro.md",
+  "summary": "Lab 2 - Installing a Microservice Application with Terraform",
+  "source": "virt-pt-terraform-ec2-cloudinit.md",
   "theme": "",
   "status": [
     "published"
@@ -21,8 +21,7 @@
     "aws",
     "introduction",
     "mcce",
-    "supply-chain",
     "virt-pt"
   ],
-  "url": "virt-pt-terraform-intro"
+  "url": "virt-pt-terraform-ec2-cloudinit"
 }
