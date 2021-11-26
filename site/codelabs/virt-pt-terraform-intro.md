@@ -28,7 +28,7 @@ To install terraform, refer to the respective documentation [here](https://learn
 * In the AWS Academy
   * Click on AWS Details
   * Show AWS CLI Credentials and copy them
-  
+
 * Copy them to your machine ~/.aws/credentials
 * Terraform is able to use them -> see https://registry.terraform.io/providers/hashicorp/aws/latest/docs
 
@@ -151,7 +151,7 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
 
 * You will see the new instance now in your AWS Console
-  ![Terraform Instance](./img/mcce-virt-terra-intro-instance.png)
+  ![Terraform Instance](./img/mcce-virt-terra-cloud-init-instance.png)
 
 <aside class="positive">
 - You created your first AWS Instance with Terraform
