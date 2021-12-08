@@ -18,6 +18,8 @@ In this codelab you will learn
 
 ###  Where You Can Look Up
 
+The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://www.icinga.com/docs/latest/doc/01-about/).
+
 ### What You'll need
 
 #### Guest operation system (Guest OS)
@@ -29,6 +31,21 @@ This is the OS of the virtual machine. This will be Debian 11 (Bullseye).
 By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.
 
 For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
+
+### Root privileges via sudo
+
+In this codelab you have to work with root privileges. Therefore, a few words of caution: double check whatever you type and make backups whenever necessary.
+
+Working with root privileges is quite easy. Open a terminal (a shell) and enter the following commmand:
+```
+sudo -s
+```
+Enter the password of the icinga user and voila:
+```
+root@server:/home/icinga#
+```
+
+Once you are root via sudo, it is no longer necessary to prepend the sudo command. Instead of `sudo ls -lisa /root/` you can also type `ls -lisa /root/` because you have root privileges already. However, all commands in this codelab will always start with `sudo` to remind you that you are working with root privileges.
 
 <!-- ------------------------ -->
 
@@ -58,12 +75,19 @@ Now that Icinga 2 repos are in place, you can install it by running the command 
 sudo apt install icinga2
 ```
 
+Durning the installation, the apt command will output the following information.
 ```
+--- more ---
 enabling default icinga2 features
 Enabling feature checker. Make sure to restart Icinga 2 for these changes to take effect.
 Enabling feature notification. Make sure to restart Icinga 2 for these changes to take effect.
 Enabling feature mainlog. Make sure to restart Icinga 2 for these changes to take effect.
+--- more ---
 ```
+
+<aside class="positive">
+Please do not restart any Icinga2 service here. We will do this later. 
+</aside>
 
 ### Monitoring Plugins
 
@@ -263,11 +287,15 @@ Quit the configuration file with `CTRL-X` (and confirm with `y` if you changed s
 
 ### One-liner
 
-Restart the Icinga2 service again with the following command:
+I you have modified `/etc/icinga2/features-available/ido-mysql.conf` then restart the Icinga2 service with the following command:
 
 ```
 sudo systemctl restart icinga2
 ```
+
+<aside class="positive">
+Please take into consideration that we will restart icinga2 more than once. Icinga2 uses configuration files which are only read during a restart. 
+</aside>
 
 ## Icinga Web2 Application
 
@@ -283,7 +311,7 @@ sudo apt install icingaweb2
 Icinga web setup requires authentication using tokens. To generate the authentication token, run the command below:
 
 ```
-icingacli setup token create 
+sudo icingacli setup token create 
 ```
 
 This will generate such a token as follows:
@@ -292,8 +320,8 @@ The newly generated setup token is: **7fb3fb0cbae252b3**
 ```
 
 You can always display the taken using the command:
-```                                    
-icingacli setup token show
+```
+sudo icingacli setup token show
 ```
 
 <aside class="positive">
@@ -303,7 +331,7 @@ You will need this token later for the frontend wizard.
 Next, ensure that the icingaweb2 system group exists and that the web server user, www-data, is a member of the group.
 
 ```                                    
-id www-data
+sudo id www-data
 ```
 
 This will dispaly a message as follows:
@@ -316,7 +344,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data),117(icingaweb2)
 
 Make sure that the web server accepts all changes.
 ```
-systemctl restart apache2
+sudo systemctl restart apache2
 ```
 ## Icinga Web2 Backend
 
@@ -330,7 +358,7 @@ First, log in to MariaDB shell with the following command:
 sudo mysql -u root -p
 ```
 
-Provide your root password and create a database and user for Icinga web 2 with the following command:
+Provide your root password (or simple press enter) and create a database and user for Icinga web 2 with the following command:
 
 ```
 create database icingaweb2;
@@ -374,11 +402,19 @@ quit
 
 ### Setup Wizard
 
-To access the setup wizard, use the address, http://<icinga-server-IP>/icingaweb2/setup:
+<aside class="positive">
+The Icingaweb2 page can be opened either inside the GuestOS or outside the HostOS with the network bridge enabled. It is recommended to open the Icingaweb2 page from the HostOS.
+</aside>
+
+To access the setup wizard, use the address, http://icinga-server-ip-address/icingaweb2/setup:
 
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-1.png)
 
-Enter your authentication token and click `Next` to proceed. 
+Enter your authentication token and click `Next` to proceed. If you do not know the authentication token, run the following command again:
+
+```
+sudo icingacli setup token show
+```
 
 On the next page, select Icinga modules to enable.
 
@@ -523,3 +559,6 @@ http://<icinga-server-IP>/icingaweb2/
 After logging in, Icinga2 will greet you with a critical message (at least in this screenshot)
 
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-20.png)
+
+
+Congratulations! You have successfully installed Icinga2 and Icingaweb2 on your GuestOS. You can now browse through the sidebar menu to discover the features of Icinga2. Familiarize yourself with the menu navigation.
