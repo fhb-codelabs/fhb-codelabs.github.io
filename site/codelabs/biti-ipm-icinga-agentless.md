@@ -34,7 +34,7 @@ The best source of documentation is the homepage of Icinga2. The latest document
 
 #### Icinga2 instance
 
-You need a working Icinga2 instance that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab "BITI IPM Lab - Icinga Installation" how to install Icinga2 on your local computer.
+You need a working Icinga2 instance that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab **BITI IPM Lab - Icinga Installation** how to install Icinga2 on your local computer.
 
 #### Guest operation system (Guest OS)
 
