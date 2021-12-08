@@ -1,0 +1,27 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-12-08T23:20:02Z",
+  "id": "biti-ipm-icinga-custom-check",
+  "duration": 0,
+  "title": "BITI IPM Lab - Icinga Custom Check",
+  "authors": "Roland Pellegrini",
+  "summary": "BITI IPM Lab - Icinga Custom Check",
+  "source": "biti-ipm-icinga-custom-checks.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "icinga"
+  ],
+  "tags": [
+    "biti",
+    "icinga",
+    "introduction",
+    "ipm"
+  ],
+  "url": "biti-ipm-icinga-custom-check"
+}

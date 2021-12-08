@@ -35,12 +35,22 @@
 <li>how to configure Icinga2 as a single node</li>
 </ul>
 <h2 is-upgraded>Where You Can Look Up</h2>
+<p>The best source of documentation is the homepage of Icinga2. The latest documentation can be found <a href="https://www.icinga.com/docs/latest/doc/01-about/" target="_blank">here</a>.</p>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
 <p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+<h2 is-upgraded>Root privileges via sudo</h2>
+<p>In this codelab you have to work with root privileges. Therefore, a few words of caution: double check whatever you type and make backups whenever necessary.</p>
+<p>Working with root privileges is quite easy. Open a terminal (a shell) and enter the following commmand:</p>
+<pre><code>sudo -s
+</code></pre>
+<p>Enter the password of the icinga user and voila:</p>
+<pre><code>root@server:/home/icinga#
+</code></pre>
+<p>Once you are root via sudo, it is no longer necessary to prepend the sudo command. Instead of <code>sudo ls -lisa /root/</code> you can also type <code>ls -lisa /root/</code> because you have root privileges already. However, all commands in this codelab will always start with <code>sudo</code> to remind you that you are working with root privileges.</p>
 
 
       </google-codelab-step>
@@ -62,11 +72,16 @@ sudo apt upgrade
 <p>Now that Icinga 2 repos are in place, you can install it by running the command below:</p>
 <pre><code>sudo apt install icinga2
 </code></pre>
-<pre><code>enabling default icinga2 features
+<p>Durning the installation, the apt command will output the following information.</p>
+<pre><code>--- more ---
+enabling default icinga2 features
 Enabling feature checker. Make sure to restart Icinga 2 for these changes to take effect.
 Enabling feature notification. Make sure to restart Icinga 2 for these changes to take effect.
 Enabling feature mainlog. Make sure to restart Icinga 2 for these changes to take effect.
+--- more ---
 </code></pre>
+<aside class="special"><p> Please do not restart any Icinga2 service here. We will do this later.  </p>
+</aside>
 <h2 is-upgraded>Monitoring Plugins</h2>
 <p>To  check external services, Icinga 2 requires additional monitoring plugins.  Run the command below to install the plugins.</p>
 <pre><code>sudo apt install monitoring-plugins
@@ -200,9 +215,11 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
     
       <google-codelab-step label="Icinga2 Restart" duration="0">
         <h2 is-upgraded>One-liner</h2>
-<p>Restart the Icinga2 service again with the following command:</p>
+<p>I you have modified <code>/etc/icinga2/features-available/ido-mysql.conf</code> then restart the Icinga2 service with the following command:</p>
 <pre><code>sudo systemctl restart icinga2
 </code></pre>
+<aside class="special"><p> Please take into consideration that we will restart icinga2 more than once. Icinga2 uses configuration files which are only read during a restart.  </p>
+</aside>
 
 
       </google-codelab-step>
@@ -214,25 +231,25 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
 </code></pre>
 <h2 is-upgraded>Authentication Token</h2>
 <p>Icinga web setup requires authentication using tokens. To generate the authentication token, run the command below:</p>
-<pre><code>icingacli setup token create 
+<pre><code>sudo icingacli setup token create 
 </code></pre>
 <p>This will generate such a token as follows:</p>
 <pre><code>The newly generated setup token is: **7fb3fb0cbae252b3**
 </code></pre>
 <p>You can always display the taken using the command:</p>
-<pre><code>icingacli setup token show
+<pre><code>sudo icingacli setup token show
 </code></pre>
 <aside class="special"><p> You will need this token later for the frontend wizard. </p>
 </aside>
 <p>Next, ensure that the icingaweb2 system group exists and that the web server user, www-data, is a member of the group.</p>
-<pre><code>id www-data
+<pre><code>sudo id www-data
 </code></pre>
 <p>This will dispaly a message as follows:</p>
 <pre><code>uid=33(www-data) gid=33(www-data) groups=33(www-data),117(icingaweb2)
 </code></pre>
 <h2 is-upgraded>Restart Apache Web Server</h2>
 <p>Make sure that the web server accepts all changes.</p>
-<pre><code>systemctl restart apache2
+<pre><code>sudo systemctl restart apache2
 </code></pre>
 
 
@@ -244,7 +261,7 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
 <p>First, log in to MariaDB shell with the following command:</p>
 <pre><code>sudo mysql -u root -p
 </code></pre>
-<p>Provide your root password and create a database and user for Icinga web 2 with the following command:</p>
+<p>Provide your root password (or simple press enter) and create a database and user for Icinga web 2 with the following command:</p>
 <pre><code>create database icingaweb2;
 </code></pre>
 <p>MariaDB/MySQL answers with:</p>
@@ -270,9 +287,13 @@ quit
     
       <google-codelab-step label="Icinga Web2 Frontend" duration="0">
         <h2 is-upgraded>Setup Wizard</h2>
-<p>To access the setup wizard, use the address, http:///icingaweb2/setup:</p>
+<aside class="special"><p> The Icingaweb2 page can be opened either inside the GuestOS or outside the HostOS with the network bridge enabled. It is recommended to open the Icingaweb2 page from the HostOS. </p>
+</aside>
+<p>To access the setup wizard, use the address, http://icinga-server-ip-address/icingaweb2/setup:</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/de213d41d70cf618.png"></p>
-<p>Enter your authentication token and click <code>Next</code> to proceed.</p>
+<p>Enter your authentication token and click <code>Next</code> to proceed. If you do not know the authentication token, run the following command again:</p>
+<pre><code>sudo icingacli setup token show
+</code></pre>
 <p>On the next page, select Icinga modules to enable.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/dcbce108c6b9646b.png"></p>
 <p>Ensure that Monitoring module is activated only.</p>
@@ -374,6 +395,7 @@ quit
 </code></pre>
 <p>After logging in, Icinga2 will greet you with a critical message (at least in this screenshot)</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/563767a5fe82baea.png"></p>
+<p>Congratulations! You have successfully installed Icinga2 and Icingaweb2 on your GuestOS. You can now browse through the sidebar menu to discover the features of Icinga2. Familiarize yourself with the menu navigation.</p>
 
 
       </google-codelab-step>
