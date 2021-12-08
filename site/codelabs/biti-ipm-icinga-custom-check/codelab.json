@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-12-08T20:42:22+01:00",
-  "id": "biti-ipm-icinga-installation-lab",
+  "updated": "2021-12-09T00:14:10+01:00",
+  "id": "biti-ipm-icinga-custom-check",
   "duration": 0,
-  "title": "BITI IPM Lab - Icinga Installation",
+  "title": "BITI IPM Lab - Icinga Custom Check",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Icinga Installation",
-  "source": "biti-ipm-icinga-installation-lab.md",
+  "summary": "BITI IPM Lab - Icinga Custom Check",
+  "source": "biti-ipm-icinga-custom-checks.md",
   "theme": "",
   "status": [
     "draft"
@@ -23,5 +23,5 @@
     "introduction",
     "ipm"
   ],
-  "url": "biti-ipm-icinga-installation-lab"
+  "url": "biti-ipm-icinga-custom-check"
 }
