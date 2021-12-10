@@ -1,0 +1,763 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>VIRT Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="virt-pt-terraform-ec2-modules-asg"
+                  title="VIRT Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Prerequisites" duration="0">
+        <ul>
+<li>Follow the Lab https://fhb-codelabs.github.io/codelabs/virt-pt-terraform-ec2-cloudinit/index.html</li>
+<li>Undeploy the infrastructure if it is deployed: <code>terraform destroy</code></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="What you will learn" duration="0">
+        <p class="image-container"><img alt="Big Picture" src="img/f3e7b8c33f76a715.png"></p>
+<ul>
+<li>Modularize a terraform configuration</li>
+<li>Enable Load Balancing and allow the application to scale</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create Terraform Module" duration="0">
+        <ul>
+<li>Create a directory called <code>modules</code> in your terraform folder (where you created the initial configuration) and change to that directory<ul>
+<li><code>mkdir modules</code></li>
+<li><code>cd modules</code></li>
+</ul>
+</li>
+<li>Add a directory called <code>podtatohead</code> the the modules folder<ul>
+<li><code>mkdir podtatohead</code></li>
+</ul>
+</li>
+<li>Move your initial configuration to the <code>podtatohead directory</code></li>
+<li>Remove the terraform.tfvars file from the modules/podatohead directory</li>
+</ul>
+<aside class="special"><p> Now the root directory of your terraform directory should be empty and the whole configuration should be in the modules/podtatohead directory </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Generalize configuration" duration="0">
+        <p>As we need to ensure that objects can exist multiple times at AWS, we need to change the names of the resulting objects</p>
+<p>Firstly, we will introduce a variable, which describes the name of the podtatohead-installation:</p>
+<p><strong>vars.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_security_group&#34; &#34;ingress-all-ssh&#34; {
+  #[...]
+  variable &#34;podtato_name&#34; {
+    type = string
+  }
+  #[...]
+}
+#
+</code></pre>
+<p><strong>modules/podtatohead/main.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_security_group&#34; &#34;ingress-all-ssh&#34; {
+  #[...]
+  name = &#34;${var.podtato_name}-allow-all-ssh&#34;
+  #[...]
+}
+
+resource &#34;aws_security_group&#34; &#34;ingress-all-http&#34; {
+  #[...]
+  name = &#34;${var.podtato_name}-allow-all-http&#34;
+  #[...]
+}
+
+resource &#34;aws_security_group&#34; &#34;ingress-all-http&#34; {
+  #[...]
+  name = &#34;${var.podtato_name}-allow-all-http&#34;
+  #[...]
+}
+
+resource &#34;aws_instance&#34; &#34;podtatohead-arms&#34; {
+  #[...]
+  tags = {
+    Name = &#34;${var.podtato_name}-podtatohead-arms&#34;
+  }
+  #[...]
+}
+
+resource &#34;aws_instance&#34; &#34;podtatohead-legs&#34; {
+  #[...]
+  tags = {
+    Name = &#34;${var.podtato_name}-podtatohead-legs&#34;
+  }
+  #[...]
+}
+
+resource &#34;aws_instance&#34; &#34;podtatohead-hats&#34; {
+  #[...]
+  tags = {
+    Name = &#34;${var.podtato_name}-podtatohead-hats&#34;
+  }
+  #[...]
+}
+
+resource &#34;aws_instance&#34; &#34;podtatohead-main&#34; {
+  #[...]
+  tags = {
+    Name = &#34;${var.podtato_name}-podtatohead-main&#34;
+  }
+  #[...]
+}
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Plan our first podtato-head instance" duration="0">
+        <p>We need to create the module configuration in the root of your terraform directory. There, a file called main.tf should be created</p>
+<p><strong>main.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">module &#34;podtatohead-1&#34; {
+  source = &#34;./modules/podtatohead&#34;
+  podtato_name = &#34;first&#34;
+  hats_version = &#34;v3&#34;
+  left_arm_version = &#34;v2&#34;
+  left_leg_version = &#34;v1&#34;
+  podtato_version = &#34;v0.1.0&#34;
+  right_arm_version = &#34;v4&#34;
+  right_leg_version = &#34;v1&#34;
+}
+</code></pre>
+<p>Furthermore, we need to create a provider.tf file with the following contents: <strong>provider.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">provider &#34;aws&#34; {
+  region = &#34;us-east-1&#34;
+}
+</code></pre>
+<ul>
+<li>Run terraform init and plan the execution <ul>
+<li><code>terraform init</code></li>
+<li><code>terraform plan</code></li>
+</ul>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Plan a second instance and execute" duration="0">
+        <p>Now, that the configuration is modularized, it&#39;s an easy exercise to create a second instance. Just add a second module block to main.tf. Feel free to change the versions of the components</p>
+<p><strong>main.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">module &#34;podtatohead-2&#34; {
+  source = &#34;./modules/podtatohead&#34;
+  podtato_name = &#34;second&#34;
+  hats_version = &#34;v1&#34;
+  left_arm_version = &#34;v3&#34;
+  left_leg_version = &#34;v2&#34;
+  podtato_version = &#34;v0.1.0&#34;
+  right_arm_version = &#34;v2&#34;
+  right_leg_version = &#34;v1&#34;
+}
+</code></pre>
+<h2 is-upgraded>Define the outputs for this module</h2>
+<p>To get the correct urls for both instances, add the following lines to main.tf</p>
+<pre><code language="language-terraform" class="language-terraform">output &#34;first-url&#34; {
+  value = module.podtatohead-1.podtato-url
+}
+
+output &#34;second-url&#34; {
+  value = module.podtatohead-2.podtato-url
+}
+</code></pre>
+<ul>
+<li>Run terraform init and plan the execution<ul>
+<li><code>terraform init</code></li>
+<li><code>terraform plan</code></li>
+</ul>
+</li>
+<li>Execute the plan<ul>
+<li><code>terraform apply</code></li>
+</ul>
+</li>
+<li>You should see a similar output as here:</li>
+</ul>
+<pre><code>Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+first-url = &#34;http://&lt;ip&gt;:8080&#34;
+second-url = &#34;http://&lt;ip&gt;:8080&#34;
+</code></pre>
+<ul>
+<li>Open the AWS Console, and take a look on EC2 -&gt; Instances<ul>
+<li>You should see some instances appearing</li>
+<li>Note that they are prefixed with their <code>podtato_name</code></li>
+</ul>
+</li>
+<li>After some minutes, you are able to browse tot the two URLs specified in the output</li>
+</ul>
+<aside class="special"><p> You templated your first cloud service :-) </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Switch to AutoScaling Groups instead of basic instances" duration="0">
+        <p>At some point in time, our application might get visited and used more often and we might want to add additional instances.</p>
+<p>Therefore, we will create:</p>
+<ul>
+<li>Launch Configurations</li>
+<li>Auto Scaling Groups</li>
+<li>Elastic Load Balancers</li>
+</ul>
+<p>Have fun in the following chapters ...</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Changing the main service" duration="0">
+        <p>At first, we will change the main service to fulfill our new needs.</p>
+<p>Therefore, we will create a launch configuration which will act as the template for our created instances. Let&#39;s create this in a new file:</p>
+<p><strong>main-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-main&#34; {
+  image_id = data.aws_ami.amazon-2.image_id
+  instance_type = &#34;t3.micro&#34;
+  user_data = base64encode(templatefile(&#34;${path.module}/templates/init_main.tpl&#34;, { container_image = &#34;ghcr.io/fhb-codelabs/podtato-small-main&#34;, hats_host = aws_instance.podtatohead-hats.private_ip, arms_host = aws_instance.podtatohead-arms.private_ip, legs_host = aws_instance.podtatohead-legs.private_ip, podtato_version=var.podtato_version } ))
+  security_groups = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
+  name_prefix = &#34;${var.podtato_name}-podtatohead-main-&#34;
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+</code></pre>
+<p>You might notice, that this is mainly the same as an ec2 instance. The only differences are the base64 encoded user_data and the security_group instead of the vpc_security_group_id.</p>
+<ul>
+<li>Remove the aws_instance &#34;podtatohead_main&#34; from your main.tf</li>
+<li>If we would apply this configuration now, the most of the things won&#39;t work as we only created an instance template now.</li>
+<li>To get the instances created afterwards, we need at least an auto-scaling group which takes control over the creation/deletion of the instances</li>
+</ul>
+<p><strong>modules/podtatohead/main-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_autoscaling_group&#34; &#34;asg-podtatohead-main&#34; {
+  availability_zones = [&#34;${var.region}a&#34;, &#34;${var.region}b&#34;, &#34;${var.region}c&#34;]
+  desired_capacity   = var.desired_instances
+  max_size           = var.max_instances
+  min_size           = var.min_instances
+  name = &#34;${var.podtato_name}-main-asg&#34;
+
+  launch_configuration = aws_launch_configuration.podtatohead-main.name
+
+  health_check_type    = &#34;ELB&#34;
+  load_balancers = [
+    aws_elb.main_elb.id
+  ]
+
+  instance_refresh {
+    strategy = &#34;Rolling&#34;
+    preferences {
+      min_healthy_percentage = 50
+      instance_warmup = &#34;60&#34;
+    }
+    triggers = [&#34;tag&#34;]
+  }
+
+  tag {
+    key                 = &#34;Name&#34;
+    value               = &#34;${var.podtato_name}-podtatohead-main&#34;
+    propagate_at_launch = true
+  }
+
+}
+</code></pre>
+<ul>
+<li>As you might have seen in the template, we introduced a few more variables in our configuration. The three variables <code>desired_instances</code>, <code>max_instances</code> and <code>min_instances</code> are controlling the sizing behaviour. Furthermore, we will define a region to specify where the instances should be created.</li>
+</ul>
+<p><strong>modules/podtatohead/vars.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">variable &#34;region&#34; {
+  type = string
+  default = &#34;us-east-1&#34;
+}
+
+variable &#34;min_instances&#34; {
+  type = number
+  default = 1
+}
+
+variable &#34;max_instances&#34; {
+  type = number
+  default = 1
+}
+
+variable &#34;desired_instances&#34; {
+  type = number
+  default = 1
+}
+</code></pre>
+<ul>
+<li>Another thing you might have noticed is, that we use some load balancing related things here. Therefore, we`ll also need a load balancer for the auto-scaling group to route the traffic there</li>
+</ul>
+<p><strong>modules/podtatohead/main-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_elb&#34; &#34;main_elb&#34; {
+  name = &#34;${var.podtato_name}-main-elb&#34;
+  availability_zones = [&#34;${var.region}a&#34;, &#34;${var.region}b&#34;, &#34;${var.region}c&#34;]
+  security_groups = [
+    aws_security_group.elb_http.id
+  ]
+
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    interval = 30
+    target = &#34;HTTP:8080/&#34;
+  }
+
+  listener {
+    lb_port = 80
+    lb_protocol = &#34;http&#34;
+    instance_port = &#34;8080&#34;
+    instance_protocol = &#34;http&#34;
+  }
+}
+</code></pre>
+<ul>
+<li>This load-balancer also needs a security group to define the allowed traffic to it. Therefore, we&#39;ll create this security group in the main configuration file.</li>
+</ul>
+<p><strong>modules/podtatohead/main.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_security_group&#34; &#34;elb_http&#34; {
+  name        = &#34;${var.podtato_name}-elb_http&#34;
+  description = &#34;Allow HTTP traffic to instances through Elastic Load Balancer&#34;
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = &#34;tcp&#34;
+    cidr_blocks = [&#34;0.0.0.0/0&#34;]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = &#34;-1&#34;
+    cidr_blocks = [&#34;0.0.0.0/0&#34;]
+  }
+
+  tags = {
+    Name = &#34;Allow HTTP through ELB Security Group&#34;
+  }
+}
+</code></pre>
+<ul>
+<li>Finally, we are able to switch the URL of our podtato-head to our new load balancer</li>
+</ul>
+<p><strong>modules/podtatohead/outputs.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">output &#34;podtato-url&#34; {
+  value = &#34;http://${aws_elb.main_elb.dns_name}&#34;
+}
+</code></pre>
+<ul>
+<li>Now we could re-apply our terraform-configuration<ul>
+<li><code>terraform plan</code></li>
+<li><code>terraform apply</code></li>
+</ul>
+</li>
+<li>Afterwards, the two podtatohead-installations should be created, and you should see the URLs of the main-service load balancers.</li>
+<li>Now, you could inspect your work on the AWS Console (EC2-Load Balancers)<ul>
+<li>Take a look on the instances, and on their state</li>
+</ul>
+</li>
+<li>It might take some time until the website is reachable</li>
+</ul>
+<aside class="special"><p> You created your first load balancer and the endpoint for the main-service won&#39;t change anymore </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Changing the hats service" duration="0">
+        <p>Now, we will change the hats service, the methodology is almost the same, but we should be aware that we need to make changes in the main service too, as this will also use the load balancer for the hats service in the future.</p>
+<h2 is-upgraded>Launch Configuration</h2>
+<p><strong>modules/podtatohead/hats-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-hats&#34; {
+  image_id = data.aws_ami.amazon-2.image_id
+  instance_type = &#34;t3.micro&#34;
+  user_data = base64encode(templatefile(&#34;${path.module}/templates/init_hats.tpl&#34;, { container_image = &#34;ghcr.io/fhb-codelabs/podtato-small-hats&#34;, podtato_version=var.podtato_version, version=var.hats_version } ))
+  security_groups = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
+  name_prefix = &#34;${var.podtato_name}-podtatohead-hats-&#34;
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+</code></pre>
+<ul>
+<li>Remove the aws_instance &#34;podtatohead_hats&#34; from your main.tf</li>
+</ul>
+<h2 is-upgraded>Auto Scaling Group</h2>
+<p><strong>modules/podtatohead/hats-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_autoscaling_group&#34; &#34;asg-podtatohead-hats&#34; {
+  availability_zones = [&#34;${var.region}a&#34;, &#34;${var.region}b&#34;, &#34;${var.region}c&#34;]
+  desired_capacity   = var.desired_instances
+  max_size           = var.max_instances
+  min_size           = var.min_instances
+  name = &#34;${var.podtato_name}-hats-asg&#34;
+
+  launch_configuration = aws_launch_configuration.podtatohead-hats.name
+
+
+  health_check_type    = &#34;ELB&#34;
+  load_balancers = [
+    aws_elb.hats_elb.id
+  ]
+  instance_refresh {
+    strategy = &#34;Rolling&#34;
+    preferences {
+      min_healthy_percentage = 50
+    }
+    triggers = [&#34;tag&#34;]
+  }
+
+  tag {
+    key                 = &#34;Name&#34;
+    value               = &#34;${var.podtato_name}-podtatohead-hats&#34;
+    propagate_at_launch = true
+  }
+
+}
+</code></pre>
+<h2 is-upgraded>Load Balancer</h2>
+<ul>
+<li>Another thing you might have noticed is, that we use some load balancing related things here. Therefore, we`ll also need a load balancer for the auto-scaling group to route the traffic there</li>
+</ul>
+<p><strong>modules/podtatohead/hats-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_elb&#34; &#34;hats_elb&#34; {
+  name = &#34;${var.podtato_name}-hats-elb&#34;
+  availability_zones = [&#34;${var.region}a&#34;, &#34;${var.region}b&#34;, &#34;${var.region}c&#34;]
+  security_groups = [
+    aws_security_group.elb_http_8080.id
+  ]
+
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    interval = 30
+    target = &#34;HTTP:8080/images/hat-01.svg&#34;
+  }
+
+  listener {
+    lb_port = 8080
+    lb_protocol = &#34;http&#34;
+    instance_port = &#34;8080&#34;
+    instance_protocol = &#34;http&#34;
+  }
+
+}
+</code></pre>
+<ul>
+<li>This load-balancer also needs a security group to define the allowed traffic to it. Therefore, we&#39;ll create this security group in the main configuration file. This is a different security group than we used for the main service.</li>
+</ul>
+<p><strong>modules/podtatohead/main.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_security_group&#34; &#34;elb_http_8080&#34; {
+  name        = &#34;${var.podtato_name}-elb_http_8080&#34;
+  description = &#34;Allow HTTP traffic to instances through Elastic Load Balancer&#34;
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = &#34;tcp&#34;
+    cidr_blocks = [&#34;0.0.0.0/0&#34;]
+  }
+
+  egress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = &#34;-1&#34;
+    cidr_blocks     = [&#34;0.0.0.0/0&#34;]
+  }
+
+  tags = {
+    Name = &#34;Allow HTTP through ELB Security Group&#34;
+  }
+}
+</code></pre>
+<ul>
+<li>Finally, we are able to switch the hostname in the main service to the new load balancer</li>
+</ul>
+<p><strong>modules/podtatohead/main-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-main&#34; {
+  #[...]
+
+  user_data = base64encode(templatefile(&#34;${path.module}/templates/init_main.tpl&#34;, {
+    container_image = &#34;ghcr.io/fhb-codelabs/podtato-small-main&#34;, hats_host = aws_elb.hats_elb.dns_name,
+    arms_host       = aws_instance.podtatohead-arms.private_ip, legs_host = aws_instance.podtatohead-legs.private_ip,
+    podtato_version = var.podtato_version
+  } ))
+  #[...]
+}
+</code></pre>
+<ul>
+<li>Now we could re-apply our terraform-configuration<ul>
+<li><code>terraform plan</code></li>
+<li><code>terraform apply</code></li>
+</ul>
+</li>
+<li>Afterwards, the podtatohead-installations should get updated to remove the single instances of the hats-service, replace them with the auto scaling groups and create the load balancers. After some time, the installation should work again.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Changing the legs service" duration="0">
+        <p>Now, we will change the legs service, the methodology is almost the same, but we should be aware that we need to make changes in the main service too, as this will also use the load balancer for the hats service in the future.</p>
+<h2 is-upgraded>Launch Configuration</h2>
+<p><strong>modules/podtatohead/legs-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-legs&#34; {
+  image_id = data.aws_ami.amazon-2.image_id
+  instance_type = &#34;t3.micro&#34;
+  user_data = base64encode(templatefile(&#34;${path.module}/templates/init.tpl&#34;, { container_image = &#34;ghcr.io/fhb-codelabs/podtato-small-legs&#34;, podtato_version=var.podtato_version, left_version=var.left_leg_version, right_version=var.right_leg_version} ))
+  security_groups = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
+  name_prefix = &#34;${var.podtato_name}-podtatohead-legs-&#34;
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+</code></pre>
+<ul>
+<li>Remove the aws_instance &#34;podtatohead_hats&#34; from your main.tf</li>
+</ul>
+<h2 is-upgraded>Auto Scaling Group</h2>
+<p><strong>modules/podtatohead/legs-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_autoscaling_group&#34; &#34;asg-podtatohead-legs&#34; {
+  availability_zones = [&#34;${var.region}a&#34;, &#34;${var.region}b&#34;, &#34;${var.region}c&#34;]
+  desired_capacity   = var.desired_instances
+  max_size           = var.max_instances
+  min_size           = var.min_instances
+  name = &#34;${var.podtato_name}-legs-asg&#34;
+
+  launch_configuration = aws_launch_configuration.podtatohead-legs.name
+
+  health_check_type    = &#34;ELB&#34;
+  load_balancers = [
+    aws_elb.legs_elb.id
+  ]
+
+  instance_refresh {
+    strategy = &#34;Rolling&#34;
+    preferences {
+      min_healthy_percentage = 50
+    }
+    triggers = [&#34;tag&#34;]
+  }
+
+  tag {
+    key                 = &#34;Name&#34;
+    value               = &#34;${var.podtato_name}-podtatohead-legs&#34;
+    propagate_at_launch = true
+  }
+}
+</code></pre>
+<h2 is-upgraded>Load Balancer</h2>
+<ul>
+<li>Another thing you might have noticed is, that we use some load balancing related things here. Therefore, we`ll also need a load balancer for the auto-scaling group to route the traffic there</li>
+</ul>
+<p><strong>modules/podtatohead/legs-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_elb&#34; &#34;legs_elb&#34; {
+  name = &#34;${var.podtato_name}-legs-elb&#34;
+  availability_zones = [&#34;${var.region}a&#34;, &#34;${var.region}b&#34;, &#34;${var.region}c&#34;]
+  security_groups = [
+    aws_security_group.elb_http_8080.id
+  ]
+
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    interval = 30
+    target = &#34;HTTP:8080/images/left-leg-01.svg&#34;
+  }
+
+  listener {
+    lb_port = 8080
+    lb_protocol = &#34;http&#34;
+    instance_port = &#34;8080&#34;
+    instance_protocol = &#34;http&#34;
+  }
+
+}
+</code></pre>
+<ul>
+<li>Finally, we are able to switch the hostname in the main service to the new load balancer</li>
+</ul>
+<p><strong>modules/podtatohead/main-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-main&#34; {
+  #[...]
+
+  user_data = base64encode(templatefile(&#34;${path.module}/templates/init_main.tpl&#34;, {
+    container_image = &#34;ghcr.io/fhb-codelabs/podtato-small-main&#34;, hats_host = aws_elb.hats_elb.dns_name,
+    arms_host       = aws_instance.podtatohead-arms.private_ip, legs_host = aws_elb.legs_elb.dns_name,
+    podtato_version = var.podtato_version
+  } ))
+  #[...]
+}
+</code></pre>
+<ul>
+<li>Now we could re-apply our terraform-configuration<ul>
+<li><code>terraform plan</code></li>
+<li><code>terraform apply</code></li>
+</ul>
+</li>
+<li>Afterwards, the podtatohead-installations should get updated to remove the single instances of the legs-service, replace them with the auto scaling groups and create the load balancers. After some time, the installation should work again.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Changing the arms service" duration="0">
+        <p>Finally, we will change the arms service, the methodology is almost the same, but we should be aware that we need to make changes in the main service too, as this will also use the load balancer for the hats service in the future.</p>
+<h2 is-upgraded>Launch Configuration</h2>
+<p><strong>modules/podtatohead/arms-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-arms&#34; {
+  image_id = data.aws_ami.amazon-2.image_id
+  instance_type = &#34;t3.micro&#34;
+  user_data = base64encode(templatefile(&#34;${path.module}/templates/init.tpl&#34;, { container_image = &#34;ghcr.io/fhb-codelabs/podtato-small-arms&#34;, podtato_version=var.podtato_version, left_version=var.left_arm_version, right_version=var.right_arm_version} ))
+  security_groups = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
+  name_prefix = &#34;${var.podtato_name}-podtatohead-arms-&#34;
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+}
+</code></pre>
+<ul>
+<li>Remove the aws_instance &#34;podtatohead_hats&#34; from your main.tf</li>
+</ul>
+<h2 is-upgraded>Auto Scaling Group</h2>
+<p><strong>modules/podtatohead/arms-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_autoscaling_group&#34; &#34;asg-podtatohead-arms&#34; {
+  availability_zones = [&#34;${var.region}a&#34;, &#34;${var.region}b&#34;, &#34;${var.region}c&#34;]
+  desired_capacity   = var.desired_instances
+  max_size           = var.max_instances
+  min_size           = var.min_instances
+  name = &#34;${var.podtato_name}-arms-asg&#34;
+
+  launch_configuration = aws_launch_configuration.podtatohead-arms.name
+
+
+  health_check_type    = &#34;ELB&#34;
+  load_balancers = [
+    aws_elb.arms_elb.id
+  ]
+
+  instance_refresh {
+    strategy = &#34;Rolling&#34;
+    preferences {
+      min_healthy_percentage = 50
+    }
+    triggers = [&#34;tag&#34;]
+  }
+  tag {
+    key                 = &#34;Name&#34;
+    value               = &#34;${var.podtato_name}-podtatohead-arms&#34;
+    propagate_at_launch = true
+  }
+}
+</code></pre>
+<h2 is-upgraded>Load Balancer</h2>
+<ul>
+<li>Another thing you might have noticed is, that we use some load balancing related things here. Therefore, we`ll also need a load balancer for the auto-scaling group to route the traffic there</li>
+</ul>
+<p><strong>modules/podtatohead/arms-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_elb&#34; &#34;arms_elb&#34; {
+  name = &#34;${var.podtato_name}-arms-elb&#34;
+  availability_zones = [&#34;${var.region}a&#34;, &#34;${var.region}b&#34;, &#34;${var.region}c&#34;]
+  security_groups = [
+    aws_security_group.elb_http_8080.id
+  ]
+
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    interval = 30
+    target = &#34;HTTP:8080/images/left-arm-01.svg&#34;
+  }
+
+  listener {
+    lb_port = 8080
+    lb_protocol = &#34;http&#34;
+    instance_port = &#34;8080&#34;
+    instance_protocol = &#34;http&#34;
+  }
+
+}
+</code></pre>
+<ul>
+<li>Finally, we are able to switch the hostname in the main service to the new load balancer</li>
+</ul>
+<p><strong>modules/podtatohead/main-svc.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-main&#34; {
+  image_id = data.aws_ami.amazon-2.image_id
+  instance_type = &#34;t3.micro&#34;
+  user_data = base64encode(templatefile(&#34;${path.module}/templates/init_main.tpl&#34;, { container_image = &#34;ghcr.io/fhb-codelabs/podtato-small-main&#34;, hats_host = aws_elb.hats_elb.dns_name, arms_host = aws_elb.arms_elb.dns_name, legs_host = aws_elb.legs_elb.dns_name, podtato_version=var.podtato_version } ))
+  security_groups = [aws_security_group.ingress-all-ssh.id, aws_security_group.ingress-all-http.id]
+  name_prefix = &#34;${var.podtato_name}-podtatohead-main-&#34;
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+</code></pre>
+<ul>
+<li>Now we could re-apply our terraform-configuration<ul>
+<li><code>terraform plan</code></li>
+<li><code>terraform apply</code></li>
+</ul>
+</li>
+<li>Afterwards, the podtatohead-installations should get updated to remove the single instances of the legs-service, replace them with the auto scaling groups and create the load balancers. After some time, the installation should work again.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Finally" duration="0">
+        <ul>
+<li>Now you can play around, change versions of the components and scale them up and down</li>
+<li>If you want you can make the components scale individually</li>
+<li>Note, that you will face service outages when you have less than one instance running</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
