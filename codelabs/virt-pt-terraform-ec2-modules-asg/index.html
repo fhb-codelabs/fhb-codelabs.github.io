@@ -227,7 +227,7 @@ second-url = &#34;http://&lt;ip&gt;:8080&#34;
       <google-codelab-step label="Changing the main service" duration="0">
         <p>At first, we will change the main service to fulfill our new needs.</p>
 <p>Therefore, we will create a launch configuration which will act as the template for our created instances. Let&#39;s create this in a new file:</p>
-<p><strong>main-svc.tf</strong></p>
+<p><strong>modules/podtatohead/main-svc.tf</strong></p>
 <pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-main&#34; {
   image_id = data.aws_ami.amazon-2.image_id
   instance_type = &#34;t3.micro&#34;
@@ -706,7 +706,7 @@ variable &#34;desired_instances&#34; {
 <ul>
 <li>Finally, we are able to switch the hostname in the main service to the new load balancer</li>
 </ul>
-<p><strong>modules/podtatohead/main-svc.tf</strong></p>
+<p><strong>modules/podtatohead/arms-svc.tf</strong></p>
 <pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-main&#34; {
   image_id = data.aws_ami.amazon-2.image_id
   instance_type = &#34;t3.micro&#34;

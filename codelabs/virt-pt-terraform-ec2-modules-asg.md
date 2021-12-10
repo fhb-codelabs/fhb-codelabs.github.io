@@ -197,7 +197,7 @@ At first, we will change the main service to fulfill our new needs.
 
 Therefore, we will create a launch configuration which will act as the template for our created instances. Let's create this in a new file:
 
-**main-svc.tf**
+**modules/podtatohead/main-svc.tf**
 ```terraform
 resource "aws_launch_configuration" "podtatohead-main" {
   image_id = data.aws_ami.amazon-2.image_id
@@ -681,7 +681,7 @@ resource "aws_elb" "arms_elb" {
 ```
 * Finally, we are able to switch the hostname in the main service to the new load balancer
 
-**modules/podtatohead/main-svc.tf**
+**modules/podtatohead/arms-svc.tf**
 ```terraform
 resource "aws_launch_configuration" "podtatohead-main" {
   image_id = data.aws_ami.amazon-2.image_id
