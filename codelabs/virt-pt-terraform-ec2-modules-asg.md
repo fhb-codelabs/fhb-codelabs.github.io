@@ -28,7 +28,7 @@ authors: Thomas Schuetz
 * Add a directory called `podtatohead` the the modules folder 
   * `mkdir podtatohead`
   
-* Move your initial configuration to the `podtatohead directory`
+* Move your initial configuration to the `podtatohead` directory
 
 * Remove the terraform.tfvars file from the modules/podatohead directory
 
