@@ -64,12 +64,6 @@ resource "aws_security_group" "ingress-all-http" {
   #[...]
 }
 
-resource "aws_security_group" "ingress-all-http" {
-  #[...]
-  name = "${var.podtato_name}-allow-all-http"
-  #[...]
-}
-
 resource "aws_instance" "podtatohead-arms" {
   #[...]
   tags = {
