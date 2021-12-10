@@ -4,12 +4,12 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2021-12-10T16:26:32Z",
-  "id": "virt-pt-terraform-ec2-cloudinit",
+  "id": "virt-pt-terraform-ec2-modules-asg",
   "duration": 0,
-  "title": "VIRT Lab 2 - Installing a Microservice Application with Terraform",
+  "title": "VIRT Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS",
   "authors": "Thomas Schuetz",
-  "summary": "Lab 2 - Installing a Microservice Application with Terraform",
-  "source": "virt-pt-terraform-ec2-cloudinit.md",
+  "summary": "Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS",
+  "source": "virt-pt-terraform-ec2-modules-asg.md",
   "theme": "",
   "status": [
     "published"
@@ -23,5 +23,5 @@
     "mcce",
     "virt-pt"
   ],
-  "url": "virt-pt-terraform-ec2-cloudinit"
+  "url": "virt-pt-terraform-ec2-modules-asg"
 }
