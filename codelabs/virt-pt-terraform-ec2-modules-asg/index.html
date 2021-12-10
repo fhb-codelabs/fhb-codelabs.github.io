@@ -88,12 +88,6 @@ resource &#34;aws_security_group&#34; &#34;ingress-all-http&#34; {
   #[...]
 }
 
-resource &#34;aws_security_group&#34; &#34;ingress-all-http&#34; {
-  #[...]
-  name = &#34;${var.podtato_name}-allow-all-http&#34;
-  #[...]
-}
-
 resource &#34;aws_instance&#34; &#34;podtatohead-arms&#34; {
   #[...]
   tags = {
