@@ -45,12 +45,8 @@ Firstly, we will introduce a variable, which describes the name of the podtatohe
 
 **vars.tf**
 ```terraform
-resource "aws_security_group" "ingress-all-ssh" {
-  #[...]
-  variable "podtato_name" {
+ variable "podtato_name" {
     type = string
-  }
-  #[...]
 }
 #
 ```
