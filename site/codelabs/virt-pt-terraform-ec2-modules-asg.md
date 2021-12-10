@@ -509,7 +509,7 @@ resource "aws_launch_configuration" "podtatohead-legs" {
 }
 ```
 
-* Remove the aws_instance "podtatohead_hats" from your main.tf
+* Remove the aws_instance "podtatohead_legs" from your main.tf
 
 ### Auto Scaling Group
 **modules/podtatohead/legs-svc.tf**
@@ -615,7 +615,7 @@ resource "aws_launch_configuration" "podtatohead-arms" {
 }
 ```
 
-* Remove the aws_instance "podtatohead_hats" from your main.tf
+* Remove the aws_instance "podtatohead_arms" from your main.tf
 
 ### Auto Scaling Group
 **modules/podtatohead/arms-svc.tf**
@@ -700,7 +700,7 @@ resource "aws_launch_configuration" "podtatohead-main" {
   * `terraform plan`
   * `terraform apply`
 
-* Afterwards, the podtatohead-installations should get updated to remove the single instances of the legs-service, replace them with the auto scaling groups and create the load balancers. After some time, the installation should work again.
+* Afterwards, the podtatohead-installations should get updated to remove the single instances of the arms-service, replace them with the auto scaling groups and create the load balancers. After some time, the installation should work again.
 
 ## Finally
 
