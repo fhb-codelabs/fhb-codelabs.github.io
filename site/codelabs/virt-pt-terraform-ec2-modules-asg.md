@@ -714,6 +714,8 @@ resource "aws_launch_configuration" "podtatohead-main" {
 
 ## Finally
 
+![img.png](img.png)
+
 * Now you can play around, change versions of the components and scale them up and down
 * If you want you can make the components scale individually 
 * Note, that you will face service outages when you have less than one instance running
