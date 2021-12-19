@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-12-19T19:52:53+01:00",
-  "id": "biti-ipm-icinga-installation-lab",
+  "updated": "2021-12-19T19:50:50+01:00",
+  "id": "biti-ipm-icinga-agentless-lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Icinga Installation",
+  "title": "BITI IPM Lab - Icinga Agentless Monitoring",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Icinga Installation",
-  "source": "biti-ipm-icinga-installation-lab.md",
+  "summary": "BITI IPM Lab - Icinga Agentless Monitoring",
+  "source": "biti-ipm-icinga-agentless.md",
   "theme": "",
   "status": [
     "draft"
@@ -23,5 +23,5 @@
     "introduction",
     "ipm"
   ],
-  "url": "biti-ipm-icinga-installation-lab"
+  "url": "biti-ipm-icinga-agentless-lab"
 }
