@@ -574,7 +574,7 @@ If the restart of the icinga2 service was successful, open the Icinga2 Dashboard
 
 ![Icinga Web 2](./img/biti-ipm-icinga-agentbased-1.png)
 
-We will see our new checks (in Pending status) in the Icinga2 dashboard in the `Service Problems` card.
+We will see our new checks (in Pending status) in the Icinga2 Dashboard in the `Service Problems` card.
 
 ![Icinga Web 2](./img/biti-ipm-icinga-agentbased-2.png)
 
@@ -606,8 +606,7 @@ Icinga2 will prompt you that the command feature has been enabled and that Icing
 sudo systemctl restart icinga2
 ```
 
-Now go back to the Icinga2 Dashboard and reload the browser's page. Next, click on the Critical message in the left pane. This opens a detail view in the right pane. 
-Now click the `Check now` button. 
+Now go back to the Icinga2 Dashboard and reload the browser's page. Next, click on the Critical message (caused by my_mem) in the left pane. This opens a detail view in the right pane. Now click the `Check now` button. 
 
 ![Icinga Web 2](./img/biti-ipm-icinga-check-1.png)
 
@@ -615,7 +614,7 @@ A notification bar will appear indicating that the CheckCommand has been execute
 
 ![Icinga Web 2](./img/biti-ipm-icinga-check-2.png)
 
-You can click the "Check now" button as many times as you want. You will notice changes of the Plugin Output (more or less free memory). Notification bars will disappear after a few seconds.
+You can click the "Check now" button as many times as you want. You will notice changes of the Plugin Output (more or less free memory). Notification bars will pop up and disappear after a few seconds.
 
 ## Acknowledgements
 
