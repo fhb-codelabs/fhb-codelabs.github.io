@@ -1,5 +1,5 @@
 summary: BITI IPM Lab - Icinga Agentless Monitoring
-id: biti-ipm-icinga-local-lab
+id: biti-ipm-icinga-agentless-lab
 categories: icinga
 tags: ipm, icinga, BITI, introduction
 status: Draft
@@ -28,7 +28,7 @@ Hosts and services can be anything such as Network services (HTTP, SSH, etc.), p
 
 ###  Where You Can Look Up
 
-The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://www.icinga.com/docs/latest/doc/01-about/).
+The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://icinga.com/docs/icinga-2/latest/doc/01-about/).
 
 ### What You'll need
 
@@ -226,7 +226,7 @@ Quit the configuration file with `CTRL-X` and confirm with `y` to save all chang
 
 ### Commands.conf
 
-The **commands.conf** file contains information how command_checks are triggered by Icinga2. Since the explaination of all check_commands is out of scope of this codelab, simple restore the previously saved commands.conf file into the conf.d/ directory and we are fine here. 
+The **commands.conf** file contains information how CheckComma are triggered by Icinga2. Since the explaination of all check_commands is out of scope of this codelab, simple restore the previously saved commands.conf file into the conf.d/ directory and we are fine here. 
 
 ```
 sudo cp /etc/icinga2/conf.d.backup/commands.conf /etc/icinga2/conf.d/commands.conf
@@ -344,7 +344,7 @@ Next, copy the following content in to the `host_os.conf` file:
 ```
 object Host "host_os"{
   import  "generic-host"
-  address = "<ip-address of the hostos>"
+  address "<ip-address of the hostos>"
   check_command = "hostalive"
 }
 
