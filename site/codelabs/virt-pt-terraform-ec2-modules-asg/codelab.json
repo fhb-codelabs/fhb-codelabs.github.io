@@ -1,0 +1,27 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-12-10T17:17:37+01:00",
+  "id": "virt-pt-terraform-ec2-modules-asg",
+  "duration": 0,
+  "title": "VIRT Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS",
+  "authors": "Thomas Schuetz",
+  "summary": "Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS",
+  "source": "virt-pt-terraform-ec2-modules-asg.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "terraform"
+  ],
+  "tags": [
+    "aws",
+    "introduction",
+    "mcce",
+    "virt-pt"
+  ],
+  "url": "virt-pt-terraform-ec2-modules-asg"
+}
