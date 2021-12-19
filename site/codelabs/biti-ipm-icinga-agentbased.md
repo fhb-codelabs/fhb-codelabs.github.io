@@ -71,7 +71,7 @@ Once you are root via sudo, it is no longer necessary to prepend the sudo comman
 
 ### Set up Icinga2 server node
 
-After the preliminary work regarding the local DNS, it is time to set up Icinga2 for agentbased remote monitoring. We will start to set up the Icinga2 server as a master node.
+After the introduction, it is time to set up Icinga2 for agentbased remote monitoring. We will start to set up the Icinga2 server as a master node.
 
 Run the following command on your server to setup a Icinga2 master node:
 ```
