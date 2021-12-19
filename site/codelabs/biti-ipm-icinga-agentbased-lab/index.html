@@ -69,7 +69,7 @@
     
       <google-codelab-step label="Icinga2 server node" duration="0">
         <h2 is-upgraded>Set up Icinga2 server node</h2>
-<p>After the preliminary work regarding the local DNS, it is time to set up Icinga2 for agentbased remote monitoring. We will start to set up the Icinga2 server as a master node.</p>
+<p>After the introduction, it is time to set up Icinga2 for agentbased remote monitoring. We will start to set up the Icinga2 server as a master node.</p>
 <p>Run the following command on your server to setup a Icinga2 master node:</p>
 <pre><code>sudo icinga2 node wizard
 </code></pre>
@@ -123,12 +123,17 @@ Now restart your Icinga 2 daemon to finish the installation!
 <pre><code>3bcb8a06466706f6a5d5f541c175004149e6dbb2 
 </code></pre>
 <p>In this codelab, we will assume the key above. Save your key as you will require it later while setting up the client nodes.</p>
-<p>At this point, ignore the next commands and continue with the next chapter called <strong>Listen on port 5665</strong>. Otherwise, if you encounter problems with the creation of the pki ticket, you can try to fix it manually. So go ahead.</p>
+<p>If a ticket is created without any errors, skip the next chapter, <strong>scroll down</strong> and continue with the chapter called <strong>Listen on port 5665</strong>.</p>
 <h2 is-upgraded>Fix the salt problem</h2>
+<aside class="warning"><p> Follow this chapter only if you encounter problems creating the PKI Ticket. If you have successfully created a ticket, please ignore this chapter.  </p>
+</aside>
 <p>While generating the PKI ticket you may get the following error:</p>
 <pre><code>critical/cli: Ticket salt (--salt) must be specified
 </code></pre>
-<p>In this case, you have to check if icinga2 has generated a so-called <strong>TicketSalt</strong>. This is a constant and stored in /etc/icinga2/constants.conf. You can check this with the following command:</p>
+<p>The first thing you have to do is to restart the Icinga2 service.</p>
+<pre><code>sudo systemctl restart icinga2
+</code></pre>
+<p>Next, you have to check if icinga2 has generated a so-called <strong>TicketSalt</strong>. This is a constant and stored in /etc/icinga2/constants.conf. You can check this with the following command:</p>
 <pre><code>sudo cat /etc/icinga2/constants.conf
 </code></pre>
 <p>The TicketSalt can be found in the last line of the output:</p>
@@ -167,7 +172,7 @@ const TicketSalt = &#34;aca0ab61458ee407a3e95da9cf9c90d3&#34;
 <pre><code>icinga2 pki ticket --cn &#39;node&#39; --salt &#39;aca0ab61458ee407a3e95da9cf9c90d3&#39;
 3bcb8a06466706f6a5d5f541c175004149e6dbb2
 </code></pre>
-<p>Now save this key as you will require it later while setting up the client nodes. However, if you get errors again, contact your instructor.</p>
+<p>Now save this key as you will require it later while setting up the client nodes. However, if you get errors again, contact your instructor for help instead.</p>
 <h2 is-upgraded>Listen on port 5665</h2>
 <p>Before you can set up the client nodes, Icinga 2 on the master node must be running and accepting connections on port 5665/tcp. Run the following command to check the status on port 5665/tcp:</p>
 <pre><code>ss -altnp | grep 5665
@@ -181,10 +186,12 @@ const TicketSalt = &#34;aca0ab61458ee407a3e95da9cf9c90d3&#34;
       </google-codelab-step>
     
       <google-codelab-step label="Icinga2 client node" duration="0">
-        <h2 is-upgraded>Installing Icinga2 on client</h2>
-<p>Yes, it is true. You have to install Icinga2 on the client node again. However, don&#39;t worry! This installation will be shorter, I promise.</p>
+        <h2 is-upgraded>Installing Icinga2 on client node</h2>
+<aside class="special"><p> Note that you have to work on the node client. Don&#39;t mix up the virtual machines. </p>
+</aside>
+<p>Yes, you have to install Icinga2 on the client node. However, don&#39;t worry, the installation will be much shorter, I promise.</p>
 <h2 is-upgraded>System update</h2>
-<p>The software repository on Icinga2 node might be outdated. Run the following commands to update your system package repositories.</p>
+<p>The software repository on Icinga2 node might be outdated. Run the following commands on the node client to update your system package repositories.</p>
 <pre><code>sudo apt update
 sudo apt upgrade
 </code></pre>
@@ -496,7 +503,7 @@ sudo systemctl status icinga2
     
       <google-codelab-step label="Cleanup" duration="0">
         <p>Congratulations !</p>
-<p>You have successfully set up your first host for agentbased monitoring.</p>
+<p>You have successfully set up your first remote host for agentbased monitoring.</p>
 
 
       </google-codelab-step>

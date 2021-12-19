@@ -147,15 +147,25 @@ The command will output a ticket similar to the following:
 ```
 In this codelab, we will assume the key above. Save your key as you will require it later while setting up the client nodes. 
 
-At this point, ignore the next commands and continue with the next chapter called **Listen on port 5665**. Otherwise, if you encounter problems with the creation of the pki ticket, you can try to fix it manually. So go ahead. 
+If a ticket is created without any errors, skip the next chapter, **scroll down** and continue with the chapter called **Listen on port 5665**. 
 
 ### Fix the salt problem
+
+<aside class="negative">
+Follow this chapter only if you encounter problems creating the PKI Ticket. If you have successfully created a ticket, please ignore this chapter. 
+</aside>
 
 While generating the PKI ticket you may get the following error:
 ```
 critical/cli: Ticket salt (--salt) must be specified
 ```
-In this case, you have to check if icinga2 has generated a so-called **TicketSalt**. This is a constant and stored in /etc/icinga2/constants.conf. You can check this with the following command:
+
+The first thing you have to do is to restart the Icinga2 service.
+```
+sudo systemctl restart icinga2
+```
+
+Next, you have to check if icinga2 has generated a so-called **TicketSalt**. This is a constant and stored in /etc/icinga2/constants.conf. You can check this with the following command:
 
 ```
 sudo cat /etc/icinga2/constants.conf
@@ -205,7 +215,7 @@ icinga2 pki ticket --cn 'node' --salt 'aca0ab61458ee407a3e95da9cf9c90d3'
 3bcb8a06466706f6a5d5f541c175004149e6dbb2
 ```
 
-Now save this key as you will require it later while setting up the client nodes. However, if you get errors again, contact your instructor.
+Now save this key as you will require it later while setting up the client nodes. However, if you get errors again, contact your instructor for help instead.
 
 
 ### Listen on port 5665
@@ -225,13 +235,17 @@ Typically, the process id (pid) and the file descriptor (fd) may differ from you
 <!-- ------------------------ -->
 ## Icinga2 client node
 
-### Installing Icinga2 on client
+### Installing Icinga2 on client node
 
-Yes, it is true. You have to install Icinga2 on the client node again. However, don't worry! This installation will be shorter, I promise.
+<aside class="positive">
+Note that you have to work on the node client. Don't mix up the virtual machines.
+</aside>
+
+Yes, you have to install Icinga2 on the client node. However, don't worry, the installation will be much shorter, I promise.
 
 ### System update
 
-The software repository on Icinga2 node might be outdated. Run the following commands to update your system package repositories.
+The software repository on Icinga2 node might be outdated. Run the following commands on the node client to update your system package repositories.
 
 ```
 sudo apt update
