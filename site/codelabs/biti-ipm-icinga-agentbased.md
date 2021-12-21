@@ -564,7 +564,7 @@ sudo icinga2 daemon -C
 
 Do you see errors? If yes, try to fix them. Otherwise, if not errors occur, restart and check the Icinga2 service with the following commands:
 ```
-sudo systemctl start icinga2
+sudo systemctl restart icinga2
 sudo systemctl status icinga2
 ```
 Any errors? Try to fix them. Otherwise, go ahead.
