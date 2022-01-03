@@ -1,0 +1,27 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-01-03T19:41:07+01:00",
+  "id": "biti-ipm-icinga-director-lab",
+  "duration": 0,
+  "title": "BITI IPM Lab - Icinga Director",
+  "authors": "Roland Pellegrini",
+  "summary": "BITI IPM Lab - Icinga Director",
+  "source": "biti-ipm-icinga-director.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "icinga"
+  ],
+  "tags": [
+    "biti",
+    "icinga",
+    "introduction",
+    "ipm"
+  ],
+  "url": "biti-ipm-icinga-director-lab"
+}
