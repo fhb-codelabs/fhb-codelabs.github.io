@@ -59,7 +59,7 @@ Once you are root via sudo, it is no longer necessary to prepend the sudo comman
 
 ### Introduction
 
-The documentation of the ITL can be found [here](https://icinga.com/docs/icinga-2/latest/doc/10-icinga-template-library/#plugin-check-commands-for-monitoring-plugins).
+The documentation of the ITL can be found [here](https://icinga.com/docs/icinga-2/latest/doc/10-icinga-template-library).
 
 The documentation provides an overview of subsets of templates and object definitions.
 
@@ -69,18 +69,18 @@ As an example, scroll down to the `check_user` plugin.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-itl-2.png)
 
-This section gives you a short description of the `check_users` plugin. Here, the `check_users` plugin checks the number of users currently logged in on the local system and generates an error if the number exceeds the thresholds specified. The plugin accepts parameters which can be accessed as runtime macros by the executed command.
+This section gives you a short description of the `check_users` plugin. Here, the `check_users` plugin checks the number of users currently logged in on the local system and generates an error if the number exceeds the thresholds specified. The plugin therefore accepts parameters which can be accessed as runtime macros by the executed command.
 
 The check_users plugin provides the following parameters:
 * users_wgreater - Optional. The user count warning threshold. Defaults to 20.
 * users_cgreater - Optional. The user count critical threshold. Defaults to 50.
 
 
-## CommandLine
+## Command-Line
 
-When you install Icinga on your computer, all check commands can be found in `/usr/lib/nagios/plugins/`.
+When you install Icinga2 on your computer, all check commands can be found in `/usr/lib/nagios/plugins/`.
 
-To get an overview of the plugin and its parameters, please run the following command:
+Please run the following command to get an overview of the `check_users` plugin and its parameters: 
 ```
 sudo /usr/lib/nagios/plugins/check_users -h
 ```
@@ -118,24 +118,22 @@ use of this software. To submit patches or suggest improvements, send email
 to devel@monitoring-plugins.org
 ```
 
-The check the number of users logged in, run the following command:
-
+Run the following command to check the number of users logged-in.
 ```
 sudo /usr/lib/nagios/plugins/check_users -w 0 -c 0
 ```
 
-Note that you have to pass here all parameters here. The output command will look as follows:
+Note that you must pass all parameters here. All thresholds are set to zero, which means that the command will definitely print an error message if one or more users are logged in. The output of the command looks like this:
 ```
 USERS CRITICAL - 1 users currently logged in | users=1;0;0;0
 ```
 As expected, the plugin generates a critical message because the number of logged-in users exceeds the threshold of zero (0). Use different thresholds to generate CRITICAL, WARNING and OK messages.
 
 <aside class="positive">
-It is a good practice to test check_commands on the command line first. This helps the Icinga administrator understand how check_commands must be used and how they are defined and applied in configuration files.
+It is a good practice to test check_commands on the command line first. This helps the Icinga2 administrators to understand how the check_commands have to be used and how they are applied in configuration files.
 </aside>
 
-
-## Services
+## Service Configuration
 
 In a next step, we will extend the `check_user` plugin in our service definition.
 Open the `services.config` file with an editor of your choice (here nano).
@@ -144,8 +142,7 @@ Open the `services.config` file with an editor of your choice (here nano).
 sudo nano /etc/icinga2/zones.d/master/services.conf
 ```
 
-
-Scroll down to the `Users` Service and add the following line:
+Scroll down to the `Users` Service (or add it if the section does not exist) and add the following line:
 ```
 apply Service "Users" {
   check_command = "users"
@@ -155,14 +152,14 @@ apply Service "Users" {
 }
 ```
 
-Now restart the Icinga2 service to apply the changes
+Now restart the Icinga2 service to apply the changes:
 
 ```
 sudo systemctl restart icinga2
 ```
 
 <aside class="negative">
-Do you encounter any problems? Try to fix it!
+Do you encounter any problems here? First try to fix the problem yourself! Use an appropriate tool to verify if the configuration syntax is error-free.
 </aside>
 
 
@@ -173,19 +170,21 @@ If not, log in to Icinga node client via Console or via SSH. After a couple of m
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-itl-4.png)
 
-In this case, the agent on the node client has identitied the two users who are currently logged in and generated a WARNING status. The message disappears as soon as all users have logged out again.
+In this case, the agent on the node client has identified the two users currently logged in and generated a WARNING status. The message disappears after a few minutes, once all users have logged out again.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-itl-5.png)
 
-However, all past incidents are stored within Icinga2 and can be retrieved at any time. Just click on `Users` in the section "Recently Recovered Services", then select the `History` tab. 
+Even if past incidents disappear, however, they are stored in Icinga2 and can be retrieved at any time. Simply click on `Users` in the "Recently Restored Services" section and then select the `History` tab. 
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-itl-6.png)
+
+The History tab shows details of all past incidents related to the Check User command. Similary, you can check the history of other incidents as well.
 
 ## Hands-on
 
 ### What you will learn:
 
-This Hands-on differs from other lessons. This Hands-on wants you to explore some of the check_commands which are provided by Icinga2 per default.
+This hands-on differs from other lessons. This hands-on wants you to explore some of the check_commands which are provided by Icinga2 by default.
 
 In this codelab, you will learn 
 
@@ -204,7 +203,7 @@ In this codelab, you will need a running Icinga2 server.
 
 * Go to `/usr/lib/nagios/plugins/` and pick some random check_commands.
 * Run them on the commandline first to get an idea how they work and what parameters they provide.
-* Edit the files `/etc/icinga2/zones.d/master/services.conf` (agendbased) and `/etc/icinga2/conf.d/hosts/localhost.conf` (agentless) and add some of the check_commands. Finally, update some parameters of existing commands.
+* Edit the files `/etc/icinga2/zones.d/master/services.conf` (agendbased) and `/etc/icinga2/conf.d/hosts/localhost.conf` (agentless) and add some of the check_commands. Use the online [documentation](https://icinga.com/docs/icinga-2/latest/doc/01-about/) to get information and more details about the check_commands. Finally, update some parameters of existing commands.
 * Watch how Icinga2 reacts on the changes you made and play around with different settings.
 
 ### Useful check_commands
@@ -216,8 +215,8 @@ Here is a list of some checks you might test:
 * check_http (let's go and check some external websites)
 * check_procs (can be installed on both, localhost and node)
 * check_tcp (hmmm, which service is waiting for incoming tcp traffic?)
-* check_swap (already installed so have fun with different parameters)
-* check_disk (already installed so have fun with different parameters)
+* check_swap (already installed so use different parameters)
+* check_disk (already installed so use different parameters)
 
 And much much more. Have fun!
 
