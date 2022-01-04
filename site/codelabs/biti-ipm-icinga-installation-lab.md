@@ -63,6 +63,7 @@ sudo apt upgrade
 When using the sudo command, you will be prompted for your password.
 </aside>
 
+Depending on the package upgrades, it is useful to restart the system here.
 
 <!-- ------------------------ -->
 
