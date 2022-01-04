@@ -1,11 +1,11 @@
-summary: BITI IPM Lab - Icinga Director
-id: biti-ipm-icinga-director-lab
+summary: BITI IPM Lab - Icinga Director Installation
+id: biti-ipm-icinga-director-installation-lab
 categories: icinga
 tags: ipm, icinga, BITI, introduction
 status: Draft
 authors: Roland Pellegrini
 
-# BITI IPM Lab - Icinga Director
+# BITI IPM Lab - Icinga Director Installation
 <!-- ------------------------ -->
 ## Before You Begin 
 
@@ -25,7 +25,7 @@ Good luck!
 
 ###  Where You Can Look Up
 
-The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://icinga.com/docs/icinga-2/latest/doc/01-about/).
+The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://icinga.com/docs/icinga-2/latest/doc/02-installation/).
 
 ### What You'll need
 

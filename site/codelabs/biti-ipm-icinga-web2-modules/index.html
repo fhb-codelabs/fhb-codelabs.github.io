@@ -62,12 +62,15 @@
 <pre><code>sudo apt install icingaweb2-module-map
 </code></pre>
 <h2 is-upgraded>Fix missing character set</h2>
+<p>The module requires the character set <code>latin1</code> otherwise it will pop up an error.</p>
+<p>To add the character set, open the resource file of Icingaweb2 with the following command:</p>
 <pre><code>sudo nano /etc/icingaweb2/resources.ini
 </code></pre>
 <p>Now update (or add) the following line:</p>
 <pre><code>[icinga_ido]
 charset = &#34;latin1&#34; &lt;== ADD THIS
 </code></pre>
+<p>That&#39;s all here.</p>
 <h2 is-upgraded>Set Marker</h2>
 <p>Finally, we have to add coordinates to a host object in Icinga 2. The coordinate values are defined in the following format:</p>
 <pre><code>vars.geolocation = &#34;&lt;latitude&gt;,&lt;longitude&gt;&#34;
@@ -102,6 +105,7 @@ charset = &#34;latin1&#34; &lt;== ADD THIS
 <pre><code>sudo systemctl restart icinga2
 sudo systemctl status icinga2
 </code></pre>
+<p>Any problems? Try to fix them with appropriate tools.</p>
 <h2 is-upgraded>The result</h2>
 <p>That&#39;s it, Map is now ready for use. Once you enable the Host Map module, it will pop up in your menu in the Maps section.</p>
 <p>Based on the coordinates and the marker icons, hosts will be displayed on the map. If you want to know more details about a host just click on the host marker. If you want to show the host in the detail view of the monitoring module just click on the eye icon.</p>
@@ -119,7 +123,7 @@ sudo systemctl status icinga2
     
       <google-codelab-step label="Cleanup" duration="0">
         <p>Congratulations !</p>
-<p>You have successfully set up Icinga2 modules.</p>
+<p>You have successfully set up your first Icinga2 module.</p>
 
 
       </google-codelab-step>
