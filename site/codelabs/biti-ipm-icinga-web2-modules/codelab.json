@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-01-03T23:43:22+01:00",
-  "id": "biti-ipm-icinga-itl-lab",
+  "updated": "2022-01-04T18:07:37+01:00",
+  "id": "biti-ipm-icinga-web2-modules",
   "duration": 0,
-  "title": "BITI IPM Lab - Icinga Template Library",
+  "title": "BITI IPM Lab - Icinga Addons",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Icinga Template Library",
-  "source": "biti-ipm-icinga-itl-lab.md",
+  "summary": "BITI IPM Lab - Icinga Addons",
+  "source": "biti-ipm-icinga-addons.md",
   "theme": "",
   "status": [
     "draft"
@@ -23,5 +23,5 @@
     "introduction",
     "ipm"
   ],
-  "url": "biti-ipm-icinga-itl-lab"
+  "url": "biti-ipm-icinga-web2-modules"
 }
