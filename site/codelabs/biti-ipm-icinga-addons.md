@@ -66,6 +66,9 @@ sudo apt install icingaweb2-module-map
 
 ### Fix missing character set
 
+The module requires the character set `latin1` otherwise it will pop up an error.
+
+To add the character set, open the resource file of Icingaweb2 with the following command:
 ```
 sudo nano /etc/icingaweb2/resources.ini
 ```
@@ -76,6 +79,8 @@ Now update (or add) the following line:
 [icinga_ido]
 charset = "latin1" <== ADD THIS
 ```
+
+That's all here.
 
 ### Set Marker
 
@@ -143,4 +148,4 @@ The module provides more features:
 
 Congratulations !
 
-You have successfully set up Icinga2 modules.
+You have successfully set up your first Icinga2 module.
