@@ -445,7 +445,7 @@ apply Service &#34;Users&#34; {
 <pre><code>sudo icinga2 daemon -C
 </code></pre>
 <p>Do you see errors? If yes, try to fix them. Otherwise, if not errors occur, restart and check the Icinga2 service with the following commands:</p>
-<pre><code>sudo systemctl start icinga2
+<pre><code>sudo systemctl restart icinga2
 sudo systemctl status icinga2
 </code></pre>
 <p>Any errors? Try to fix them. Otherwise, go ahead.</p>
@@ -456,7 +456,7 @@ sudo systemctl status icinga2
       <google-codelab-step label="In action" duration="0">
         <p>If the restart of the icinga2 service was successful, open the Icinga2 Dashboard.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/b18865db7a10486f.png"></p>
-<p>We will see our new checks (in Pending status) in the Icinga2 dashboard in the <code>Service Problems</code> card.</p>
+<p>We will see our new checks (in Pending status) in the Icinga2 Dashboard in the <code>Service Problems</code> card.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/f6c9ccb764bdf52a.png"></p>
 <p>More and more checks will move to the card <code>Recently Recovered Services</code></p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/dd7c9852aae63fc7.png"></p>
@@ -477,11 +477,11 @@ sudo systemctl status icinga2
 <p>Icinga2 will prompt you that the command feature has been enabled and that Icinga2 needs to be restarted.</p>
 <pre><code>sudo systemctl restart icinga2
 </code></pre>
-<p>Now go back to the Icinga2 Dashboard and reload the browser&#39;s page. Next, click on the Critical message in the left pane. This opens a detail view in the right pane. Now click the <code>Check now</code> button.</p>
+<p>Now go back to the Icinga2 Dashboard and reload the browser&#39;s page. Next, click on the Critical message (caused by my_mem) in the left pane. This opens a detail view in the right pane. Now click the <code>Check now</code> button.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/403a62f26e15d48.png"></p>
 <p>A notification bar will appear indicating that the CheckCommand has been executed.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/1d3a1643cf9fd997.png"></p>
-<p>You can click the &#34;Check now&#34; button as many times as you want. You will notice changes of the Plugin Output (more or less free memory). Notification bars will disappear after a few seconds.</p>
+<p>You can click the &#34;Check now&#34; button as many times as you want. You will notice changes of the Plugin Output (more or less free memory). Notification bars will pop up and disappear after a few seconds.</p>
 
 
       </google-codelab-step>

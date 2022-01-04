@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>BITI IPM Lab - Icinga Director</title>
+  <title>BITI IPM Lab - Icinga Director Installation</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -22,22 +22,23 @@
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  id="biti-ipm-icinga-director-lab"
-                  title="BITI IPM Lab - Icinga Director"
+                  id="biti-ipm-icinga-director-installation-lab"
+                  title="BITI IPM Lab - Icinga Director Installation"
                   environment="web"
                   feedback-link="">
     
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-<p>Icinga2 Director is a module that is designed to make Icinga2 web configuration easier and faster. It helps less advanced users add, monitor and delete hosts and services through a web interface which involves a simple point and click.</p>
-<p>Icinga2 Director can also be a perfect tool to use when a user doesn&#39;t have root access to the master server. With Icinga2 Director, you have the advantage of importing and syncing objects to director.</p>
+<p>Icinga2 Director is a module that is designed to make Icinga2 web configuration easier and faster. It helps less advanced users to add, monitor and delete hosts and services through a web interface which involves a simple point and click.</p>
+<p>Icinga2 Director can also be a perfect tool to use when a user doesn&#39;t have root access to the master server. With Icinga2 Director, you have the advantage of importing and syncing objects.</p>
 <p>However, the Icinga2 Director requires advanced users to install it. That&#39;s you !</p>
-<p>In this codelab you will learn</p>
+<p>Therefore, in this codelab you will learn</p>
 <ul>
 <li>how to install Icinga2 Director</li>
 </ul>
+<p>Good luck!</p>
 <h2 is-upgraded>Where You Can Look Up</h2>
-<p>The best source of documentation is the homepage of Icinga2. The latest documentation can be found <a href="https://icinga.com/docs/icinga-2/latest/doc/01-about/" target="_blank">here</a>.</p>
+<p>The best source of documentation is the homepage of Icinga2. The latest documentation can be found <a href="https://icinga.com/docs/icinga-2/latest/doc/02-installation/" target="_blank">here</a>.</p>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
 <p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
@@ -65,6 +66,7 @@ sudo apt upgrade
 </code></pre>
 <aside class="special"><p> When using the sudo command, you will be prompted for your password. </p>
 </aside>
+<p>Depending on the package upgrades, it is useful to restart the system here.</p>
 
 
       </google-codelab-step>
@@ -79,9 +81,8 @@ sudo apt upgrade
 <p>Configure the ApiUser file at <code>/etc/icinga2/conf.d/api-users.conf</code> with an editor of your choice (here nano).</p>
 <pre><code>sudo nano /etc/icinga2/conf.d/api-users.conf
 </code></pre>
-<p>Now add the following information (without deleting existing ApiUser objects):</p>
-<pre><code>[...]
-object ApiUser &#34;director&#34; {
+<p>Now add the following information (without deleting existing ApiUser objects) at the end of the file:</p>
+<pre><code>object ApiUser &#34;director&#34; {
   password = &#34;director&#34;
   permissions = [ &#34;*&#34; ]
 }
@@ -94,7 +95,7 @@ object ApiUser &#34;director&#34; {
     
       <google-codelab-step label="Icinga2 Director Backend" duration="0">
         <h2 is-upgraded>Database configuration</h2>
-<p>Sorry but true: you have to create a database and a database user for Icinga2 Director manually.</p>
+<p>Sorry but true: you have to create another database and a db_user for Icinga2 Director.</p>
 <p>First, log in to MariaDB shell with the following command:</p>
 <pre><code>sudo mysql -u root -p
 </code></pre>
@@ -106,16 +107,18 @@ GRANT ALL ON director.* TO director@localhost;
 </code></pre>
 <aside class="warning"><p> Warning:  <br> Do not use this password in other systems or environments, especially not in a production system. We use this password to ensure a smooth installation process during the lecture and to eliminate potential sources of error. </p>
 </aside>
+<aside class="special"><p> Icinga2 Director requires UTF-8 encoding for its database, otherwise it will not work properly. </p>
+</aside>
 <p>Reload privileges tables with the following commands:</p>
 <pre><code>flush privileges;
 quit
 </code></pre>
 <h2 is-upgraded>Mangement configuration</h2>
-<p>Icinga Director uses a relational database such as MySQL, MariaDB or PostgreSQL. We need to create a database resource for the Director instance.</p>
+<p>Icinga Director uses a relational database such as MySQL, MariaDB or PostgreSQL. We use MySQL/MariaDB. Therefore, we have to tell Icingaweb2 how to connect need to the Director&#39;s database.</p>
 <p>For this purpose, open the file <code>/etc/icingaweb2/resources.ini</code>` with an editor of your choise (here nano):</p>
-<pre><code>sudo nano `/etc/icingaweb2/resources.ini`
+<pre><code>sudo nano /etc/icingaweb2/resources.ini
 </code></pre>
-<p>Remember to use the password you used during creation of the database user and also the type of database you are using. Also use the &#34;utf8&#34; for charset (important). Now add the following information:</p>
+<p>Remember to use the password you used during creation of the database user and also the type of database you are using. Also use the &#34;utf8&#34; for charset (important). Now add the following information to the end of the file but leave the rest untouched:</p>
 <pre><code>[icinga_director]
 type = &#34;db&#34;
 db = &#34;mysql&#34;
@@ -127,10 +130,10 @@ charset = &#34;utf8&#34;
 </code></pre>
 <h2 is-upgraded>Restart Icinga2</h2>
 <p>On Debian, Icinga2 is started and enabled upon installation. However, after installing and configuring Icinga2 Director it is necessary to restart the Icinga2 service again and to check its status.</p>
-<pre><code>systemctl restart icinga2
-systemctl status icinga2
+<pre><code>sudo systemctl restart icinga2
+sudo systemctl status icinga2
 </code></pre>
-<p>Any problems? Try to fix them.</p>
+<p>Any problems? Try to fix them with appropriate tools.</p>
 
 
       </google-codelab-step>
@@ -140,18 +143,20 @@ systemctl status icinga2
 <p>Time to log in. Open the browser and point to the URL of the Icinga2 Web Inferface (https://your-server-ip-address/icingaweb2). Enter the username and password from the previous codelabs.</p>
 <p class="image-container"><img alt="Icinga Web 2 Director" src="img/c4cb317a359cb6f5.png"></p>
 <h2 is-upgraded>Icinga2 Director</h2>
-<p>The first thing you will notice are problems. In most cases, you can simple ignore them. Here, as shown in the figure, one of the virtual machines (hostname = node) was turned off while installing the Icinga Director due to performance reasons.</p>
+<p>The first thing you will notice are problems. In most cases, you can simple ignore them. Here, as shown in the figure below, one of the virtual machines (hostname = node) is offline because it was turned off while installing the Icinga Director due to performance reasons.</p>
 <p class="image-container"><img alt="Icinga Web 2 Director" src="img/6a6f20bf78931b2d.png"></p>
-<p>The second thing you will notice is a new menue called &#34;Icinga Director. Click on the menu. The director guides you through the setup procedure. Select <code>icinga_director</code> as DB Resource.</p>
+<p>The second thing you will notice is a new menu item called &#34;Icinga Director. Click on the item. The director guides you through the setup procedure. Select <code>icinga_director</code> as DB Resource.</p>
+<aside class="warning"><p> Be careful here: The setup will switch to the next screen immediately after selecting the icinga_directory. There is no way back! </p>
+</aside>
 <p class="image-container"><img alt="Icinga Web 2 Director" src="img/8ff1c1dbf9cd172b.png"></p>
-<p>Next, the director wants to you to create the database schema, which may mean: no sql script? Press on the button <code>Create schema</code>.</p>
+<p>Next, the director wants to you to create the database schema. In other words: no need to execute a sql script manually! Press on the button <code>Create schema</code>.</p>
 <p class="image-container"><img alt="Icinga Web 2 Director" src="img/717a972c79135fe3.png"></p>
-<p>Next, the director wants you to run the <code>Kickstart wizard</code>. In simple terms: the director seeds (=kickstarts) an empty database.</p>
+<p>Next, the director wants you to run the <code>Kickstart wizard</code>. In simple terms: the director imports (=kickstarts or seeds) data into the database we have created.</p>
 <p class="image-container"><img alt="Icinga Web 2 Director" src="img/6bcd0bacc2e57ffe.png"></p>
 <p>For this, enter the following information:</p>
 <ul>
 <li>Endpoint name - server</li>
-<li>Icinga Host - </li>
+<li>Icinga Host - your-server-ip-address</li>
 <li>Port - don&#39;t change it, 5665 is fine</li>
 <li>API-User - director</li>
 <li>Password - director</li>
