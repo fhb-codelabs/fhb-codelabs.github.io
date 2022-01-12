@@ -504,7 +504,7 @@ Sample output:
 ```
 
 ### Bug fixing
-The program may have an bug in the Python3 CSV library. This causes the following error:
+The program may have a bug in the Python3 CSV library. This causes the following error:
 
 ```
 NameError: name 'types' is not defined
