@@ -503,12 +503,44 @@ Sample output:
 12-10 23:18:00| 12  43   1  44   0| 719M 2560M 6120k  628M|  92k  113M|1.85 0.60 0.22
 ```
 
+### Bug fixing
+The program may have an bug in the Python3 CSV library. This causes the following error:
+
+```
+NameError: name 'types' is not defined
+```
+
+To fix this error, you have to change the type-checking on lines 547 & 552 from
+
+```
+if isinstance(self.val[name], types.ListType) or isinstance(self.val[name], types.TupleType):
+    for j, val in enumerate(self.val[name]):
+        line = line + printcsv(val)
+        if j + 1 != len(self.val[name]):
+            line = line + char['sep']
+elif isinstance(self.val[name], types.StringType):
+```
+
+to
+
+```
+if isinstance(self.val[name], (tuple, list)):
+    for j, val in enumerate(self.val[name]):
+        line = line + printcsv(val)
+        if j + 1 != len(self.val[name]):
+            line = line + char['sep']
+elif isinstance(self.val[name], str):
+```
+
 ### Reference
 
 Manual Page:
 ```
 man dstat
 ```
+
+Bug fix:
+Click [here](https://icinga.com/docs/icinga-2/latest/doc/01-about/) to get to the original story.
 
 ## Hands-on
 
