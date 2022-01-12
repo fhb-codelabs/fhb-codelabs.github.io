@@ -433,10 +433,31 @@ usr sys idl wai stl| read  writ| recv  send|  in   out | int   csw
 12-10 23:17:59|  4  48   0  49   0| 720M 2615M 6104k  574M|   0  9320k|1.85 0.60 0.22
 12-10 23:18:00| 12  43   1  44   0| 719M 2560M 6120k  628M|  92k  113M|1.85 0.60 0.22
 </code></pre>
+<h2 is-upgraded>Bug fixing</h2>
+<p>The program may have an bug in the Python3 CSV library. This causes the following error:</p>
+<pre><code>NameError: name &#39;types&#39; is not defined
+</code></pre>
+<p>To fix this error, you have to change the type-checking on lines 547 &amp; 552 from</p>
+<pre><code>if isinstance(self.val[name], types.ListType) or isinstance(self.val[name], types.TupleType):
+    for j, val in enumerate(self.val[name]):
+        line = line + printcsv(val)
+        if j + 1 != len(self.val[name]):
+            line = line + char[&#39;sep&#39;]
+elif isinstance(self.val[name], types.StringType):
+</code></pre>
+<p>to</p>
+<pre><code>if isinstance(self.val[name], (tuple, list)):
+    for j, val in enumerate(self.val[name]):
+        line = line + printcsv(val)
+        if j + 1 != len(self.val[name]):
+            line = line + char[&#39;sep&#39;]
+elif isinstance(self.val[name], str):
+</code></pre>
 <h2 is-upgraded>Reference</h2>
 <p>Manual Page:</p>
 <pre><code>man dstat
 </code></pre>
+<p>Bug fix: Click <a href="https://icinga.com/docs/icinga-2/latest/doc/01-about/" target="_blank">here</a> to get to the original story.</p>
 
 
       </google-codelab-step>
