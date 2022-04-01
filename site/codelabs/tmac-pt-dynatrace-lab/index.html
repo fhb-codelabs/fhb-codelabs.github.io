@@ -1,0 +1,239 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>TMAC Lab 1 - Monitor a Microservice Application using Dynatrace</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="tmac-pt-dynatrace-lab"
+                  title="TMAC Lab 1 - Monitor a Microservice Application using Dynatrace"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Overview" duration="0">
+        <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+<p class="image-container"><img alt="PodTatoHead-BigPicture" src="img/8d02c05bb3c9351e.png"></p>
+<ul>
+<li>Set Up an AWS Instance</li>
+<li>Install K3s</li>
+<li>Install Dynatrace Agent</li>
+<li>Install a Microservice Application on K3s</li>
+<li>Inspect Monitoring of the Application</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Set up an AWS Instance" duration="5">
+        <ul>
+<li>Open the AWS Console</li>
+<li>Search for EC2</li>
+<li>Click on Launch Instances <ul>
+<li>Step 1: Choose an Amazon Machine Image (AMI) <ul>
+<li>Amazon Linux 2 AMI (HVM), SSD Volume Type (x86)</li>
+</ul>
+</li>
+<li>Step 2: Choose an Instance Type <ul>
+<li>t3.medium</li>
+</ul>
+</li>
+<li>Step 3: Configure Instance Details <ul>
+<li>Keep Default</li>
+</ul>
+</li>
+<li>Step 4: Add Storage <ul>
+<li>Keep Default</li>
+</ul>
+</li>
+<li>Step 5: Add Tags <ul>
+<li>Name: podtatohead-k3s</li>
+</ul>
+</li>
+<li>Step 6: Configure Security Group <ul>
+<li>Create New Security Group <ul>
+<li>Security Group Name: podtatohead-http-in</li>
+<li>Add Rules <ul>
+<li>Type: HTTP</li>
+<li>Type: HTTPS</li>
+<li>Rest Default</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Review and Launch</li>
+</ul>
+</li>
+<li>Launch</li>
+<li>Select an existing key-pair or create one</li>
+<li>Launch instance</li>
+</ul>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Getting your Instance Name on the AWS CLI" duration="0">
+        <ul>
+<li>Prerequisites:<ul>
+<li>Installed awscli</li>
+</ul>
+</li>
+<li>Open a Shell</li>
+<li>Ensure that aws-cli is configured</li>
+</ul>
+<pre><code>cat ~/.aws/credentials
+</code></pre>
+<ul>
+<li>Describe all Instances</li>
+</ul>
+<pre><code>aws ec2 describe-instances 
+</code></pre>
+<ul>
+<li>You should see all EC2 Instances (in our case one)</li>
+<li>Query the Instance Name</li>
+</ul>
+<pre><code>aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=podtatohead-oauth&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs
+[
+    &#34;&lt;instance-name&gt;.compute-1.amazonaws.com&#34;
+]
+</code></pre>
+<ul>
+<li>Put the Instance Name in a Variable</li>
+</ul>
+<pre><code>  INSTANCE_HOSTNAME=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=podtatohead-oauth&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs)
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Open a shell to your ec2-instance" duration="1">
+        <ul>
+<li>Get the instance hostname from the AWS console (Public IPv4 DNS or Public IPv4 Address)</li>
+<li>Open a shell</li>
+</ul>
+<pre><code> ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
+
+      __|  __|_  )
+      _|  (     /   Amazon Linux 2 AMI
+     ___|\___|___|
+
+ https://aws.amazon.com/amazon-linux-2/ 
+</code></pre>
+<aside class="special"><p> :Now you&#39;re connected to your AWS Instance   </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install Dynatrace OneAgent" duration="0">
+        <ul>
+<li>Open Dynatrace</li>
+<li>Click on &#34;Manage -&gt; Deploy Dynatrace&#34; <ul>
+<li>Start Installation</li>
+<li>Select &#34;Linux&#34;</li>
+<li>&#34;Create PaaS Token&#34;</li>
+<li>Copy the Download Link, paste it to the shell of your VM and execute it</li>
+<li>Set &#34;Custom Host Name&#34; to your Student ID</li>
+<li>Copy the installer execution command and run it on your vm as root (<code>sudo</code>)</li>
+</ul>
+</li>
+<li>Wait until you see your host in Dynatrace (&#34;Infrastructure -&gt; Hosts&#34;)</li>
+</ul>
+<aside class="special"><p> Your Host is monitored now and known technologies will be auto-instrumented </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install K3s" duration="0">
+        <ul>
+<li>Open a shell to your host</li>
+<li>Install K3s</li>
+</ul>
+<pre><code>sudo -i
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=&#34;server --no-deploy=traefik&#34; sh -s -
+export PATH=$PATH:/usr/local/bin
+</code></pre>
+<ul>
+<li>Check if everything your k3s node is up</li>
+</ul>
+<pre><code>kubectl get nodes
+
+NAME                            STATUS   ROLES                  AGE   VERSION
+ip-172-31-12-239.ec2.internal   Ready    control-plane,master   18s   v1.22.7+k3s1
+</code></pre>
+<aside class="special"><p> If your node is ready, your k3s node is operational </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install your application (podtatohead)" duration="0">
+        <ul>
+<li>Open a shell to your host</li>
+<li>Install the Manifest</li>
+</ul>
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/fhb-codelabs/sample-code-repo/master/manifests/podtato-kubectl.yaml
+</code></pre>
+<ul>
+<li>Wait until all pods are ready (<code>kubectl get pods -n podtato-kubectl</code>)</li>
+<li>Open PodTatoHead (http://your-ip-address)</li>
+</ul>
+<aside class="special"><p> You should see the podtatohead now </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Inspect your application in Dynatrace" duration="0">
+        <ul>
+<li>Open Dynatrace</li>
+<li>Inspect: <ul>
+<li>Infrastructure -&gt; Hosts</li>
+<li>Applications and Microservices -&gt; Service -&gt; entry <ul>
+<li>Service Flow</li>
+<li>Distributed Traces</li>
+</ul>
+</li>
+<li>Observe and explore <ul>
+<li>SmartScape Topology</li>
+</ul>
+</li>
+<li>Whatever you like</li>
+</ul>
+</li>
+</ul>
+<aside class="special"><p> You installed a k3s environment, added the Dynatrace OneAgent and installed an application and it&#39;s basically monitored now </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
