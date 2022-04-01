@@ -1,0 +1,29 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2022-04-01T18:41:34Z",
+  "id": "tmac-pt-dynatrace-lab",
+  "duration": 6,
+  "title": "TMAC Lab 1 - Monitor a Microservice Application using Dynatrace",
+  "authors": "Thomas Schuetz",
+  "summary": "Lab 1 - Monitor a Microservice Application using Dynatrace",
+  "source": "tmac-pt-dynatrace-lab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "aws",
+    "dynatrace"
+  ],
+  "tags": [
+    "aws",
+    "dynatrace",
+    "intermediate",
+    "mcce",
+    "tmac-pt"
+  ],
+  "url": "tmac-pt-dynatrace-lab"
+}
