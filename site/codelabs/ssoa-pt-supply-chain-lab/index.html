@@ -67,6 +67,7 @@
 <li>Check &#34;Require a pull request before merging&#34;</li>
 <li>Require approvals</li>
 <li>Check &#34;Require status checks to pass before merging&#34;</li>
+<li>Click on &#34;Create&#34;</li>
 </ul>
 </li>
 </ul>
@@ -91,20 +92,22 @@
     
       <google-codelab-step label="Create a PAT and add it to your Repository" duration="0">
         <ul>
+<li>Navigate to your personal account settings https://github.com/settings/profile</li>
 <li>Settings -&gt; Developer Settings  <ul>
 <li>Personal Access Token</li>
-<li>Add some Name: <code>podtatohead-ghcr-token</code></li>
+<li>Click &#34;Generate new token&#34;</li>
+<li>Choose a name: <code>podtatohead-ghcr-token</code></li>
 <li>Choose Permissions:</li>
 <li><code>write:packages</code></li>
 <li>Generate Token</li>
-<li>Copy your Token</li>
+<li>Copy the Token to your clipboard</li>
 </ul>
 </li>
 <li>Go Back to your Repository</li>
 <li>Settings -&gt; Secrets -&gt; Actions  <ul>
 <li>New Repository Secret</li>
 <li>Name: CR_PAT</li>
-<li>Value: <code>"insert token here"</code></li>
+<li>Value: <code>insert token here</code></li>
 </ul>
 </li>
 </ul>
@@ -115,7 +118,7 @@
       <google-codelab-step label="Our First Pipeline Steps" duration="0">
         <ul>
 <li>Code -&gt; Add File -&gt; Create File  <ul>
-<li>Name: .github/workflows/build.yaml</li>
+<li>Name: <code>.github/workflows/build.yaml</code></li>
 <li>Add following content</li>
 </ul>
 </li>
@@ -171,7 +174,7 @@ jobs:
            ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}
 </code></pre>
 <ul>
-<li>Push directly to master, create a useful commit message</li>
+<li>Create a useful commit message, and commit directly to the master branch</li>
 <li>This lints some code and creates container images. If everything is ok, we can build and push our containers</li>
 </ul>
 
@@ -219,7 +222,7 @@ jobs:
 <li>Open the build.yaml of your peers repository in the branch &#34;feature/add_vulnerability_scan&#34;</li>
 <li>Switch to the branch after opening the workflow file</li>
 <li>Add the following part after the build step of your workflow: &#34;`yaml  <ul>
-<li>name: Run Trivy vulnerability scanner uses: aquasecurity/trivy-action@master with: image-ref: ‘ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}&#39; format: ‘table&#39; exit-code: ‘1&#39; ignore-unfixed: ‘true&#39; vuln-type: ‘os,library&#39; severity: ‘CRITICAL,HIGH&#39; <br><code>* Click on "Start commit"<br>* Create a useful commit message<br>* Commit to the feature/add_vulnerability_scan branch<br>* If you click on "Actions" now, nothing should happen<br>## Create a pull request and see if the vulnerability scan works<br>* Click on "Pull requests" in your peers repository<br>* You should see something similar to this:<br>![Initiate Pull request](./img/mcce-ssoa-ssc-lab-pr-init.png)<br>* Select "Compare & Pull request"<br>* Select `master` as base for that pull request<br>* Type "Implement Vulnerability Scanning" as the name of the PR<br>* You should now see following things in the PR overview<br>![Pull request checks](./img/mcce-ssoa-ssc-lab-pr-overview.png)<br>* As we instructed our workflow to automatically build on pr and defined that all actions have to pass before merging, merging is blocked now<br>### Another Issue<br>* In the actions screen, our workflow should show up and we should see an error while running the workflow<br>![Trivy Issue](./img/mcce-ssoa-ssc-lab-trivy-error.png)<br>* It seems like we are using something insecure, let's fix this error (take a look on outdated things) and push this to the repository<br>### Successful Build<br>* After a few minutes, we see that "All checks have passed"<br>* When taking a look to the triggered pipeline the result for the trivy step should look like this:<br>![Trivy Output](./img/mcce-ssoa-ssc-lab-trivy.png)<br><aside class="negative"><br>- Note, that you didn't push to master until now, we're just checking if the container has vulnerabilities<br></aside><br>* Now it's time for your peer to approve your pull request (and for you to approve the other one)<br><aside class="positive"><br>- You have successfully scanned your containers for vulnerabilities<br></aside><br>## Approving a pull request<br>* Open your git repository<br>* Click on pull requests<br>* Take a look on the pull request of your peer<br>* Check if all checks were running<br>* "Add your review"<br>* Validate the code carefully<br>* Review changes<br>* "LGTM"<br>* Approve<br>* Submit Review<br>* After that, the PR is in the following state:<br>![Initial Action Output](./img/mcce-ssoa-ssc-lab-pr-merge.png)<br>* Merge pull request<br>* You can delete the branch now<br>## Signing containers<br>### Start a VM in AWS<br>#### Create a security group for SSH<br></code></li>
+<li>name: Run Trivy vulnerability scanner uses: aquasecurity/trivy-action@master with: image-ref: ‘ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}&#39; format: ‘table&#39; exit-code: ‘1&#39; ignore-unfixed: ‘true&#39; vuln-type: ‘os,library&#39; severity: ‘CRITICAL,HIGH&#39; <br><code>* Click on "Start commit"<br>* Create a useful commit message<br>* Commit to the feature/add_vulnerability_scan branch<br>* If you click on "Actions" now, nothing should happen<br>## Create a pull request and see if the vulnerability scan works<br>* Click on "Pull requests" in your peers repository<br>* You should see something similar to this:<br>![Initiate Pull request](./img/mcce-ssoa-ssc-lab-pr-init.png)<br>* Select "Compare & Pull request"<br>* Select `master` as base for that pull request<br>* Select your peers repo as the base repository (not the upstream fhb-codelabs/sample-code-repo)<br>* Type "Implement Vulnerability Scanning" as the name of the PR<br>* Click on "Create pull request"<br>* You should now see following things in the PR overview<br>![Pull request checks](./img/mcce-ssoa-ssc-lab-pr-overview.png)<br>* As we instructed our workflow to automatically build on pr and defined that all actions have to pass before merging, merging is blocked now<br>### Another Issue<br>* In the actions screen, our workflow should show up and we should see an error while running the workflow<br>![Trivy Issue](./img/mcce-ssoa-ssc-lab-trivy-error.png)<br>* It seems like we are using something insecure, let's fix this error (take a look on outdated things) and push this to the repository<br>### Successful Build<br>* After a few minutes, we see that "All checks have passed"<br>* When taking a look to the triggered pipeline the result for the trivy step should look like this:<br>![Trivy Output](./img/mcce-ssoa-ssc-lab-trivy.png)<br><aside class="negative"><br>- Note, that you didn't push to master until now, we're just checking if the container has vulnerabilities<br></aside><br>* Now it's time for your peer to approve your pull request (and for you to approve the other one)<br><aside class="positive"><br>- You have successfully scanned your containers for vulnerabilities<br></aside><br>## Approving a pull request<br>* Open your git repository<br>* Click on pull requests<br>* Take a look on the pull request of your peer<br>* Check if all checks were running<br>* "Add your review"<br>* Validate the code carefully<br>* Review changes<br>* "LGTM"<br>* Approve<br>* Submit Review<br>* After that, the PR is in the following state:<br>![Initial Action Output](./img/mcce-ssoa-ssc-lab-pr-merge.png)<br>* Merge pull request<br>* You can delete the branch now<br>## Signing containers<br>### Start a VM in AWS<br>#### Create a security group for SSH<br></code></li>
 </ul>
 </li>
 </ul>
@@ -251,19 +254,19 @@ jobs:
 * Settings -&gt; Secrets -&gt; Actions
   * New Repository Secret
     * Name: `COSIGN_PASSWORD`
-    * Value: `insert token here`
+    * Value: `insert passphrase here`
 
 ## Adding cosign to your pipeline
 
 * Firstly, add the cosign installer after the &#34;Checkout Code&#34; Block of your pipeline
 ```yaml
-   - uses: sigstore/cosign-installer@main
-     with:
-       cosign-release: &#39;v1.0.0&#39;
+    - uses: sigstore/cosign-installer@main
+      with:
+        cosign-release: &#39;v1.0.0&#39;
 </code></pre>
 <ul>
 <li>Add a build and push step to the pipeline &#34;`yaml  <ul>
-<li>name: Build id: docker_build_push uses: docker/build-push-action@v2 with: build-args: | context: $&#123;&#123; matrix.component }}/. push: $&#123;&#123; github.ref == ‘refs/heads/master&#39; }} file: $&#123;&#123; matrix.component }}/docker/Dockerfile platforms: linux/amd64 tags: |   ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }} <br><code>* After that, add the signing step to the end of your pipeline</code><br>yaml - name: Sign Container if: $&#123;&#123; github.ref == ‘refs/heads/master&#39; || github.ref == ‘refs/heads/release-*&#39; }} env:   COSIGN_PASSWORD: $&#123;&#123; secrets.COSIGN_PASSWORD }} run: cosign sign -key .github/workflows/cosign.key -a GIT_HASH=$&#123;&#123; env.GIT_SHA }} ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }} &#34;`</li>
+<li>name: Build id: docker_build_push uses: docker/build-push-action@v2 with: build-args: | context: $&#123;&#123; matrix.component }}/. push: $&#123;&#123; github.ref == ‘refs/heads/master&#39; }} file: $&#123;&#123; matrix.component }}/docker/Dockerfile platforms: linux/amd64 tags: |   ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }} <br><code>* After that, add the signing step to the end of your pipeline</code><br>yaml - name: Sign Container if: $&#123;&#123; github.ref == ‘refs/heads/master&#39; || github.ref == ‘refs/heads/release-*&#39; }} env: COSIGN_PASSWORD: $&#123;&#123; secrets.COSIGN_PASSWORD }} run: cosign sign -key .github/workflows/cosign.key -a GIT_HASH=$&#123;&#123; env.GIT_SHA }} ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }} &#34;`</li>
 </ul>
 </li>
 <li>After the next pipeline run, the images should get signed and the pipeline should be &#34;green&#34;</li>
@@ -277,9 +280,7 @@ jobs:
 <li>Go back to your AWS Instance</li>
 <li>Run the following command <br><code>./cosign-linux-amd64 verify -key cosign.pub ghcr.io/<repo>/podtato-main:<your hash><br>Verification for ghcr.io/thschue/podtato-main:bdce48dc9c64a1b42fa1ce15474a82a832471773 --<br>The following checks were performed on each of these signatures:<br>- The cosign claims were validated<br>- The signatures were verified against the specified public key<br>- Any certificates were verified against the Fulcio roots.<br>[{"critical":{"identity":{"docker-reference":"ghcr.io/<repo>/podtato-main"},"image":{"docker-manifest-digest":"sha256:eb7e3da2cdbcea455fdbfb189e14bb1bde0574de745d9517b5e8feff77302c75"},"type":"cosign container image signature"},"optional":{"GIT_HASH":""}}]<br></code></li>
 </ul>
-<aside class="special"><ul>
-<li>You have verified your image signature </li>
-</ul>
+<aside class="special"><p> - You have verified your image signature </p>
 </aside>
 
 

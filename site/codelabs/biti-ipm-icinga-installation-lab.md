@@ -18,7 +18,7 @@ In this codelab you will learn
 
 ###  Where You Can Look Up
 
-The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://www.icinga.com/docs/latest/doc/01-about/).
+The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://icinga.com/docs/icinga-2/latest/doc/01-about/).
 
 ### What You'll need
 
@@ -63,6 +63,7 @@ sudo apt upgrade
 When using the sudo command, you will be prompted for your password.
 </aside>
 
+Depending on the package upgrades, it is useful to restart the system here.
 
 <!-- ------------------------ -->
 
@@ -88,6 +89,41 @@ Enabling feature mainlog. Make sure to restart Icinga 2 for these changes to tak
 <aside class="positive">
 Please do not restart any Icinga2 service here. We will do this later. 
 </aside>
+
+On Debian, Icinga2 is started and enabled upon installation. You can check this by running the command;
+```
+systemctl status icinga2
+```
+
+The output of the service status should look like the following:
+``` 
+  icinga2.service - Icinga host/service/network monitoring system
+     Loaded: loaded (/lib/systemd/system/icinga2.service; enabled; vendor preset: enabled)
+     Active: active (running) since Wed 2021-10-16 22:05:17 CET; 35min ago
+       Docs: https://icinga.com/docs/icinga2/latest/
+    Process: 9826 ExecStartPre=/usr/lib/icinga2/prepare-dirs /usr/lib/icinga2/icinga2 (code=exited, status=0/SUCCESS)
+   Main PID: 9831 (icinga2)
+      Tasks: 18 (limit: 2324)
+     Memory: 12.5M
+        CPU: 3.207s
+     CGroup: /system.slice/icinga2.service
+             ├─9831 /usr/lib/x86_64-linux-gnu/icinga2/sbin/icinga2 --no-stack-rlimit daemon -e
+             ├─9851 /usr/lib/x86_64-linux-gnu/icinga2/sbin/icinga2 --no-stack-rlimit daemon -e
+             └─9856 /usr/lib/x86_64-linux-gnu/icinga2/sbin/icinga2 --no-stack-rlimit daemon -e
+
+Oct 16 22:30:47 server icinga2[9851]: [2021-10-16 22:30:47 +0100] information/IdoMysqlConnection: Pending queries: 5 (Input: 3/s; Output: 3/s)
+Oct 16 22:35:17 server icinga2[9851]: [2021-10-16 22:35:17 +0100] information/ConfigObject: Dumping program state to file '/var/lib/icinga2/icinga2.state'
+Oct 16 22:35:37 server icinga2[9851]: [2021-10-16 22:35:37 +0100] information/WorkQueue: #6 (ApiListener, RelayQueue) items: 0, rate:  0/s (0/min 0/5min 0/15min);
+Oct 16 22:35:37 server icinga2[9851]: [2021-10-16 22:35:37 +0100] information/WorkQueue: #7 (ApiListener, SyncQueue) items: 0, rate:  0/s (0/min 0/5min 0/15min);
+Oct 16 22:35:47 server icinga2[9851]: [2021-10-16 22:35:47 +0100] information/IdoMysqlConnection: Pending queries: 0 (Input: 3/s; Output: 3/s)
+Oct 16 22:39:07 server icinga2[9851]: [2021-10-16 22:39:07 +0100] information/IdoMysqlConnection: Pending queries: 11 (Input: 3/s; Output: 2/s)
+Oct 16 22:40:17 server icinga2[9851]: [2021-10-16 22:40:17 +0100] information/ConfigObject: Dumping program state to file '/var/lib/icinga2/icinga2.state'
+Oct 16 22:40:37 server icinga2[9851]: [2021-10-16 22:40:37 +0100] information/WorkQueue: #6 (ApiListener, RelayQueue) items: 0, rate:  0/s (0/min 0/5min 0/15min);
+Oct 16 22:40:37 server icinga2[9851]: [2021-10-16 22:40:37 +0100] information/WorkQueue: #7 (ApiListener, SyncQueue) items: 0, rate:  0/s (0/min 0/5min 0/15min);
+Oct 16 22:40:47 server icinga2[9851]: [2021-10-16 22:40:47 +0100] information/IdoMysqlConnection: Pending queries: 0 (Input: 3/s; Output: 4/s)
+```
+
+Check if the status Active is in **running** mode which indicates that the service is up and running.
 
 ### Monitoring Plugins
 
@@ -150,7 +186,7 @@ root@server:~# systemctl status mariadb
      Loaded: loaded (/lib/systemd/system/mariadb.service; enabled; vendor preset: enabled)
     Drop-In: /etc/systemd/system/mariadb.service.d
              └─migrated-from-my.cnf-settings.conf
-     Active: active (running) since Sat 2021-10-16 21:30:23 CEST; 34s ago
+     Active: active (running) since Sat 2021-10-16 21:43:23 CEST; 34s ago
        Docs: man:mariadbd(8)
              https://mariadb.com/kb/en/library/systemd/
     Process: 25828 ExecStartPre=/usr/bin/install -m 755 -o mysql -g root -d /var/run/mysqld (code=>
@@ -166,15 +202,15 @@ root@server:~# systemctl status mariadb
      CGroup: /system.slice/mariadb.service
              └─25881 /usr/sbin/mariadbd
 
-Oct 16 21:30:29 server /etc/mysql/debian-start[25902]: Phase 6/7: Checking and upgrading tables
-Oct 16 21:30:29 server /etc/mysql/debian-start[25902]: Processing databases
-Oct 16 21:30:29 server /etc/mysql/debian-start[25902]: information_schema
-Oct 16 21:30:29 server /etc/mysql/debian-start[25902]: performance_schema
-Oct 16 21:30:29 server /etc/mysql/debian-start[25902]: sys
-Oct 16 21:30:29 server /etc/mysql/debian-start[25902]: sys.sys_config                             >
-Oct 16 21:30:29 server /etc/mysql/debian-start[25902]: Phase 7/7: Running 'FLUSH PRIVILEGES'
-Oct 16 21:30:29 server /etc/mysql/debian-start[25902]: OK
-Oct 16 21:30:29 server /etc/mysql/debian-start[26501]: Checking for insecure root accounts.
+Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: Phase 6/7: Checking and upgrading tables
+Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: Processing databases
+Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: information_schema
+Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: performance_schema
+Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: sys
+Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: sys.sys_config                             >
+Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: Phase 7/7: Running 'FLUSH PRIVILEGES'
+Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: OK
+Oct 16 22:43:29 server /etc/mysql/debian-start[26501]: Checking for insecure root accounts.
 ```
 
 ### IDO modules for MariaDB/MySQL 
