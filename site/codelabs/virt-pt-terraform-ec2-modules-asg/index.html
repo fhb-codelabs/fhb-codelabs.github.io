@@ -48,16 +48,16 @@
     
       <google-codelab-step label="Create Terraform Module" duration="0">
         <ul>
-<li>Create a directory called <code>modules</code> in your terraform folder (where you created the initial configuration) and change to that directory<ul>
+<li>Create a directory called <code>modules</code> in your terraform folder (where you created the initial configuration) and change to that directory  <ul>
 <li><code>mkdir modules</code></li>
 <li><code>cd modules</code></li>
 </ul>
 </li>
-<li>Add a directory called <code>podtatohead</code> the the modules folder<ul>
+<li>Add a directory called <code>podtatohead</code> the the modules folder  <ul>
 <li><code>mkdir podtatohead</code></li>
 </ul>
 </li>
-<li>Move your initial configuration to the <code>podtatohead directory</code></li>
+<li>Move your initial configuration to the <code>podtatohead</code> directory</li>
 <li>Remove the terraform.tfvars file from the modules/podatohead directory</li>
 </ul>
 <aside class="special"><p> Now the root directory of your terraform directory should be empty and the whole configuration should be in the modules/podtatohead directory </p>
@@ -70,12 +70,8 @@
         <p>As we need to ensure that objects can exist multiple times at AWS, we need to change the names of the resulting objects</p>
 <p>Firstly, we will introduce a variable, which describes the name of the podtatohead-installation:</p>
 <p><strong>vars.tf</strong></p>
-<pre><code language="language-terraform" class="language-terraform">resource &#34;aws_security_group&#34; &#34;ingress-all-ssh&#34; {
-  #[...]
-  variable &#34;podtato_name&#34; {
+<pre><code language="language-terraform" class="language-terraform"> variable &#34;podtato_name&#34; {
     type = string
-  }
-  #[...]
 }
 #
 </code></pre>
@@ -83,12 +79,6 @@
 <pre><code language="language-terraform" class="language-terraform">resource &#34;aws_security_group&#34; &#34;ingress-all-ssh&#34; {
   #[...]
   name = &#34;${var.podtato_name}-allow-all-ssh&#34;
-  #[...]
-}
-
-resource &#34;aws_security_group&#34; &#34;ingress-all-http&#34; {
-  #[...]
-  name = &#34;${var.podtato_name}-allow-all-http&#34;
   #[...]
 }
 
@@ -154,7 +144,7 @@ resource &#34;aws_instance&#34; &#34;podtatohead-main&#34; {
 }
 </code></pre>
 <ul>
-<li>Run terraform init and plan the execution <ul>
+<li>Run terraform init and plan the execution  <ul>
 <li><code>terraform init</code></li>
 <li><code>terraform plan</code></li>
 </ul>
@@ -189,26 +179,22 @@ output &#34;second-url&#34; {
 }
 </code></pre>
 <ul>
-<li>Run terraform init and plan the execution<ul>
+<li>Run terraform init and plan the execution  <ul>
 <li><code>terraform init</code></li>
 <li><code>terraform plan</code></li>
 </ul>
 </li>
-<li>Execute the plan<ul>
+<li>Execute the plan  <ul>
 <li><code>terraform apply</code></li>
 </ul>
 </li>
-<li>You should see a similar output as here:</li>
-</ul>
-<pre><code>Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
-
+<li>You should see a similar output as here:  <pre><code>Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
 Outputs:
-
 first-url = &#34;http://&lt;ip&gt;:8080&#34;
 second-url = &#34;http://&lt;ip&gt;:8080&#34;
 </code></pre>
-<ul>
-<li>Open the AWS Console, and take a look on EC2 -&gt; Instances<ul>
+</li>
+<li>Open the AWS Console, and take a look on EC2 -&gt; Instances  <ul>
 <li>You should see some instances appearing</li>
 <li>Note that they are prefixed with their <code>podtato_name</code></li>
 </ul>
@@ -237,7 +223,7 @@ second-url = &#34;http://&lt;ip&gt;:8080&#34;
       <google-codelab-step label="Changing the main service" duration="0">
         <p>At first, we will change the main service to fulfill our new needs.</p>
 <p>Therefore, we will create a launch configuration which will act as the template for our created instances. Let&#39;s create this in a new file:</p>
-<p><strong>main-svc.tf</strong></p>
+<p><strong>modules/podtatohead/main-svc.tf</strong></p>
 <pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-main&#34; {
   image_id = data.aws_ami.amazon-2.image_id
   instance_type = &#34;t3.micro&#34;
@@ -375,13 +361,13 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Now we could re-apply our terraform-configuration<ul>
+<li>Now we could re-apply our terraform-configuration  <ul>
 <li><code>terraform plan</code></li>
 <li><code>terraform apply</code></li>
 </ul>
 </li>
 <li>Afterwards, the two podtatohead-installations should be created, and you should see the URLs of the main-service load balancers.</li>
-<li>Now, you could inspect your work on the AWS Console (EC2-Load Balancers)<ul>
+<li>Now, you could inspect your work on the AWS Console (EC2-Load Balancers)  <ul>
 <li>Take a look on the instances, and on their state</li>
 </ul>
 </li>
@@ -516,7 +502,7 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Now we could re-apply our terraform-configuration<ul>
+<li>Now we could re-apply our terraform-configuration  <ul>
 <li><code>terraform plan</code></li>
 <li><code>terraform apply</code></li>
 </ul>
@@ -544,7 +530,7 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Remove the aws_instance &#34;podtatohead_hats&#34; from your main.tf</li>
+<li>Remove the aws_instance &#34;podtatohead_legs&#34; from your main.tf</li>
 </ul>
 <h2 is-upgraded>Auto Scaling Group</h2>
 <p><strong>modules/podtatohead/legs-svc.tf</strong></p>
@@ -622,7 +608,7 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Now we could re-apply our terraform-configuration<ul>
+<li>Now we could re-apply our terraform-configuration  <ul>
 <li><code>terraform plan</code></li>
 <li><code>terraform apply</code></li>
 </ul>
@@ -651,7 +637,7 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Remove the aws_instance &#34;podtatohead_hats&#34; from your main.tf</li>
+<li>Remove the aws_instance &#34;podtatohead_arms&#34; from your main.tf</li>
 </ul>
 <h2 is-upgraded>Auto Scaling Group</h2>
 <p><strong>modules/podtatohead/arms-svc.tf</strong></p>
@@ -716,7 +702,7 @@ variable &#34;desired_instances&#34; {
 <ul>
 <li>Finally, we are able to switch the hostname in the main service to the new load balancer</li>
 </ul>
-<p><strong>modules/podtatohead/main-svc.tf</strong></p>
+<p><strong>modules/podtatohead/arms-svc.tf</strong></p>
 <pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-main&#34; {
   image_id = data.aws_ami.amazon-2.image_id
   instance_type = &#34;t3.micro&#34;
@@ -730,19 +716,20 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Now we could re-apply our terraform-configuration<ul>
+<li>Now we could re-apply our terraform-configuration  <ul>
 <li><code>terraform plan</code></li>
 <li><code>terraform apply</code></li>
 </ul>
 </li>
-<li>Afterwards, the podtatohead-installations should get updated to remove the single instances of the legs-service, replace them with the auto scaling groups and create the load balancers. After some time, the installation should work again.</li>
+<li>Afterwards, the podtatohead-installations should get updated to remove the single instances of the arms-service, replace them with the auto scaling groups and create the load balancers. After some time, the installation should work again.</li>
 </ul>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Finally" duration="0">
-        <ul>
+        <p class="image-container"><img alt="img.png" src="img/f140f301fe24f5cf.png"></p>
+<ul>
 <li>Now you can play around, change versions of the components and scale them up and down</li>
 <li>If you want you can make the components scale individually</li>
 <li>Note, that you will face service outages when you have less than one instance running</li>

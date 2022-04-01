@@ -1,5 +1,5 @@
 summary: BITI IPM Lab - Icinga Custom Check
-id: biti-ipm-icinga-custom-check
+id: biti-ipm-icinga-custom-check-lab
 categories: icinga
 tags: ipm, icinga, BITI, introduction
 status: Draft
@@ -20,7 +20,7 @@ In this codelab you will learn
 
 ###  Where You Can Look Up
 
-The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://www.icinga.com/docs/latest/doc/01-about/).
+The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://icinga.com/docs/icinga-2/latest/doc/01-about/)).
 
 ### What You'll need
 

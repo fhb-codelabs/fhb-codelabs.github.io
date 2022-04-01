@@ -1,0 +1,27 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-12-21T09:38:25+01:00",
+  "id": "biti-ipm-icinga-agentbased-lab",
+  "duration": 0,
+  "title": "BITI IPM Lab - Icinga Agentbased Monitoring",
+  "authors": "Roland Pellegrini",
+  "summary": "BITI IPM Lab - Icinga Agentbased Monitoring",
+  "source": "biti-ipm-icinga-agentbased.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "icinga"
+  ],
+  "tags": [
+    "biti",
+    "icinga",
+    "introduction",
+    "ipm"
+  ],
+  "url": "biti-ipm-icinga-agentbased-lab"
+}
