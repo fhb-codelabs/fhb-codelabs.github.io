@@ -43,12 +43,14 @@ As we need to ensure that objects can exist multiple times at AWS, we need to ch
 
 Firstly, we will introduce a variable, which describes the name of the podtatohead-installation:
 
-**vars.tf**
+**modules/podtatohead/vars.tf**
 ```terraform
+#[...]
  variable "podtato_name" {
     type = string
 }
-#
+#[...]
+
 ```
 **modules/podtatohead/main.tf**
 ```terraform
@@ -681,7 +683,7 @@ resource "aws_elb" "arms_elb" {
 ```
 * Finally, we are able to switch the hostname in the main service to the new load balancer
 
-**modules/podtatohead/arms-svc.tf**
+**modules/podtatohead/main-svc.tf**
 ```terraform
 resource "aws_launch_configuration" "podtatohead-main" {
   image_id = data.aws_ami.amazon-2.image_id
