@@ -13,7 +13,7 @@ authors: Thomas Schuetz
 
 ### What You’ll Learn 
 
- ![PodTatoHead-BigPicture](./img/podtatohead-bigpicture.png)
+ ![BigPicture](./img/mcce-tmac-dynatrace-overview.png)
 
 - Set Up an AWS Instance
 - Install K3s
