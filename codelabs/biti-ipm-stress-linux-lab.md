@@ -34,7 +34,6 @@ By default, administrator privileges are required on the Host OS to install addi
 For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
 
 
-
 ## Stress with Yes
 
 ### Description
@@ -125,7 +124,7 @@ The output will look like this:
 
 ### Reference
 
-Manual Page:
+Stressing the manual page:
 ```
 man stress
 ```

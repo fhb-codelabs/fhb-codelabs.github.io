@@ -31,8 +31,8 @@
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>In this codelab you will learn</p>
 <ul>
-<li>how to get information about the CPU</li>
-<li>how to monitor CPU with Linux Tools</li>
+<li>how to get information about the CPU (Central Processing Unit)</li>
+<li>how to monitor CPU with Linux tools</li>
 <li>how to perform a test run</li>
 </ul>
 <h2 is-upgraded>Where You Can Look Up</h2>
@@ -76,8 +76,9 @@ DESCRIPTION
 <li>lscpu command</li>
 <li>cat /proc/cpuinfo</li>
 <li>hwinfo command</li>
-<li>dmidecode -t processor command</li>
-<li>getconf _NPROCESSORS_ONLN command</li>
+<li>dmidecode command</li>
+<li>getconf command</li>
+<li>cpuid command</li>
 </ul>
 
 
@@ -97,7 +98,7 @@ DESCRIPTION
 <aside class="special"><p> Without the --all flag, nproc will display the number of processing units available to the current process.<br> Use the --help flag for more information. </p>
 </aside>
 <h2 is-upgraded>Documentation</h2>
-<p>Need help? Use this:</p>
+<p>Need help or list of parameters? Use this:</p>
 <pre><code>man nproc
 </code></pre>
 
@@ -173,6 +174,7 @@ Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
 <pre><code>lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
+<p>The command above provides the following result:</p>
 <pre><code>--More--
 CPU(s):                          4
 On-line CPU(s) list:             0-3
@@ -282,7 +284,7 @@ cpu cores   : 2
 </aside>
 <h2 is-upgraded>Documentation</h2>
 <p>Need help? Use this:</p>
-<pre><code>https://linuxwiki.de/proc/cpuinfo
+<pre><code>[cpuinfo](https://linuxwiki.de/proc/cpuinfo)
 </code></pre>
 
 
@@ -520,7 +522,7 @@ MAX_INPUT                          255
     
       <google-codelab-step label="CPU Monitoring" duration="0">
         <h2 is-upgraded>What you will learn:</h2>
-<p>You can use one of the following command to monitor the physical CPU cores including all cores on Linux:</p>
+<p>You can use one of the following commands to monitor the physical CPU cores:</p>
 <ul>
 <li>uptime command</li>
 <li>top program</li>
@@ -575,7 +577,7 @@ MAX_INPUT                          255
 <aside class="special"><p> Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it. </p>
 </aside>
 <h2 is-upgraded>Documentation</h2>
-<p>Need help? Use this:</p>
+<p>Need more help or unsure? Use this:</p>
 <pre><code>man top
 </code></pre>
 
@@ -590,12 +592,12 @@ MAX_INPUT                          255
 <pre><code>htop
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
-<p>The output will probably be different from yours: <img alt="htop" src="img/545cd098a8dc4d86.png"></p>
+<p>The output below will differ from yours: <img alt="htop" src="img/545cd098a8dc4d86.png"></p>
 <p>The top section is more easier to read and the bottom section is better organized.</p>
 <aside class="special"><p> Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it. </p>
 </aside>
 <h2 is-upgraded>Documentation</h2>
-<p>Need help? Use this:</p>
+<p>Need more help? Use this:</p>
 <pre><code>man htop
 </code></pre>
 
@@ -610,7 +612,7 @@ MAX_INPUT                          255
 <pre><code>mpstat
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
-<p>The output will probably be different from yours:</p>
+<p>The sample output:</p>
 <pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
 10:13:59 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
@@ -663,13 +665,13 @@ MAX_INPUT                          255
 <pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
 10:25:23 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
-10:25:23 AM    1    5.89    0.03    1.03    0.24    0.00    0.13    0.00    0.00    0.00   92.68
+10:25:23 AM    1    5.89    0.03   a 1.03    0.24    0.00    0.13    0.00    0.00    0.00   92.68
 
 </code></pre>
 <aside class="special"><p> Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results. </p>
 </aside>
 <h2 is-upgraded>Documentation</h2>
-<p>Need help? Use this:</p>
+<p>Need any help? Use this anyway:</p>
 <pre><code>man mpstat
 </code></pre>
 

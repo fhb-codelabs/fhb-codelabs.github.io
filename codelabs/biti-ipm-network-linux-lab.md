@@ -101,7 +101,7 @@ The list shows the model of the Ethernet controller, but not the network device 
 
 ### Reference
 
-Manual Page:
+Need help? Use this:
 ```
 man lspci
 ```
@@ -190,7 +190,7 @@ In addition, the tool also reports the Ethernet Network Interface (which is atta
 
 ### Reference
 
-Manual Page:
+More information needed? See here:
 ```
 man hwinfo
 ```
@@ -231,7 +231,7 @@ At this point, check how the outputs of lspci, hwinfo and ip are linked together
 
 ### Reference
 
-Manual Page:
+Manuals for almost everything:
 ```
 man ip
 ```
@@ -296,7 +296,7 @@ Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3
 
 ### Reference
 
-Manual Page:
+No excuses anymore. Read the manual, student!
 ```
 man nmcli
 ```
@@ -355,7 +355,7 @@ Where,
 
 ### Reference
 
-Manual Page:
+Ping the man:
 ```
 man ping
 ```
@@ -387,7 +387,7 @@ Upload: 1.01 Mbit/s
 ```
  ### Reference
 
-Manual Page:
+What is faster than man?
 ```
 man speedtest-cli
 ```
@@ -435,7 +435,7 @@ Where,
 
  ### Reference
 
-Manual Page:
+Here is the link to the documentation:
 ```
 man iftop
 ```
@@ -465,7 +465,7 @@ In contrast to other network monitors, Etherape visualizes the logged connection
 
 Documentation:
 ```
-https://etherape.sourceforge.io/
+{Etherape on Sourceforge](https://etherape.sourceforge.io/)
 ```
 
 ## monitorix
@@ -532,9 +532,9 @@ After clicking on the OK button, monitorix will show up the **Netstat statistic*
 
 ### Reference
 
-Documentation:
+No manual, but documented online:
 ```
-https://www.monitorix.org/
+{Monitorix](https://www.monitorix.org/)
 ```
 
 
@@ -580,9 +580,9 @@ Please note that essential software components have not been installed on this v
 
 ### Reference
 
-Documentation:
+No manual, but still documented:
 ```
-https://cockpit-project.org/
+[cockpit](https://cockpit-project.org/)
 ```
 
 

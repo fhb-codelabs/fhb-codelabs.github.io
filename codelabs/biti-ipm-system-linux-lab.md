@@ -131,7 +131,7 @@ hwinfo --all --log hardware_info.txt
 
 ### Documentation
 
-Need help? Use this:
+Need more info? Use this:
 ```
 man hwinfo
 ```

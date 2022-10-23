@@ -14,7 +14,7 @@ authors: Roland Pellegrini
 In this codelab you will learn
 
 * how to get information about the internal disk 
-* how to monitor the disk with Linux Tools
+* how to monitor the disk with Linux tools
 * how to perform a test run
 
 
@@ -118,7 +118,6 @@ The lshw tool provides also information about Memory, CPU, and more in a very us
 </aside>
 
 To  display only the name of the disks, run:
-Sample output:
 ```
 root@server:~# lshw -short -class disk
 ```
@@ -136,7 +135,7 @@ H/W path            Device      Class       Description
 
 ### Reference
 
-Manual Page:
+Help needed? Use manual page:
 ```
 man lshw
 ```
@@ -184,7 +183,7 @@ Be aware that all commands are executed within a virtual machine. Running the to
 
 ### Reference
 
-Manual Page:
+More when you read the manual:
 ```
 man inxi
 ```
@@ -384,7 +383,7 @@ There are few operations you can perform with the gdu command. Press `?` to acce
 
 ### Reference
 
-Manual Page:
+Reading the manual pages may answer open questions:
 ```
 man smartctl
 ```
@@ -423,7 +422,7 @@ Consult the documentation and man-pages for more details.
 
 ### Reference
 
-Manual Page:
+Don't blame it on the manual:
 ```
 man iotop
 ```
