@@ -12,8 +12,8 @@ authors: Roland Pellegrini
 ### What You’ll Learn
 In this codelab you will learn
 
-* how to get information about the CPU 
-* how to monitor CPU with Linux Tools
+* how to get information about the CPU (Central Processing Unit) 
+* how to monitor CPU with Linux tools
 * how to perform a test run
 
 ###  Where You Can Look Up
@@ -68,8 +68,9 @@ You can use one of the following commands to find detailed information about the
 * lscpu command
 * cat /proc/cpuinfo
 * hwinfo command
-* dmidecode -t processor command
-* getconf _NPROCESSORS_ONLN command
+* dmidecode command
+* getconf command
+* cpuid command
 
 
 ## nproc
@@ -99,7 +100,7 @@ Use the --help flag for more information.
 
 ### Documentation
 
-Need help? Use this:
+Need help or list of parameters? Use this:
 ```
 man nproc
 ```
@@ -185,7 +186,7 @@ lscpu | egrep 'Model name|Socket|Thread|NUMA|CPU\(s\)'
 ```
 
 ### Sample output
-
+The command above provides the following result:
 ```
 --More--
 CPU(s):                          4
@@ -322,7 +323,7 @@ The number of processors shown by /proc/cpuinfo might be different from the actu
 
 Need help? Use this:
 ```
-https://linuxwiki.de/proc/cpuinfo
+[cpuinfo](https://linuxwiki.de/proc/cpuinfo)
 ```
 
 ## hwinfo
@@ -623,7 +624,7 @@ man cpuid
 
 ### What you will learn:
 
-You can use one of the following command to monitor the physical CPU cores including all cores on Linux:
+You can use one of the following commands to monitor the physical CPU cores:
 
 * uptime command
 * top program
@@ -703,7 +704,7 @@ Consult the man-pages for more details about top, about the Header Block and the
 
 ### Documentation
 
-Need help? Use this:
+Need more help or unsure? Use this:
 ```
 man top
 ```
@@ -722,7 +723,7 @@ htop
 ```
 ### Sample output
 
-The output will probably be different from yours:
+The output below will differ from yours:
 ![htop](./img/biti-ipm-compute-linux-htop.png)
 
 The top section is more easier to read and the bottom section is better organized.
@@ -734,7 +735,7 @@ Consult the man-pages for more details about htop. Run your own research about t
 
 ### Documentation
 
-Need help? Use this:
+Need more help? Use this:
 ```
 man htop
 ```
@@ -756,7 +757,7 @@ mpstat
 
 ### Sample output
 
-The output will probably be different from yours:
+The sample output:
 ```
 Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
@@ -824,7 +825,7 @@ This will display CPU usage of the 1st processor:
 Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
 10:25:23 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
-10:25:23 AM    1    5.89    0.03    1.03    0.24    0.00    0.13    0.00    0.00    0.00   92.68
+10:25:23 AM    1    5.89    0.03   a 1.03    0.24    0.00    0.13    0.00    0.00    0.00   92.68
 
 ```
 
@@ -834,7 +835,7 @@ Consult the man-pages for more details about mpstat. Do your own research about 
 
 ### Documentation
 
-Need help? Use this:
+Need any help? Use this anyway:
 ```
 man mpstat
 ```
