@@ -673,7 +673,7 @@ Consult the documentation about the CPU load average, its meaning and how to int
 
 ### Documentation
 
-Need help? Use this:
+How many pages has this manual? Find it out:
 ```
 man uptime
 ```
@@ -735,7 +735,7 @@ Consult the man-pages for more details about htop. Run your own research about t
 
 ### Documentation
 
-Need more help? Use this:
+The Hitchhiker's manual:
 ```
 man htop
 ```

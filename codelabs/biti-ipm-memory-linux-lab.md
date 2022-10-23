@@ -259,7 +259,7 @@ watch free
 
 ### Reference
 
-Man pages are hanging low:
+Manual fruit pages are hanging low:
 ```
 man free
 ```
