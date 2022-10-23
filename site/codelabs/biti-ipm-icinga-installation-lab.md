@@ -323,14 +323,14 @@ Quit the configuration file with `CTRL-X` (and confirm with `y` if you changed s
 
 ### One-liner
 
-I you have modified `/etc/icinga2/features-available/ido-mysql.conf` then restart the Icinga2 service with the following command:
+If you have modified `/etc/icinga2/features-available/ido-mysql.conf` then restart the Icinga2 service with the following command:
 
 ```
 sudo systemctl restart icinga2
 ```
 
 <aside class="positive">
-Please take into consideration that we will restart icinga2 more than once. Icinga2 uses configuration files which are only read during a restart. 
+Please take into consideration that you will restart icinga2 more than once. Icinga2 uses configuration files which are only read during a restart. 
 </aside>
 
 ## Icinga Web2 Application
