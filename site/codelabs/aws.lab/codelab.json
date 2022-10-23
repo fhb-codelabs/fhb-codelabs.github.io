@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-10-23T11:21:30+02:00",
-  "id": "biti-ipm-vbox-lab",
+  "updated": "2022-04-19T20:48:16+02:00",
+  "id": "aws.lab",
   "duration": 0,
-  "title": "BITI IPM Lab - VirtualBox",
+  "title": "AWS Lab",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - VirtualBox",
-  "source": "biti-ipm-vbox-lab.md",
+  "summary": "AWS Lab - Assignment",
+  "source": "aws.md",
   "theme": "",
   "status": [
     "published"
@@ -18,9 +18,7 @@
     "codelab"
   ],
   "tags": [
-    "biti",
-    "introduction",
-    "ipm"
+    "aws"
   ],
-  "url": "biti-ipm-vbox-lab"
+  "url": "aws.lab"
 }

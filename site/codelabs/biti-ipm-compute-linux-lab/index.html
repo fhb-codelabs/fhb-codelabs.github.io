@@ -291,7 +291,7 @@ cpu cores   : 2
       <google-codelab-step label="hwinfo" duration="0">
         <h2 is-upgraded>Description</h2>
 <p>Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.</p>
-<aside class="special"><p> Hwinfo requires root privileges. </p>
+<aside class="special"><p> The command hwinfo requires root privileges. </p>
 </aside>
 <h2 is-upgraded>Sample code</h2>
 <p>Run the following command:</p>
@@ -376,7 +376,9 @@ shm: attached segment 26 at 0x7f2ea7189000
         <h2 is-upgraded>Description</h2>
 <p>The Linux command <strong>dmidecode</strong> reads the data from DMI (Desktop Management Interface) table which holds information for system&#39;s hardware components like BIOS Revision, Serial Number, CPU, RAM, etc.</p>
 <p>The tools is useful when users run into situations where they need to find out maximum RAM supported by the BIOS and motherboard, a serial number or a key piece of hardware information during troubleshooting.</p>
-<aside class="special"><p> Hwinfo requires root privileges. </p>
+<aside class="special"><p> The command dmidecode requires root privileges. </p>
+</aside>
+<aside class="warning"><p> Important note: Depending on VirtualBox and Debian version, the dmidecode command may not work properly. If the command does not return the expected result (for example: dmidecode -t processor), please ignore this code-lab.  </p>
 </aside>
 <h2 is-upgraded>Sample code</h2>
 <p>To get information about the CPU, run dmidecode with -t option as shown below:</p>
@@ -483,6 +485,34 @@ MAX_INPUT                          255
 <h2 is-upgraded>Documentation</h2>
 <p>Need help? Use this:</p>
 <pre><code>man getconf
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="cpuid" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p>The Linux command <strong>cpuid</strong> dumps detailed information about the CPU(s) gathered from the CPUID instruction, and also determines the exact model of CPU(s) from that information.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the following code:</p>
+<pre><code>cpuid
+</code></pre>
+<h2 is-upgraded>Sample output</h2>
+<p>Here is a sample output:</p>
+<pre><code>CPU 0:
+   vendor_id = &#34;GenuineIntel&#34;
+   version information (1/eax):
+      processor type  = primary processor (0)
+      family          = 0x6 (6)
+      model           = 0xa (10)
+      stepping id     = 0x9 (9)
+      extended family = 0x0 (0)
+--More--
+</code></pre>
+<p>Note that the command provides additional information about CPU caches, number of cores, brand strings, etc.</p>
+<h2 is-upgraded>Documentation</h2>
+<p>Need help or more information about parameters? Use this:</p>
+<pre><code>man cpuid
 </code></pre>
 
 

@@ -332,7 +332,7 @@ https://linuxwiki.de/proc/cpuinfo
 Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.
 
 <aside class="positive">
-Hwinfo requires root privileges.
+The command hwinfo requires root privileges.
 </aside>
 
 ### Sample code
@@ -439,7 +439,11 @@ The Linux command **dmidecode** reads the data from DMI (Desktop Management Inte
 The tools is useful when users run into situations where they need to find out maximum RAM supported by the BIOS and motherboard, a serial number or a key piece of hardware information during troubleshooting. 
 
 <aside class="positive">
-Hwinfo requires root privileges.
+The command dmidecode requires root privileges.
+</aside>
+
+<aside class="negative">
+Important note: Depending on VirtualBox and Debian version, the dmidecode command may not work properly. If the command does not return the expected result (for example: dmidecode -t processor), please ignore this code-lab. 
 </aside>
 
 ### Sample code
@@ -576,6 +580,43 @@ Number of CPU/cores online at server: 4
 Need help? Use this:
 ```
 man getconf
+```
+
+## cpuid
+
+### Description
+
+The Linux command **cpuid** dumps detailed information about the CPU(s) gathered from the CPUID instruction, and also determines the exact model of CPU(s) from that information.
+
+### Sample code
+
+Run the following code:
+
+```
+cpuid
+```
+
+### Sample output
+
+Here is a sample output:
+```
+CPU 0:
+   vendor_id = "GenuineIntel"
+   version information (1/eax):
+      processor type  = primary processor (0)
+      family          = 0x6 (6)
+      model           = 0xa (10)
+      stepping id     = 0x9 (9)
+      extended family = 0x0 (0)
+--More--
+```
+Note that the command provides additional information about CPU caches, number of cores, brand strings, etc.
+
+### Documentation
+
+Need help or more information about parameters? Use this:
+```
+man cpuid
 ```
 
 ## CPU Monitoring
