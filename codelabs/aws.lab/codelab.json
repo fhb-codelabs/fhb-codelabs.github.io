@@ -4,25 +4,21 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2022-10-23T11:06:54Z",
-  "id": "biti-ipm-network-windows-lab",
+  "id": "aws.lab",
   "duration": 0,
-  "title": "BITI IPM Lab - Network",
+  "title": "AWS Lab",
   "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - Network",
-  "source": "biti-ipm-network-windows-lab.md",
+  "summary": "AWS Lab - Assignment",
+  "source": "aws.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "windows"
+    "codelab"
   ],
   "tags": [
-    "biti",
-    "introduction",
-    "ipm",
-    "memory",
-    "ram"
+    "aws"
   ],
-  "url": "biti-ipm-network-windows-lab"
+  "url": "aws.lab"
 }
