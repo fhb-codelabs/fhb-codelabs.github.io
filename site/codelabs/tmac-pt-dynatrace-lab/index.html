@@ -45,41 +45,27 @@
         <ul>
 <li>Open the AWS Console</li>
 <li>Search for EC2</li>
-<li>Click on Launch Instances <ul>
-<li>Step 1: Choose an Amazon Machine Image (AMI) <ul>
+<li>Click on Launch Instances  <ul>
+<li>Step 1: Choose an Amazon Machine Image (AMI)</li>
 <li>Amazon Linux 2 AMI (HVM), SSD Volume Type (x86)</li>
-</ul>
-</li>
-<li>Step 2: Choose an Instance Type <ul>
+<li>Step 2: Choose an Instance Type</li>
 <li>t3.medium</li>
-</ul>
-</li>
-<li>Step 3: Configure Instance Details <ul>
+<li>Step 3: Configure Instance Details</li>
 <li>Keep Default</li>
-</ul>
-</li>
-<li>Step 4: Add Storage <ul>
+<li>Step 4: Add Storage</li>
 <li>Keep Default</li>
-</ul>
-</li>
-<li>Step 5: Add Tags <ul>
+<li>Step 5: Add Tags</li>
 <li>Name: podtatohead-k3s</li>
-</ul>
-</li>
-<li>Step 6: Configure Security Group <ul>
-<li>Create New Security Group <ul>
+<li>Step 6: Configure Security Group</li>
+<li>Create New Security Group  <ul>
 <li>Security Group Name: podtatohead-http-in</li>
-<li>Add Rules <ul>
+<li>Add Rules</li>
 <li>Type: HTTP</li>
 <li>Type: HTTPS</li>
 <li>Rest Default</li>
 </ul>
 </li>
-</ul>
-</li>
 <li>Review and Launch</li>
-</ul>
-</li>
 <li>Launch</li>
 <li>Select an existing key-pair or create one</li>
 <li>Launch instance</li>
@@ -90,53 +76,38 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Getting your Instance Name on the AWS CLI" duration="0">
+      <google-codelab-step label="Getting your Instance Name on the AWS CLI" duration="1">
         <ul>
-<li>Prerequisites:<ul>
+<li>Prerequisites:  <ul>
 <li>Installed awscli</li>
 </ul>
 </li>
 <li>Open a Shell</li>
-<li>Ensure that aws-cli is configured</li>
-</ul>
-<pre><code>cat ~/.aws/credentials
+<li>Ensure that aws-cli is configured  <pre><code>cat ~/.aws/credentials
 </code></pre>
-<ul>
-<li>Describe all Instances</li>
-</ul>
-<pre><code>aws ec2 describe-instances 
+</li>
+<li>Describe all Instances  <pre><code>aws ec2 describe-instances 
 </code></pre>
-<ul>
+</li>
 <li>You should see all EC2 Instances (in our case one)</li>
-<li>Query the Instance Name</li>
-</ul>
-<pre><code>aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=podtatohead-oauth&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs
+<li>Query the Instance Name  <pre><code>aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=podtatohead-oauth&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs
 [
-    &#34;&lt;instance-name&gt;.compute-1.amazonaws.com&#34;
+&#34;&lt;instance-name&gt;.compute-1.amazonaws.com&#34;
 ]
 </code></pre>
-<ul>
-<li>Put the Instance Name in a Variable</li>
-</ul>
-<pre><code>  INSTANCE_HOSTNAME=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=podtatohead-oauth&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs)
+</li>
+<li>Put the Instance Name in a Variable  <pre><code>INSTANCE_HOSTNAME=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=podtatohead-oauth&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs)
 </code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Open a shell to your ec2-instance" duration="1">
-        <ul>
+Open a shell to your ec2-instance  </li>
 <li>Get the instance hostname from the AWS console (Public IPv4 DNS or Public IPv4 Address)</li>
-<li>Open a shell</li>
-</ul>
-<pre><code> ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
-
-      __|  __|_  )
-      _|  (     /   Amazon Linux 2 AMI
-     ___|\___|___|
-
- https://aws.amazon.com/amazon-linux-2/ 
+<li>Open a shell  <pre><code>ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
+   __|  __|_  )
+   _|  (     /   Amazon Linux 2 AMI
+  ___|\___|___|
+https://aws.amazon.com/amazon-linux-2/ 
 </code></pre>
+</li>
+</ul>
 <aside class="special"><p> :Now you&#39;re connected to your AWS Instance   </p>
 </aside>
 
@@ -146,7 +117,7 @@
       <google-codelab-step label="Install Dynatrace OneAgent" duration="0">
         <ul>
 <li>Open Dynatrace</li>
-<li>Click on &#34;Manage -&gt; Deploy Dynatrace&#34; <ul>
+<li>Click on &#34;Manage -&gt; Deploy Dynatrace&#34;  <ul>
 <li>Start Installation</li>
 <li>Select &#34;Linux&#34;</li>
 <li>&#34;Create PaaS Token&#34;</li>
@@ -155,10 +126,10 @@
 <li>Copy the installer execution command and run it on your vm as root (<code>sudo</code>)</li>
 </ul>
 </li>
-<li>Wait until you see your host in Dynatrace (&#34;Infrastructure -&gt; Hosts&#34;)</li>
-</ul>
-<aside class="special"><p> Your Host is monitored now and known technologies will be auto-instrumented </p>
+<li>Wait until you see your host in Dynatrace (&#34;Infrastructure -&gt; Hosts&#34;) <aside class="special"><p> Your Host is monitored now and known technologies will be auto-instrumented </p>
 </aside>
+</li>
+</ul>
 
 
       </google-codelab-step>
@@ -166,20 +137,9 @@
       <google-codelab-step label="Install K3s" duration="0">
         <ul>
 <li>Open a shell to your host</li>
-<li>Install K3s</li>
+<li>Install K3s <br><code>sudo -i<br>curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --no-deploy=traefik" sh -s -<br>export PATH=$PATH:/usr/local/bin<br></code></li>
+<li>Check if everything your k3s node is up <br><code>kubectl get nodes<br>NAME                            STATUS   ROLES                  AGE   VERSION<br>ip-172-31-12-239.ec2.internal   Ready    control-plane,master   18s   v1.22.7+k3s1<br></code></li>
 </ul>
-<pre><code>sudo -i
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=&#34;server --no-deploy=traefik&#34; sh -s -
-export PATH=$PATH:/usr/local/bin
-</code></pre>
-<ul>
-<li>Check if everything your k3s node is up</li>
-</ul>
-<pre><code>kubectl get nodes
-
-NAME                            STATUS   ROLES                  AGE   VERSION
-ip-172-31-12-239.ec2.internal   Ready    control-plane,master   18s   v1.22.7+k3s1
-</code></pre>
 <aside class="special"><p> If your node is ready, your k3s node is operational </p>
 </aside>
 
@@ -189,16 +149,12 @@ ip-172-31-12-239.ec2.internal   Ready    control-plane,master   18s   v1.22.7+k3
       <google-codelab-step label="Install your application (podtatohead)" duration="0">
         <ul>
 <li>Open a shell to your host</li>
-<li>Install the Manifest</li>
-</ul>
-<pre><code>kubectl apply -f https://raw.githubusercontent.com/fhb-codelabs/sample-code-repo/master/manifests/podtato-kubectl.yaml
-</code></pre>
-<ul>
+<li>Install the Manifest <br><code>kubectl apply -f https://raw.githubusercontent.com/fhb-codelabs/sample-code-repo/master/manifests/podtato-kubectl.yaml<br></code></li>
 <li>Wait until all pods are ready (<code>kubectl get pods -n podtato-kubectl</code>)</li>
-<li>Open PodTatoHead (http://your-ip-address)</li>
-</ul>
-<aside class="special"><p> You should see the podtatohead now </p>
+<li>Open PodTatoHead (http://your-ip-address) <aside class="special"><p> You should see the podtatohead now </p>
 </aside>
+</li>
+</ul>
 
 
       </google-codelab-step>
@@ -206,17 +162,13 @@ ip-172-31-12-239.ec2.internal   Ready    control-plane,master   18s   v1.22.7+k3
       <google-codelab-step label="Inspect your application in Dynatrace" duration="0">
         <ul>
 <li>Open Dynatrace</li>
-<li>Inspect: <ul>
+<li>Inspect:  <ul>
 <li>Infrastructure -&gt; Hosts</li>
-<li>Applications and Microservices -&gt; Service -&gt; entry <ul>
+<li>Applications and Microservices -&gt; Service -&gt; entry</li>
 <li>Service Flow</li>
 <li>Distributed Traces</li>
-</ul>
-</li>
-<li>Observe and explore <ul>
+<li>Observe and explore</li>
 <li>SmartScape Topology</li>
-</ul>
-</li>
 <li>Whatever you like</li>
 </ul>
 </li>

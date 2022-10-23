@@ -126,8 +126,12 @@ Slab:              80840 kB
       <google-codelab-step label="demidecode" duration="0">
         <h2 is-upgraded>Description</h2>
 <p>To find out hardware information about the installed RAM, use the <strong>demidecode</strong> command. we used this little tool in the CPU lab. <strong>demidecode</strong> reports lots of information about the installed RAM memory.</p>
+<aside class="special"><p> The command dmidecode requires root privileges. </p>
+</aside>
+<aside class="warning"><p> Important note: Depending on VirtualBox and Debian version, the dmidecode command may not work properly. If the command does not return the expected result (for example: dmidecode -t processor), please ignore this code-lab.  </p>
+</aside>
 <h2 is-upgraded>Sample code</h2>
-<p>Open a shell and run <strong>cmstat</strong> with root privileges</p>
+<p>Open a shell and run <strong>dmidecode</strong> with root privileges</p>
 <pre><code>dmidecode -t memory | more
 </code></pre>
 <p>Information is grouped per memory device. That means that every memory device is listed separately and various details about the memory are included in the description.</p>

@@ -127,9 +127,17 @@ https://linuxwiki.de/proc/meminfo
 ### Description 
 To find out hardware information about the installed RAM, use the **demidecode** command. we used this little tool in the CPU lab. **demidecode** reports lots of information about the installed RAM memory.
 
+<aside class="positive">
+The command dmidecode requires root privileges.
+</aside>
+
+<aside class="negative">
+Important note: Depending on VirtualBox and Debian version, the dmidecode command may not work properly. If the command does not return the expected result (for example: dmidecode -t processor), please ignore this code-lab. 
+</aside>
+
 ### Sample code
 
-Open a shell and run **cmstat** with root privileges
+Open a shell and run **dmidecode** with root privileges
 ```
 dmidecode -t memory | more
 ```

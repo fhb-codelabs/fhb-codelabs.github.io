@@ -66,11 +66,13 @@ Windows Settings is a component of Microsoft Windows, which allows users adjust 
 
 ### Sample code
 
-To open Devmanm, simple select `Settings` in the Windows Menu, then select `Network & Internet`, then the submenu `Ethernet`.
+To open Ethernet Properties, simple select `Settings` in the Windows Menu, then select `Network & Internet`, then the submenu `Ethernet`.
+
+In Windows 11, do a search for `Network Connection` and confirm the result. Mark your adapter and select `Properties` from the context menu.
 
 ### Sample output 
 
-To see the network adapters, simply click on the link 'Change adapter options'
+To see the network adapters, simply click on the link `Change adapter options`.
 
 ![itop](./img/biti-ipm-network-windows-settings.png)
 
@@ -145,7 +147,7 @@ To see the network activities, simply click on the tab 'Performance' and select 
 
 **Microsoft Network Monitor** is a tool, which allows users capturing network traffic.
 
-Microsoft Network Monitor can be downloaded here https://www.microsoft.com/download/details.aspx?id=4865
+Microsoft Network Monitor can be downloaded [here](https://www.microsoft.com/download/details.aspx?id=4865).
 
 <aside class="positive">
 At the time of reading this, Microsoft has archived the Network Monitor.

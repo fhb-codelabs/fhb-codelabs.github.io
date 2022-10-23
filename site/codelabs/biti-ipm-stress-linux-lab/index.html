@@ -55,7 +55,7 @@
 <pre><code>for i in $(seq $(getconf _NPROCESSORS_ONLN)); do yes &gt; /dev/null &amp; done
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
-<p>The output of this one-line will look something like this:</p>
+<p>The output of this one-liner will look this:</p>
 <p class="image-container"><img alt="VirtualBox Extension" src="img/79e6f8fa720c455.png"></p>
 <p>The command <code>getconf _NPROCESSORS_ONLN</code> returns the number for CPU cores. The command <code>seq</code> prints a sequence of numbers from 1 up to the amount of CPU Cores. FInally, the look <code>for i in .... done</code> takes the sequence and starts a yes process for each of them, redirecting the output to dev/null.</p>
 <p>As a result, the command <code>htop</code> shows the CPU utilization:</p>
@@ -81,7 +81,7 @@
 <li><code>-v</code>     : Be verbose</li>
 </ul>
 <h2 is-upgraded>Sample output</h2>
-<p>The output will look something like this: <img alt="VirtualBox Extension" src="img/e1cb5e6476f7d102.png"></p>
+<p>The output will look like this: <img alt="VirtualBox Extension" src="img/e1cb5e6476f7d102.png"></p>
 <h2 is-upgraded>Watch the results</h2>
 <p>To see how the stress commmand utilize the CPU, open a shell and start the <code>htop</code> application:</p>
 <pre><code>htop
@@ -101,7 +101,7 @@
 <p>To see how the stress commmand utilize Memory, open a shell and start the <code>htop</code> application:</p>
 <pre><code>htop
 </code></pre>
-<p>The output will look something like this: <img alt="VirtualBox Extension" src="img/e51db0ca3eb97dc8.png"></p>
+<p>The output will look like this: <img alt="VirtualBox Extension" src="img/e51db0ca3eb97dc8.png"></p>
 <h2 is-upgraded>Reference</h2>
 <p>Manual Page:</p>
 <pre><code>man stress

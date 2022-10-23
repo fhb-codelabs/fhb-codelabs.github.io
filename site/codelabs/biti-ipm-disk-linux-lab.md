@@ -81,7 +81,7 @@ Open a shell and run the following command:
 sudo lshw -class disk
 ```
 
-Sample output:
+Here is a sample output:
 ```
 root@server:~# lshw -class disk
   *-cdrom                   

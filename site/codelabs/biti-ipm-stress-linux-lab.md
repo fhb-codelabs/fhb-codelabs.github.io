@@ -50,7 +50,7 @@ for i in $(seq $(getconf _NPROCESSORS_ONLN)); do yes > /dev/null & done
 
 ### Sample output
 
-The output of this one-line will look something like this:
+The output of this one-liner will look this:
 
 ![VirtualBox Extension](./img/biti-ipm-stress-yes-cmd.png)
 
@@ -85,7 +85,7 @@ Where,
 * `-v`     : Be verbose
 
 ### Sample output
-The output will look something like this:
+The output will look like this:
 ![VirtualBox Extension](./img/biti-ipm-stress-cmd.png)
 
 
@@ -120,7 +120,7 @@ To see how the stress commmand utilize Memory, open a shell and start the `htop`
 htop
 ```
 
-The output will look something like this:
+The output will look like this:
 ![VirtualBox Extension](./img/biti-ipm-stress-result-htop-memory.png)
 
 ### Reference

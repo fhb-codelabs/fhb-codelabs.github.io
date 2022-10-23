@@ -1,11 +1,11 @@
-summary: BITI IPM Lab - VirtualBox
-id: biti-ipm-vbox-lab
+summary: AWS Lab - Assignment
+id: aws.lab
 categories: codelab
-tags: BITI, ipm, introduction
+tags: aws
 status: Published
 authors: Roland Pellegrini
 
-# BITI IPM Lab - VirtualBox
+# AWS Lab
 <!-- ------------------------ -->
 ## Before You Begin 
 
@@ -33,7 +33,7 @@ For the Guest OS, you will create and manage your own users. These users will th
 
 Typically, the GuestOS user for all codelabs is called `icinga`. 
 
-## Get and set up Virtual Box
+## Get set up Virtual Box
 
 ### VirtualBox.org
 
@@ -51,7 +51,7 @@ Typically, the GuestOS user for all codelabs is called `icinga`.
 If UEFI is enabled on your Host, compilation of VirtualBox kernel modules will fail due to security reason. In this case, all VirtualBox kernel modules must be signed manually. Contact your instructor for more details.
 </aside>
 
-## Get and set up Debian
+## Get set up Debian
 
 ### Debian 11 Bullseye
 - Download Debian 11 Bullseye from from the [official web site](https://www.debian.org/).
@@ -91,7 +91,7 @@ sudo apt upgrade
 The following software packages are part of the **official** Debian Repository and can be installed with the following command: 
 
 ```
-sudo apt install mc htop cpulimit stress stress-ng stressant hdparm smartmontools inxi iotop dstat speedtest-cli iftop etherape monitorix cockpit bonnie++ fio gdu hwinfo sysstat cpuid
+sudo apt install mc htop cpulimit stress stress-ng stressant hdparm smartmontools inxi iotop dstat speedtest-cli iftop etherape monitorix cockpit bonnie++ fio gdu
 ```
 
 Where,
@@ -111,98 +111,8 @@ Where,
 * bonnie++ - Test hard drives and file systems for performance
 * fio - Flexible io tester
 * gdu - Disk usage analyzer, primarly for SSD
-* hwinfo - Probe for hardware
-* sysstat - All-in-One system performance tool
-* cpuid - Show CPU details
 
 ###  From an external repository
 The **Phoronix Test Suite** is a comprehensive testing and benchmarking platform available for the Windows and Linux operating system. The software is not part of the Debian Repository but can be installed very easily.
 
 The installation is documented in the codelab `BITI IPM - Benchmark`.
-
-##  Guest Additions
-
-If you’re running Linux inside a VirtualBox virtual machine, installing the Guest Additions software will help you get the most out of the system. VirtualBox Guest Additions will give the machine more capabilities, such as a shared clipboard with the host system, drag and drop file transfer, time synchronization, shared folders, automatic window resizing, and more.
-
-In this guide, we’ll be going over the step by step instructions to get VirtualBox Guest Additions installed on Debian based systems. 
-
-###  For Debian
-
-The first thing you need to do is install a few prerequisite packages. Open a terminal and use your system’s package manager to install them with the following commands.
-
-Open a shell and run the following commands:
-```
-sudo apt update
-sudo apt install build-essential dkms linux-headers-$(uname -r)
-```
-Note that the installed packages are needed to build the VBox kernel modules.
-
-Next, on the virtual machine window, click on **Devices** > **Insert Guest Additions CD Image**.
-
-Next, you need to create a mount point for the CD image:
-
-```
-sudo mkdir /media/cdrom0
-sudo mount /dev/sr0 /media/cdrom0
-```
-Please note that the command **mkdir /media/cdrom0** may return an error if the target directory already exists. in this case, you can ignore the error.
-
-The command **mount /dev/sr0 /media/cdrom0** will return the following message:
-
-```
-mount: /media/cdrom0: WARNING: source write-protected, mounted read-only.
-```
-This warning is correct because CD images are mounted **read-only** by default.
-
-Next, change to the directory and list all files to check them out.
-```
-sudo cd /media/cdrom0
-sudo ls
-```
-
-Here is the output:
-```
-AUTORUN.INF  runasroot.sh			VBoxSolarisAdditions.pkg
-autorun.sh   TRANS.TBL				VBoxWindowsAdditions-amd64.exe
-cert	     VBoxDarwinAdditions.pkg		VBoxWindowsAdditions.exe
-NT3x	     VBoxDarwinAdditionsUninstall.tool	VBoxWindowsAdditions-x86.exe
-OS2	     VBoxLinuxAdditions.run		windows11-bypass.reg
-```
-
-If no errors occur, run the following command to install the guest additions:
-
-```
-sudo sh ./VBoxLinuxAdditions.run
-```
-
-The sample output:
-```
-Verifying archive integrity... All good.
-Uncompressing VirtualBox 6.1.38 Guest Additions for Linux........
-VirtualBox Guest Additions installer
-Removing installed version 6.1.38 of VirtualBox Guest Additions...
-update-initramfs: Generating /boot/initrd.img-5.10.0-19-amd64
-Copying additional installer modules ...
-Installing additional modules ...
-VirtualBox Guest Additions: Starting.
-VirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel 
-modules.  This may take a while.
-VirtualBox Guest Additions: To build modules for other installed kernels, run
-VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup <version>
-VirtualBox Guest Additions: or
-VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup all
-VirtualBox Guest Additions: Building the modules for kernel 5.10.0-19-amd64.
-update-initramfs: Generating /boot/initrd.img-5.10.0-19-amd64
-VirtualBox Guest Additions: Running kernel modules will not be replaced until the system is restarted
-```
-
-Once the installation is complete, all you need to do now is reboot the system for the new changes to take effect.
-```
-sudo reboot
-```
-
-That’s all there is to it. When the virtual machine finishes loading back up, you’ll be able to utilize the shared clipboard, drag and drop function, automatic resolution resizing, and other features mentioned earlier. Make sure you enable the shared clipboard and drag and drop option if you wish to use them, from inside the Devices menu.
-
-###  For Microsoft Windows
-
-For Windows, follow the [official guide](https://docs.oracle.com/cd/E36500_01/E36502/html/qs-guest-additions.html).

@@ -69,11 +69,13 @@
       <google-codelab-step label="Generalize configuration" duration="0">
         <p>As we need to ensure that objects can exist multiple times at AWS, we need to change the names of the resulting objects</p>
 <p>Firstly, we will introduce a variable, which describes the name of the podtatohead-installation:</p>
-<p><strong>vars.tf</strong></p>
-<pre><code language="language-terraform" class="language-terraform"> variable &#34;podtato_name&#34; {
+<p><strong>modules/podtatohead/vars.tf</strong></p>
+<pre><code language="language-terraform" class="language-terraform">#[...]
+ variable &#34;podtato_name&#34; {
     type = string
 }
-#
+#[...]
+
 </code></pre>
 <p><strong>modules/podtatohead/main.tf</strong></p>
 <pre><code language="language-terraform" class="language-terraform">resource &#34;aws_security_group&#34; &#34;ingress-all-ssh&#34; {
@@ -702,7 +704,7 @@ variable &#34;desired_instances&#34; {
 <ul>
 <li>Finally, we are able to switch the hostname in the main service to the new load balancer</li>
 </ul>
-<p><strong>modules/podtatohead/arms-svc.tf</strong></p>
+<p><strong>modules/podtatohead/main-svc.tf</strong></p>
 <pre><code language="language-terraform" class="language-terraform">resource &#34;aws_launch_configuration&#34; &#34;podtatohead-main&#34; {
   image_id = data.aws_ami.amazon-2.image_id
   instance_type = &#34;t3.micro&#34;
