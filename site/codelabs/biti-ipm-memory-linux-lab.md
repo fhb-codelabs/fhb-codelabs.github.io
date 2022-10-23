@@ -13,7 +13,7 @@ authors: Roland Pellegrini
 In this codelab you will learn
 
 * how to get information about the Memory
-* how to monitor Memory with Linux Tools
+* how to monitor Memory with Linux tools
 
 
 ###  Where You Can Look Up
@@ -117,9 +117,9 @@ Consult the documentation and man-pages for more details. Try to identify keywor
 
 ### Reference
 
-Documentation, examples, etc.:
+Documentation, examples, etc. can be found here:
 ```
-https://linuxwiki.de/proc/meminfo
+[meminfo](https://linuxwiki.de/proc/meminfo)
 ```
 
 ## demidecode
@@ -194,7 +194,7 @@ Memory Device
 
 ### Reference
 
-Manual Page:
+May the manual with you:
 ```
 man demidecode
 ```
@@ -259,7 +259,7 @@ watch free
 
 ### Reference
 
-Manual Page:
+Man pages are hanging low:
 ```
 man free
 ```
@@ -308,7 +308,7 @@ Consult the documentation and man pages for more details. Try to identify keywor
 
 ### Reference
 
-Manual Page:
+Man pages are for free:
 ```
 man vmstat
 ```
