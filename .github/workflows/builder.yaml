@@ -30,7 +30,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '14'
 
       - uses: actions/setup-go@v2
         with:
@@ -38,7 +38,7 @@ jobs:
 
       - name: Build CodeLabs
         run: |
-          go install github.com/googlecodelabs/tools/claat
+          go get github.com/googlecodelabs/tools/claat
           for i in $(ls *.md); do claat export $i; done
         working-directory: ./site/codelabs
 
