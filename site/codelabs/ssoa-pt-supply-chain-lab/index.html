@@ -9,7 +9,7 @@
   <title>SSOA Lab 2 - Supply Chain</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -53,8 +53,10 @@
 <ul>
 <li>Open a shell</li>
 <li>Change to the directory, in which the repository should be cloned</li>
-<li>Clone the repository (replace fhb-codelabs against your username/org). <br><code>git clone https://github.com/fhb-codelabs/fhb-codelabs.github.io.git<br></code></li>
+<li>Clone the repository (replace fhb-codelabs against your username/org).</li>
 </ul>
+<pre><code>git clone https://github.com/fhb-codelabs/fhb-codelabs.github.io.git
+</code></pre>
 
 
       </google-codelab-step>
@@ -62,10 +64,12 @@
       <google-codelab-step label="Do some initial hygiene on your git repository" duration="0">
         <ul>
 <li>Click on Settings -&gt; Branches</li>
-<li>Use &#34;Branch Protection Rules&#34; -&gt; Add Rule  <ul>
+<li>Use &#34;Branch Protection Rules&#34; -&gt; Add Rule <ul>
 <li>Branch Name Pattern: <code>master</code></li>
-<li>Check &#34;Require a pull request before merging&#34;</li>
+<li>Check &#34;Require a pull request before merging&#34; <ul>
 <li>Require approvals</li>
+</ul>
+</li>
 <li>Check &#34;Require status checks to pass before merging&#34;</li>
 <li>Click on &#34;Create&#34;</li>
 </ul>
@@ -77,7 +81,7 @@
     
       <google-codelab-step label="Invite your peer to get contributor of your repository" duration="0">
         <ul>
-<li>Settings -&gt; Manage Access  <ul>
+<li>Settings -&gt; Manage Access <ul>
 <li>Add People</li>
 <li>Add the Name of your Peer</li>
 <li>Add to the Repository</li>
@@ -93,21 +97,25 @@
       <google-codelab-step label="Create a PAT and add it to your Repository" duration="0">
         <ul>
 <li>Navigate to your personal account settings https://github.com/settings/profile</li>
-<li>Settings -&gt; Developer Settings  <ul>
+<li>Settings -&gt; Developer Settings<ul>
 <li>Personal Access Token</li>
 <li>Click &#34;Generate new token&#34;</li>
 <li>Choose a name: <code>podtatohead-ghcr-token</code></li>
-<li>Choose Permissions:</li>
+<li>Choose Permissions: <ul>
 <li><code>write:packages</code></li>
+</ul>
+</li>
 <li>Generate Token</li>
 <li>Copy the Token to your clipboard</li>
 </ul>
 </li>
 <li>Go Back to your Repository</li>
-<li>Settings -&gt; Secrets -&gt; Actions  <ul>
-<li>New Repository Secret</li>
+<li>Settings -&gt; Secrets -&gt; Actions<ul>
+<li>New Repository Secret <ul>
 <li>Name: CR_PAT</li>
 <li>Value: <code>insert token here</code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -117,7 +125,7 @@
     
       <google-codelab-step label="Our First Pipeline Steps" duration="0">
         <ul>
-<li>Code -&gt; Add File -&gt; Create File  <ul>
+<li>Code -&gt; Add File -&gt; Create File <ul>
 <li>Name: <code>.github/workflows/build.yaml</code></li>
 <li>Add following content</li>
 </ul>
@@ -221,54 +229,167 @@ jobs:
         <ul>
 <li>Open the build.yaml of your peers repository in the branch &#34;feature/add_vulnerability_scan&#34;</li>
 <li>Switch to the branch after opening the workflow file</li>
-<li>Add the following part after the build step of your workflow: &#34;`yaml  <ul>
-<li>name: Run Trivy vulnerability scanner uses: aquasecurity/trivy-action@master with: image-ref: ‘ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}&#39; format: ‘table&#39; exit-code: ‘1&#39; ignore-unfixed: ‘true&#39; vuln-type: ‘os,library&#39; severity: ‘CRITICAL,HIGH&#39; <br><code>* Click on "Start commit"<br>* Create a useful commit message<br>* Commit to the feature/add_vulnerability_scan branch<br>* If you click on "Actions" now, nothing should happen<br>## Create a pull request and see if the vulnerability scan works<br>* Click on "Pull requests" in your peers repository<br>* You should see something similar to this:<br>![Initiate Pull request](./img/mcce-ssoa-ssc-lab-pr-init.png)<br>* Select "Compare & Pull request"<br>* Select `master` as base for that pull request<br>* Select your peers repo as the base repository (not the upstream fhb-codelabs/sample-code-repo)<br>* Type "Implement Vulnerability Scanning" as the name of the PR<br>* Click on "Create pull request"<br>* You should now see following things in the PR overview<br>![Pull request checks](./img/mcce-ssoa-ssc-lab-pr-overview.png)<br>* As we instructed our workflow to automatically build on pr and defined that all actions have to pass before merging, merging is blocked now<br>### Another Issue<br>* In the actions screen, our workflow should show up and we should see an error while running the workflow<br>![Trivy Issue](./img/mcce-ssoa-ssc-lab-trivy-error.png)<br>* It seems like we are using something insecure, let's fix this error (take a look on outdated things) and push this to the repository<br>### Successful Build<br>* After a few minutes, we see that "All checks have passed"<br>* When taking a look to the triggered pipeline the result for the trivy step should look like this:<br>![Trivy Output](./img/mcce-ssoa-ssc-lab-trivy.png)<br><aside class="negative"><br>- Note, that you didn't push to master until now, we're just checking if the container has vulnerabilities<br></aside><br>* Now it's time for your peer to approve your pull request (and for you to approve the other one)<br><aside class="positive"><br>- You have successfully scanned your containers for vulnerabilities<br></aside><br>## Approving a pull request<br>* Open your git repository<br>* Click on pull requests<br>* Take a look on the pull request of your peer<br>* Check if all checks were running<br>* "Add your review"<br>* Validate the code carefully<br>* Review changes<br>* "LGTM"<br>* Approve<br>* Submit Review<br>* After that, the PR is in the following state:<br>![Initial Action Output](./img/mcce-ssoa-ssc-lab-pr-merge.png)<br>* Merge pull request<br>* You can delete the branch now<br>## Signing containers<br>### Start a VM in AWS<br>#### Create a security group for SSH<br></code></li>
+<li>Add the following part after the build step of your workflow:</li>
+</ul>
+<pre><code language="language-yaml" class="language-yaml">    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: &#39;ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}&#39;
+        format: &#39;table&#39;
+        exit-code: &#39;1&#39;
+        ignore-unfixed: &#39;true&#39;
+        vuln-type: &#39;os,library&#39;
+        severity: &#39;CRITICAL,HIGH&#39;
+</code></pre>
+<ul>
+<li>Click on &#34;Start commit&#34;</li>
+<li>Create a useful commit message</li>
+<li>Commit to the feature/add_vulnerability_scan branch</li>
+<li>If you click on &#34;Actions&#34; now, nothing should happen</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a pull request and see if the vulnerability scan works" duration="0">
+        <ul>
+<li>Click on &#34;Pull requests&#34; in your peers repository</li>
+<li>You should see something similar to this: <img alt="Initiate Pull request" src="img/ad67adef1736cfb5.png"></li>
+<li>Select &#34;Compare &amp; Pull request&#34;</li>
+<li>Select <code>master</code> as base for that pull request</li>
+<li>Select your peers repo as the base repository (not the upstream fhb-codelabs/sample-code-repo)</li>
+<li>Type &#34;Implement Vulnerability Scanning&#34; as the name of the PR</li>
+<li>Click on &#34;Create pull request&#34;</li>
+<li>You should now see following things in the PR overview <img alt="Pull request checks" src="img/35bdf9e8d0c00f27.png"></li>
+<li>As we instructed our workflow to automatically build on pr and defined that all actions have to pass before merging, merging is blocked now</li>
+</ul>
+<h2 is-upgraded>Another Issue</h2>
+<ul>
+<li>In the actions screen, our workflow should show up and we should see an error while running the workflow <img alt="Trivy Issue" src="img/791c8240594bb077.png"></li>
+<li>It seems like we are using something insecure, let&#39;s fix this error (take a look on outdated things) and push this to the repository</li>
+</ul>
+<h2 is-upgraded>Successful Build</h2>
+<ul>
+<li>After a few minutes, we see that &#34;All checks have passed&#34;</li>
+<li>When taking a look to the triggered pipeline the result for the trivy step should look like this: <img alt="Trivy Output" src="img/585a4b10a5b3a990.png"></li>
+</ul>
+<aside class="warning"><p> - Note, that you didn&#39;t push to master until now, we&#39;re just checking if the container has vulnerabilities </p>
+</aside>
+<ul>
+<li>Now it&#39;s time for your peer to approve your pull request (and for you to approve the other one)</li>
+</ul>
+<aside class="special"><p> - You have successfully scanned your containers for vulnerabilities </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Approving a pull request" duration="0">
+        <ul>
+<li>Open your git repository</li>
+<li>Click on pull requests</li>
+<li>Take a look on the pull request of your peer <ul>
+<li>Check if all checks were running</li>
+<li>&#34;Add your review&#34;</li>
+<li>Validate the code carefully</li>
+<li>Review changes <ul>
+<li>&#34;LGTM&#34;</li>
+<li>Approve</li>
+<li>Submit Review</li>
+</ul>
+</li>
+<li>After that, the PR is in the following state: <img alt="Initial Action Output" src="img/7d8807f905f91987.png"></li>
+<li>Merge pull request</li>
+<li>You can delete the branch now</li>
 </ul>
 </li>
 </ul>
-<p>aws ec2 create-security-group –group-name ssh-in –description &#34;SSH Traffic to Instances&#34; aws ec2 authorize-security-group-ingress </p>
-<pre><code>--group-name ssh-in \
---protocol tcp \
---cidr 0.0.0.0/0 \
---port 22
-</code></pre>
-<pre><code>#### Create an Instance
-</code></pre>
-<p>aws ec2 run-instances –image-id ami-087c17d1fe0178315 –instance-type t2.micro –tag-specifications &#34;ResourceType=instance,Tags=[{Key=Name,Value=temporary-instance}]&#34; –key-name vockey –security-groups &#34;ssh-in&#34; –output table</p>
-<pre><code>#### Connect to this instance via SSH
-</code></pre>
-<p>INSTANCE_HOSTNAME=$(aws ec2 describe-instances –filters &#34;Name=tag:Name,Values=temporary-instance&#34; –query &#34;Reservations[].Instances[].PublicDnsName&#34; –out text | xargs) echo &#34;ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}&#34; ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}</p>
-<pre><code>#### Download cosign
-</code></pre>
-<p>wget https://github.com/sigstore/cosign/releases/download/v1.2.1/cosign-linux-amd64 chmod a+x cosign-linux-amd64</p>
-<pre><code>#### Generate your key pair
-</code></pre>
-<p>./cosign-linux-amd64 generate-key-pair</p>
-<p>Enter password for private key: Enter password for private key again:</p>
-<pre><code>* Generate a password and enter it there
-* Afterwards you should store the public key in the GitHub Repo for verification purposes
-* Take the output of `cat cosign.pub` and store it in your git repository in `.github/workflows/cosign.pub`. You can do the same thing for the private key `cosign.key` (use a strong passphrase) to be able to sign in your github actions
 
-#### Add the passphrase to GitHub
-* In GitHub
-* Settings -&gt; Secrets -&gt; Actions
-  * New Repository Secret
-    * Name: `COSIGN_PASSWORD`
-    * Value: `insert passphrase here`
 
-## Adding cosign to your pipeline
+      </google-codelab-step>
+    
+      <google-codelab-step label="Signing containers" duration="0">
+        <h2 is-upgraded>Start a VM in AWS</h2>
+<h3 is-upgraded>Create a security group for SSH</h3>
+<pre><code>aws ec2 create-security-group --group-name ssh-in --description &#34;SSH Traffic to Instances&#34;
+aws ec2 authorize-security-group-ingress \
+    --group-name ssh-in \
+    --protocol tcp \
+    --cidr 0.0.0.0/0 \
+    --port 22
+</code></pre>
+<h3 is-upgraded>Create an Instance</h3>
+<pre><code>aws ec2 run-instances --image-id ami-087c17d1fe0178315 --instance-type t2.micro --tag-specifications &#34;ResourceType=instance,Tags=[{Key=Name,Value=temporary-instance}]&#34; --key-name vockey --security-groups &#34;ssh-in&#34; --output table
+</code></pre>
+<h3 is-upgraded>Connect to this instance via SSH</h3>
+<pre><code>INSTANCE_HOSTNAME=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=temporary-instance&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs)
+echo &#34;ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}&#34;
+ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
+</code></pre>
+<h3 is-upgraded>Download cosign</h3>
+<pre><code>wget https://github.com/sigstore/cosign/releases/download/v1.2.1/cosign-linux-amd64
+chmod a+x cosign-linux-amd64
+</code></pre>
+<h3 is-upgraded>Generate your key pair</h3>
+<pre><code>./cosign-linux-amd64 generate-key-pair
 
-* Firstly, add the cosign installer after the &#34;Checkout Code&#34; Block of your pipeline
-```yaml
-    - uses: sigstore/cosign-installer@main
+Enter password for private key: 
+Enter password for private key again: 
+</code></pre>
+<ul>
+<li>Generate a password and enter it there</li>
+<li>Afterwards you should store the public key in the GitHub Repo for verification purposes</li>
+<li>Take the output of <code>cat cosign.pub</code> and store it in your git repository in <code>.github/workflows/cosign.pub</code>. You can do the same thing for the private key <code>cosign.key</code> (use a strong passphrase) to be able to sign in your github actions</li>
+</ul>
+<h3 is-upgraded>Add the passphrase to GitHub</h3>
+<ul>
+<li>In GitHub</li>
+<li>Settings -&gt; Secrets -&gt; Actions <ul>
+<li>New Repository Secret <ul>
+<li>Name: <code>COSIGN_PASSWORD</code></li>
+<li>Value: <code>insert passphrase here</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adding cosign to your pipeline" duration="0">
+        <ul>
+<li>Firstly, add the cosign installer after the &#34;Checkout Code&#34; Block of your pipeline</li>
+</ul>
+<pre><code language="language-yaml" class="language-yaml">    - uses: sigstore/cosign-installer@main
       with:
         cosign-release: &#39;v1.0.0&#39;
 </code></pre>
 <ul>
-<li>Add a build and push step to the pipeline &#34;`yaml  <ul>
-<li>name: Build id: docker_build_push uses: docker/build-push-action@v2 with: build-args: | context: $&#123;&#123; matrix.component }}/. push: $&#123;&#123; github.ref == ‘refs/heads/master&#39; }} file: $&#123;&#123; matrix.component }}/docker/Dockerfile platforms: linux/amd64 tags: |   ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }} <br><code>* After that, add the signing step to the end of your pipeline</code><br>yaml - name: Sign Container if: $&#123;&#123; github.ref == ‘refs/heads/master&#39; || github.ref == ‘refs/heads/release-*&#39; }} env: COSIGN_PASSWORD: $&#123;&#123; secrets.COSIGN_PASSWORD }} run: cosign sign -key .github/workflows/cosign.key -a GIT_HASH=$&#123;&#123; env.GIT_SHA }} ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }} &#34;`</li>
+<li>Add a build and push step to the pipeline</li>
 </ul>
-</li>
+<pre><code language="language-yaml" class="language-yaml">    - name: Build
+      id: docker_build_push
+      uses: docker/build-push-action@v2
+      with:
+        build-args: |
+        context: $&#123;&#123; matrix.component }}/.
+        push: $&#123;&#123; github.ref == &#39;refs/heads/master&#39; }}
+        file: $&#123;&#123; matrix.component }}/docker/Dockerfile
+        platforms: linux/amd64
+        tags: |
+          ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}
+</code></pre>
+<ul>
+<li>After that, add the signing step to the end of your pipeline</li>
+</ul>
+<pre><code language="language-yaml" class="language-yaml">    - name: Sign Container
+      if: $&#123;&#123; github.ref == &#39;refs/heads/master&#39; || github.ref == &#39;refs/heads/release-*&#39; }}
+      env:
+        COSIGN_PASSWORD: $&#123;&#123; secrets.COSIGN_PASSWORD }}
+      run: cosign sign -key .github/workflows/cosign.key -a GIT_HASH=$&#123;&#123; env.GIT_SHA }} ghcr.io/$&#123;&#123; github.repository_owner }}/podtato-$&#123;&#123; matrix.component }}:$&#123;&#123; github.sha }}
+</code></pre>
+<ul>
 <li>After the next pipeline run, the images should get signed and the pipeline should be &#34;green&#34;</li>
 </ul>
 
@@ -278,8 +399,18 @@ jobs:
       <google-codelab-step label="Verification" duration="0">
         <ul>
 <li>Go back to your AWS Instance</li>
-<li>Run the following command <br><code>./cosign-linux-amd64 verify -key cosign.pub ghcr.io/<repo>/podtato-main:<your hash><br>Verification for ghcr.io/thschue/podtato-main:bdce48dc9c64a1b42fa1ce15474a82a832471773 --<br>The following checks were performed on each of these signatures:<br>- The cosign claims were validated<br>- The signatures were verified against the specified public key<br>- Any certificates were verified against the Fulcio roots.<br>[{"critical":{"identity":{"docker-reference":"ghcr.io/<repo>/podtato-main"},"image":{"docker-manifest-digest":"sha256:eb7e3da2cdbcea455fdbfb189e14bb1bde0574de745d9517b5e8feff77302c75"},"type":"cosign container image signature"},"optional":{"GIT_HASH":""}}]<br></code></li>
+<li>Run the following command</li>
 </ul>
+<pre><code>./cosign-linux-amd64 verify -key cosign.pub ghcr.io/&lt;repo&gt;/podtato-main:&lt;your hash&gt;
+
+Verification for ghcr.io/thschue/podtato-main:bdce48dc9c64a1b42fa1ce15474a82a832471773 --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - The signatures were verified against the specified public key
+  - Any certificates were verified against the Fulcio roots.
+
+[{&#34;critical&#34;:{&#34;identity&#34;:{&#34;docker-reference&#34;:&#34;ghcr.io/&lt;repo&gt;/podtato-main&#34;},&#34;image&#34;:{&#34;docker-manifest-digest&#34;:&#34;sha256:eb7e3da2cdbcea455fdbfb189e14bb1bde0574de745d9517b5e8feff77302c75&#34;},&#34;type&#34;:&#34;cosign container image signature&#34;},&#34;optional&#34;:{&#34;GIT_HASH&#34;:&#34;&#34;}}]
+</code></pre>
 <aside class="special"><p> - You have verified your image signature </p>
 </aside>
 
@@ -288,10 +419,10 @@ jobs:
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>

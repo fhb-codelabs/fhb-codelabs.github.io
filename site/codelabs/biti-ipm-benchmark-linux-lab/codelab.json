@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-28T21:13:46+02:00",
+  "updated": "2021-11-21T08:33:26+01:00",
   "id": "biti-ipm-benchmark-linux-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Benchmark",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - Benchmark",
-  "source": "biti-ipm-benchmark-linux-lab.md",
+  "source": "",
   "theme": "",
   "status": [
     "published"

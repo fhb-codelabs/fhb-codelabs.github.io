@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-10-28T17:22:27+02:00",
+  "updated": "2022-11-27T09:34:48+01:00",
   "id": "biti-ipm-system-linux-lab",
   "duration": 0,
   "title": "BITI IPM Lab - System Information",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - System Information",
-  "source": "biti-ipm-system-linux-lab.md",
+  "source": "",
   "theme": "",
   "status": [
     "draft"

@@ -9,7 +9,7 @@
   <title>BITI IPM Lab - Disk</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -83,18 +83,18 @@
 <li>Run Performance Monitor (Perfmon.exe) this is part of the Windows Administrative tools.</li>
 <li>Navigate to Performance -&gt; Data Collector Sets -&gt; User Defined</li>
 <li>In the Right hand Pane right click and Select New - &gt; Data Collector Set</li>
-<li>Provide a Friendly name (i.e. Task Set) <img alt="Windows Performance Monitor" src="img/48fa2f151878de40.png"><br></li>
+<li>Provide a Friendly name (i.e. Task Set) <img alt="Windows Performance Monitor" src="img/48fa2f151878de40.png"></li>
 <li>Click on &#34;Create Manually (Advanced)&#34;</li>
 <li>Click &#34;Next&#34;</li>
-<li>Under &#34;Create Data Logs&#34; select Performance Counter <img alt="Windows Performance Monitor" src="img/f12c306eae9f5e13.png"><br></li>
+<li>Under &#34;Create Data Logs&#34; select Performance Counter <img alt="Windows Performance Monitor" src="img/f12c306eae9f5e13.png"></li>
 <li>Click Finish</li>
 </ul>
 <p>The data set (i.e. Task Set) should now appear in the right hand pane.</p>
 <ul>
 <li>Double click on the data set (ie Task Set)</li>
-<li>&#34;DataCollector01&#34; should appear in the right hand pane. <img alt="Windows Performance Monitor" src="img/66fe8378005afbf8.png"><br></li>
+<li>&#34;DataCollector01&#34; should appear in the right hand pane. <img alt="Windows Performance Monitor" src="img/66fe8378005afbf8.png"></li>
 <li>Double click on the &#34;DataCollector01&#34;</li>
-<li>In the &#34;Performance Counters&#34; tab click Add.<br><img alt="Windows Performance Monitor" src="img/beb9ebdab5356c1b.png"><br></li>
+<li>In the &#34;Performance Counters&#34; tab click Add.<br><img alt="Windows Performance Monitor" src="img/beb9ebdab5356c1b.png"></li>
 <li>A list of the available counters appears on the screen,  Navigate to &#34;LogicalDisk&#34; and click to highlight (do NOT expand the list).  Under instances of Selected objects select the specific volume (drive) where the journal files are located (ie C:) and click &#34;Add&#34;.</li>
 </ul>
 <p>This will list all LogicalDisk performance counters associated with activity on the specified volume (drive).  You will see something like the following in the Added Counters window: <img alt="Windows Performance Monitor" src="img/75faf4714a8af01c.png"></p>
@@ -105,13 +105,7 @@
 <p>This creates the basic dataset.</p>
 <ul>
 <li>The data set (ie Task Set) should now appear in the left hand pane.  Right click and select &#34;Properties&#34;</li>
-<li>The DataSet Properties includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png">  <ul>
-<li>Use the General tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM)</li>
-<li>Use the Directory tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.</li>
-<li>Use the schedule tab to Set the days to run and the time to commence collection.  This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am</li>
-<li>Use the Stop Condition to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).</li>
-</ul>
-</li>
+<li>The DataSet Properties includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png"> * Use the General tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM) * Use the Directory tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics. * Use the schedule tab to Set the days to run and the time to commence collection.  This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am * Use the Stop Condition to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).</li>
 <li>Click OK when all required parameters are configured.</li>
 <li>You can start data collection by clicking on the DataSet (ie Task Set) right click and press start. <img alt="Windows Performance Monitor" src="img/9201675bd5a98527.png"></li>
 <li>You can stop data collection by clicking on the DataSet (ie Task Set) right click and press stop. <img alt="Windows Performance Monitor" src="img/306d8712ff2262c4.png"></li>
@@ -167,8 +161,14 @@
 <li>-w - Specifies the percentage. For example, -w75 means that 75% write and 25% read operations are performed. Here, value is set to 75 because OLTP workloads involves more writung activities than reading.</li>
 <li>sqldata.at - the sample sql file name that will be used in the test.</li>
 <li>-c - Creates workload file(s) of the specified size, specified as (K/M/G).</li>
-<li>- sqldata.dat - the workload file (see option -c)</li>
-<li>- result.csv - the output file of the test results</li>
+<li><ul>
+<li>sqldata.dat - the workload file (see option -c)</li>
+</ul>
+</li>
+<li><ul>
+<li>result.csv - the output file of the test results</li>
+</ul>
+</li>
 </ul>
 <p>After the execution of the test, the results are written to the file named <strong>result.csv</strong>. The results of the test are divided into 5 sections. The first section of the test result shows us the input parameters and all other settings.</p>
 <pre><code>Command Line: C:\Users\icinga\Downloads\DiskSpd\amd64\diskspd.exe -b8K -d180 -h -L -o32 -t3 -r -w75 -c5G sqldata.dat
@@ -215,7 +215,7 @@ CPU |  Usage |  User  |  Kernel |  Idle
 -------------------------------------------
 avg.|   8.44%|   0.70%|    7.74%|  91.56%
 </code></pre>
-<p>The third section <strong>Total IO</strong> gives us all the performance details about the Storage performance. The total number of IOPS generated for this test is <strong>274106</strong>. The test duration is 180 seconds, therefore the IOPS per second is rounded up to <strong>1523</strong> (=result of 274106⁄180, note the variance to 1522.76). The AvgLat column indicates the average latency, and the result is <strong>63.514</strong>. The throughput per second is <strong>11.90</strong> MB/s.</p>
+<p>The third section <strong>Total IO</strong> gives us all the performance details about the Storage performance. The total number of IOPS generated for this test is <strong>274106</strong>. The test duration is 180 seconds, therefore the IOPS per second is rounded up to <strong>1523</strong> (=result of 274106/180, note the variance to 1522.76). The AvgLat column indicates the average latency, and the result is <strong>63.514</strong>. The throughput per second is <strong>11.90</strong> MB/s.</p>
 <pre><code>Total IO
 thread |       bytes     |     I/Os     |    MiB/s   |  I/O per s |  AvgLat  | LatStdDev |  file
 -----------------------------------------------------------------------------------------------------
@@ -275,10 +275,10 @@ total:        1683832832 |       205546 |       8.92 |    1141.88 |   58.809 |  
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>
