@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-10-22T19:00:27+02:00",
+  "updated": "2022-01-07T19:35:21+01:00",
   "id": "virt-pt-terraform-ec2-modules-asg",
   "duration": 0,
   "title": "VIRT Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS",
   "authors": "Thomas Schuetz",
   "summary": "Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS",
-  "source": "virt-pt-terraform-ec2-modules-asg.md",
+  "source": "",
   "theme": "",
   "status": [
     "published"

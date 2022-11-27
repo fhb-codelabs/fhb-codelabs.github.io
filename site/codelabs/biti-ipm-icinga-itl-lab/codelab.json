@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-01-03T23:43:22+01:00",
+  "updated": "2022-04-01T20:41:00+02:00",
   "id": "biti-ipm-icinga-itl-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Icinga Template Library",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - Icinga Template Library",
-  "source": "biti-ipm-icinga-itl-lab.md",
+  "source": "",
   "theme": "",
   "status": [
     "draft"

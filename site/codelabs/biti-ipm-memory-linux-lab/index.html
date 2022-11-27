@@ -9,7 +9,7 @@
   <title>BITI IPM Lab - Memory</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -32,7 +32,7 @@
 <p>In this codelab you will learn</p>
 <ul>
 <li>how to get information about the Memory</li>
-<li>how to monitor Memory with Linux Tools</li>
+<li>how to monitor Memory with Linux tools</li>
 </ul>
 <h2 is-upgraded>Where You Can Look Up</h2>
 <p>The <strong>man</strong> is a short term for manual page and acts as an interface to view the reference manual of a command.</p>
@@ -116,8 +116,8 @@ Slab:              80840 kB
 <aside class="special"><p> Consult the documentation and man-pages for more details. Try to identify keywords and details of the memory.  </p>
 </aside>
 <h2 is-upgraded>Reference</h2>
-<p>Documentation, examples, etc.:</p>
-<pre><code>https://linuxwiki.de/proc/meminfo
+<p>Documentation, examples, etc. can be found here:</p>
+<pre><code>[meminfo](https://linuxwiki.de/proc/meminfo)
 </code></pre>
 
 
@@ -180,7 +180,7 @@ Memory Device
 --More--
 </code></pre>
 <h2 is-upgraded>Reference</h2>
-<p>Manual Page:</p>
+<p>May the manual with you:</p>
 <pre><code>man demidecode
 </code></pre>
 
@@ -235,7 +235,7 @@ Swap:          974Mi          0B       974Mi
 watch free
 </code></pre>
 <h2 is-upgraded>Reference</h2>
-<p>Manual Page:</p>
+<p>Manual fruit pages are hanging low:</p>
 <pre><code>man free
 </code></pre>
 
@@ -257,19 +257,19 @@ watch free
 </code></pre>
 <p>As shown, the <strong>vmstat</strong> command provides information about Processes, Memory, I/O, system and CPU. In this lab we will only focus on Memory, Swap and CPU (optional):</p>
 <ul>
-<li>Memory  <ul>
+<li>Memory <ul>
 <li>swpd: the amount of virtual memory used.</li>
 <li>free: the amount of idle memory.</li>
 <li>buff: the amount of memory used as buffers.</li>
 <li>cache: the amount of memory used as cache.</li>
 </ul>
 </li>
-<li>Swap  <ul>
+<li>Swap <ul>
 <li>si: Amount of memory swapped in from disk (/s).</li>
 <li>so: Amount of memory swapped to disk (/s).</li>
 </ul>
 </li>
-<li>CPU  <ul>
+<li>CPU <ul>
 <li>These are percentages of total CPU time.</li>
 <li>us: Time spent running non-kernel code. (user time, including nice time)</li>
 <li>sy: Time spent running kernel code. (system time)</li>
@@ -282,7 +282,7 @@ watch free
 <aside class="special"><p> Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more.  </p>
 </aside>
 <h2 is-upgraded>Reference</h2>
-<p>Manual Page:</p>
+<p>Man pages are for free:</p>
 <pre><code>man vmstat
 </code></pre>
 
@@ -308,15 +308,22 @@ watch free
 <p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>
 <ul>
-<li>Open a shell terminal and execute the following command:  <pre><code>watch free
+<li>Open a shell terminal and execute the following command:</li>
+</ul>
+<pre><code>watch free
 </code></pre>
-</li>
-<li>Open a second terminal and execute the following command:  <pre><code>htop
+<ul>
+<li>Open a second terminal and execute the following command:</li>
+</ul>
+<pre><code>htop
 </code></pre>
-</li>
-<li>Open the last shell terminal and start the workload generator with the following option.  <pre><code>stress -m 2 --vm-bytes 1500M -t 30s -v
+<ul>
+<li>Open the last shell terminal and start the workload generator with the following option.</li>
+</ul>
+<pre><code>stress -m 2 --vm-bytes 1500M -t 30s -v
 </code></pre>
-Notice that the workload generator runs with a time limit of 30 seconds.</li>
+<p>Notice that the workload generator runs with a time limit of 30 seconds.</p>
+<ul>
 <li>Observe how the memory utilization changes.</li>
 <li>Sample output for <strong>free</strong>: <img alt="Exercise" src="img/7e370e7ffad02798.png"></li>
 <li>Sample output for <strong>htop</strong><img alt="Exercise" src="img/1c3a6bb35554691e.png"></li>
@@ -333,10 +340,10 @@ Notice that the workload generator runs with a time limit of 30 seconds.</li>
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>

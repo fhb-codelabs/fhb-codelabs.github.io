@@ -9,7 +9,7 @@
   <title>VIRT Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -48,12 +48,12 @@
     
       <google-codelab-step label="Create Terraform Module" duration="0">
         <ul>
-<li>Create a directory called <code>modules</code> in your terraform folder (where you created the initial configuration) and change to that directory  <ul>
+<li>Create a directory called <code>modules</code> in your terraform folder (where you created the initial configuration) and change to that directory<ul>
 <li><code>mkdir modules</code></li>
 <li><code>cd modules</code></li>
 </ul>
 </li>
-<li>Add a directory called <code>podtatohead</code> the the modules folder  <ul>
+<li>Add a directory called <code>podtatohead</code> the the modules folder<ul>
 <li><code>mkdir podtatohead</code></li>
 </ul>
 </li>
@@ -146,7 +146,7 @@ resource &#34;aws_instance&#34; &#34;podtatohead-main&#34; {
 }
 </code></pre>
 <ul>
-<li>Run terraform init and plan the execution  <ul>
+<li>Run terraform init and plan the execution <ul>
 <li><code>terraform init</code></li>
 <li><code>terraform plan</code></li>
 </ul>
@@ -181,22 +181,26 @@ output &#34;second-url&#34; {
 }
 </code></pre>
 <ul>
-<li>Run terraform init and plan the execution  <ul>
+<li>Run terraform init and plan the execution<ul>
 <li><code>terraform init</code></li>
 <li><code>terraform plan</code></li>
 </ul>
 </li>
-<li>Execute the plan  <ul>
+<li>Execute the plan<ul>
 <li><code>terraform apply</code></li>
 </ul>
 </li>
-<li>You should see a similar output as here:  <pre><code>Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
+<li>You should see a similar output as here:</li>
+</ul>
+<pre><code>Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
+
 Outputs:
+
 first-url = &#34;http://&lt;ip&gt;:8080&#34;
 second-url = &#34;http://&lt;ip&gt;:8080&#34;
 </code></pre>
-</li>
-<li>Open the AWS Console, and take a look on EC2 -&gt; Instances  <ul>
+<ul>
+<li>Open the AWS Console, and take a look on EC2 -&gt; Instances<ul>
 <li>You should see some instances appearing</li>
 <li>Note that they are prefixed with their <code>podtato_name</code></li>
 </ul>
@@ -363,13 +367,13 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Now we could re-apply our terraform-configuration  <ul>
+<li>Now we could re-apply our terraform-configuration<ul>
 <li><code>terraform plan</code></li>
 <li><code>terraform apply</code></li>
 </ul>
 </li>
 <li>Afterwards, the two podtatohead-installations should be created, and you should see the URLs of the main-service load balancers.</li>
-<li>Now, you could inspect your work on the AWS Console (EC2-Load Balancers)  <ul>
+<li>Now, you could inspect your work on the AWS Console (EC2-Load Balancers)<ul>
 <li>Take a look on the instances, and on their state</li>
 </ul>
 </li>
@@ -504,7 +508,7 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Now we could re-apply our terraform-configuration  <ul>
+<li>Now we could re-apply our terraform-configuration<ul>
 <li><code>terraform plan</code></li>
 <li><code>terraform apply</code></li>
 </ul>
@@ -610,7 +614,7 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Now we could re-apply our terraform-configuration  <ul>
+<li>Now we could re-apply our terraform-configuration<ul>
 <li><code>terraform plan</code></li>
 <li><code>terraform apply</code></li>
 </ul>
@@ -718,7 +722,7 @@ variable &#34;desired_instances&#34; {
 }
 </code></pre>
 <ul>
-<li>Now we could re-apply our terraform-configuration  <ul>
+<li>Now we could re-apply our terraform-configuration<ul>
 <li><code>terraform plan</code></li>
 <li><code>terraform apply</code></li>
 </ul>
@@ -742,10 +746,10 @@ variable &#34;desired_instances&#34; {
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>

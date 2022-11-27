@@ -9,7 +9,7 @@
   <title>SSOA Extra Lab - Encrypting Secrets with SOPS and KMS</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
   <style>
     .success {
       color: #1e8e3e;
@@ -63,7 +63,7 @@
 <ul>
 <li>Open the AWS Console</li>
 <li>Type Roles in the Search Bar and select &#34;Roles (IAM Feature)&#34;</li>
-<li>Click on &#34;Create Role&#34;  <ul>
+<li>Click on &#34;Create Role&#34; <ul>
 <li>AWS Service</li>
 <li>EC2</li>
 <li>Next: Permissions</li>
@@ -86,7 +86,7 @@
     
       <google-codelab-step label="Get your AWS Configuration" duration="0">
         <ul>
-<li>In the AWS Academy  <ul>
+<li>In the AWS Academy<ul>
 <li>Click on AWS Details</li>
 <li>Show AWS CLI Credentials and copy them</li>
 </ul>
@@ -123,14 +123,20 @@ aws ec2 authorize-security-group-ingress \
 <p>For the further progress of this lab, it&#39;s the easiest way to store the PEM Key in ~/.ssh/labsuser.pem</p>
 <h2 is-upgraded>Get the Name of this Instance / Connect to the Instance</h2>
 <ul>
-<li>Get the name of the Instance and write it to an environment variable <br><code>INSTANCE_HOSTNAME=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=sops-instance" --query "Reservations[].Instances[].PublicDnsName" --out text | xargs)<br></code></li>
-<li>Print the hostname  <pre><code>echo &#34;ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}&#34;
-</code></pre>
-</li>
-<li>SSH to the Instance  <pre><code>ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
-</code></pre>
-</li>
+<li>Get the name of the Instance and write it to an environment variable</li>
 </ul>
+<pre><code>INSTANCE_HOSTNAME=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=sops-instance&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs)
+</code></pre>
+<ul>
+<li>Print the hostname</li>
+</ul>
+<pre><code>echo &#34;ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}&#34;
+</code></pre>
+<ul>
+<li>SSH to the Instance</li>
+</ul>
+<pre><code>ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
+</code></pre>
 <aside class="warning"><p> Ensure that your SSH Key has the correct permissions eg. `chmod 400 ~/.ssh/labsuser.pem` </p>
 </aside>
 
@@ -144,8 +150,12 @@ aws ec2 authorize-security-group-ingress \
 <p>Install SOPS using <code>brew install sops</code></p>
 <h2 is-upgraded>On Linux</h2>
 <ul>
-<li>Download SOPS and copy it to /usr/local/bin <br><code>curl -sfL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /tmp/sops<br>chmod a+x /tmp/sops<br>sudo cp /tmp/sops /usr/local/bin/ <br></code></li>
+<li>Download SOPS and copy it to /usr/local/bin</li>
 </ul>
+<pre><code>curl -sfL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /tmp/sops
+chmod a+x /tmp/sops
+sudo cp /tmp/sops /usr/local/bin/ 
+</code></pre>
 
 
       </google-codelab-step>
@@ -157,24 +167,24 @@ aws ec2 authorize-security-group-ingress \
 </ul>
 <p class="image-container"><img alt="Key Management Service" src="img/6b7d978cd181a646.png"></p>
 <ul>
-<li>Click on &#34;Create a Key&#34;  <ul>
+<li>Click on &#34;Create a Key&#34;<ul>
 <li>Symmetric Key</li>
 <li>Key material origin: KMS</li>
 <li>Regionality: Single-region key</li>
 <li>Next</li>
 </ul>
 </li>
-<li>Alias description  <ul>
+<li>Alias description<ul>
 <li>Name: sops-demo-key</li>
 <li>Next</li>
 </ul>
 </li>
-<li>Key Administrators  <ul>
+<li>Key Administrators<ul>
 <li>None</li>
 <li>Next</li>
 </ul>
 </li>
-<li>Key Users  <ul>
+<li>Key Users<ul>
 <li>LabRole</li>
 <li>Next</li>
 </ul>
@@ -194,15 +204,22 @@ aws ec2 authorize-security-group-ingress \
       <google-codelab-step label="Create your secret" duration="0">
         <ul>
 <li>If not already done, install SOPS</li>
-<li>Create your config file as follows  <ul>
-<li>execute following steps <br><code>ARN="The ARN you noted down"<br>sops --kms $ARN secret.env<br></code></li>
+<li>Create your config file as follows <ul>
+<li>execute following steps</li>
 </ul>
 </li>
-<li>An editor will open, remove everything and add the following:  <pre><code>APP_SECRET=&#34;my-super-secret-string&#34;
+</ul>
+<pre><code>  ARN=&#34;The ARN you noted down&#34;
+  sops --kms $ARN secret.env
 </code></pre>
-</li>
+<ul>
+<li>An editor will open, remove everything and add the following:</li>
+</ul>
+<pre><code>APP_SECRET=&#34;my-super-secret-string&#34;
+</code></pre>
+<ul>
 <li>Close the editor (:x in vi)</li>
-<li>Simply try to open up the file secret.env with a text editor  <ul>
+<li>Simply try to open up the file secret.env with a text editor <ul>
 <li>You should see that the variable itself is shown in clear-text, but the secret is encrypted</li>
 <li>Furthermore, you should see that the arn of the AWS Key is stated in this file now, this makes it possible for you to open the file using <code>sops secret.env</code> now</li>
 <li>Close the file again</li>
@@ -216,50 +233,74 @@ aws ec2 authorize-security-group-ingress \
     
       <google-codelab-step label="Use your secret" duration="0">
         <ul>
-<li>Now, copy the secret to your server <code>bash<br>scp -i ~/.ssh/labsuser.pem secret.env ec2-user@${INSTANCE_HOSTNAME}:/tmp/secret.env</code><br> * SSH to the Instance &#34;`</li>
+<li>Now, copy the secret to your server</li>
 </ul>
-<p>ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}</p>
-<pre><code>### Install the sample application
-* Download the sample application
-```bash
-curl -sfL https://github.com/fhb-codelabs/secret-demo-app/releases/download/0.0.1/secret-demo-app-linux-amd64 -o /tmp/secret-demo-app
+<pre><code language="language-bash" class="language-bash">scp -i ~/.ssh/labsuser.pem secret.env ec2-user@${INSTANCE_HOSTNAME}:/tmp/secret.env
+</code></pre>
+<ul>
+<li>SSH to the Instance</li>
+</ul>
+<pre><code>ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME}
+</code></pre>
+<h2 is-upgraded>Install the sample application</h2>
+<ul>
+<li>Download the sample application</li>
+</ul>
+<pre><code language="language-bash" class="language-bash">curl -sfL https://github.com/fhb-codelabs/secret-demo-app/releases/download/0.0.1/secret-demo-app-linux-amd64 -o /tmp/secret-demo-app
 chmod a+x /tmp/secret-demo-app
 </code></pre>
 <ul>
-<li>Create the directory /opt/demo-app if it doesn&#39;t exist <code>bash<br>if [[ ! -d /opt/demo-app ]]; then <br>sudo mkdir /opt/demo-app<br>fi</code><br> * Move the Binary <code>bash<br>sudo mv /tmp/secret-demo-app /opt/demo-app<br></code></li>
+<li>Create the directory /opt/demo-app if it doesn&#39;t exist</li>
 </ul>
+<pre><code language="language-bash" class="language-bash">if [[ ! -d /opt/demo-app ]]; then 
+  sudo mkdir /opt/demo-app
+fi
+</code></pre>
+<ul>
+<li>Move the Binary</li>
+</ul>
+<pre><code language="language-bash" class="language-bash">sudo mv /tmp/secret-demo-app /opt/demo-app
+</code></pre>
 <h2 is-upgraded>Set the environment and start the application</h2>
 <ul>
-<li>Run the application  <pre><code>/opt/demo-app/secret-demo-app
+<li>Run the application</li>
+</ul>
+<pre><code>/opt/demo-app/secret-demo-app
 </code></pre>
-</li>
-<li>You should see the following output now  <pre><code>2021/10/08 16:56:49 No port is set, defaulting to 8080
+<ul>
+<li>You should see the following output now</li>
+</ul>
+<pre><code>2021/10/08 16:56:49 No port is set, defaulting to 8080
 2021/10/08 16:56:49 Secret to start this up is missing, the APP_SECRET environment variable might be unset
 </code></pre>
-</li>
-</ul>
 <aside class="warning"><p> If the environment variable APP_PORT is not set, it will default to Port 8080 (therefore, the port is configurable). If it doesn&#39;t find a secret in the APP_SECRET environment variable, it will fail as now </p>
 </aside>
 <ul>
-<li>Set the environment variables from our secret file using sops  <pre><code>export $(sops --decrypt /tmp/secret.env | xargs)
+<li>Set the environment variables from our secret file using sops</li>
+</ul>
+<pre><code>export $(sops --decrypt /tmp/secret.env | xargs)
 </code></pre>
-</li>
-<li>Run the application again  <pre><code>/opt/demo-app/secret-demo-app
+<ul>
+<li>Run the application again</li>
+</ul>
+<pre><code>/opt/demo-app/secret-demo-app
 </code></pre>
-</li>
+<ul>
 <li>The application should start now</li>
 </ul>
 <h2 is-upgraded>Verify</h2>
 <ul>
 <li>Open a new ssh session to the server</li>
-<li>Verify the output of the application (you should see your secret)  <pre><code>curl http://localhost:8080
+<li>Verify the output of the application (you should see your secret)</li>
+</ul>
+<pre><code>curl http://localhost:8080
 </code></pre>
-</li>
-<li>This should result in the following output:  <pre><code>&gt; curl localhost:8080
+<ul>
+<li>This should result in the following output:</li>
+</ul>
+<pre><code>&gt; curl localhost:8080
 Hi there, your secret is my-super-secret-string
 </code></pre>
-</li>
-</ul>
 <aside class="special"><p> Congratulations, you have successfully created your SOPS secret and used KMS to encrypt and decrypt it! </p>
 </aside>
 
@@ -269,41 +310,58 @@ Hi there, your secret is my-super-secret-string
       <google-codelab-step label="Counter-Check" duration="0">
         <p>If we create a virtual machine without the instance profile, we shouldn&#39;t be able to decrypt the secret.</p>
 <ul>
-<li>Therefore, we create a new machine:  <pre><code>aws ec2 run-instances --image-id ami-087c17d1fe0178315 --instance-type t2.micro --tag-specifications &#34;ResourceType=instance,Tags=[{Key=Name,Value=sops-instance-2}]&#34; --key-name vockey --security-groups &#34;sops-lab-ssh-in&#34; --output table
+<li>Therefore, we create a new machine:</li>
+</ul>
+<pre><code>aws ec2 run-instances --image-id ami-087c17d1fe0178315 --instance-type t2.micro --tag-specifications &#34;ResourceType=instance,Tags=[{Key=Name,Value=sops-instance-2}]&#34; --key-name vockey --security-groups &#34;sops-lab-ssh-in&#34; --output table
 </code></pre>
-</li>
-<li>Get the name of the Instance and write it to an environment variable  <pre><code>INSTANCE_HOSTNAME_2=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=sops-instance-2&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs)
+<ul>
+<li>Get the name of the Instance and write it to an environment variable</li>
+</ul>
+<pre><code>INSTANCE_HOSTNAME_2=$(aws ec2 describe-instances --filters &#34;Name=tag:Name,Values=sops-instance-2&#34; --query &#34;Reservations[].Instances[].PublicDnsName&#34; --out text | xargs)
 </code></pre>
-</li>
-<li>Print the hostname  <pre><code>echo &#34;ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME_2}&#34;
+<ul>
+<li>Print the hostname</li>
+</ul>
+<pre><code>echo &#34;ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME_2}&#34;
 </code></pre>
-</li>
-<li>SSH to the Instance  <pre><code>ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME_2}
+<ul>
+<li>SSH to the Instance</li>
+</ul>
+<pre><code>ssh -i ~/.ssh/labsuser.pem ec2-user@${INSTANCE_HOSTNAME_2}
 </code></pre>
-</li>
-<li>Install SOPS  <pre><code>curl -sfL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /tmp/sops
+<ul>
+<li>Install SOPS</li>
+</ul>
+<pre><code>curl -sfL https://github.com/mozilla/sops/releases/download/v3.7.1/sops-v3.7.1.linux -o /tmp/sops
 chmod a+x /tmp/sops
 sudo cp /tmp/sops /usr/local/bin/ 
 </code></pre>
-</li>
-<li>Copy the encrypted secret from the Developer Machine  <pre><code language="language-bash" class="language-bash">scp -i ~/.ssh/labsuser.pem secret.env ec2-user@${INSTANCE_HOSTNAME_2}:/tmp/secret.env
+<ul>
+<li>Copy the encrypted secret from the Developer Machine</li>
+</ul>
+<pre><code language="language-bash" class="language-bash">scp -i ~/.ssh/labsuser.pem secret.env ec2-user@${INSTANCE_HOSTNAME_2}:/tmp/secret.env
 </code></pre>
 <ul>
-<li>Try to open the secret (on the server) &#34;`</li>
+<li>Try to open the secret (on the server)</li>
 </ul>
-</li>
+<pre><code>sops --decrypt /tmp/secret.env
+</code></pre>
+<ul>
+<li>You should see the following error message:</li>
 </ul>
-<p>sops –decrypt /tmp/secret.env</p>
-<pre><code>* You should see the following error message:
+<pre><code>Failed to get the data key required to decrypt the SOPS file.
+
+Group 0: FAILED
+  arn:aws:kms:us-east-1:&lt;REDACTED&gt;: FAILED
+    - | Error decrypting key: NoCredentialProviders: no valid
+      | providers in chain. Deprecated.
+      | 	For verbose messaging see
+      | aws.Config.CredentialsChainVerboseErrors
+
+Recovery failed because no master key was able to decrypt the file. In
+order for SOPS to recover the file, at least one key has to be successful,
+but none were.
 </code></pre>
-<p>Failed to get the data key required to decrypt the SOPS file.</p>
-<p>Group 0: FAILED   arn:aws:kms:us-east-1:: FAILED</p>
-<pre><code>- | Error decrypting key: NoCredentialProviders: no valid
-  | providers in chain. Deprecated.
-  | 	For verbose messaging see
-  | aws.Config.CredentialsChainVerboseErrors
-</code></pre>
-<p>Recovery failed because no master key was able to decrypt the file. In order for SOPS to recover the file, at least one key has to be successful, but none were. &#34;` </p>
 <aside class="special"><p> The secret can only be decrypted, when the InstanceProfile is assigned </p>
 </aside>
 
@@ -312,10 +370,10 @@ sudo cp /tmp/sops /usr/local/bin/
     
   </google-codelab>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>

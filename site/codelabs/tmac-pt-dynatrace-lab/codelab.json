@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-10-22T19:00:27+02:00",
+  "updated": "2022-04-02T09:19:05+02:00",
   "id": "tmac-pt-dynatrace-lab",
   "duration": 6,
   "title": "TMAC Lab 1 - Monitor a Microservice Application using Dynatrace",
   "authors": "Thomas Schuetz",
   "summary": "Lab 1 - Monitor a Microservice Application using Dynatrace",
-  "source": "tmac-pt-dynatrace-lab.md",
+  "source": "",
   "theme": "",
   "status": [
     "published"

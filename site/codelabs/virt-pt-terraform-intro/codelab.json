@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-11-26T13:25:58+01:00",
+  "updated": "2021-11-26T10:34:44+01:00",
   "id": "virt-pt-terraform-intro",
   "duration": 0,
   "title": "VIRT Lab 1 - Terraform Introduction",
   "authors": "Thomas Schuetz",
   "summary": "Lab 1 - Terraform Introduction",
-  "source": "virt-pt-terraform-intro.md",
+  "source": "",
   "theme": "",
   "status": [
     "published"
