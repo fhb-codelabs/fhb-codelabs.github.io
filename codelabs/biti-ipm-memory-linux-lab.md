@@ -330,7 +330,7 @@ In this codelab, you will need the following tools:
 * Stress
 * htop
 
-Details of the **Stress** tool can be found in the corresponding Codelab named `Stress the computer`,  details of the **htop** can be found in the Codelab `Compute`
+Details of the **Stress** tool can be found in the corresponding Codelab named `Stress`,  details of the **htop** command can be found in the Codelab `Compute`
 
 ### Scenario
 
