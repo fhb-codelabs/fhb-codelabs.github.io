@@ -98,7 +98,7 @@ Without the --all flag, nproc will display the number of processing units availa
 Use the --help flag for more information.
 </aside>
 
-### Documentation
+### References
 
 Need help or list of parameters? Use this:
 ```
@@ -206,7 +206,7 @@ The output shows the CPU information:
 * Thread per core: 2 
 * Total threads: 4
 
-### Documentation
+### References
 
 Need help? Use this:
 ```
@@ -319,7 +319,7 @@ cpu cores   : 2
 The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores.
 </aside>
 
-### Documentation
+### References
 
 Need help? Use this:
 ```
@@ -424,7 +424,7 @@ Finally, the hwinfo has an option to log all data to a file. The following comma
 hwinfo --all --log hardware_info.txt
 ```
 
-### Documentation
+### References
 
 Need help? Use this:
 ```
@@ -530,7 +530,7 @@ Sample output:
 	Thread Count: 4
 ```
 
-### Documentation
+### References
 
 Need help? Use this:
 ```
@@ -576,7 +576,7 @@ Sample output:
 Number of CPU/cores online at server: 4
 ```
 
-### Documentation
+### References
 
 Need help? Use this:
 ```
@@ -613,7 +613,7 @@ CPU 0:
 ```
 Note that the command provides additional information about CPU caches, number of cores, brand strings, etc.
 
-### Documentation
+### References
 
 Need help or more information about parameters? Use this:
 ```
@@ -671,7 +671,7 @@ watch uptime
 Consult the documentation about the CPU load average, its meaning and how to interpret the numbers.
 </aside>
 
-### Documentation
+### References
 
 How many pages has this manual? Find it out:
 ```
@@ -702,7 +702,7 @@ The first five lines (also called the Header Block) provide a summary about the 
 Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it.
 </aside>
 
-### Documentation
+### References
 
 Need more help or unsure? Use this:
 ```
@@ -733,7 +733,7 @@ The top section is more easier to read and the bottom section is better organize
 Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it.
 </aside>
 
-### Documentation
+### References
 
 The Hitchhiker's manual:
 ```
@@ -833,7 +833,7 @@ Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results.
 </aside>
 
-### Documentation
+### References
 
 Need any help? Use this anyway:
 ```

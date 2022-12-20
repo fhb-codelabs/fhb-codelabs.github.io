@@ -31,8 +31,8 @@
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>Hosts and services can be monitored in two ways:</p>
 <ul>
-<li>Use of Simple Host Monitoring (Agentless) This involves the use of services that are accessible across the local network or the Internet for example include HTTP, SSH, ICMP etc. This method is fit for monitoring hosts on which monitoring agents cannot be installed.</li>
-<li>Use of Monitoring Agents In this method, an agent is required in order to monitor host and services like CPU load, disk space, memory and the running process. In this configuration, Icinga 2 acts as the master node and the remote host acts as the client node.</li>
+<li><strong>Use of Simple Host Monitoring (Agentless):</strong> This involves the use of services that are accessible across the local network or the Internet for example include HTTP, SSH, ICMP etc. This method is fit for monitoring hosts on which monitoring agents cannot be installed.</li>
+<li><strong>Use of Monitoring Agents (Agentbased):</strong> In this method, an agent is required in order to monitor host and services like CPU load, disk space, memory and the running process. In this configuration, Icinga 2 acts as the master node and the remote host acts as the client node.</li>
 </ul>
 <p>In this codelab you will learn</p>
 <ul>
@@ -45,8 +45,8 @@
 <h3 is-upgraded>Icinga2 instances</h3>
 <p>In this codelab you will need two virtual machines:</p>
 <ol type="1">
-<li>A working Icinga2 instance (called server) that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab <strong>BITI IPM Lab - Icinga Installation</strong> how to install Icinga2 on your local computer.</li>
-<li>A working Debian instance (called node) where you will install Icinga2 Agent software for remote monitoring. Contact your instructor where to download it. Import the virtual machine by using the &#34;Import Appliance&#34; command of Virtual Box.</li>
+<li>A working Icinga2 instance (called server,master) that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab <strong>BITI IPM Lab - Icinga Installation</strong> how to install Icinga2 on your local computer.</li>
+<li>A working Debian instance (called node, client) where you will install Icinga2 Agent software for remote monitoring. Contact your instructor where to download it. Import the virtual machine by using the &#34;Import Appliance&#34; command of Virtual Box.</li>
 </ol>
 <p>Both virtual machines run on Debian 11 but the specification of the node instance differs from the server instance. First, the node instance has no GUI, all commands have to be executed on the console. Second, the hardware is limited to 1 CPU core with 1 GB Ram to ensure that you HostOS (= your laptop) will not be overloaded.</p>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
@@ -119,7 +119,7 @@ Now restart your Icinga 2 daemon to finish the installation!
 <p>Run the commands below on the master node to generate the ticket for your client node:</p>
 <pre><code>icinga2 pki ticket --cn &#39;node&#39; 
 </code></pre>
-<p>The command will output a ticket similar to the following:</p>
+<p>The command will print a ticket on screen:</p>
 <pre><code>3bcb8a06466706f6a5d5f541c175004149e6dbb2 
 </code></pre>
 <p>In this codelab, we will assume the key above. Save your key as you will require it later while setting up the client nodes.</p>

@@ -67,7 +67,7 @@ Enable anonymous usage / statistics reporting (y/n): N
 Do no enable anonymus usage.
 </aside>
 
-### Documentation
+### References
 
 Need help? Use this link:
 

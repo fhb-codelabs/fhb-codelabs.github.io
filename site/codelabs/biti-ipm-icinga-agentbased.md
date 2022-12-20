@@ -13,11 +13,9 @@ authors: Roland Pellegrini
 
 Hosts and services can be monitored in two ways:
 
-- Use of Simple Host Monitoring (Agentless)
-This involves the use of services that are accessible across the local network or the Internet for example include HTTP, SSH, ICMP etc. This method is fit for monitoring hosts on which monitoring agents cannot be installed.
+- **Use of Simple Host Monitoring (Agentless):** This involves the use of services that are accessible across the local network or the Internet for example include HTTP, SSH, ICMP etc. This method is fit for monitoring hosts on which monitoring agents cannot be installed.
 
-- Use of Monitoring Agents
-In this method, an agent is required in order to monitor host and services like CPU load, disk space, memory and the running process. In this configuration, Icinga 2 acts as the master node and the remote host acts as the client node.
+- **Use of Monitoring Agents (Agentbased):** In this method, an agent is required in order to monitor host and services like CPU load, disk space, memory and the running process. In this configuration, Icinga 2 acts as the master node and the remote host acts as the client node.
 
 In this codelab you will learn
 
@@ -35,9 +33,9 @@ The best source of documentation is the homepage of Icinga2. The latest document
 
 In this codelab you will need two virtual machines:
 
-1. A working Icinga2 instance (called server) that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab **BITI IPM Lab - Icinga Installation** how to install Icinga2 on your local computer.
+1. A working Icinga2 instance (called server,master) that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab **BITI IPM Lab - Icinga Installation** how to install Icinga2 on your local computer.
 
-2. A working Debian instance (called node) where you will install Icinga2 Agent software for remote monitoring. Contact your instructor where to download it. Import the virtual machine by using the "Import Appliance" command of Virtual Box.
+2. A working Debian instance (called node, client) where you will install Icinga2 Agent software for remote monitoring. Contact your instructor where to download it. Import the virtual machine by using the "Import Appliance" command of Virtual Box.
 
 Both virtual machines run on Debian 11 but the specification of the node instance differs from the server instance. First, the node instance has no GUI, all commands have to be executed on the console. Second, the hardware is limited to 1 CPU core with 1 GB Ram to ensure that you HostOS (= your laptop) will not be overloaded. 
 
@@ -141,7 +139,7 @@ Run the commands below on the master node to generate the ticket for your client
 icinga2 pki ticket --cn 'node' 
 ```
 
-The command will output a ticket similar to the following:
+The command will print a ticket on screen:
 ```
 3bcb8a06466706f6a5d5f541c175004149e6dbb2 
 ```

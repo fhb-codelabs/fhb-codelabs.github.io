@@ -99,7 +99,7 @@ lspci
 
 The list shows the model of the Ethernet controller, but not the network device interfaces. For this we need another tool.
 
-### Reference
+### References
 
 Need help? Use this:
 ```
@@ -188,7 +188,7 @@ In addition, the tool also reports the Ethernet Network Interface (which is atta
   Config Status: cfg=new, avail=yes, need=no, active=unknown
 ```
 
-### Reference
+### References
 
 More information needed? See here:
 ```
@@ -229,9 +229,9 @@ The output will look different from yours:
 At this point, check how the outputs of lspci, hwinfo and ip are linked together! 
 </aside>
 
-### Reference
+### References
 
-Manuals for almost everything:
+Read the manual for more information:
 ```
 man ip
 ```
@@ -294,9 +294,9 @@ NAME                UUID                                  TYPE      DEVICE
 Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3 
 ```
 
-### Reference
+### References
 
-No excuses anymore. Read the manual, student!
+Read the manual:
 ```
 man nmcli
 ```
@@ -461,12 +461,11 @@ sudo etherape
 
 In contrast to other network monitors, Etherape visualizes the logged connections in a graphical representation. The approach of the open source program is intuitive: Each IP address is graphically represented as a node, connection lines trace the transmitted data. The thickness of the lines shows the data volume of the corresponding connection between the nodes and the color of the lines shows the protocol used in each case. 
 
-### Reference
+### References
 
-Documentation:
-```
-{Etherape on Sourceforge](https://etherape.sourceforge.io/)
-```
+Online documentation:
+
+[Etherape on Sourceforge](https://etherape.sourceforge.io/)
 
 ## monitorix
 
@@ -533,9 +532,7 @@ After clicking on the OK button, monitorix will show up the **Netstat statistic*
 ### Reference
 
 No manual, but documented online:
-```
-{Monitorix](https://www.monitorix.org/)
-```
+[Monitorix](https://www.monitorix.org/)
 
 
 ## cockpit
@@ -578,12 +575,10 @@ The Networking section allows you to manage firewall and network interfaces. You
 Please note that essential software components have not been installed on this virtual machine. Therefore, some important functionalities are missing in Cockpit, such as tools for a proper firewall configuration. 
 </aside>
 
-### Reference
+### References
 
 No manual, but still documented:
-```
 [cockpit](https://cockpit-project.org/)
-```
 
 
 ## Hands-on
