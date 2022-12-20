@@ -21,7 +21,7 @@ In this codelab you will learn
 
 ###  Where You Can Look Up
 
-Documentation about the Phoronix Test Suite can be found at [https://www.phoronix-test-suite.com/?k=home](https://www.phoronix-test-suite.com/?k=home)
+Documentation about the Phoronix Test Suite can be found [here](https://www.phoronix-test-suite.com).
 
 
 ### What You'll need
@@ -50,30 +50,35 @@ sudo dpkg -i phoronix-test-suite_10.6.1_all.deb
 sudo apt-get install -f
 ```
 
-Once the softare suite is installed, run it for the first time. It will ask you a couple of questions and then show you the User Agreement:
+Once the software suite is installed, run it for the first time. It will ask you a couple of questions and then show you the User Agreement License (UAL):
 
 ```
 phoronix-test-suite
 ```
 
 Note, that you have to accept the terms, but do not enable anonymus usage.
+
 ```
 Do you agree to these terms and wish to proceed (y/n): Y
 Enable anonymous usage / statistics reporting (y/n): N
 ```
 
+<aside class="negative">
+Do no enable anonymus usage.
+</aside>
+
 ### Documentation
 
-Need help? Use this:
-```
-[https://github.com/phoronix-test-suite/phoronix-test-suite/blob/master/documentation/phoronix-test-suite.md](https://github.com/phoronix-test-suite/phoronix-test-suite/blob/master/documentation/phoronix-test-suite.md)
-```
+Need help? Use this link:
+
+[Phoronix Documentation](https://github.com/phoronix-test-suite/phoronix-test-suite/blob/master/documentation/phoronix-test-suite.md)
+
 
 
 ## Information
 
 ### Description
-The following command displays the installed system hardware and software information as detected by the Phoronix Test Suite Phodevi Library.
+The following command displays the installed system hardware and software information as detected by the Phoronix Test Suite.
 
 ```
 phoronix-test-suite system-info
@@ -151,7 +156,7 @@ Or you can look for groups (suites) of tests:
 phoronix-test-suite list-available-suites
 ```
 
-The output of the command including the option `list-available-suites` above may look like this:
+The command above will show you a list of available test suites:
 ```
 Phoronix Test Suite v10.6.1
 Available Suites
@@ -194,7 +199,7 @@ Now can get information on `pts/java` suite:
 phoronix-test-suite info pts/java
 ```
 
-The output of the command including the parameter `pts/java` above may look like this:
+The command above will show you core information about the phoronix-test-suite package:
 
 ```
 Phoronix Test Suite v10.6.1

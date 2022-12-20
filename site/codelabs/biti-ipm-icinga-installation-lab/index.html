@@ -183,31 +183,31 @@ Oct 16 22:43:29 server /etc/mysql/debian-start[26501]: Checking for insecure roo
 <pre><code>sudo apt install icinga2-ido-mysql
 </code></pre>
 <p>During installation, you are prompted to specify whether Icinga 2 should use MySQL. Select <code>Yes</code> to enable this feature. <img alt="Windows Registry" src="img/30a9a7d2405ef3e9.png"></p>
-<p>Then you are prompted to specify whether database should be configured with dbconfig-common. Select <code>Yes</code> to enable dbconfig-common. <img alt="Windows Registry" src="img/497d42626ce95356.png"></p>
+<p>Next, you are prompted to specify whether database should be configured with dbconfig-common. Select <code>Yes</code> to enable dbconfig-common. <img alt="Windows Registry" src="img/497d42626ce95356.png"></p>
 <aside class="special"><p> Dbconfig-common is not completely uncircumvented. This framework presents a policy and implementation for managing various databases used by applications included in Debian packages. <br><br> Some database administrators simply don&#39;t like the dbconfig-common framework.  <br><br> However, we choose this option because we don&#39;t want to administrate a database. Instead, we just want to use it for demonstration purpose only. </p>
 </aside>
 <p>Next,  you will be prompt to provide MySQL application password for icinga2-ido-mysql as shown in the following screen. To keep things easy, use <code>icinga2</code> as password.</p>
 <aside class="warning"><p> Warning:  <br> Under no circumstances do not use this password in other systems or environments, especially not in a production system. We use this password to ensure a smooth installation process during the lecture and to eliminate potential sources of error. </p>
 </aside>
 <p class="image-container"><img alt="Windows Registry" src="img/845c56b52b953161.png"></p>
-<p>You have to repeat the password. Type <code>icinga2</code> and hit <strong>ENTER</strong>.</p>
+<p>You have to repeat the password. Type <code>icinga2</code> again and hit <strong>ENTER</strong>.</p>
 <p class="image-container"><img alt="Windows Registry" src="img/79b656c29e380576.png"></p>
-<p>Finally, you have check if <code>ido-mysql</code> feature is enabled. For this, run the command:</p>
+<p>Finally, you have check if <code>ido-mysql</code> feature is enabled. Run the command:</p>
 <pre><code>sudo icinga2 feature list
 </code></pre>
-<p>The command above may show up the following output:</p>
+<p>The command above lists both disabled and enabled features:</p>
 <pre><code>Disabled features: api command compatlog debuglog elasticsearch gelf graphite icingadb ido-mysql influxdb livestatus opentsdb perfdata statusdata syslog
 
 Enabled features: checker mainlog notification
 </code></pre>
 <p>As shown in the output, only the features <code>checker mainlog notification</code> are enabled whereas the feature <code>ido-mysql</code> is disabled.</p>
-<p>Enable it with the following command:</p>
+<p>Enable the feature <code>ido-mysql</code> with the following command:</p>
 <pre><code>sudo icinga2 feature enable ido-mysql
 </code></pre>
 <p>Check, if <code>ido-mysql</code> feature is enabled now. Run the command:</p>
 <pre><code>sudo icinga2 feature list
 </code></pre>
-<p>The command should show up the following output:</p>
+<p>Note that the feature <code>ido-mysql</code> is activated now.</p>
 <pre><code>Disabled features: api command compatlog debuglog elasticsearch gelf graphite icingadb influxdb livestatus opentsdb perfdata statusdata syslog
 
 Enabled features: checker ido-mysql mainlog notification
@@ -249,7 +249,7 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
 <p>If you have modified <code>/etc/icinga2/features-available/ido-mysql.conf</code> then restart the Icinga2 service with the following command:</p>
 <pre><code>sudo systemctl restart icinga2
 </code></pre>
-<aside class="special"><p> Please take into consideration that you will restart icinga2 more than once. Icinga2 uses configuration files which are only read during a restart.  </p>
+<aside class="special"><p> Please note that you will restart icinga2 multiple times. The reason is that Icinga2 ignores configuration file updates if the service is not restarted.  </p>
 </aside>
 
 
@@ -261,21 +261,21 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
 <pre><code>sudo apt install icingaweb2
 </code></pre>
 <h2 is-upgraded>Authentication Token</h2>
-<p>Icinga web setup requires authentication using tokens. To generate the authentication token, run the command below:</p>
+<p>Icinga web setup requires authentication using tokens. To generate the authentication token, run the next command:</p>
 <pre><code>sudo icingacli setup token create 
 </code></pre>
-<p>This will generate such a token as follows:</p>
+<p>The command above will generate a token as follows:</p>
 <pre><code>The newly generated setup token is: **7fb3fb0cbae252b3**
 </code></pre>
 <p>You can always display the taken using the command:</p>
 <pre><code>sudo icingacli setup token show
 </code></pre>
-<aside class="special"><p> You will need this token later for the frontend wizard. </p>
+<aside class="special"><p> You will need this token for the frontend wizard. </p>
 </aside>
-<p>Next, ensure that the icingaweb2 system group exists and that the web server user, www-data, is a member of the group.</p>
+<p>Next, ensure that the icingaweb2 system group exists and that the web server user <code>www-data</code> is a member of the group.</p>
 <pre><code>sudo id www-data
 </code></pre>
-<p>This will dispaly a message as follows:</p>
+<p>This will display a message as follows:</p>
 <pre><code>uid=33(www-data) gid=33(www-data) groups=33(www-data),117(icingaweb2)
 </code></pre>
 <h2 is-upgraded>Restart Apache Web Server</h2>
@@ -298,7 +298,7 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
 <p>MariaDB/MySQL answers with:</p>
 <pre><code>Query OK, 1 row affected (0.001 sec)
 </code></pre>
-<aside class="special"><p> Some people may ask why the name of the database does not end with db (e.g. icingaweb2db). I have been trying to find an answer as to why I should name a database with the extension db, just to indicate that it really is a database. With no success. </p>
+<aside class="special"><p> Some people may wonder why the name of the database does not end with db (e.g. icingaweb2db). I tried to find an answer to this question to show that it really is a database. But without success. </p>
 </aside>
 <p>Create Icinga 2 database user. Remember, we want to keep things easy.</p>
 <pre><code>grant all on icingaweb2.* to icingaweb2@localhost identified by &#39;icingaweb2&#39;;

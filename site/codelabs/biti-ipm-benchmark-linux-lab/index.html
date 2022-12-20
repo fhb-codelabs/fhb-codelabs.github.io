@@ -37,7 +37,7 @@
 <li>how to perform a benchmark run</li>
 </ul>
 <h2 is-upgraded>Where You Can Look Up</h2>
-<p>Documentation about the Phoronix Test Suite can be found at <a href="https://www.phoronix-test-suite.com/?k=home" target="_blank">https://www.phoronix-test-suite.com/?k=home</a></p>
+<p>Documentation about the Phoronix Test Suite can be found <a href="https://www.phoronix-test-suite.com" target="_blank">here</a>.</p>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
 <p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
@@ -55,24 +55,25 @@
 <pre><code>sudo dpkg -i phoronix-test-suite_10.6.1_all.deb
 sudo apt-get install -f
 </code></pre>
-<p>Once the softare suite is installed, run it for the first time. It will ask you a couple of questions and then show you the User Agreement:</p>
+<p>Once the software suite is installed, run it for the first time. It will ask you a couple of questions and then show you the User Agreement License (UAL):</p>
 <pre><code>phoronix-test-suite
 </code></pre>
 <p>Note, that you have to accept the terms, but do not enable anonymus usage.</p>
 <pre><code>Do you agree to these terms and wish to proceed (y/n): Y
 Enable anonymous usage / statistics reporting (y/n): N
 </code></pre>
+<aside class="warning"><p> Do no enable anonymus usage. </p>
+</aside>
 <h2 is-upgraded>Documentation</h2>
-<p>Need help? Use this:</p>
-<pre><code>[https://github.com/phoronix-test-suite/phoronix-test-suite/blob/master/documentation/phoronix-test-suite.md](https://github.com/phoronix-test-suite/phoronix-test-suite/blob/master/documentation/phoronix-test-suite.md)
-</code></pre>
+<p>Need help? Use this link:</p>
+<p><a href="https://github.com/phoronix-test-suite/phoronix-test-suite/blob/master/documentation/phoronix-test-suite.md" target="_blank">Phoronix Documentation</a></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Information" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>The following command displays the installed system hardware and software information as detected by the Phoronix Test Suite Phodevi Library.</p>
+<p>The following command displays the installed system hardware and software information as detected by the Phoronix Test Suite.</p>
 <pre><code>phoronix-test-suite system-info
 </code></pre>
 <p>The output of the command including the option <code>system-info</code> above may look like this:</p>
@@ -137,7 +138,7 @@ pts/ashes-escalation        Ashes of the Singulairty: Escalation              Gr
 <p>Or you can look for groups (suites) of tests:</p>
 <pre><code>phoronix-test-suite list-available-suites
 </code></pre>
-<p>The output of the command including the option <code>list-available-suites</code> above may look like this:</p>
+<p>The command above will show you a list of available test suites:</p>
 <pre><code>Phoronix Test Suite v10.6.1
 Available Suites
 
@@ -167,7 +168,7 @@ Available Suites
 <p>Now can get information on <code>pts/java</code> suite:</p>
 <pre><code>phoronix-test-suite info pts/java
 </code></pre>
-<p>The output of the command including the parameter <code>pts/java</code> above may look like this:</p>
+<p>The command above will show you core information about the phoronix-test-suite package:</p>
 <pre><code>Phoronix Test Suite v10.6.1
 Java
 

@@ -223,7 +223,7 @@ sudo apt install icinga2-ido-mysql
 During installation, you are prompted to specify whether Icinga 2 should use MySQL. Select `Yes` to enable this feature. 
 ![Windows Registry](./img/biti-ipm-icinga-installation-1.png)
 
-Then you are prompted to specify whether database should be configured with dbconfig-common. Select `Yes` to enable dbconfig-common.
+Next, you are prompted to specify whether database should be configured with dbconfig-common. Select `Yes` to enable dbconfig-common.
 ![Windows Registry](./img/biti-ipm-icinga-installation-2.png)
 
 <aside class="positive">
@@ -247,18 +247,18 @@ Under no circumstances do not use this password in other systems or environments
 ![Windows Registry](./img/biti-ipm-icinga-installation-3.png)
 
 
-You have to repeat the password. Type `icinga2` and hit **ENTER**.
+You have to repeat the password. Type `icinga2` again and hit **ENTER**.
 
 ![Windows Registry](./img/biti-ipm-icinga-installation-4.png)
 
 
-Finally, you have check if `ido-mysql` feature is enabled. For this, run the command:
+Finally, you have check if `ido-mysql` feature is enabled. Run the command:
 
 ```
 sudo icinga2 feature list
 ```
 
-The command above may show up the following output:
+The command above lists both disabled and enabled features:
 ```
 Disabled features: api command compatlog debuglog elasticsearch gelf graphite icingadb ido-mysql influxdb livestatus opentsdb perfdata statusdata syslog
 
@@ -267,7 +267,7 @@ Enabled features: checker mainlog notification
 
 As shown in the output, only the features `checker mainlog notification` are enabled whereas the feature `ido-mysql` is disabled.
 
-Enable it with the following command:
+Enable the feature `ido-mysql` with the following command:
 
 ```
 sudo icinga2 feature enable ido-mysql
@@ -278,7 +278,7 @@ Check, if `ido-mysql` feature is enabled now. Run the command:
 sudo icinga2 feature list
 ```
 
-The command should show up the following output:
+Note that the feature `ido-mysql` is activated now.
 ```
 Disabled features: api command compatlog debuglog elasticsearch gelf graphite icingadb influxdb livestatus opentsdb perfdata statusdata syslog
 
@@ -330,7 +330,7 @@ sudo systemctl restart icinga2
 ```
 
 <aside class="positive">
-Please take into consideration that you will restart icinga2 more than once. Icinga2 uses configuration files which are only read during a restart. 
+Please note that you will restart icinga2 multiple times. The reason is that Icinga2 ignores configuration file updates if the service is not restarted. 
 </aside>
 
 ## Icinga Web2 Application
@@ -344,13 +344,13 @@ sudo apt install icingaweb2
 
 ### Authentication Token
 
-Icinga web setup requires authentication using tokens. To generate the authentication token, run the command below:
+Icinga web setup requires authentication using tokens. To generate the authentication token, run the next command:
 
 ```
 sudo icingacli setup token create 
 ```
 
-This will generate such a token as follows:
+The command above will generate a token as follows:
 ```                                    
 The newly generated setup token is: **7fb3fb0cbae252b3**
 ```
@@ -361,21 +361,21 @@ sudo icingacli setup token show
 ```
 
 <aside class="positive">
-You will need this token later for the frontend wizard.
+You will need this token for the frontend wizard.
 </aside>
 
-Next, ensure that the icingaweb2 system group exists and that the web server user, www-data, is a member of the group.
+Next, ensure that the icingaweb2 system group exists and that the web server user `www-data` is a member of the group.
 
 ```                                    
 sudo id www-data
 ```
 
-This will dispaly a message as follows:
+This will display a message as follows:
 
 ```                                    
 uid=33(www-data) gid=33(www-data) groups=33(www-data),117(icingaweb2)
 ```
- 
+
 ### Restart Apache Web Server
 
 Make sure that the web server accepts all changes.
@@ -407,7 +407,7 @@ Query OK, 1 row affected (0.001 sec)
 ```
 
 <aside class="positive">
-Some people may ask why the name of the database does not end with db (e.g. icingaweb2db). I have been trying to find an answer as to why I should name a database with the extension db, just to indicate that it really is a database. With no success.
+Some people may wonder why the name of the database does not end with db (e.g. icingaweb2db). I tried to find an answer to this question to show that it really is a database. But without success.
 </aside>
 
 Create Icinga 2 database user. Remember, we want to keep things easy.

@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-11-21T08:33:26+01:00",
+  "updated": "2022-12-20T09:29:42+01:00",
   "id": "ssoa-pt-sops-kms",
   "duration": 0,
   "title": "SSOA Extra Lab - Encrypting Secrets with SOPS and KMS",
   "authors": "Thomas Schuetz",
   "summary": "SSOA Extra Lab - Mozilla SOPS and Amazon KMS",
-  "source": "",
+  "source": "ssoa-pt-secrets-aws-sops.md",
   "theme": "",
   "status": [
     "published"
