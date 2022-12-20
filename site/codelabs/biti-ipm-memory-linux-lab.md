@@ -115,7 +115,7 @@ Consult the documentation and man-pages for more details. Try to identify keywor
 </aside>
 
 
-### Reference
+### References
 
 Documentation, examples, etc. can be found here:
 ```
@@ -192,7 +192,7 @@ Memory Device
 --More--
 ```
 
-### Reference
+### References
 
 May the manual with you:
 ```
@@ -257,7 +257,7 @@ free -s 5
 watch free
 ```
 
-### Reference
+### References
 
 Manual fruit pages are hanging low:
 ```
@@ -306,7 +306,7 @@ As shown, the **vmstat** command provides information about Processes, Memory, I
 Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more. 
 </aside>
 
-### Reference
+### References
 
 Man pages are for free:
 ```

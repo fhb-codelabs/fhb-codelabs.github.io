@@ -129,7 +129,7 @@ Finally, the hwinfo has an option to log all data to a file. The following comma
 hwinfo --all --log hardware_info.txt
 ```
 
-### Documentation
+### References
 
 The manual of hwinfo? There you are:
 ```
