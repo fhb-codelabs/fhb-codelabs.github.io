@@ -353,7 +353,7 @@ Where,
 * The Time to Live. - ttl=53 - How does TTL work?.
 * The ping time, measured in milliseconds which is the round trip time for the packet to reach the host, and the response to return to the sender. - time=21.2 ms.
 
-### Reference
+### References
 
 Ping the man:
 ```
@@ -385,7 +385,7 @@ Download: 10.79 Mbit/s
 Testing upload speed........................................
 Upload: 1.01 Mbit/s
 ```
- ### Reference
+ ### References
 
 What is faster than man?
 ```
@@ -433,7 +433,7 @@ Where,
 * The next rows of output correspond to each network connection between a pair of hosts. In between the two hosts are arrows that let you know the direction the traffic is flowing. 
 * The final three columns provide average bandwidth for each connection during the last 2, 10 and 40 seconds, respectively.
 
- ### Reference
+ ### References
 
 Here is the link to the documentation:
 ```
@@ -529,7 +529,7 @@ After clicking on the OK button, monitorix will show up the **Netstat statistic*
 
 ![itop](./img/biti-ipm-network-linux-monitorix-2.png)
 
-### Reference
+### References
 
 No manual, but documented online:
 [Monitorix](https://www.monitorix.org/)

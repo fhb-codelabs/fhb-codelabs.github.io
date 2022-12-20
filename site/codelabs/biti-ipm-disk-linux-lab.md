@@ -26,7 +26,7 @@ Syntax of man:
 man [option(s)] keyword(s)
 ```
 
-For example, if you want top find out more about the command **ps** and how to use it, just open a shell and type:
+For example, if you want to find out more about the command **ps** and how to use it, just open a shell and type:
 ```
 man ps
 ```
