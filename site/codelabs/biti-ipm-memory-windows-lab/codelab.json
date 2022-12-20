@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2021-11-21T08:33:26+01:00",
+  "updated": "2022-12-20T09:29:42+01:00",
   "id": "biti-ipm-memory-windows-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Memory",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - Memory",
-  "source": "",
+  "source": "biti-ipm-memory-windows-lab.md",
   "theme": "",
   "status": [
     "published"

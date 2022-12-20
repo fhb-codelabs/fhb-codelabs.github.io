@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-11-27T09:34:48+01:00",
+  "updated": "2022-12-20T11:03:19+01:00",
   "id": "biti-ipm-icinga-installation-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Icinga Installation",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - Icinga Installation",
-  "source": "",
+  "source": "biti-ipm-icinga-installation-lab.md",
   "theme": "",
   "status": [
     "draft"

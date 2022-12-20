@@ -15,7 +15,7 @@ There are many reasons why you might want to stress test your Linux system. Syst
 
 In this codelab you will learn
 * How to perform stress the CPU with an one-liner (Linux)
-* How to perform stress the CPU using the stress application (Linx)
+* How to perform stress the CPU using the stress application (Linux)
 
 <aside class="negative">
 Warning: Running the following tools with root privileges stress your system, so use them judiciously.
@@ -37,7 +37,7 @@ For the Guest OS, you will create and manage your own users. These users will th
 ## Stress with Yes
 
 ### Description
-This one-liner creates a `yes` process that runs on each processor core of the machine. The `yes` command repeatedly prints the letter `y` until it terminates. It uses 100% of a CPU core. If Hyper-Threading is enabled, twice as many yes processes will be created.
+This one-liner creates a `yes` process that runs on each processor core of the machine. The `yes` command repeatedly prints the letter `y` until it terminates. It uses 100% of a CPU core. If Hyper-Threading is enabled, twice as many `yes` processes will be created.
 
 ### Sample code
 
@@ -59,7 +59,7 @@ As a result, the command `htop` shows the CPU utilization:
 
 ![VirtualBox Extension](./img/biti-ipm-stress-yes-htop.png)
 
-To kill all yes processes, run the following one-liner:
+To kill all `yes` processes, run the following one-liner:
 
 ```
 killall yes
@@ -85,6 +85,7 @@ Where,
 
 ### Sample output
 The output will look like this:
+
 ![VirtualBox Extension](./img/biti-ipm-stress-cmd.png)
 
 
