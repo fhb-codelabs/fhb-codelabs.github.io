@@ -56,6 +56,12 @@ A higher activity level will load the CPU core with constantly running threads a
 
 ![CPU Stress](./img/biti-ipm-compute-windows-cpustress-taskman.png)
 
+### Reference
+
+Download the tool:
+
+* [CPU Stress](https://docs.microsoft.com/en-us/sysinternals/downloads/cpustres)
+
 
 ## Testlimit
 
@@ -100,3 +106,9 @@ Testlimit creates a process with ID 7832 with a virtual memory size of 4096 MB. 
 
 * Details of the reserved process memory in the tab Processes of the Task Manager.
 ![Testlimit](./img/biti-ipm-compute-windows-testlimit-procmem.png)
+
+### Reference
+
+Download the tool:
+
+* [Testlimit](https://docs.microsoft.com/en-us/sysinternals/downloads/testlimit)

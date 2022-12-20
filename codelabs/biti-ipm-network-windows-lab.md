@@ -83,7 +83,7 @@ You can right-click on the Ethernet component to see the its's properties.
 ## wmic
 
 ### Description
-WMI (Windows Management Instrumentation) is a programming interface that can be used to capture many aspects of Windows operating systems. This ranges from hardware, operating system settings, performance data to installed applications. WMI allows to read and changed values. It also allows the execution of methods and functions.
+WMI (Windows Management Instrumentation) is a programming interface that can be used to capture many aspects of Windows operating systems. This ranges from hardware, operating system settings, performance data to installed applications. WMI allows to read and write (update) values. It also allows the execution of methods and functions.
 
 WMIC stands for WMI Command.
 
@@ -118,7 +118,7 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
 
 ### What You will learn:
 
-You can use one of the following commands to find detailed information about the physical or virtual network devices on Linux:
+You can use one of the following tools to find detailed information about the physical or virtual network devices on Microsoft Windows:
 
 * Task Manager
 * Network Monitor
@@ -155,15 +155,15 @@ At the time of reading this, Microsoft has archived the Network Monitor.
 
 ### Sample code
 
-After install Network Monitor, start the application, select `View -> Select Network`. If this doesn't work, then you have to log out / log in again. Make sure that your Network is selected (see section **Selekt Networks**).
+After installation, start the application and select `View -> Select Network`. If this doesn't work, then you have to log out / log in again. Make sure that your Network is selected (see section **Select Networks**).
 
 ![itop](./img/biti-ipm-network-windows-netmon-1.png)
 
-Afterwards, click on `New Capture -> Start` to start network capturing. Traffic will show up in the left pane under `Network conversation`. Click on `Stop` whenever needed. Now select one of the traffic conversations (here msedge.exe, the internet browser) and study the frames.
+Next, click on `New Capture -> Start` to start network capturing. Traffic will show up in the left pane under `Network conversation`. Click on `Stop` whenever needed. Select one of the traffic conversations (here msedge.exe, the internet browser) and study the frames.
 
 ![itop](./img/biti-ipm-network-windows-netmon-2.png)
 
-If you need the collected data for a longer period of time, you can always save it to a file.  The saved file has captured all the traffic that is flowing to and from the selected network adapters on the local computer. 
+If you need the data for a longer period of time, you can save it to a file. 
 
 ### Sample output
 
@@ -174,12 +174,12 @@ If you need the collected data for a longer period of time, you can always save 
 The tool **netstat** displays active TCP connections, ports on which the computer is listening, Ethernet statistics, IPv4 statistics, and much more.
 
 <aside class="positive">
-This command is available only if the Internet Protocol (TCP/IP) protocol is installed as a component in the properties of a network adapter in Network Connections. 
+This command is available only if the Internet Protocol (TCP/IP) protocol is installed as a component of the network adapter. 
 </aside>
 
 ### Sample code
 
-To start the program, run the command with the following options
+To start the program, run the command with the following options:
 ```
 netstat -an | more
 ```
@@ -189,7 +189,7 @@ Where,
 * -n - Displays active TCP connections, however, addresses and port numbers are expressed numerically and no attempt is made to determine names.
 
 <aside class="positive">
-For more information, consult the documenation or run netstat /?
+For more information, consult the documenation or run `netstat /?`.
 </aside>
 
 ### Sample output
@@ -234,9 +234,7 @@ The Microsoft tool **Network Speed Test** measures the network delay, download s
 <aside class="positive">
 WARNING:
 
-When you test your network using the Network Speed Test, certain characteristics of your device and the network connection will be sent to Microsoft to help improve our understanding of network quality and availability.
-
-If you do not agree with this policy, do not use this program.
+When you test your network using the Network Speed Test, certain characteristics of your device and the network connection will be sent to Microsoft. If you do not agree with this policy, do not use this program.
 </aside>
 
 You can download **Network Speed Test** from the Microsoft Store.
@@ -250,6 +248,6 @@ After launching it, Network Speedtest is ready to go. Simply click on `Start`.
 
 ### Sample output
 
-After the Speedtest run, the tool shows you a summary of the Network delay, the Download speed and the Upload speed. The gauge chart also shows you recommendations on what you can do with this network throughput.
+After the Speedtest run, the tool shows you a summary of details including network delay, the download and upload speed. The gauge chart also shows you recommendations on what you can do with this network throughput.
 
 ![itop](./img/biti-ipm-network-windows-speedtest-3.png)

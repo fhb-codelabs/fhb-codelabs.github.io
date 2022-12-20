@@ -13,11 +13,9 @@ authors: Roland Pellegrini
 
 Hosts and services can be monitored in two ways:
 
-- Use of Simple Host Monitoring (Agentless)
-This involves the use of services that are accessible across the local network or the Internet for example include HTTP, SSH, ICMP etc. This method is fit for monitoring hosts on which monitoring agents cannot be installed.
+- **Use of Simple Host Monitoring (Agentless):** This involves the use of services that are accessible across the local network or the Internet for example include HTTP, SSH, ICMP etc. This method is fit for monitoring hosts on which monitoring agents cannot be installed.
 
-- Use of Monitoring Agents
-In this method, an agent is required in order to monitor host and services like CPU load, disk space, memory and the running process. In this configuration, Icinga 2 acts as the master node and the remote host acts as the client node.
+- **Use of Monitoring Agents (Agentbased):** In this method, an agent is required in order to monitor host and services like CPU load, disk space, memory and the running process. In this configuration, Icinga 2 acts as the master node and the remote host acts as the client node.
 
 
 In this codelab you will learn

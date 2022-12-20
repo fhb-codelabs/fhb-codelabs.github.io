@@ -133,7 +133,7 @@ H/W path            Device      Class       Description
 /0/100/d/0.0.0      /dev/sda    disk        25GB VBOX HARDDISK
 ```
 
-### Reference
+### References
 
 Help needed? Use manual page:
 ```
@@ -181,7 +181,7 @@ Drives:    Local Storage: total: 24 GiB used: 13.57 GiB (56.5%)
 Be aware that all commands are executed within a virtual machine. Running the tool on physical hardware provides more information. 
 </aside>
 
-### Reference
+### References
 
 More when you read the manual:
 ```
@@ -381,7 +381,7 @@ Use the arrow keys to move up and down in the directory tree. Press `Enter` to m
 There are few operations you can perform with the gdu command. Press `?` to access help.
 ![gdu-help](./img/biti-ipm-disk-linux-gdu-help.png) 
 
-### Reference
+### References
 
 Reading the manual pages may answer open questions:
 ```
@@ -420,7 +420,7 @@ The **iotop** command displays columns for the I/O bandwidth read and written by
 Consult the documentation and man-pages for more details. 
 </aside>
 
-### Reference
+### References
 
 Don't blame it on the manual:
 ```
@@ -531,7 +531,7 @@ if isinstance(self.val[name], (tuple, list)):
 elif isinstance(self.val[name], str):
 ```
 
-### Reference
+### References
 
 Manual Page:
 ```

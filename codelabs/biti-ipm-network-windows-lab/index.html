@@ -86,7 +86,7 @@
     
       <google-codelab-step label="wmic" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>WMI (Windows Management Instrumentation) is a programming interface that can be used to capture many aspects of Windows operating systems. This ranges from hardware, operating system settings, performance data to installed applications. WMI allows to read and changed values. It also allows the execution of methods and functions.</p>
+<p>WMI (Windows Management Instrumentation) is a programming interface that can be used to capture many aspects of Windows operating systems. This ranges from hardware, operating system settings, performance data to installed applications. WMI allows to read and write (update) values. It also allows the execution of methods and functions.</p>
 <p>WMIC stands for WMI Command.</p>
 <h2 is-upgraded>Sample code</h2>
 <ul>
@@ -115,7 +115,7 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
     
       <google-codelab-step label="Network monitoring" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
-<p>You can use one of the following commands to find detailed information about the physical or virtual network devices on Linux:</p>
+<p>You can use one of the following tools to find detailed information about the physical or virtual network devices on Microsoft Windows:</p>
 <ul>
 <li>Task Manager</li>
 <li>Network Monitor</li>
@@ -145,11 +145,11 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
 <aside class="special"><p> At the time of reading this, Microsoft has archived the Network Monitor. </p>
 </aside>
 <h2 is-upgraded>Sample code</h2>
-<p>After install Network Monitor, start the application, select <code>View -> Select Network</code>. If this doesn&#39;t work, then you have to log out / log in again. Make sure that your Network is selected (see section <strong>Selekt Networks</strong>).</p>
+<p>After installation, start the application and select <code>View -> Select Network</code>. If this doesn&#39;t work, then you have to log out / log in again. Make sure that your Network is selected (see section <strong>Select Networks</strong>).</p>
 <p class="image-container"><img alt="itop" src="img/c8cf9b8685eef13.png"></p>
-<p>Afterwards, click on <code>New Capture -> Start</code> to start network capturing. Traffic will show up in the left pane under <code>Network conversation</code>. Click on <code>Stop</code> whenever needed. Now select one of the traffic conversations (here msedge.exe, the internet browser) and study the frames.</p>
+<p>Next, click on <code>New Capture -> Start</code> to start network capturing. Traffic will show up in the left pane under <code>Network conversation</code>. Click on <code>Stop</code> whenever needed. Select one of the traffic conversations (here msedge.exe, the internet browser) and study the frames.</p>
 <p class="image-container"><img alt="itop" src="img/92855f72e515a3ad.png"></p>
-<p>If you need the collected data for a longer period of time, you can always save it to a file.  The saved file has captured all the traffic that is flowing to and from the selected network adapters on the local computer.</p>
+<p>If you need the data for a longer period of time, you can save it to a file.</p>
 <h2 is-upgraded>Sample output</h2>
 
 
@@ -158,10 +158,10 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
       <google-codelab-step label="netstat" duration="0">
         <h2 is-upgraded>Description</h2>
 <p>The tool <strong>netstat</strong> displays active TCP connections, ports on which the computer is listening, Ethernet statistics, IPv4 statistics, and much more.</p>
-<aside class="special"><p> This command is available only if the Internet Protocol (TCP/IP) protocol is installed as a component in the properties of a network adapter in Network Connections.  </p>
+<aside class="special"><p> This command is available only if the Internet Protocol (TCP/IP) protocol is installed as a component of the network adapter.  </p>
 </aside>
 <h2 is-upgraded>Sample code</h2>
-<p>To start the program, run the command with the following options</p>
+<p>To start the program, run the command with the following options:</p>
 <pre><code>netstat -an | more
 </code></pre>
 <p>Where,</p>
@@ -169,7 +169,7 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
 <li>-a - Displays all active TCP connections and the TCP and UDP ports on which the computer is listening.</li>
 <li>-n - Displays active TCP connections, however, addresses and port numbers are expressed numerically and no attempt is made to determine names.</li>
 </ul>
-<aside class="special"><p> For more information, consult the documenation or run netstat /? </p>
+<aside class="special"><p> For more information, consult the documenation or run `netstat /?`. </p>
 </aside>
 <h2 is-upgraded>Sample output</h2>
 <pre><code>Active Connections
@@ -215,15 +215,14 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
         <h2 is-upgraded>Description</h2>
 <p>The Microsoft tool <strong>Network Speed Test</strong> measures the network delay, download speed and upload speed by using servers around the world. Based on the connection&#39;s speed, Network Speed Test will tell you what activities you might be able to do, such as stream music or video calls.</p>
 <aside class="special"><p> WARNING: </p>
-<p>When you test your network using the Network Speed Test, certain characteristics of your device and the network connection will be sent to Microsoft to help improve our understanding of network quality and availability.</p>
-<p>If you do not agree with this policy, do not use this program.</p>
+<p>When you test your network using the Network Speed Test, certain characteristics of your device and the network connection will be sent to Microsoft. If you do not agree with this policy, do not use this program.</p>
 </aside>
 <p>You can download <strong>Network Speed Test</strong> from the Microsoft Store.</p>
 <p class="image-container"><img alt="itop" src="img/7eb6e80365d7674e.png"></p>
 <h2 is-upgraded>Sample code</h2>
 <p>After launching it, Network Speedtest is ready to go. Simply click on <code>Start</code>. <img alt="itop" src="img/d6b8fb39b18835c5.png"></p>
 <h2 is-upgraded>Sample output</h2>
-<p>After the Speedtest run, the tool shows you a summary of the Network delay, the Download speed and the Upload speed. The gauge chart also shows you recommendations on what you can do with this network throughput.</p>
+<p>After the Speedtest run, the tool shows you a summary of details including network delay, the download and upload speed. The gauge chart also shows you recommendations on what you can do with this network throughput.</p>
 <p class="image-container"><img alt="itop" src="img/7043b02e30ef7cfb.png"></p>
 
 
