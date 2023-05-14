@@ -18,7 +18,7 @@
     "gulp-html-postcss": "^7.1.4",
     "gulp-htmlmin": "^5.0.1",
     "gulp-if": "^2.0.2",
-    "gulp-ignore": "^2.0.2",
+    "gulp-ignore": "^3.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^4.1.0",
