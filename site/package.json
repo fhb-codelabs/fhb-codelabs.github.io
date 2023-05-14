@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.21.8",
+    "google-closure-compiler-js": "^20200719.0.0",
     "postcss": "^8.4.23"
   }
 }
