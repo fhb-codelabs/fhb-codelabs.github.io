@@ -28,7 +28,7 @@ jobs:
         with:
           fetch-depth: 0 # need to checkout "all commits" for certain features to work (e.g., get all changed files)
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '14'
 
