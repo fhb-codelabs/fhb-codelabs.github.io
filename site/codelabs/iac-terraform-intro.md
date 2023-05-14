@@ -1,7 +1,7 @@
 summary: Lab 1 - Terraform Introduction
 id: virt-pt-terraform-intro
 categories: terraform
-tags: supply-chain, aws, MCCE, virt-pt, introduction
+tags: supply-chain, aws, MCCE, virt-pt, introduction, iac
 status: Published
 authors: Thomas Schuetz
 
