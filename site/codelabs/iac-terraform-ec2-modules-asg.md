@@ -1,7 +1,7 @@
 summary: Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS
 id: virt-pt-terraform-ec2-modules-asg
 categories: terraform
-tags: aws, MCCE, virt-pt, introduction
+tags: aws, MCCE, virt-pt, introduction, iac
 status: Published
 authors: Thomas Schuetz
 

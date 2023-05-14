@@ -1,7 +1,7 @@
 summary: Lab 2 - Installing a Microservice Application with Terraform
 id: virt-pt-terraform-ec2-cloudinit
 categories: terraform
-tags: aws, MCCE, virt-pt, introduction
+tags: aws, MCCE, virt-pt, introduction, iac
 status: Published
 authors: Thomas Schuetz
 
