@@ -44,6 +44,7 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
+    "@babel/core": "^7.21.8",
     "postcss": "^8.4.23"
   }
 }
