@@ -1,0 +1,9 @@
+{
+  "title": "Infrastructure as Code ",
+  "description": "Come and learn about infrastructure-as-code and creating virtual infrastructure with Terraform.",
+  "tags": ["iac"],
+  "exclude": [
+    ".*-about$",
+    "^lang-.*"
+  ]
+}

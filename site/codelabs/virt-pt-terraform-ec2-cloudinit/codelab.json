@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2022-12-20T09:29:42+01:00",
+  "updated": "2023-05-14T22:29:54+02:00",
   "id": "virt-pt-terraform-ec2-cloudinit",
   "duration": 0,
   "title": "VIRT Lab 2 - Installing a Microservice Application with Terraform",
@@ -19,6 +19,7 @@
   ],
   "tags": [
     "aws",
+    "iac",
     "introduction",
     "mcce",
     "virt-pt"
