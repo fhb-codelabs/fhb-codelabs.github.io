@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2023-05-14T14:32:31+02:00",
+  "updated": "2023-05-15T16:08:15+02:00",
   "id": "biti-ipm-disk-linux-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Disk",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - Disk",
-  "source": "biti-ipm-disk-linux-lab.md",
+  "source": "codelabs/biti-ipm-disk-linux-lab.md",
   "theme": "",
   "status": [
     "published"
