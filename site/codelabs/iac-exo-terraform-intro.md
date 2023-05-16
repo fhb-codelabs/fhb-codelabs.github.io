@@ -110,7 +110,7 @@ With this, we should have everything we need to provision a virtual machine.
 ### Access the Virtual Machine via SSH
 In our lab, we might want to try out a tool and therefore it is beneficial to have shell access. Now it's time to remember
 where you stored the private ssh key. When you found it, open up your shell and execute:
-* `ssh -i <path-to-your-private-key> debian@<ip-address-of-your-instance>` (you can find the ip address on the instance screen)
+* `ssh -i <<path-to-your-private-key>> debian@<<ip-address-of-your-instance>>` (you can find the ip address on the instance screen)
 
 You will find out that you are not able to connect to the machine. This is due to a missing security group.
 
