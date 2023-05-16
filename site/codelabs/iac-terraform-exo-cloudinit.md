@@ -22,6 +22,11 @@ authors: Thomas Schuetz
 * Create a new folder for this configuration
 * Run terraform init to initially check that it works
 
+<aside class="positive">
+Ifi you ran the Lab 1 before, you can either remove the old .tf and .tfstate file (if you destroyed the infrastructure) to
+start a new configuration here.
+</aside>
+
 ## A new state
 In the first lab, we managed our state locally in our filesystem. In the real world, this won't scale very well and might
 be dangerous if you and other developers are using the same code on the same infrastructure. To overcome the issue of 
@@ -74,7 +79,7 @@ There are lots of interesting things in there and some things changed between th
 * backend: We are defining a S3 Backend here, which means that our state will be stored in our object store
   * The Credentials are taken from the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`. Mind, that
   the credentials for backends cannot be stored in variables.
-* provider: We changed the provider configuration to use variables. 
+* provider: We changed the provider configuration to use variables.
 
 ### Define Variables
 As in many other programming language, we have to define our variables in the code. Most of the time, we will create a separate
@@ -109,13 +114,15 @@ There are various ways to assign variables:
 
 For this example, we already assigned environment variables; the ones which started with TF_VAR_.
 
+### Setting up the state
+Now we can initialize our new state using: `terraform init`. If you navigate to your bucket in the exoscale console, you should
+see a terraform.tfstate object now.
+
 ## Initial Setup of Cloud Instances
-* We will create 6 instances
-  - "main" is the frontend-service for this application and the body of the podtato-head
-  - "left and right legs and arms, and the hat" will represent the corresponding parts of the podtatohead
+* We will create 2 instances, a frontend and a backend service
 
 * Create a file called main.tf
-* Create the configuration for these 4 instances
+* Create the configuration for these 2 instances
 ``` terraform
 
 # Data Source for getting the ubuntu template
@@ -197,6 +204,7 @@ You created 4 instances using terraform, congratulations!
 
 * You should see the following instances:
 * ![Big Picture](./img/mcce-virt-terra-exo-cloud-init-instances.png)
+* Edit: You should only see two instances here ...
 
 * Currently, we should be aware of the following facts:
   * We provisioned 2, plain instances without any software installed
@@ -257,7 +265,7 @@ The frontend service needs to know, where to find the other services, therefore 
 * Therefore, open the `main.tf` file in your Terraform folder
 * Add the following line to the `podtatohead-frontend` resource
 ```
-  user_data = templatefile("${path.module}/templates/cloud_init.tpl", { container_image = "ghcr.io/podtato-head/podtato-server", podtato_version=var.podtato_version", backend_ip = exoscale_compute_instance.podtatohead-backend.public_ip_address, component = "frontend" })
+  user_data = templatefile("${path.module}/templates/cloud_init.tpl", { container_image = "ghcr.io/podtato-head/podtato-server", podtato_version=var.podtato_version, backend_ip = exoscale_compute_instance.podtatohead-backend.public_ip_address, component = "frontend" })
 ```
 
 <aside class="negative">
@@ -266,7 +274,7 @@ We refer to the template file, we've created previously and set some variables. 
 
 * Add the following line to the `podtatohead-backend` resource
 ```
-  user_data = templatefile("${path.module}/templates/cloud_init.tpl", { container_image = "ghcr.io/podtato-head/podtato-server", podtato_version=var.podtato_version", backend_ip = "", component = "backend" })
+  user_data = templatefile("${path.module}/templates/cloud_init.tpl", { container_image = "ghcr.io/podtato-head/podtato-server", podtato_version=var.podtato_version, backend_ip = "", component = "backend" })
 ```
 
 * As a reference, the podtatohead-frontend resource should look as follows now:

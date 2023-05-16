@@ -132,7 +132,8 @@ To add the security group, select "Security Groups" in the "Compute" menu:
   * Retry accessing your machine via SSH now
   * This should work now
 
-<aside class="positive">Congrats! You provisioned your first Virtual Machine and are able to access it!</aside>
+<aside class="positive">Congrats! You provisioned your first Virtual Machine and are able to access it! You may delete your VM
+via the console now</aside>
 
 ## Infrastructure-as-Code
 There were many steps we had to take until we got our simple virtual machine working. The current setup is fairly enough
