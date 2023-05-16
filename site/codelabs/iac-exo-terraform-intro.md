@@ -1,4 +1,4 @@
-summary: Lab 1 - Terraform Introduction
+summary: Lab 1 - Terraform Introduction (Exoscale Edition)
 id: iac-terraform-intro
 categories: terraform
 tags: aws, MCCE, introduction, iac
@@ -10,7 +10,7 @@ authors: Thomas Schuetz
 
 ## What You’ll Learn
 
-![Big Picture](./img/mcce-virt-terra-big-picture.png)
+![Big Picture](./img/iac-terra-exo-intro-big-picture.png)
 
 In this lab, you will: 
 * Install Terraform
