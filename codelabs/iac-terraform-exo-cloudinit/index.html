@@ -1,0 +1,508 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Infrastructure-as-Code - Lab 2 - Installing a Microservice Application with Terraform (Exoscale Edition)</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="iac-terraform-exo-cloudinit"
+                  title="Infrastructure-as-Code - Lab 2 - Installing a Microservice Application with Terraform (Exoscale Edition)"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="What You&#39;ll Learn" duration="0">
+        <p class="image-container"><img alt="Big Picture" src="img/4b753d0b405f49cb.png"></p>
+<ul>
+<li>Manage the Terraform State in an Object Store</li>
+<li>Install and Configure Virtual Machines via Terraform</li>
+<li>Configure Security Groups via Terraform</li>
+<li>Connect Microservice Components (Object Links) in Terraform</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prerequisites" duration="0">
+        <ul>
+<li>Run the Lab &#34;Lab 1 - Terraform Introduction (Exoscale Edition)&#34;</li>
+<li>Create a new folder for this configuration</li>
+<li>Run terraform init to initially check that it works</li>
+</ul>
+<aside class="special"><p> Ifi you ran the Lab 1 before, you can either remove the old .tf and .tfstate file (if you destroyed the infrastructure) to start a new configuration here. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="A new state" duration="0">
+        <p>In the first lab, we managed our state locally in our filesystem. In the real world, this won&#39;t scale very well and might be dangerous if you and other developers are using the same code on the same infrastructure. To overcome the issue of diverging states, terraform gives you the possibility to store the state centrally. In our case, we will use the Exoscale Object Store.</p>
+<h2 is-upgraded>Creating a storage bucket</h2>
+<ul>
+<li>Open the Exoscale Console (https://portal.exoscale.com/)</li>
+<li>Click on Storage</li>
+<li>Select &#34;Add&#34; to create a new bucket <ul>
+<li>Please mind, that you need the storage to store the terraform state, therefore it is not possible to create this store with this terraform configuration (chicken-egg-problem)</li>
+</ul>
+</li>
+<li>Give the Bucket a meaningful name &#34;terraform-asdadfk&#34; and choose a zone</li>
+<li>Click on Create</li>
+</ul>
+<h2 is-upgraded>Set some environment variables</h2>
+<p>export AWS_ACCESS_KEY_ID=&lt;EXOSCALE_API_KEY&gt; export AWS_SECRET_ACCESS_KEY=&lt;EXOSCALE_API_SECRET&gt; export TF_VAR_access_key=${AWS_ACCESS_KEY_ID} export TF_VAR_secret_key=${AWS_SECRET_ACCESS_KEY}</p>
+<h2 is-upgraded>Initialize the new state</h2>
+<ul>
+<li>Create a file called <code>terraform.tf</code></li>
+<li>Add the following configuration</li>
+</ul>
+<pre><code language="language-terraform" class="language-terraform">terraform {
+  required_providers {
+    exoscale = {
+      source  = &#34;exoscale/exoscale&#34;
+      version = &#34;0.48.0&#34;
+    }
+  }
+  backend &#34;s3&#34; {
+    bucket                      = &#34;&lt;bucket-name&gt;&#34;
+    region                      = &#34;at-vie-1&#34;
+    key                         = &#34;terraform.tfstate&#34;
+    endpoint                    = &#34;https://sos-at-vie-1.exo.io&#34;
+    skip_credentials_validation = true
+    skip_region_validation      = true
+  }
+}
+
+provider &#34;exoscale&#34; {
+  key    = var.access_key
+  secret = var.secret_key
+}
+</code></pre>
+<p>There are lots of interesting things in there and some things changed between the first lab and this one:</p>
+<ul>
+<li>backend: We are defining a S3 Backend here, which means that our state will be stored in our object store <ul>
+<li>The Credentials are taken from the environment variables <code>AWS_ACCESS_KEY_ID</code> and <code>AWS_SECRET_ACCESS_KEY</code>. Mind, that the credentials for backends cannot be stored in variables.</li>
+</ul>
+</li>
+<li>provider: We changed the provider configuration to use variables.</li>
+</ul>
+<h2 is-upgraded>Define Variables</h2>
+<p>As in many other programming language, we have to define our variables in the code. Most of the time, we will create a separate file for our variables in terraform. Therefore, we will create a new file called <code>vars.tf</code> in our configuration folder and add the following content:</p>
+<pre><code language="language-terraform" class="language-terraform">variable &#34;secret_key&#34; {
+  type = string
+  sensitive = true
+}
+
+variable &#34;access_key&#34; {
+  type = string
+  sensitive = true
+}
+</code></pre>
+<p>There are different types of variables in terraform:</p>
+<ul>
+<li>string: e.g. &#34;your name&#34;</li>
+<li>number: e.g. 1</li>
+<li>bool: true</li>
+<li>maps and objects for more complex operations.</li>
+</ul>
+<p>Using the sensitive = true directive, we can ensure that the content of this variable is not exposed in any output.</p>
+<h2 is-upgraded>Assigning Variables</h2>
+<p>There are various ways to assign variables:</p>
+<ul>
+<li>In the commandline</li>
+<li>using .tfvars files</li>
+<li>using environment variables</li>
+</ul>
+<p>For this example, we already assigned environment variables; the ones which started with TF_VAR_.</p>
+<h2 is-upgraded>Setting up the state</h2>
+<p>Now we can initialize our new state using: <code>terraform init</code>. If you navigate to your bucket in the exoscale console, you should see a terraform.tfstate object now.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Initial Setup of Cloud Instances" duration="0">
+        <ul>
+<li>We will create 2 instances, a frontend and a backend service</li>
+<li>Create a file called main.tf</li>
+<li>Create the configuration for these 2 instances</li>
+</ul>
+<pre><code language="language-terraform" class="language-terraform"># Data Source for getting the ubuntu template
+data &#34;exoscale_compute_template&#34; &#34;ubuntu_template&#34; {
+  zone = &#34;at-vie-1&#34;
+  name = &#34;Linux Ubuntu 22.04 LTS 64-bit&#34;
+}
+
+# Resource for podtatohead-main
+resource &#34;exoscale_compute_instance&#34; &#34;podtatohead-frontend&#34; {
+  zone = &#34;at-vie-1&#34;
+  name = &#34;podtatohead-frontend&#34;
+
+  template_id = data.exoscale_compute_template.ubuntu_template.id
+  type        = &#34;standard.tiny&#34;
+  disk_size   = 10
+}
+
+# Resource for podtatohead-backend
+resource &#34;exoscale_compute_instance&#34; &#34;podtatohead-backend&#34; {
+  zone = &#34;at-vie-1&#34;
+  name = &#34;podtatohead-backend&#34;
+
+  template_id = data.exoscale_compute_template.ubuntu_template.id
+  type        = &#34;standard.tiny&#34;
+  disk_size   = 10
+}
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Validate, plan and apply the configuration" duration="0">
+        <ul>
+<li>Switch to your shell and open the directory which contains your configuration</li>
+<li>To check if this configuration is syntactically correct and internally consistent, type <code>terraform validate</code></li>
+<li>This should lead to following output</li>
+</ul>
+<pre><code>❯ terraform validate
+Success! The configuration is valid.
+</code></pre>
+<ul>
+<li>Afterwards, a dry-run of this using <code>terraform plan</code></li>
+<li>The output should end like this:</li>
+</ul>
+<pre><code>Plan: 2 to add, 0 to change, 0 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────
+
+Note: You didn&#39;t use the -out option to save this plan, so Terraform can&#39;t
+guarantee to take exactly these actions if you run &#34;terraform apply&#34; now.
+</code></pre>
+<aside class="warning"><p> Always inspect, what your configuration does and if this could have an impact on your application  </p>
+</aside>
+<ul>
+<li>As there are only new objects created in this case, it&#39;s time to apply the configuration</li>
+<li>Type <code>terraform apply</code></li>
+<li>You will get asked if you are sure that you want to perform these actions, type &#34;yes&#34;. If you want to skip this question, you could start <code>terraform apply</code> with the parameter <code>--auto-approve</code> (but be sure what you&#39;re doing).</li>
+<li>Now, the instances get created and after that, you should see the following output:</li>
+</ul>
+<pre><code>[...]
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+exoscale_compute_instance.podtatohead-frontend: Creating...
+exoscale_compute_instance.podtatohead-backend: Creating...
+exoscale_compute_instance.podtatohead-backend: Still creating... [10s elapsed]
+exoscale_compute_instance.podtatohead-frontend: Still creating... [10s elapsed]
+exoscale_compute_instance.podtatohead-frontend: Creation complete after 19s [id=i-0024742a855b87fe8]
+exoscale_compute_instance.podtatohead-backend: Creation complete after 19s [id=i-095392d47383309ba]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+</code></pre>
+<aside class="special"><p> You created 4 instances using terraform, congratulations!  </p>
+</aside>
+<h2 is-upgraded>Inspect our environment</h2>
+<ul>
+<li>Open the Exoscale Console (Browser)</li>
+<li>Switch to Compute -&gt; Instances</li>
+<li>You should see the following instances:</li>
+<li><img alt="Big Picture" src="img/16f97c8710b728fe.png"></li>
+<li>Edit: You should only see two instances here ...</li>
+<li>Currently, we should be aware of the following facts:<ul>
+<li>We provisioned 2, plain instances without any software installed</li>
+<li>There is no security group configured, therefore nobody (even we!) will be able to access this instances</li>
+<li>There is no ssh key attached to the instances</li>
+</ul>
+</li>
+<li>Therefore, there&#39;s some more work to do</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Cloud Init" duration="0">
+        <ul>
+<li>Cloud Init can be used to run scripts after provisioning your Instances, we&#39;ll use this to install docker and run the podtatohead containers.</li>
+</ul>
+<h2 is-upgraded>Set up the Cloud Init Templates</h2>
+<ul>
+<li>We will set up 1 template for the frontend service and one template for the backend service.</li>
+<li>Create a directory called <code>templates</code> in your terraform directory</li>
+<li>Create a file <code>cloud_init.tpl</code> in the templates directory and add the following:</li>
+</ul>
+<pre><code language="language-shell" class="language-shell">#!/bin/bash
+
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+echo \
+  &#34;deb [arch=&#34;$(dpkg --print-architecture)&#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  &#34;$(. /etc/os-release &amp;&amp; echo &#34;$VERSION_CODENAME&#34;)&#34; stable&#34; | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+sudo mkdir -p /etc/podtatohead
+sudo cat &lt;&lt; EOF &gt; /etc/podtatohead/servicesConfig.yaml
+hat:       &#34;http://${backend_ip}:8080&#34;
+left-leg:  &#34;http://${backend_ip}:8080&#34;
+left-arm:  &#34;http://${backend_ip}:8080&#34;
+right-leg: &#34;http://${backend_ip}:8080&#34;
+right-arm: &#34;http://${backend_ip}:8080&#34;
+EOF
+
+%{ if component == &#34;frontend&#34; }
+sudo docker run -p 8080:8080 -e PORT=8080 -e PODTATO_COMPONENT=${component} -e SERVICES_CONFIG_FILE_PATH=/etc/podtatohead/servicesConfig.yaml -v /etc/podtatohead/servicesConfig.yaml:/etc/podtatohead/servicesConfig.yaml -d ${container_image}:v${podtato_version}
+%{ else }
+sudo docker run -p 8080:8080 -e PORT=8080 -d ${container_image}:v${podtato_version}
+%{ endif }
+</code></pre>
+<aside class="warning"><p> The frontend service needs to know, where to find the other services, therefore also different variables are used </p>
+</aside>
+<h2 is-upgraded>Use the Cloud Init Templates</h2>
+<ul>
+<li>To use these templates, we have to refer to them in our terraform configuration</li>
+<li>Therefore, open the <code>main.tf</code> file in your Terraform folder</li>
+<li>Add the following line to the <code>podtatohead-frontend</code> resource</li>
+</ul>
+<pre><code>  user_data = templatefile(&#34;${path.module}/templates/cloud_init.tpl&#34;, { container_image = &#34;ghcr.io/podtato-head/podtato-server&#34;, podtato_version=var.podtato_version, backend_ip = exoscale_compute_instance.podtatohead-backend.public_ip_address, component = &#34;frontend&#34; })
+</code></pre>
+<aside class="warning"><p> We refer to the template file, we&#39;ve created previously and set some variables. Note, that we&#39;re using the ip addresses of the other services from the corresponding resource entries. </p>
+</aside>
+<ul>
+<li>Add the following line to the <code>podtatohead-backend</code> resource</li>
+</ul>
+<pre><code>  user_data = templatefile(&#34;${path.module}/templates/cloud_init.tpl&#34;, { container_image = &#34;ghcr.io/podtato-head/podtato-server&#34;, podtato_version=var.podtato_version, backend_ip = &#34;&#34;, component = &#34;backend&#34; })
+</code></pre>
+<ul>
+<li>As a reference, the podtatohead-frontend resource should look as follows now:</li>
+</ul>
+<pre><code language="language-terraform" class="language-terraform"># Resource for podtatohead-main
+resource &#34;exoscale_compute_instance&#34; &#34;podtatohead-frontend&#34; {
+  zone = &#34;at-vie-1&#34;
+  name = &#34;podtatohead-frontend&#34;
+
+  template_id = data.exoscale_compute_template.ubuntu_template.id
+  type        = &#34;standard.tiny&#34;
+  disk_size   = 10
+  user_data = templatefile(&#34;${path.module}/templates/cloud_init.tpl&#34;, { container_image = &#34;ghcr.io/podtato-head/podtato-server&#34;, podtato_version=var.podtato_version, backend_ip = exoscale_compute_instance.podtatohead-backend.public_ip_address, component = &#34;frontend&#34; })
+}
+</code></pre>
+<h2 is-upgraded>Validate the configuration</h2>
+<ul>
+<li>To validate this configuration, type <code>terraform validate</code></li>
+<li>After that, we should see something like this:</li>
+</ul>
+<pre><code>│ Error: Reference to undeclared input variable
+│
+│   on main.tf line 25, in resource &#34;exoscale_compute_instance&#34; &#34;podtatohead-backend&#34;:
+│   25:   user_data = templatefile(&#34;${path.module}/templates/cloud_init.tpl&#34;, { container_image = &#34;ghcr.io/podtato-head/podtato-server&#34;, podtato_version=var.podtato_version, backend_ip = &#34;&#34;, component = &#34;backend&#34; })
+│
+│ An input variable with the name &#34;podtato_version&#34; has not been declared. This variable can be declared with a variable &#34;podtato_version&#34; {} block.
+</code></pre>
+<aside class="warning"><p> It seems like we&#39;re missing some variables. Let&#39;s create them now! </p>
+</aside>
+<h2 is-upgraded>Defining Variables</h2>
+<ul>
+<li>To define the variables, open the <code>vars.tf</code> in your terraform folder</li>
+<li>Add the following to that file</li>
+</ul>
+<pre><code language="language-terraform" class="language-terraform">variable &#34;podtato_version&#34; {
+  type = string
+}
+</code></pre>
+<ul>
+<li>When you are trying to apply the configuration now, you are asked for a version. Use <code>0.3.2</code> here.</li>
+</ul>
+<aside class="warning"><p> These variables define, which version of the podtatohead will be used </p>
+</aside>
+<h2 is-upgraded>Assigning Variables</h2>
+<ul>
+<li>These variables can be used in different ways (environment variables starting with TF_VAR or via a .tfvars file). In this example, we will use a tfvars file, which is automatically used when present.</li>
+<li>Create a file <code>terraform.tfvars</code> in your terraform directory and add the following content</li>
+</ul>
+<pre><code>podtato_version=&#34;0.3.2&#34;
+</code></pre>
+<aside class="warning"><p> Always ensure, that such vars files do not contain secrets, when checking them in in git. </p>
+</aside>
+<ul>
+<li>Now, we created our variables and should be able to apply our configuration</li>
+</ul>
+<h2 is-upgraded>Tainting Resources</h2>
+<p>The Exoscale will not cause a restart of the containers and therefore, we have to force the restart of them. As a workaround:</p>
+<ul>
+<li>Run <code>terraform taint exoscale_compute_instance.podtatohead-frontend</code></li>
+<li>Run <code>terraform taint exoscale_compute_instance.podtatohead-backend</code></li>
+</ul>
+<p>This will instruct Terraform to re-create the resources.</p>
+<h2 is-upgraded>Plan and apply the configuration</h2>
+<ul>
+<li><code>terraform validate</code> should pass now</li>
+<li>run <code>terraform plan</code> and inspect the output:</li>
+</ul>
+<pre><code>[...] 
+Plan: 2 to add, 0 to change, 2 to destroy.
+
+───────────────────────────────────────────────────────────────────────────────
+
+Note: You didn&#39;t use the -out option to save this plan, so Terraform can&#39;t
+guarantee to take exactly these actions if you run &#34;terraform apply&#34; now.
+</code></pre>
+<aside class="warning"><p> You will delete 2 instance and create 2new ones. Note, that there are changes (like changes in cloud-init scripts) which enforce a recreation of the instance (immutable infrastructure). In our case this will be ok, in the real world you would take mechanisms in place which avoid the downtime (load balances, multiple instances). </p>
+</aside>
+<ul>
+<li>run <code>terraform apply</code></li>
+</ul>
+<aside class="special"><p> If your configuration has been applied successfully, you provisioned your virtual instances and the cloud init scripts should work now </p>
+</aside>
+<h2 is-upgraded>Open a shell to your instances</h2>
+<ul>
+<li>Try to open an SSH connection as we did it in the previous lesson</li>
+</ul>
+<aside class="warning"><p> When you take a closer look on the security groups of the instance, you might notice that there are no inbound rules. Therefore, SSH is also not working. Furthermore we don&#39;t have any ssh key assigned. Let&#39;s fix these issues! </p>
+</aside>
+<h2 is-upgraded>Add your SSH Key to the configuration</h2>
+<ul>
+<li>In the last lesson, you created an SSH Key to access the instances</li>
+<li>Find out which name you used, and add this to the instance configuration:+</li>
+</ul>
+<pre><code>  ssh_key=&#34;&lt;your-key&gt;&#34;
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create Security Groups" duration="0">
+        <ul>
+<li>To assign a security group in terraform, we have to create a <code>security_group</code> resource and assign it to an instance.</li>
+</ul>
+<aside class="special"><p> Our application needs two security groups, one for the ssh access and the second one for the connections between the services. </p>
+</aside>
+<ul>
+<li>To create the Security Group, add the following resource block to your Terraform <code>main.tf</code> file:</li>
+</ul>
+<pre><code>resource &#34;exoscale_security_group&#34; &#34;public_ingress&#34; {
+  name = &#34;public-ingress&#34;
+}
+
+resource &#34;exoscale_security_group_rule&#34; &#34;rule_http&#34; {
+  security_group_id = exoscale_security_group.public_ingress.id
+  type              = &#34;INGRESS&#34;
+  protocol          = &#34;TCP&#34;
+  cidr              = &#34;0.0.0.0/0&#34; # &#34;::/0&#34; for IPv6
+  start_port        = 8080
+  end_port          = 8080
+}
+
+resource &#34;exoscale_security_group_rule&#34; &#34;rule_ssh&#34; {
+  security_group_id = exoscale_security_group.public_ingress.id
+  type              = &#34;INGRESS&#34;
+  protocol          = &#34;TCP&#34;
+  cidr              = &#34;0.0.0.0/0&#34; # &#34;::/0&#34; for IPv6
+  start_port        = 22
+  end_port          = 22
+}
+
+</code></pre>
+<aside class="warning"><p> The security groups are very open in this example, in the real world this should be more specific </p>
+</aside>
+<h2 is-upgraded>Assign the Security Groups</h2>
+<ul>
+<li>These Security Groups can now be used in your instances, when you reference them as follows in your resource configuration:</li>
+</ul>
+<pre><code> security_group_ids = [ exoscale_security_group.public_ingress.id ]
+</code></pre>
+<ul>
+<li>A sample configuration should look like this now:</li>
+</ul>
+<pre><code>resource &#34;exoscale_compute_instance&#34; &#34;podtatohead-frontend&#34; {
+  zone = &#34;at-vie-1&#34;
+  name = &#34;podtatohead-frontend&#34;
+
+  template_id = data.exoscale_compute_template.ubuntu_template.id
+  type        = &#34;standard.tiny&#34;
+  disk_size   = 10
+  ssh_key=&#34;exoscale&#34;
+  user_data = templatefile(&#34;${path.module}/templates/cloud_init.tpl&#34;, { container_image = &#34;ghcr.io/podtato-head/podtato-server&#34;, podtato_version=var.podtato_version, backend_ip = exoscale_compute_instance.podtatohead-backend.public_ip_address, component = &#34;frontend&#34; })
+  security_group_ids = [ exoscale_security_group.public_ingress.id ]
+}
+</code></pre>
+<h2 is-upgraded>Apply the configuration</h2>
+<ul>
+<li>Now you can validate, plan and apply your configuration again: <ul>
+<li>Taint frontend and backend</li>
+<li><code>terraform validate</code></li>
+<li><code>terraform plan</code></li>
+<li><code>terraform apply</code></li>
+</ul>
+</li>
+</ul>
+<aside class="warning"><p>   Note, that 3 additional resources (security groups) are created and the instances are only changed </p>
+</aside>
+<ul>
+<li>You should be able to access the podtatohead-application after some minutes</li>
+</ul>
+<aside class="warning"><p> You can lookup the public ip address of the podtato-head in the Exoscale Console, but there&#39;s a more convenient way to achieve this. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Outputs" duration="0">
+        <ul>
+<li>You can specify things which should declared as outputs in terraform, in our case we want to get the url for our podtatohead</li>
+<li>Create a file <code>outputs.tf</code> in your Terraform directory with the following contents</li>
+</ul>
+<pre><code>output &#34;podtato-url&#34; {
+  value = &#34;http://${exoscale_compute_instance.podtatohead-frontend.public_ip_address}:8080&#34;
+}
+</code></pre>
+<ul>
+<li>Afterwards, do a <code>terraform refresh</code> to update the state</li>
+<li>In the outputs section, you can see the <code>podtato-url</code> which can be put in a browser, simply try to do this</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Congratulations" duration="0">
+        <aside class="special"><p> If you see the PodTatoHead, you have successfully finished this lesson. </p>
+<p class="image-container"><img alt="Big Picture" src="img/ce289987691910f2.png"></p>
+<h2 is-upgraded>Clean up</h2>
+<ul>
+<li>After you have finished this lesson, simply remove everything using <code>terraform destroy</code></li>
+</ul>
+</aside>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

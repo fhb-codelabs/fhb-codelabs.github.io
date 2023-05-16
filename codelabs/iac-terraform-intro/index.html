@@ -1,0 +1,462 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Infrastructure-as-Code - Lab 1 - Terraform Introduction</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="iac-terraform-intro"
+                  title="Infrastructure-as-Code - Lab 1 - Terraform Introduction"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="What You&#39;ll Learn" duration="0">
+        <p class="image-container"><img alt="Big Picture" src="img/fbbc7e7bdec55117.png"></p>
+<p>In this lab, you will:</p>
+<ul>
+<li>Install Terraform</li>
+<li>Spin up a Virtual machine in Exoscale using the UI</li>
+<li>Provision a Virtual Machine in Exoscale using Terraform</li>
+</ul>
+<h2 is-upgraded>Prerequisites</h2>
+<ul>
+<li><a href="https://developer.hashicorp.com/terraform/downloads" target="_blank">Terraform CLI</a></li>
+<li>IDE (IntelliJ IDEA, Visual Studio Code) with Terraform Plugin installed</li>
+<li>SSH Client installed (OpenSSH, PuTTY)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install Terraform" duration="0">
+        <p>In the future, it will be more comfortable if you&#39;re able to use terraform from your PC and IDE.</p>
+<p>To install terraform, refer to the respective documentation here:</p>
+<ul>
+<li><a href="https://developer.hashicorp.com/terraform/downloads" target="_blank">https://developer.hashicorp.com/terraform/downloads</a></li>
+</ul>
+<p><strong>Please ensure, that the terraform binary is in your path!</strong></p>
+<ul>
+<li><a href="https://www.wikihow.com/Change-the-PATH-Environment-Variable-on-Windows" target="_blank">https://www.wikihow.com/Change-the-PATH-Environment-Variable-on-Windows</a></li>
+<li>In Linux or MacOS, append the path you&#39;ve chosen to your path variable (if the package installer didn&#39;t take care about this).</li>
+</ul>
+<aside class="special"><p> Terraform is a single binary, therefore it is very handy to install and will not make any modifications on your system. As you might want to use your IDE, it is recommended to run terraform directly on your machine instead of a virtual machine.  If you want to do so, please ensure that you have a proper IDE running in your virtual machine. </p>
+</aside>
+<h2 is-upgraded>Check if terraform is installed properly</h2>
+<p>To check if terraform is installed and as accessible, open a shell and run: <code>terraform version</code>. This should return the version of Terraform. If not and you changed the PATH before, ensure that you restarted your terminal and the Terraform Binary is located in a directory which is accessible there.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exoscale Basics" duration="0">
+        <p>Exoscale is a European Cloud Provider, which provides services as:</p>
+<ul>
+<li>Compute (Virtual Machines)</li>
+<li>Kubernetes (SKS)</li>
+<li>Database-as-a-Service (DBaaS)</li>
+<li>Object Storage (S3 Compatible)</li>
+</ul>
+<p>During this lab, we will deal with virtual instances and object storage. In the first step, we will provision a virtual machine there.</p>
+<p>You can log in to the Exoscale Console <a href="https://portal.exoscale.com/login" target="_blank">here</a>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating a Virtual Machine in Exoscale" duration="0">
+        <h2 is-upgraded>Goal:</h2>
+<ul>
+<li>You should be able to provision a Virtual Machine using the Exoscale UI</li>
+<li>Furthermore, you should get familiar a bit with Virtual Instances and things you can configure</li>
+</ul>
+<h2 is-upgraded>Task:</h2>
+<p>As a Cloud Engineer, your want to test a new tool. As you don&#39;t have the possibility to run a virtual machine on your machine, you decide to run the machine in the cloud. After the machine is provisioned, you are running the tool you wanted to test and destroy the Virtual Instance again.</p>
+<h2 is-upgraded>Checklist:</h2>
+<ul>
+<li>[ ] Virtual Machine is provisioned</li>
+<li>[ ] You are able to connect to the virtual instance using SSH</li>
+</ul>
+<aside class="special"><p> Try to solve the problem on your own / with your group. If you are experiencing problems, the following walkthrough will guide you. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Provisioning a Virtual Machine and access it via SSH" duration="0">
+        <p>We will deploy the Virtual Machine via the Exoscale UI. Therefore, open the <a href="https://portal.exoscale.com/login" target="_blank">Exoscale Console</a> and Log In with your credentials.</p>
+<h2 is-upgraded>Create an SSH Key</h2>
+<p>You might want to be able to access your Virtual Machine after it is provisioned. Therefore, we need to precreate an SSH Key which can be used to access this machine.</p>
+<p>This SSH Key has to be created on your machine. On Linux, Mac or WSL machines, this should work as follows:</p>
+<ul>
+<li>Open a shell (bash, zsh)</li>
+<li>Run <code>ssh-keygen -t ed25519 -f exoscale</code> (and remember where you ran this!) <ul>
+<li>Use a passphrase</li>
+</ul>
+</li>
+<li>Open the private part of the key (exoscale.pub) and copy it.</li>
+</ul>
+<p>The public part of the SSH Keypair has to be stored in Exoscale to make it usable in Virtual Machines. Therefore, select &#34;Compute&#34; -&gt; &#34;SSH-Keys&#34; -&gt; &#34;Add&#34;, assign a name you remember to the key and paste the public part.</p>
+<h2 is-upgraded>Provision the Virtual Machine</h2>
+<p>With this, we should have everything we need to provision a virtual machine.</p>
+<ul>
+<li>Select &#34;Compute&#34; -&gt; &#34;Instances&#34; and click on &#34;Add&#34; <ul>
+<li>Assign a meaningful Hostname to your Instance</li>
+<li>Use &#34;Linux Debian 11 (Bullseye) 64-bit&#34; as Template</li>
+<li>Select the zone of your choice</li>
+<li>Choose the Instance Type &#34;tiny&#34;</li>
+<li>10GB Storage will fit our needs</li>
+<li>Select the Keypair you created before</li>
+<li>Leave the IPv6 Options unchecked and the User Data Field Empty</li>
+<li>Check your Configuration (as below and click on &#34;Create&#34;)</li>
+</ul>
+</li>
+</ul>
+<p class="image-container"><img alt="img/virt-exo-terraform-intro-instance.png" src="img/2c8551031cdb86bb.png"></p>
+<ul>
+<li>You will see a new screen, where your virtual instance is shown. After some times, it will get into a &#34;running&#34; state</li>
+<li>Make your self familiar with the information and options on this screen</li>
+</ul>
+<h2 is-upgraded>Access the Virtual Machine via SSH</h2>
+<p>In our lab, we might want to try out a tool and therefore it is beneficial to have shell access. Now it&#39;s time to remember where you stored the private ssh key. When you found it, open up your shell and execute:</p>
+<ul>
+<li><code>ssh -i &#123;&#123;path-to-your-private-key}} debian@&#123;&#123;ip-address-of-your-instance}}</code> (you can find the ip address on the instance screen)</li>
+</ul>
+<p>You will find out that you are not able to connect to the machine. This is due to a missing security group.</p>
+<aside class="warning"><p>You can imagine security groups as host-firewalls on cloud-based virtual instances. To access a virtual instance from the public internet, you need a security-group rule to access it</p>
+</aside>
+<h2 is-upgraded>Adding a Security Group</h2>
+<p>To add the security group, select &#34;Security Groups&#34; in the &#34;Compute&#34; menu:</p>
+<ul>
+<li>Add a new security group (&#34;Add&#34;): <ul>
+<li>Name: <code>Public Access</code> and &#34;Create Group&#34;</li>
+<li>On the Security Groups Overview Page, click on the three dots on the right side of the instance row and &#34;Details&#34;</li>
+<li>Add a new Rule <ul>
+<li>Select &#34;SSH&#34;</li>
+</ul>
+</li>
+<li>Now you should see your new rule there</li>
+<li><strong>In a real world scenario you would make sure that only your IP address could access the SSH port</strong></li>
+<li>To assign the security group, open the instances screen, and select your instance <ul>
+<li>Click on &#34;Security Groups&#34;</li>
+<li>Attach your Security Group</li>
+</ul>
+</li>
+<li>Retry accessing your machine via SSH now</li>
+<li>This should work now</li>
+</ul>
+</li>
+</ul>
+<aside class="special"><p>Congrats! You provisioned your first Virtual Machine and are able to access it! You may delete your VM via the console now</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Infrastructure-as-Code" duration="0">
+        <p>There were many steps we had to take until we got our simple virtual machine working. The current setup is fairly enough to try out some new things, but in the real world you might want to do this in a more reproducible and scalable way.</p>
+<p>This is where Infrastructure-as-Code comes into play. When you are provisioning 100s of instances, you might not want to click through the consoles for every one you are provisioning. Infrastructure-as-Code (IaC) gives you the possibility to configure your instances:</p>
+<ul>
+<li>As code</li>
+<li>In a declarative way</li>
+<li>Scalable</li>
+<li>With development best practices in mind.</li>
+</ul>
+<p>Let&#39;s take a closer look on all of this.</p>
+<p><em>&#34;Infrastructure-as-Code is an approach to infrastructure-automation based on practices from software development. It emphasizes consisten, repeatable routines for provisioning and changing systems and their configuration. You make changes to code, then use automation to tsest and apply those changes to your systems. (Kief Morris(2020), Infrastructure-as-Code, 2nd Edition)&#34;</em></p>
+<p>When we&#39;re talking about Infrastructure-as-Code, we are no more creating our Infrastructure via the UI (ClickOps). Instead, we are writing Code, mainly in a declarative way to describe the state, we want our Infrastructure to be in after it is applied.</p>
+<p>Declarative configuration means that you express your intention (desired state), and a tool takes care of transitioning the managed objects to this state. Using imperative language, you would tell the tooling what it should do. You can distinguish between these two styles using the following statements:</p>
+<ul>
+<li>Imperative: Dear Tool, execute command A, B and C</li>
+<li>Declarative: Dear Tool, please transition my infrastructure to exactly this state</li>
+</ul>
+<p>Please note, that each declarative tool, will have some kind of imperative logic in it to transition to the state.</p>
+<p>When we&#39;re provisioning Infrastructure-as-Code, we often have the possibility to modularize components, as well as having mechanisms in there, which help us creating multiple, similar objects. This are practices, we know from typical software development. As we are using practices from Software Development, we should also treat our Infrastructure as such. Therefore, the code should be versioned, there should be automatic tests in place and pull requests should be on the order of the day.</p>
+<p>There are many tools out there for Infrastructure-as-Code like:</p>
+<ul>
+<li>Terraform</li>
+<li>Pulumi</li>
+<li>Crossplane</li>
+</ul>
+<p>Which tool you use, often depends on your own preferences and your use-cases. In this lab, we will take a closer look on Terraform.</p>
+<p>Further Information / Videos:</p>
+<ul>
+<li>DevOps with Nana: Infrastructure-as-Code <a href="https://www.youtube.com/watch?v=POPP2WTJ8es" target="_blank">https://www.youtube.com/watch?v=POPP2WTJ8es</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Terraform" duration="0">
+        <p>Before we will start with our first configuration, we will put some light on Terraform.</p>
+<p>Terraform is an Infrastructure-as-Code tool developed by Hashicorp. It uses a declarative language to describe infrastructure. The language used is the &#34;Hashicorp Configuration Language (HCL)&#34;. It is designed to work with many cloud providers. Nevertheless, it is not really cloud-agnostic as knowledge about the individual providers is needed when writing the code.</p>
+<p>To start using Terraform, we should be familiar with the following terms:</p>
+<ul>
+<li><strong>State:</strong> The current configuration of our managed resources. The state can be stored in the local filesystem (terraform.tfstate), or remote backends, as S3 Buckets or consul</li>
+<li><strong>Provider:</strong> Implements the commands needed to communicate with the cloud provider. e.g. an Exoscale provider knows how to talk to the Exoscale API and how to get from one state to another.</li>
+<li><strong>Resources:</strong> The Objects you are creating and managing with terraform. As an example, a virtual machine is a resource.</li>
+<li><strong>Data Sources:</strong> Describe objects we can query (!= write) in terraform. In amazon, the AMIs (Amazon Machine Images / Templates) are implemented as datasources you can query</li>
+<li><strong>Variables:</strong> Give us the possibility to parametrize terraform configurations.</li>
+</ul>
+<p>For this lab, we will use a local state, Exoscale as provider and a Compute resource to create our Virtual Machine.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Provisioning an Instance on Exoscale with Terraform" duration="0">
+        <h2 is-upgraded>Goal:</h2>
+<ul>
+<li>You will be able to provision a very simple virtual machine using terraform</li>
+</ul>
+<h2 is-upgraded>Task:</h2>
+<p>Your Boss heard about a new technique to provision virtual instances. He tells you that you should get familiar with this and provision the same virtual machine as before using Terraform</p>
+<h2 is-upgraded>Checklist:</h2>
+<ul>
+<li>[ ] Virtual Machine is provisioned</li>
+<li>[ ] You are able to connect to the virtual instance using SSH</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create your first terraform configuration" duration="0">
+        <ul>
+<li>Create a directory, where you want to store your configuration</li>
+<li>Open an IDE of your choice and open this directory</li>
+</ul>
+<h2 is-upgraded>Creating an API Key and Secret for Exoscale</h2>
+<ul>
+<li>Open the Exoscale Console</li>
+<li>Click on &#34;IAM&#34; -&gt; &#34;API KEYS&#34;</li>
+<li>Add Key <ul>
+<li>Give the Key a meaningful name</li>
+<li>Restrict the Key to Compute</li>
+<li>Click &#34;Create&#34; and store the credentials at a secure place</li>
+</ul>
+</li>
+</ul>
+<h2 is-upgraded>Provider configuration</h2>
+<ul>
+<li>Create a file called <code>terraform.tf</code> in your directory</li>
+<li>Copy the following block in the file, replace key and secret with your API secrets</li>
+<li><strong>Warning! When doing this on production environments (and in the next Labs), never store the secrets in this file, Instead, use mechanisms supported by the provider (e.g. Environment Variables)</strong></li>
+</ul>
+<pre><code language="language-terraform" class="language-terraform">terraform {
+  required_providers {
+    exoscale = {
+      source  = &#34;exoscale/exoscale&#34;
+      version = &#34;0.48.0&#34;
+    }
+  }
+}
+
+provider &#34;exoscale&#34; {
+  key = &#34;key&#34;
+  secret = &#34;secret&#34;
+}
+</code></pre>
+<ul>
+<li>This should be enough to run our first terraform command</li>
+</ul>
+<pre><code>terraform init
+</code></pre>
+<ul>
+<li>This leads to the following output</li>
+</ul>
+<pre><code>Initializing the backend...
+
+Initializing provider plugins...
+- Finding exoscale/exoscale versions matching &#34;0.48.0&#34;...
+- Installing exoscale/exoscale v0.48.0...
+- Installed exoscale/exoscale v0.48.0 (signed by a HashiCorp partner, key ID 81426F034A3D05F7)
+
+Partner and community providers are signed by their developers.
+If you&#39;d like to know more about provider signing, you can read about it here:
+https://www.terraform.io/docs/cli/plugins/signing.html
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run &#34;terraform init&#34; in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running &#34;terraform plan&#34; to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+</code></pre>
+<aside class="special"><p> - Using this step, terraform initialized its (local) state and downloaded the provider from the terraform registry </p>
+</aside>
+<p>In the second step, we will try to create a virtual instance ...</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Deploy a virtual instance with Terraform" duration="0">
+        <p>To do so, we&#39;ll create a second file called <code>main.tf</code>. Furthermore, we copy the following configuration in this file. Replace the ssh_key with the name of the one you created before:</p>
+<pre><code language="language-terraform" class="language-terraform">data &#34;exoscale_compute_template&#34; &#34;my_template&#34; {
+  zone = &#34;at-vie-1&#34;
+  name = &#34;Linux Ubuntu 22.04 LTS 64-bit&#34;
+}
+
+data &#34;exoscale_security_group&#34; &#34;public&#34; {
+  name = &#34;&lt;your-security-group-name&gt;&#34;
+}
+
+resource &#34;exoscale_compute_instance&#34; &#34;my_instance&#34; {
+  zone = &#34;at-vie-1&#34;
+  name = &#34;my-instance&#34;
+
+  template_id = data.exoscale_compute_template.my_template.id
+  type        = &#34;standard.medium&#34;
+  disk_size   = 10
+  ssh_key = &#34;&lt;your-ssh-key-name&gt;&#34;
+  security_group_ids = [ data.exoscale_security_group.public.id ]
+}
+</code></pre>
+<p><strong>Notable Things:</strong></p>
+<ul>
+<li>We imported our security group and used it for the new VM, we could already create the Security Group here</li>
+<li>The Machine Image is also imported</li>
+</ul>
+<p><a href="https://www.terraform.io/docs/language/data-sources/index.html" target="_blank"><strong>Data Sources</strong></a> are here to get configurations from your cloud provider, but will change nothing and are used for referencing in other objects</p>
+<p><a href="https://www.terraform.io/docs/language/resources/index.html" target="_blank"><strong>Resources</strong></a> are objects you are managing with terraform</p>
+<ul>
+<li>Now we could try to find out what this would lead to</li>
+<li>Change to your terraform directory in the shell and execute:</li>
+</ul>
+<pre><code>terraform plan
+</code></pre>
+<ul>
+<li>You get some output about the things which would happen now, most probably you&#39;ll see that one instance will be created</li>
+<li>If you are happy with that, apply this configuration</li>
+</ul>
+<pre><code>terraform apply
+</code></pre>
+<ul>
+<li>You see the same output as before and get prompted if you really want to do this, accept with &#34;yes&#34;</li>
+<li>After a short period of time, you&#39;ll see the following output</li>
+</ul>
+<pre><code>❯ terraform apply
+data.exoscale_security_group.public: Reading...
+data.exoscale_compute_template.my_template: Reading...
+data.exoscale_security_group.public: Read complete after 1s [id=8b225a34-9e8e-4583-a604-a64f61e9c4b9]
+data.exoscale_compute_template.my_template: Read complete after 1s [id=5ef4024a-32bd-4ed4-8887-9bcb21290579]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # exoscale_compute_instance.my_instance will be created
+  + resource &#34;exoscale_compute_instance&#34; &#34;my_instance&#34; {
+      + created_at          = (known after apply)
+      + disk_size           = 10
+      + id                  = (known after apply)
+      + ipv6                = false
+      + ipv6_address        = (known after apply)
+      + name                = &#34;my-instance&#34;
+      + private             = false
+      + private_network_ids = (known after apply)
+      + public_ip_address   = (known after apply)
+      + security_group_ids  = [
+          + &#34;8b225a34-9e8e-4583-a604-a64f61e9c4b9&#34;,
+        ]
+      + ssh_key             = &#34;exoscale-thsc&#34;
+      + state               = (known after apply)
+      + template_id         = &#34;5ef4024a-32bd-4ed4-8887-9bcb21290579&#34;
+      + type                = &#34;standard.medium&#34;
+      + zone                = &#34;at-vie-1&#34;
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only &#39;yes&#39; will be accepted to approve.
+
+  Enter a value: yes
+
+exoscale_compute_instance.my_instance: Creating...
+exoscale_compute_instance.my_instance: Still creating... [10s elapsed]
+exoscale_compute_instance.my_instance: Still creating... [20s elapsed]
+exoscale_compute_instance.my_instance: Creation complete after 21s [id=f4ce2306-ff14-4e8d-8a8a-65e97b872931]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+</code></pre>
+<ul>
+<li>You will see the new instance now in your Exoscale Console</li>
+</ul>
+<p class="image-container"><img alt="img/virt-exo-terraform-intro-terra-instance.png" src="img/a05cb95894000e0c.png"></p>
+<ul>
+<li>You should now also be able to access the instance via SSH with your Key (please note that the username is <code>ubuntu</code> now.</li>
+</ul>
+<aside class="special"><p> - You created your first Exoscale Instance with Terraform </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Deleting this instance" duration="0">
+        <ul>
+<li>After some time you might want to spin down your infrastructure (think of demos for courses)</li>
+<li>You can simply tear it down by typing</li>
+</ul>
+<pre><code>terraform destroy
+</code></pre>
+<ul>
+<li>The tool will ask you if you are sure that you want to remove your instance</li>
+<li>Type yes</li>
+<li>After some time you see the following output:</li>
+</ul>
+<pre><code>Plan: 0 to add, 0 to change, 1 to destroy.
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only &#39;yes&#39; will be accepted to confirm.
+
+  Enter a value: yes
+
+exoscale_compute_instance.my_instance: Destroying... [id=f4ce2306-ff14-4e8d-8a8a-65e97b872931]
+exoscale_compute_instance.my_instance: Still destroying... [id=f4ce2306-ff14-4e8d-8a8a-65e97b872931, 10s elapsed]
+exoscale_compute_instance.my_instance: Destruction complete after 13s
+
+Destroy complete! Resources: 1 destroyed.
+</code></pre>
+<ul>
+<li>If you take a look on the Exoscale Console, the Instance should be terminated</li>
+</ul>
+<aside class="special"><p> - You deleted your first Exoscale Instance with Terraform, you made your first steps in Infrastructure-as-Code </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
