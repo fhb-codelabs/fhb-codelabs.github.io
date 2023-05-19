@@ -42,11 +42,21 @@ Object Store.
 * Give the Bucket a meaningful name "terraform-asdadfk" and choose a zone
 * Click on Create
 
-### Set some environment variables
+### Set some environment variables (Linux / MacOS)
+```
 export AWS_ACCESS_KEY_ID=<EXOSCALE_API_KEY>
 export AWS_SECRET_ACCESS_KEY=<EXOSCALE_API_SECRET>
 export TF_VAR_access_key=${AWS_ACCESS_KEY_ID}
 export TF_VAR_secret_key=${AWS_SECRET_ACCESS_KEY}
+```
+
+### Set some environment variables (Windows)
+```
+set AWS_ACCESS_KEY_ID=<EXOSCALE_API_KEY>
+set AWS_SECRET_ACCESS_KEY=<EXOSCALE_API_SECRET>
+set TF_VAR_access_key=%AWS_ACCESS_KEY_ID%
+set TF_VAR_secret_key=%AWS_SECRET_ACCESS_KEY%
+```
 
 ### Initialize the new state
 * Create a file called `terraform.tf`
