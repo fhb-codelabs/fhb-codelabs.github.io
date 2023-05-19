@@ -84,7 +84,7 @@ This SSH Key has to be created on your machine. On Linux, Mac or WSL machines, t
 * Open a shell (bash, zsh)
 * Run `ssh-keygen -t ed25519 -f exoscale` (and remember where you ran this!)
   * Use a passphrase
-* Open the private part of the key (exoscale.pub) and copy it.
+* Open the public part of the key (exoscale.pub) and copy it.
 
 The public part of the SSH Keypair has to be stored in Exoscale to make it usable in Virtual Machines. Therefore, select "Compute" -> "SSH-Keys" -> "Add",
 assign a name you remember to the key and paste the public part.
