@@ -64,8 +64,18 @@
 <li>Give the Bucket a meaningful name &#34;terraform-asdadfk&#34; and choose a zone</li>
 <li>Click on Create</li>
 </ul>
-<h2 is-upgraded>Set some environment variables</h2>
-<p>export AWS_ACCESS_KEY_ID=&lt;EXOSCALE_API_KEY&gt; export AWS_SECRET_ACCESS_KEY=&lt;EXOSCALE_API_SECRET&gt; export TF_VAR_access_key=${AWS_ACCESS_KEY_ID} export TF_VAR_secret_key=${AWS_SECRET_ACCESS_KEY}</p>
+<h2 is-upgraded>Set some environment variables (Linux / MacOS)</h2>
+<pre><code>export AWS_ACCESS_KEY_ID=&lt;EXOSCALE_API_KEY&gt;
+export AWS_SECRET_ACCESS_KEY=&lt;EXOSCALE_API_SECRET&gt;
+export TF_VAR_access_key=${AWS_ACCESS_KEY_ID}
+export TF_VAR_secret_key=${AWS_SECRET_ACCESS_KEY}
+</code></pre>
+<h2 is-upgraded>Set some environment variables (Windows)</h2>
+<pre><code>set AWS_ACCESS_KEY_ID=&lt;EXOSCALE_API_KEY&gt;
+set AWS_SECRET_ACCESS_KEY=&lt;EXOSCALE_API_SECRET&gt;
+set TF_VAR_access_key=%AWS_ACCESS_KEY_ID%
+set TF_VAR_secret_key=%AWS_SECRET_ACCESS_KEY%
+</code></pre>
 <h2 is-upgraded>Initialize the new state</h2>
 <ul>
 <li>Create a file called <code>terraform.tf</code></li>
