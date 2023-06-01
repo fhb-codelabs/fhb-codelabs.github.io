@@ -5,7 +5,7 @@ tags: aws, MCCE, introduction, iac
 status: Published
 authors: Thomas Schuetz
 
-# HUHU Infrastructure-as-Code - Lab 1 - Terraform Introduction
+# Infrastructure-as-Code - Lab 1 - Terraform Introduction
 <!-- ------------------------ -->
 
 ## What You’ll Learn

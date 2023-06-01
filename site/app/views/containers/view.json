@@ -1,0 +1,9 @@
+{
+  "title": "Container Technologies",
+  "description": "Come and learn about container technologies",
+  "tags": ["containers"],
+  "exclude": [
+    ".*-about$",
+    "^lang-.*"
+  ]
+}
