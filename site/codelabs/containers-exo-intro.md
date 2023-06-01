@@ -128,7 +128,7 @@ docker run hello-world
   * Copy the Token to your clipboard
 
 * Log in to the GitHub Container Registry
-  * `docker login ghcr.io -u <your-github-username> -p <your-github-token>`
+  * `docker login ghcr.io -u {{your-github-username}} -p {{your-github-token}}`
 
 <aside class="positive">
 Your Exoscale Instance is now ready for your experiments!
