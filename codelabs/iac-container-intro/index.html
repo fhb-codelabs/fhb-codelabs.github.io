@@ -1,0 +1,192 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Container Technologies - Lab 1 - Introduction / Setup</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="iac-container-intro"
+                  title="Container Technologies - Lab 1 - Introduction / Setup"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="What You&#39;ll Learn" duration="0">
+        <p>In this lab, you will:</p>
+<ul>
+<li>Spin up a Virtual machine in Exoscale using the UI</li>
+<li>Install a container runtime on this machine</li>
+<li>Start a container on this machine</li>
+</ul>
+<h2 is-upgraded>Prerequisites</h2>
+<ul>
+<li>SSH Client installed (OpenSSH, PuTTY)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating a Virtual Machine in Exoscale" duration="0">
+        <h2 is-upgraded>Goal:</h2>
+<ul>
+<li>You should be able to provision a Virtual Machine using the Exoscale UI</li>
+<li>Furthermore, you should get familiar a bit with Virtual Instances and things you can configure</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Provisioning a Virtual Machine and access it via SSH" duration="0">
+        <p>We will deploy the Virtual Machine via the Exoscale UI. Therefore, open the <a href="https://portal.exoscale.com/login" target="_blank">Exoscale Console</a> and Log In with your credentials.</p>
+<h2 is-upgraded>Create an SSH Key</h2>
+<p>You might want to be able to access your Virtual Machine after it is provisioned. Therefore, we need to preccreate an SSH Key which can be used to access this machine.</p>
+<p>This SSH Key has to be created on your machine. On Linux, Mac or WSL machines, this should work as follows:</p>
+<ul>
+<li>Open a shell (bash, zsh)</li>
+<li>Run <code>ssh-keygen -t ed25519 -f exoscale</code> (and remember where you ran this!) <ul>
+<li>Use a passphrase</li>
+</ul>
+</li>
+<li>Open the public part of the key (exoscale.pub) and copy it.</li>
+</ul>
+<p>The public part of the SSH Keypair has to be stored in Exoscale to make it usable in Virtual Machines. Therefore, select &#34;Compute&#34; -&gt; &#34;SSH-Keys&#34; -&gt; &#34;Add&#34;, assign a name you remember to the key and paste the public part.</p>
+<h2 is-upgraded>Provision the Virtual Machine</h2>
+<p>With this, we should have everything we need to provision a virtual machine.</p>
+<ul>
+<li>Select &#34;Compute&#34; -&gt; &#34;Instances&#34; and click on &#34;Add&#34; <ul>
+<li>Assign a meaningful Hostname to your Instance</li>
+<li>Use &#34;Linux Debian 11 (Bullseye) 64-bit&#34; as Template</li>
+<li>Select the zone of your choice</li>
+<li>Choose the Instance Type &#34;small&#34;</li>
+<li>10GB Storage will fit our needs</li>
+<li>Select the Keypair you created before</li>
+<li>Leave the IPv6 Options unchecked and the User Data Field Empty</li>
+<li>Check your Configuration (as below and click on &#34;Create&#34;)</li>
+</ul>
+</li>
+</ul>
+<p class="image-container"><img alt="img/virt-exo-terraform-intro-instance.png" src="img/2c8551031cdb86bb.png"></p>
+<ul>
+<li>You will see a new screen, where your virtual instance is shown. After some times, it will get into a &#34;running&#34; state</li>
+<li>Make your self familiar with the information and options on this screen</li>
+</ul>
+<h2 is-upgraded>Adding a Security Group</h2>
+<p>To add the security group, select &#34;Security Groups&#34; in the &#34;Compute&#34; menu:</p>
+<ul>
+<li>Add a new security group (&#34;Add&#34;): <ul>
+<li>Name: <code>Public Access</code> and &#34;Create Group&#34;</li>
+<li>On the Security Groups Overview Page, click on the three dots on the right side of the instance row and &#34;Details&#34;</li>
+<li>Add a new Rule <ul>
+<li>Select &#34;SSH&#34;</li>
+</ul>
+</li>
+<li>Now you should see your new rule there</li>
+<li><strong>In a real world scenario you would make sure that only your IP address could access the SSH port</strong></li>
+<li>To assign the security group, open the instances screen, and select your instance <ul>
+<li>Click on &#34;Security Groups&#34;</li>
+<li>Attach your Security Group</li>
+</ul>
+</li>
+<li>Retry accessing your machine via SSH now</li>
+<li>This should work now</li>
+</ul>
+</li>
+</ul>
+<aside class="special"><p>Congrats! You provisioned your first Virtual Machine and are able to access it! </p>
+</aside>
+<h2 is-upgraded>Access the Virtual Machine via SSH</h2>
+<p>In our lab, we want to install software and therefore, it is beneficial to have shell access. Now it&#39;s time to remember where you stored the private ssh key. When you found it, open up your shell and execute:</p>
+<ul>
+<li><code>ssh -i &#123;&#123;path-to-your-private-key}} debian@&#123;&#123;ip-address-of-your-instance}}</code> (you can find the ip address on the instance screen)</li>
+</ul>
+<p>You will find out that you are not able to connect to the machine. This is due to a missing security group.</p>
+<aside class="warning"><p>You can imagine security groups as host-firewalls on cloud-based virtual instances. To access a virtual instance from the public internet, you need a security-group rule to access it</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Installing Docker Engine" duration="0">
+        <p>Run the following commands to install containerd on the virtual machine:</p>
+<pre><code>sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo \
+  &#34;deb [arch=&#34;$(dpkg --print-architecture)&#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  &#34;$(. /etc/os-release &amp;&amp; echo &#34;$VERSION_CODENAME&#34;)&#34; stable&#34; | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+sudo apt-get update
+sudo apt-get -yy install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre>
+<ul>
+<li>Add debian user to docker-group: <code>sudo usermod -a -G docker debian</code></li>
+<li>Log out and log in again</li>
+<li>Try if docker works</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Running a Container" duration="0">
+        <p>Now, we want to run a container on our virtual machine. Therefore, we will use the <code>docker run</code> command. This command will pull the container image from the docker hub and run it on our machine.</p>
+<pre><code>docker run hello-world
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a GitHub Token and log in with docker (if you want)" duration="0">
+        <ul>
+<li>Create a GitHub Profile if you don&#39;t have one yet</li>
+<li>Navigate to your personal account settings https://github.com/settings/profile</li>
+<li>Settings -&gt; Developer Settings<ul>
+<li>Personal Access Token</li>
+<li>Click &#34;Generate new token&#34;</li>
+<li>Choose a name: <code>ghcr-token</code></li>
+<li>Choose Permissions: <ul>
+<li><code>write:packages</code></li>
+</ul>
+</li>
+<li>Generate Token</li>
+<li>Copy the Token to your clipboard</li>
+</ul>
+</li>
+<li>Log in to the GitHub Container Registry<ul>
+<li><code>docker login ghcr.io -u &#123;&#123;your-github-username}} -p &#123;&#123;your-github-token}}</code></li>
+</ul>
+</li>
+</ul>
+<aside class="special"><p> Your Exoscale Instance is now ready for your experiments! </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

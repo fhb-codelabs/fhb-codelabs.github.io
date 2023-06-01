@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2023-05-19T16:01:03Z",
+  "updated": "2023-06-01T19:01:35Z",
   "id": "ssoa-pt-sops-kms",
   "duration": 0,
   "title": "SSOA Extra Lab - Encrypting Secrets with SOPS and KMS",

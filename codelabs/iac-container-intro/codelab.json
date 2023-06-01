@@ -4,22 +4,23 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2023-06-01T19:01:35Z",
-  "id": "edit-this-codelabs",
-  "duration": 1,
-  "title": "Creating/changing this codelabs",
+  "id": "iac-container-intro",
+  "duration": 0,
+  "title": "Container Technologies - Lab 1 - Introduction / Setup",
   "authors": "Thomas Schuetz",
-  "summary": "How to create/edit codelabs",
-  "source": "edit-this-codelabs.md",
+  "summary": "Lab 1 - Container Intro (Exoscale Edition)",
+  "source": "containers-exo-intro.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "codelab"
+    "containers"
   ],
   "tags": [
-    "general",
+    "containers",
+    "exoscale",
     "introduction"
   ],
-  "url": "edit-this-codelabs"
+  "url": "iac-container-intro"
 }
