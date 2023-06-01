@@ -5,12 +5,10 @@ tags: containers, introduction, exoscale
 status: Published
 authors: Thomas Schuetz
 
-# HUHU Infrastructure-as-Code - Lab 1 - Terraform Introduction
+# Container Technologies - Lab 1 - Introduction / Setup
 <!-- ------------------------ -->
 
 ## What You’ll Learn
-
-![Big Picture](./img/iac-terra-exo-intro-big-picture.png)
 
 In this lab, you will:
 * Spin up a Virtual machine in Exoscale using the UI
