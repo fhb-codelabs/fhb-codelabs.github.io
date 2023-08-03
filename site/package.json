@@ -10,7 +10,7 @@
     "del": "^3.0.0",
     "fs-extra": "^11.0.0",
     "glob": "^10.0.0",
-    "google-closure-compiler": "^20181008.0.0",
+    "google-closure-compiler": "^20230802.0.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^7.0.0",
     "gulp-crisper": "^1.1.0",
