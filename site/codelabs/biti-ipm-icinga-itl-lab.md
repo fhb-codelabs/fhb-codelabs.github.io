@@ -6,22 +6,24 @@ status: Draft
 authors: Roland Pellegrini
 
 # BITI IPM Lab - Icinga Template Library
+
 <!-- ------------------------ -->
-## Before You Begin 
+
+## Before You Begin
 
 ### What You’ll Learn
 
 The ITL is a collection of templates and check commands. Check commands control the invocation of plugins in Icinga 2.
 
-A plugin is a program that uses its own logic to determine the status of a service or host. 
+A plugin is a program that uses its own logic to determine the status of a service or host.
 
 The check command to apply is specified in a service definition. This determines which plugin will be executed to perform a check on that service.
 
 In this codelab you will learn
 
-* how to use check commands
+- how to use check commands
 
-###  Where You Can Look Up
+### Where You Can Look Up
 
 The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://icinga.com/docs/icinga-2/latest/doc/01-about/).
 
@@ -29,23 +31,26 @@ The best source of documentation is the homepage of Icinga2. The latest document
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian 11 (Bullseye).
+This is the OS of the virtual machine. This will be Debian .
 
 #### Administators privileges
 
 By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.
 
-For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
+For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration.
 
 ### Root privileges via sudo
 
 In this codelab you have to work with root privileges. Therefore, a few words of caution: double check whatever you type and make backups whenever necessary.
 
 Working with root privileges is quite easy. Open a terminal (a shell) and enter the following commmand:
+
 ```
 sudo -s
 ```
+
 Enter the password of the icinga user and voila:
+
 ```
 root@server:/home/icinga#
 ```
@@ -53,7 +58,6 @@ root@server:/home/icinga#
 Once you are root via sudo, it is no longer necessary to prepend the sudo command. Instead of `sudo ls -lisa /root/` you can also type `ls -lisa /root/` because you have root privileges already. However, all commands in this codelab will always start with `sudo` to remind you that you are working with root privileges.
 
 <!-- ------------------------ -->
-
 
 ## Icinga Template Library
 
@@ -72,20 +76,22 @@ As an example, scroll down to the `check_user` plugin.
 This section gives you a short description of the `check_users` plugin. Here, the `check_users` plugin checks the number of users currently logged in on the local system and generates an error if the number exceeds the thresholds specified. The plugin therefore accepts parameters which can be accessed as runtime macros by the executed command.
 
 The check_users plugin provides the following parameters:
-* users_wgreater - Optional. The user count warning threshold. Defaults to 20.
-* users_cgreater - Optional. The user count critical threshold. Defaults to 50.
 
+- users_wgreater - Optional. The user count warning threshold. Defaults to 20.
+- users_cgreater - Optional. The user count critical threshold. Defaults to 50.
 
 ## Command-Line
 
 When you install Icinga2 on your computer, all check commands can be found in `/usr/lib/nagios/plugins/`.
 
-Please run the following command to get an overview of the `check_users` plugin and its parameters: 
+Please run the following command to get an overview of the `check_users` plugin and its parameters:
+
 ```
 sudo /usr/lib/nagios/plugins/check_users -h
 ```
 
 The plugin provides a detailed help screen.
+
 ```
 check_users v2.3.1 (monitoring-plugins 2.3.1)
 Copyright (c) 1999 Ethan Galstad
@@ -119,14 +125,17 @@ to devel@monitoring-plugins.org
 ```
 
 Run the following command to check the number of users logged-in.
+
 ```
 sudo /usr/lib/nagios/plugins/check_users -w 0 -c 0
 ```
 
 Note that you must pass all parameters here. All thresholds are set to zero, which means that the command will definitely print an error message if one or more users are logged in. The output of the command looks like this:
+
 ```
 USERS CRITICAL - 1 users currently logged in | users=1;0;0;0
 ```
+
 As expected, the plugin generates a critical message because the number of logged-in users exceeds the threshold of zero (0). Use different thresholds to generate CRITICAL, WARNING and OK messages.
 
 <aside class="positive">
@@ -143,6 +152,7 @@ sudo nano /etc/icinga2/zones.d/master/services.conf
 ```
 
 Scroll down to the `Users` Service (or add it if the section does not exist) and add the following line:
+
 ```
 apply Service "Users" {
   check_command = "users"
@@ -162,7 +172,6 @@ sudo systemctl restart icinga2
 Do you encounter any problems here? First try to fix the problem yourself! Use an appropriate tool to verify if the configuration syntax is error-free.
 </aside>
 
-
 Now go back to the Icinga2 Web Interface and check if User problems occur:
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-itl-3.png)
 
@@ -174,7 +183,7 @@ In this case, the agent on the node client has identified the two users currentl
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-itl-5.png)
 
-Even if past incidents disappear, however, they are stored in Icinga2 and can be retrieved at any time. Simply click on `Users` in the "Recently Restored Services" section and then select the `History` tab. 
+Even if past incidents disappear, however, they are stored in Icinga2 and can be retrieved at any time. Simply click on `Users` in the "Recently Restored Services" section and then select the `History` tab.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-itl-6.png)
 
@@ -186,12 +195,12 @@ The History tab shows details of all past incidents related to the Check User co
 
 This hands-on differs from other lessons. This hands-on wants you to explore some of the check_commands which are provided by Icinga2 by default.
 
-In this codelab, you will learn 
+In this codelab, you will learn
 
-* how to use more check commands on the command line
-* how to use them as services
-* how useful backups are!
-* 
+- how to use more check commands on the command line
+- how to use them as services
+- how useful backups are!
+-
 
 The objective of this hands-on is to get some practice when working with Icinga2 and its configuration files.
 
@@ -201,22 +210,22 @@ In this codelab, you will need a running Icinga2 server.
 
 ### The assignment
 
-* Go to `/usr/lib/nagios/plugins/` and pick some random check_commands.
-* Run them on the commandline first to get an idea how they work and what parameters they provide.
-* Edit the files `/etc/icinga2/zones.d/master/services.conf` (agendbased) and `/etc/icinga2/conf.d/hosts/localhost.conf` (agentless) and add some of the check_commands. Use the online [documentation](https://icinga.com/docs/icinga-2/latest/doc/01-about/) to get information and more details about the check_commands. Finally, update some parameters of existing commands.
-* Watch how Icinga2 reacts on the changes you made and play around with different settings.
+- Go to `/usr/lib/nagios/plugins/` and pick some random check_commands.
+- Run them on the commandline first to get an idea how they work and what parameters they provide.
+- Edit the files `/etc/icinga2/zones.d/master/services.conf` (agendbased) and `/etc/icinga2/conf.d/hosts/localhost.conf` (agentless) and add some of the check_commands. Use the online [documentation](https://icinga.com/docs/icinga-2/latest/doc/01-about/) to get information and more details about the check_commands. Finally, update some parameters of existing commands.
+- Watch how Icinga2 reacts on the changes you made and play around with different settings.
 
 ### Useful check_commands
 
 Here is a list of some checks you might test:
 
-* check_mysql (localhost only because the database is installed on your Icinga2 server)
-* check_apt (can be installed on both, localhost and node)
-* check_http (let's go and check some external websites)
-* check_procs (can be installed on both, localhost and node)
-* check_tcp (hmmm, which service is waiting for incoming tcp traffic?)
-* check_swap (already installed so use different parameters)
-* check_disk (already installed so use different parameters)
+- check_mysql (localhost only because the database is installed on your Icinga2 server)
+- check_apt (can be installed on both, localhost and node)
+- check_http (let's go and check some external websites)
+- check_procs (can be installed on both, localhost and node)
+- check_tcp (hmmm, which service is waiting for incoming tcp traffic?)
+- check_swap (already installed so use different parameters)
+- check_disk (already installed so use different parameters)
 
 And much much more. Have fun!
 

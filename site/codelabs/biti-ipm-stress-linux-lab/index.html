@@ -1,123 +1,184 @@
-
-<!doctype html>
+<!DOCTYPE html>
 
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>BITI IPM Lab - Stress</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="biti-ipm-stress-linux-lab"
-                  title="BITI IPM Lab - Stress"
-                  environment="web"
-                  feedback-link="">
-    
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
+    />
+    <meta name="theme-color" content="#4F7DC9" />
+    <meta charset="UTF-8" />
+    <title>BITI IPM Lab - Stress</title>
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono"
+    />
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://storage.googleapis.com/claat-public/codelab-elements.css"
+    />
+    <style>
+      .success {
+        color: #1e8e3e;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+    <google-codelab
+      codelab-gaid=""
+      id="biti-ipm-stress-linux-lab"
+      title="BITI IPM Lab - Stress"
+      environment="web"
+      feedback-link=""
+    >
       <google-codelab-step label="Before You Begin" duration="0">
-        <p>There are many reasons why you might want to stress test your Linux system. System administrators may want to see how their operating system and hardware perform under full load to detect software bugs or hardware failures.</p>
-<h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-<p>In this codelab you will learn</p>
-<ul>
-<li>How to perform stress the CPU with an one-liner (Linux)</li>
-<li>How to perform stress the CPU using the stress application (Linux)</li>
-</ul>
-<aside class="warning"><p> Warning: Running the following tools with root privileges stress your system, so use them judiciously. </p>
-</aside>
-<h2 is-upgraded>What You&#39;ll need</h2>
-<h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
-<h3 is-upgraded>Administators privileges</h3>
-<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
-<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
-
-
+        <p>
+          There are many reasons why you might want to stress test your Linux
+          system. System administrators may want to see how their operating
+          system and hardware perform under full load to detect software bugs or
+          hardware failures.
+        </p>
+        <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
+        <p>In this codelab you will learn</p>
+        <ul>
+          <li>How to perform stress the CPU with an one-liner (Linux)</li>
+          <li>
+            How to perform stress the CPU using the stress application (Linux)
+          </li>
+        </ul>
+        <aside class="warning">
+          <p>
+            Warning: Running the following tools with root privileges stress
+            your system, so use them judiciously.
+          </p>
+        </aside>
+        <h2 is-upgraded>What You&#39;ll need</h2>
+        <h3 is-upgraded>Guest operation system (Guest OS)</h3>
+        <p>This is the OS of the virtual machine. This will be Debian .</p>
+        <h3 is-upgraded>Administators privileges</h3>
+        <p>
+          By default, administrator privileges are required on the Host OS to
+          install additional software. Make sure that you have the required
+          permissions.
+        </p>
+        <p>
+          For the Guest OS, you will create and manage your own users. These
+          users will therefore be different from the Host&#39;s user
+          administration.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Stress with Yes" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>This one-liner creates a <code>yes</code> process that runs on each processor core of the machine. The <code>yes</code> command repeatedly prints the letter <code>y</code> until it terminates. It uses 100% of a CPU core. If Hyper-Threading is enabled, twice as many <code>yes</code> processes will be created.</p>
-<h2 is-upgraded>Sample code</h2>
-<p>Open a shell and run the following one-liner:</p>
-<pre><code>for i in $(seq $(getconf _NPROCESSORS_ONLN)); do yes &gt; /dev/null &amp; done
+        <p>
+          This one-liner creates a <code>yes</code> process that runs on each
+          processor core of the machine. The <code>yes</code> command repeatedly
+          prints the letter <code>y</code> until it terminates. It uses 100% of
+          a CPU core. If Hyper-Threading is enabled, twice as many
+          <code>yes</code> processes will be created.
+        </p>
+        <h2 is-upgraded>Sample code</h2>
+        <p>Open a shell and run the following one-liner:</p>
+        <pre><code>for i in $(seq $(getconf _NPROCESSORS_ONLN)); do yes &gt; /dev/null &amp; done
 </code></pre>
-<h2 is-upgraded>Sample output</h2>
-<p>The output of this one-liner will look this:</p>
-<p class="image-container"><img alt="VirtualBox Extension" src="img/79e6f8fa720c455.png"></p>
-<p>The command <code>getconf _NPROCESSORS_ONLN</code> returns the number for CPU cores. The command <code>seq</code> prints a sequence of numbers from 1 up to the amount of CPU Cores. FInally, the look <code>for i in .... done</code> takes the sequence and starts a yes process for each of them, redirecting the output to dev/null.</p>
-<p>As a result, the command <code>htop</code> shows the CPU utilization:</p>
-<p class="image-container"><img alt="VirtualBox Extension" src="img/6a3c1408e3551712.png"></p>
-<p>To kill all <code>yes</code> processes, run the following one-liner:</p>
-<pre><code>killall yes
+        <h2 is-upgraded>Sample output</h2>
+        <p>The output of this one-liner will look this:</p>
+        <p class="image-container">
+          <img alt="VirtualBox Extension" src="img/79e6f8fa720c455.png" />
+        </p>
+        <p>
+          The command <code>getconf _NPROCESSORS_ONLN</code> returns the number
+          for CPU cores. The command <code>seq</code> prints a sequence of
+          numbers from 1 up to the amount of CPU Cores. FInally, the look
+          <code>for i in .... done</code> takes the sequence and starts a yes
+          process for each of them, redirecting the output to dev/null.
+        </p>
+        <p>
+          As a result, the command <code>htop</code> shows the CPU utilization:
+        </p>
+        <p class="image-container">
+          <img alt="VirtualBox Extension" src="img/6a3c1408e3551712.png" />
+        </p>
+        <p>
+          To kill all <code>yes</code> processes, run the following one-liner:
+        </p>
+        <pre><code>killall yes
 </code></pre>
-
-
       </google-codelab-step>
-    
+
       <google-codelab-step label="Stress with Stress" duration="0">
         <p>Description</p>
-<p>The <code>stress</code> program is a simple workload generator for POSIX systems. It allows system administrator to run a configurable amount of CPU, memory, disk and I/O stress on the target system.</p>
-<h2 is-upgraded>Sample code</h2>
-<p>Open a shell and run the following command with root privileges:</p>
-<pre><code>stress -c 1 -t 60s -v
+        <p>
+          The <code>stress</code> program is a simple workload generator for
+          POSIX systems. It allows system administrator to run a configurable
+          amount of CPU, memory, disk and I/O stress on the target system.
+        </p>
+        <h2 is-upgraded>Sample code</h2>
+        <p>Open a shell and run the following command with root privileges:</p>
+        <pre><code>stress -c 1 -t 60s -v
 </code></pre>
-<p>Where,</p>
-<ul>
-<li><code>-c 1</code>   : Run one (1) worker spinning on sqrt()</li>
-<li><code>-t 60s</code> : Timeout after 60 seconds</li>
-<li><code>-v</code>     : Be verbose</li>
-</ul>
-<h2 is-upgraded>Sample output</h2>
-<p>The output will look like this:</p>
-<p class="image-container"><img alt="VirtualBox Extension" src="img/e1cb5e6476f7d102.png"></p>
-<h2 is-upgraded>Watch the results</h2>
-<p>To see how the stress commmand utilize the CPU, open a shell and start the <code>htop</code> application:</p>
-<pre><code>htop
+        <p>Where,</p>
+        <ul>
+          <li><code>-c 1</code> : Run one (1) worker spinning on sqrt()</li>
+          <li><code>-t 60s</code> : Timeout after 60 seconds</li>
+          <li><code>-v</code> : Be verbose</li>
+        </ul>
+        <h2 is-upgraded>Sample output</h2>
+        <p>The output will look like this:</p>
+        <p class="image-container">
+          <img alt="VirtualBox Extension" src="img/e1cb5e6476f7d102.png" />
+        </p>
+        <h2 is-upgraded>Watch the results</h2>
+        <p>
+          To see how the stress commmand utilize the CPU, open a shell and start
+          the <code>htop</code> application:
+        </p>
+        <pre><code>htop
 </code></pre>
-<p>The output will look something like this: <img alt="VirtualBox Extension" src="img/c91b40b2108c0533.png"></p>
-<h2 is-upgraded>Sample memory stress</h2>
-<p>Open a shell and run the following command with root privileges:</p>
-<pre><code>stress -m 2 --vm-bytes 1024M  -t 20s -v
+        <p>
+          The output will look something like this:
+          <img alt="VirtualBox Extension" src="img/c91b40b2108c0533.png" />
+        </p>
+        <h2 is-upgraded>Sample memory stress</h2>
+        <p>Open a shell and run the following command with root privileges:</p>
+        <pre><code>stress -m 2 --vm-bytes 1024M  -t 20s -v
 </code></pre>
-<p>Where,</p>
-<ul>
-<li><code>-m 2</code>   : Run two (2) workers spinning on sync()</li>
-<li><code>--vm-bytes 1024M</code> : malloc 1024MB per vm worker</li>
-<li><code>-t 20s</code> : Timeout after 20 seconds</li>
-</ul>
-<h2 is-upgraded>Watch the results</h2>
-<p>To see how the stress commmand utilize Memory, open a shell and start the <code>htop</code> application:</p>
-<pre><code>htop
+        <p>Where,</p>
+        <ul>
+          <li><code>-m 2</code> : Run two (2) workers spinning on sync()</li>
+          <li><code>--vm-bytes 1024M</code> : malloc 1024MB per vm worker</li>
+          <li><code>-t 20s</code> : Timeout after 20 seconds</li>
+        </ul>
+        <h2 is-upgraded>Watch the results</h2>
+        <p>
+          To see how the stress commmand utilize Memory, open a shell and start
+          the <code>htop</code> application:
+        </p>
+        <pre><code>htop
 </code></pre>
-<p>The output will look like this: <img alt="VirtualBox Extension" src="img/e51db0ca3eb97dc8.png"></p>
-<h2 is-upgraded>References</h2>
-<p>Stressing the manual page:</p>
-<pre><code>man stress
+        <p>
+          The output will look like this:
+          <img alt="VirtualBox Extension" src="img/e51db0ca3eb97dc8.png" />
+        </p>
+        <h2 is-upgraded>References</h2>
+        <p>Stressing the manual page:</p>
+        <pre><code>man stress
 </code></pre>
-
-
       </google-codelab-step>
-    
-  </google-codelab>
+    </google-codelab>
 
-  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
-  <script src="//support.google.com/inapp/api.js"></script>
-
-</body>
+    <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+    <script src="//support.google.com/inapp/api.js"></script>
+  </body>
 </html>

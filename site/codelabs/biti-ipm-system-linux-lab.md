@@ -6,28 +6,30 @@ status: Draft
 authors: Roland Pellegrini
 
 # BITI IPM Lab - System Information
+
 <!-- ------------------------ -->
-## Before You Begin 
+
+## Before You Begin
 
 ### What You’ll Learn
 
 In this codelab you will learn
 
-* how to get system information with hwinfo
+- how to get system information with hwinfo
 
-###  Where You Can Look Up
+### Where You Can Look Up
 
 ### What You'll need
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian 11 (Bullseye).
+This is the OS of the virtual machine. This will be Debian .
 
 #### Administators privileges
 
 By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.
 
-For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
+For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration.
 
 <!-- ------------------------ -->
 
@@ -44,6 +46,7 @@ Hwinfo requires root privileges.
 ### Sample code
 
 Run the following command:
+
 ```
 hwinfo | more
 ```
@@ -116,7 +119,7 @@ hwinfo --short --cpu
 Sample output
 
 ```
-cpu:                                                            
+cpu:
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2550 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1075 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1841 MHz
@@ -132,6 +135,7 @@ hwinfo --all --log hardware_info.txt
 ### References
 
 The manual of hwinfo? There you are:
+
 ```
 man hwinfo
 ```

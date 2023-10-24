@@ -1,80 +1,169 @@
-
-<!doctype html>
+<!DOCTYPE html>
 
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>BITI IPM Lab - Icinga Agentbased Monitoring</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="biti-ipm-icinga-agentbased-lab"
-                  title="BITI IPM Lab - Icinga Agentbased Monitoring"
-                  environment="web"
-                  feedback-link="">
-    
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
+    />
+    <meta name="theme-color" content="#4F7DC9" />
+    <meta charset="UTF-8" />
+    <title>BITI IPM Lab - Icinga Agentbased Monitoring</title>
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono"
+    />
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://storage.googleapis.com/claat-public/codelab-elements.css"
+    />
+    <style>
+      .success {
+        color: #1e8e3e;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+    <google-codelab
+      codelab-gaid=""
+      id="biti-ipm-icinga-agentbased-lab"
+      title="BITI IPM Lab - Icinga Agentbased Monitoring"
+      environment="web"
+      feedback-link=""
+    >
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-<p>Hosts and services can be monitored in two ways:</p>
-<ul>
-<li><strong>Use of Simple Host Monitoring (Agentless):</strong> This involves the use of services that are accessible across the local network or the Internet for example include HTTP, SSH, ICMP etc. This method is fit for monitoring hosts on which monitoring agents cannot be installed.</li>
-<li><strong>Use of Monitoring Agents (Agentbased):</strong> In this method, an agent is required in order to monitor host and services like CPU load, disk space, memory and the running process. In this configuration, Icinga 2 acts as the master node and the remote host acts as the client node.</li>
-</ul>
-<p>In this codelab you will learn</p>
-<ul>
-<li>how to monitor the availability (=state) of remote hosts and services with Icinga2 agents.</li>
-</ul>
-<p>Hosts and services can be anything such as Network services (HTTP, SSH, etc.), printers, switches or routers, or any other local or network-accessible services. Icinga2 monitors the states of hosts and the services they offer. Each host can have the states UP and DOWN, each service can have the states OKAY, WARNING, CRITICAL and UKNOWN.</p>
-<h2 is-upgraded>Where You Can Look Up</h2>
-<p>The best source of documentation is the homepage of Icinga2. The latest documentation can be found <a href="https://icinga.com/docs/icinga-2/latest/doc/01-about/" target="_blank">here</a>.</p>
-<h2 is-upgraded>What You&#39;ll need</h2>
-<h3 is-upgraded>Icinga2 instances</h3>
-<p>In this codelab you will need two virtual machines:</p>
-<ol type="1">
-<li>A working Icinga2 instance (called server,master) that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab <strong>BITI IPM Lab - Icinga Installation</strong> how to install Icinga2 on your local computer.</li>
-<li>A working Debian instance (called node, client) where you will install Icinga2 Agent software for remote monitoring. Contact your instructor where to download it. Import the virtual machine by using the &#34;Import Appliance&#34; command of Virtual Box.</li>
-</ol>
-<p>Both virtual machines run on Debian 11 but the specification of the node instance differs from the server instance. First, the node instance has no GUI, all commands have to be executed on the console. Second, the hardware is limited to 1 CPU core with 1 GB Ram to ensure that you HostOS (= your laptop) will not be overloaded.</p>
-<h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
-<h3 is-upgraded>Administators privileges</h3>
-<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
-<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
-<h2 is-upgraded>Root privileges via sudo</h2>
-<p>In this codelab you have to work with root privileges. Therefore, a few words of caution: double check whatever you type and make backups whenever necessary.</p>
-<p>Working with root privileges is quite easy. Open a terminal (a shell) and enter the following commmand:</p>
-<pre><code>sudo -s
+        <p>Hosts and services can be monitored in two ways:</p>
+        <ul>
+          <li>
+            <strong>Use of Simple Host Monitoring (Agentless):</strong> This
+            involves the use of services that are accessible across the local
+            network or the Internet for example include HTTP, SSH, ICMP etc.
+            This method is fit for monitoring hosts on which monitoring agents
+            cannot be installed.
+          </li>
+          <li>
+            <strong>Use of Monitoring Agents (Agentbased):</strong> In this
+            method, an agent is required in order to monitor host and services
+            like CPU load, disk space, memory and the running process. In this
+            configuration, Icinga 2 acts as the master node and the remote host
+            acts as the client node.
+          </li>
+        </ul>
+        <p>In this codelab you will learn</p>
+        <ul>
+          <li>
+            how to monitor the availability (=state) of remote hosts and
+            services with Icinga2 agents.
+          </li>
+        </ul>
+        <p>
+          Hosts and services can be anything such as Network services (HTTP,
+          SSH, etc.), printers, switches or routers, or any other local or
+          network-accessible services. Icinga2 monitors the states of hosts and
+          the services they offer. Each host can have the states UP and DOWN,
+          each service can have the states OKAY, WARNING, CRITICAL and UKNOWN.
+        </p>
+        <h2 is-upgraded>Where You Can Look Up</h2>
+        <p>
+          The best source of documentation is the homepage of Icinga2. The
+          latest documentation can be found
+          <a
+            href="https://icinga.com/docs/icinga-2/latest/doc/01-about/"
+            target="_blank"
+            >here</a
+          >.
+        </p>
+        <h2 is-upgraded>What You&#39;ll need</h2>
+        <h3 is-upgraded>Icinga2 instances</h3>
+        <p>In this codelab you will need two virtual machines:</p>
+        <ol type="1">
+          <li>
+            A working Icinga2 instance (called server,master) that you can
+            access via IcingaWeb2 GUI. If you do not have a running Icinga2
+            instance, please consult the Codelab
+            <strong>BITI IPM Lab - Icinga Installation</strong> how to install
+            Icinga2 on your local computer.
+          </li>
+          <li>
+            A working Debian instance (called node, client) where you will
+            install Icinga2 Agent software for remote monitoring. Contact your
+            instructor where to download it. Import the virtual machine by using
+            the &#34;Import Appliance&#34; command of Virtual Box.
+          </li>
+        </ol>
+        <p>
+          Both virtual machines run on Debian but the specification of the node
+          instance differs from the server instance. First, the node instance
+          has no GUI, all commands have to be executed on the console. Second,
+          the hardware is limited to 1 CPU core with 1 GB Ram to ensure that you
+          HostOS (= your laptop) will not be overloaded.
+        </p>
+        <h3 is-upgraded>Guest operation system (Guest OS)</h3>
+        <p>This is the OS of the virtual machine. This will be Debian .</p>
+        <h3 is-upgraded>Administators privileges</h3>
+        <p>
+          By default, administrator privileges are required on the Host OS to
+          install additional software. Make sure that you have the required
+          permissions.
+        </p>
+        <p>
+          For the Guest OS, you will create and manage your own users. These
+          users will therefore be different from the Host&#39;s user
+          administration.
+        </p>
+        <h2 is-upgraded>Root privileges via sudo</h2>
+        <p>
+          In this codelab you have to work with root privileges. Therefore, a
+          few words of caution: double check whatever you type and make backups
+          whenever necessary.
+        </p>
+        <p>
+          Working with root privileges is quite easy. Open a terminal (a shell)
+          and enter the following commmand:
+        </p>
+        <pre><code>sudo -s
 </code></pre>
-<p>Enter the password of the icinga user and voila:</p>
-<pre><code>root@server:/home/icinga#
+        <p>Enter the password of the icinga user and voila:</p>
+        <pre><code>root@server:/home/icinga#
 </code></pre>
-<p>Once you are root via sudo, it is no longer necessary to prepend the sudo command. Instead of <code>sudo ls -lisa /root/</code> you can also type <code>ls -lisa /root/</code> because you have root privileges already. However, all commands in this codelab will always start with <code>sudo</code> to remind you that you are working with root privileges.</p>
-
-
+        <p>
+          Once you are root via sudo, it is no longer necessary to prepend the
+          sudo command. Instead of <code>sudo ls -lisa /root/</code> you can
+          also type <code>ls -lisa /root/</code> because you have root
+          privileges already. However, all commands in this codelab will always
+          start with <code>sudo</code> to remind you that you are working with
+          root privileges.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Icinga2 server node" duration="0">
         <h2 is-upgraded>Set up Icinga2 server node</h2>
-<p>After the introduction, it is time to set up Icinga2 for agentbased remote monitoring. We will start to set up the Icinga2 server as a master node.</p>
-<p>Run the following command on your server to setup a Icinga2 master node:</p>
-<pre><code>sudo icinga2 node wizard
+        <p>
+          After the introduction, it is time to set up Icinga2 for agentbased
+          remote monitoring. We will start to set up the Icinga2 server as a
+          master node.
+        </p>
+        <p>
+          Run the following command on your server to setup a Icinga2 master
+          node:
+        </p>
+        <pre><code>sudo icinga2 node wizard
 </code></pre>
-<p>This will prompt you if this is a Satellite or Client setup. Choose your inputs to select a master setup or press Enter to accept the defaults:</p>
-<pre><code>Welcome to the Icinga 2 Setup Wizard!
+        <p>
+          This will prompt you if this is a Satellite or Client setup. Choose
+          your inputs to select a master setup or press Enter to accept the
+          defaults:
+        </p>
+        <pre><code>Welcome to the Icinga 2 Setup Wizard!
 
 We will guide you through all required configuration details.
 
@@ -103,41 +192,83 @@ Done.
 
 Now restart your Icinga 2 daemon to finish the installation!
 </code></pre>
-<p>Once this setup is done, run the following command to restart the Icinga2 service. This will finalize the setup.</p>
-<pre><code>sudo systemctl restart icinga2
+        <p>
+          Once this setup is done, run the following command to restart the
+          Icinga2 service. This will finalize the setup.
+        </p>
+        <pre><code>sudo systemctl restart icinga2
 </code></pre>
-<aside class="warning"><p> Yes, restart Icinga2 here otherwise you get into troubles later.  </p>
-</aside>
-<h2 is-upgraded>Set up the firewall on Icinga2 server node</h2>
-<p>If a firewall is running on your server node, you have to open the following port. This enables the communication between server and client nodes.</p>
-<pre><code>sudo ufw allow 5665
+        <aside class="warning">
+          <p>
+            Yes, restart Icinga2 here otherwise you get into troubles later.
+          </p>
+        </aside>
+        <h2 is-upgraded>Set up the firewall on Icinga2 server node</h2>
+        <p>
+          If a firewall is running on your server node, you have to open the
+          following port. This enables the communication between server and
+          client nodes.
+        </p>
+        <pre><code>sudo ufw allow 5665
 </code></pre>
-<aside class="warning"><p> If you get an error here, the ufw service and the local firewall are already disabled (or de-installed) on both virtual machines, server and node. However, disabling the firewall is not recommended on production systems. </p>
-</aside>
-<h2 is-upgraded>Generate a client ticket</h2>
-<p>A client (=Icinga2 satellite) which sends a Certificate Signing Request (CSR) must authenticate itself in a trusted way. The master generates a client ticket which is included in this request. That way the master can verify that the request matches the previously trusted ticket and sign the request.</p>
-<p>Run the commands below on the master node to generate the ticket for your client node:</p>
-<pre><code>icinga2 pki ticket --cn &#39;node&#39; 
+        <aside class="warning">
+          <p>
+            If you get an error here, the ufw service and the local firewall are
+            already disabled (or de-installed) on both virtual machines, server
+            and node. However, disabling the firewall is not recommended on
+            production systems.
+          </p>
+        </aside>
+        <h2 is-upgraded>Generate a client ticket</h2>
+        <p>
+          A client (=Icinga2 satellite) which sends a Certificate Signing
+          Request (CSR) must authenticate itself in a trusted way. The master
+          generates a client ticket which is included in this request. That way
+          the master can verify that the request matches the previously trusted
+          ticket and sign the request.
+        </p>
+        <p>
+          Run the commands below on the master node to generate the ticket for
+          your client node:
+        </p>
+        <pre><code>icinga2 pki ticket --cn &#39;node&#39; 
 </code></pre>
-<p>The command will print a ticket on screen:</p>
-<pre><code>3bcb8a06466706f6a5d5f541c175004149e6dbb2 
+        <p>The command will print a ticket on screen:</p>
+        <pre><code>3bcb8a06466706f6a5d5f541c175004149e6dbb2 
 </code></pre>
-<p>In this codelab, we will assume the key above. Save your key as you will require it later while setting up the client nodes.</p>
-<p>If a ticket is created without any errors, skip the next chapter, <strong>scroll down</strong> and continue with the chapter called <strong>Listen on port 5665</strong>.</p>
-<h2 is-upgraded>Fix the salt problem</h2>
-<aside class="warning"><p> Follow this chapter only if you encounter problems creating the PKI Ticket. If you have successfully created a ticket, please ignore this chapter.  </p>
-</aside>
-<p>While generating the PKI ticket you may get the following error:</p>
-<pre><code>critical/cli: Ticket salt (--salt) must be specified
+        <p>
+          In this codelab, we will assume the key above. Save your key as you
+          will require it later while setting up the client nodes.
+        </p>
+        <p>
+          If a ticket is created without any errors, skip the next chapter,
+          <strong>scroll down</strong> and continue with the chapter called
+          <strong>Listen on port 5665</strong>.
+        </p>
+        <h2 is-upgraded>Fix the salt problem</h2>
+        <aside class="warning">
+          <p>
+            Follow this chapter only if you encounter problems creating the PKI
+            Ticket. If you have successfully created a ticket, please ignore
+            this chapter.
+          </p>
+        </aside>
+        <p>While generating the PKI ticket you may get the following error:</p>
+        <pre><code>critical/cli: Ticket salt (--salt) must be specified
 </code></pre>
-<p>The first thing you have to do is to restart the Icinga2 service.</p>
-<pre><code>sudo systemctl restart icinga2
+        <p>The first thing you have to do is to restart the Icinga2 service.</p>
+        <pre><code>sudo systemctl restart icinga2
 </code></pre>
-<p>Next, you have to check if icinga2 has generated a so-called <strong>TicketSalt</strong>. This is a constant and stored in /etc/icinga2/constants.conf. You can check this with the following command:</p>
-<pre><code>sudo cat /etc/icinga2/constants.conf
+        <p>
+          Next, you have to check if icinga2 has generated a so-called
+          <strong>TicketSalt</strong>. This is a constant and stored in
+          /etc/icinga2/constants.conf. You can check this with the following
+          command:
+        </p>
+        <pre><code>sudo cat /etc/icinga2/constants.conf
 </code></pre>
-<p>The TicketSalt can be found in the last line of the output:</p>
-<pre><code>/**
+        <p>The TicketSalt can be found in the last line of the output:</p>
+        <pre><code>/**
  * This file defines global constants which can be used in
  * the other configuration files.
  */
@@ -166,56 +297,107 @@ const ZoneName = &#34;master&#34;
 /* Secret key for remote node tickets */
 const TicketSalt = &#34;aca0ab61458ee407a3e95da9cf9c90d3&#34;
 </code></pre>
-<aside class="warning"><p> In cryptography, a salt is a set of random bits that are used as one of the inputs to a key derivation function. The other input is usually a password or passphrase. The output of the key derivation function is stored as the encrypted version of the password.  </p>
-</aside>
-<p>Now run the following command by using the TicketSalt as parameter:</p>
-<pre><code>icinga2 pki ticket --cn &#39;node&#39; --salt &#39;aca0ab61458ee407a3e95da9cf9c90d3&#39;
+        <aside class="warning">
+          <p>
+            In cryptography, a salt is a set of random bits that are used as one
+            of the inputs to a key derivation function. The other input is
+            usually a password or passphrase. The output of the key derivation
+            function is stored as the encrypted version of the password.
+          </p>
+        </aside>
+        <p>
+          Now run the following command by using the TicketSalt as parameter:
+        </p>
+        <pre><code>icinga2 pki ticket --cn &#39;node&#39; --salt &#39;aca0ab61458ee407a3e95da9cf9c90d3&#39;
 3bcb8a06466706f6a5d5f541c175004149e6dbb2
 </code></pre>
-<p>Now save this key as you will require it later while setting up the client nodes. However, if you get errors again, contact your instructor for help instead.</p>
-<h2 is-upgraded>Listen on port 5665</h2>
-<p>Before you can set up the client nodes, Icinga 2 on the master node must be running and accepting connections on port 5665/tcp. Run the following command to check the status on port 5665/tcp:</p>
-<pre><code>ss -altnp | grep 5665
+        <p>
+          Now save this key as you will require it later while setting up the
+          client nodes. However, if you get errors again, contact your
+          instructor for help instead.
+        </p>
+        <h2 is-upgraded>Listen on port 5665</h2>
+        <p>
+          Before you can set up the client nodes, Icinga 2 on the master node
+          must be running and accepting connections on port 5665/tcp. Run the
+          following command to check the status on port 5665/tcp:
+        </p>
+        <pre><code>ss -altnp | grep 5665
 </code></pre>
-<p>The output of the <strong>socket statistic</strong> command should look like this:</p>
-<pre><code>LISTEN 0 4096 0.0.0.0:5665 0.0.0.0:* users:((&#34;icinga2&#34;,pid=18872,fd=14))
+        <p>
+          The output of the <strong>socket statistic</strong> command should
+          look like this:
+        </p>
+        <pre><code>LISTEN 0 4096 0.0.0.0:5665 0.0.0.0:* users:((&#34;icinga2&#34;,pid=18872,fd=14))
 </code></pre>
-<p>Typically, the process id (pid) and the file descriptor (fd) may differ from your output. However, if you can see this output then the Icinga2 server is up, running and listening on port 5665/tcp for incoming connection requests.</p>
-
-
+        <p>
+          Typically, the process id (pid) and the file descriptor (fd) may
+          differ from your output. However, if you can see this output then the
+          Icinga2 server is up, running and listening on port 5665/tcp for
+          incoming connection requests.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Icinga2 client node" duration="0">
         <h2 is-upgraded>Installing Icinga2 on client node</h2>
-<aside class="special"><p> Note that you have to work on the node client. Don&#39;t mix up the virtual machines. </p>
-</aside>
-<p>Yes, you have to install Icinga2 on the client node. However, don&#39;t worry, the installation will be much shorter, I promise.</p>
-<h2 is-upgraded>System update</h2>
-<p>The software repository on Icinga2 node might be outdated. Run the following commands on the node client to update your system package repositories.</p>
-<pre><code>sudo apt update
+        <aside class="special">
+          <p>
+            Note that you have to work on the node client. Don&#39;t mix up the
+            virtual machines.
+          </p>
+        </aside>
+        <p>
+          Yes, you have to install Icinga2 on the client node. However,
+          don&#39;t worry, the installation will be much shorter, I promise.
+        </p>
+        <h2 is-upgraded>System update</h2>
+        <p>
+          The software repository on Icinga2 node might be outdated. Run the
+          following commands on the node client to update your system package
+          repositories.
+        </p>
+        <pre><code>sudo apt update
 sudo apt upgrade
 </code></pre>
-<aside class="special"><p> When using the sudo command, you will be prompted for your password. In addition, upgrading the Linux kernel requires to reboot the virtual machine. </p>
-</aside>
-<h2 is-upgraded>Icinga2 Core App</h2>
-<p>Now that Icinga 2 repos are in place, you can install it by running the command below:</p>
-<pre><code>sudo apt install icinga2
+        <aside class="special">
+          <p>
+            When using the sudo command, you will be prompted for your password.
+            In addition, upgrading the Linux kernel requires to reboot the
+            virtual machine.
+          </p>
+        </aside>
+        <h2 is-upgraded>Icinga2 Core App</h2>
+        <p>
+          Now that Icinga 2 repos are in place, you can install it by running
+          the command below:
+        </p>
+        <pre><code>sudo apt install icinga2
 </code></pre>
-<p>Durning the installation, the apt command will output the following information.</p>
-<pre><code>--- more ---
+        <p>
+          Durning the installation, the apt command will output the following
+          information.
+        </p>
+        <pre><code>--- more ---
 enabling default icinga2 features
 Enabling feature checker. Make sure to restart Icinga 2 for these changes to take effect.
 Enabling feature notification. Make sure to restart Icinga 2 for these changes to take effect.
 Enabling feature mainlog. Make sure to restart Icinga 2 for these changes to take effect.
 --- more ---
 </code></pre>
-<aside class="special"><p> Please do not restart any Icinga2 service here. We will do this later.  </p>
-</aside>
-<p>On Debian, Icinga2 is started and enabled upon installation. You can check this by running the command;</p>
-<pre><code>systemctl status icinga2
+        <aside class="special">
+          <p>
+            Please do not restart any Icinga2 service here. We will do this
+            later.
+          </p>
+        </aside>
+        <p>
+          On Debian, Icinga2 is started and enabled upon installation. You can
+          check this by running the command;
+        </p>
+        <pre><code>systemctl status icinga2
 </code></pre>
-<p>The output of the service status should look like the following:</p>
-<pre><code>● icinga2.service - Icinga host/service/network monitoring system
+        <p>The output of the service status should look like the following:</p>
+        <pre><code>● icinga2.service - Icinga host/service/network monitoring system
      Loaded: loaded (/lib/systemd/system/icinga2.service; enabled; vendor preset: enabled)
      Active: active (running) since Sat 2021-10-16 12:43:07 CET; 1min 6s ago
        Docs: https://icinga.com/docs/icinga2/latest/
@@ -240,33 +422,67 @@ Oct 16 12:43:07 node icinga2[2867]: [2021-10-16 12:43:07 +0100] information/Conf
 Oct 16 12:44:07 node icinga2[2867]: [2021-10-16 12:44:07 +0100] information/ConfigObjectUtility: Created and activated object &#39;node!load!6d89e9ea-7f13-41cb-b566-cd6899af5727&#39; of type &#39;Downtime&#39;.
 Oct 16 12:44:07 node icinga2[2867]: [2021-10-16 12:44:07 +0100] information/Downtime: Added downtime &#39;node!load!6d89e9ea-7f13-41cb-b566-cd6899af5727&#39; between &#39;2021-10-17 02:00:00&#39; and &#39;2021-10-17 03:00:00&#39;, author: &#39;icingaadmin&#39;, fixed
 </code></pre>
-<p>Check if the status Active is in <strong>running</strong> mode which indicates that the service is up and running.</p>
-<h2 is-upgraded>Monitoring Plugins</h2>
-<p>Icinga 2 requires additional monitoring plugins. Run the command below to install the plugins on the client node.</p>
-<pre><code>sudo apt install monitoring-plugins
+        <p>
+          Check if the status Active is in <strong>running</strong> mode which
+          indicates that the service is up and running.
+        </p>
+        <h2 is-upgraded>Monitoring Plugins</h2>
+        <p>
+          Icinga 2 requires additional monitoring plugins. Run the command below
+          to install the plugins on the client node.
+        </p>
+        <pre><code>sudo apt install monitoring-plugins
 </code></pre>
-<aside class="special"><p> The command above will install a lot of Nagios-plugins.  </p>
-</aside>
-<h2 is-upgraded>Restart the service</h2>
-<p>On Debian, Icinga2 is started and enabled upon installation. However, after installing the monitoring-plugins it is always good to restart the Icinga2 service again and to check its status.</p>
-<pre><code>systemctl restart icinga2
+        <aside class="special">
+          <p>The command above will install a lot of Nagios-plugins.</p>
+        </aside>
+        <h2 is-upgraded>Restart the service</h2>
+        <p>
+          On Debian, Icinga2 is started and enabled upon installation. However,
+          after installing the monitoring-plugins it is always good to restart
+          the Icinga2 service again and to check its status.
+        </p>
+        <pre><code>systemctl restart icinga2
 systemctl status icinga2
 </code></pre>
-<h2 is-upgraded>Set up Icinga2 client node</h2>
-<p>In the last section, we set up the Icinga2 master node. In this section, we need to set up an Icinga2 agent which</p>
-<ul>
-<li>receives and accepts configurations and CheckCommands from the master node</li>
-<li>executes CheckCommands from the master node</li>
-<li>monitors the host where the agent is installed</li>
-<li>and which report the CheckCommand results back to the master node.</li>
-</ul>
-<p>Run the following command on your client to setup the Icinga2 agent node:</p>
-<pre><code>sudo icinga2 node wizard
+        <h2 is-upgraded>Set up Icinga2 client node</h2>
+        <p>
+          In the last section, we set up the Icinga2 master node. In this
+          section, we need to set up an Icinga2 agent which
+        </p>
+        <ul>
+          <li>
+            receives and accepts configurations and CheckCommands from the
+            master node
+          </li>
+          <li>executes CheckCommands from the master node</li>
+          <li>monitors the host where the agent is installed</li>
+          <li>
+            and which report the CheckCommand results back to the master node.
+          </li>
+        </ul>
+        <p>
+          Run the following command on your client to setup the Icinga2 agent
+          node:
+        </p>
+        <pre><code>sudo icinga2 node wizard
 </code></pre>
-<aside class="warning"><p> Warning: Please follow the next instructions very carefully. If you make a typo or a wrong selection, the setup will complete but the agent monitoring will not work properly. So please double-check your inputs. In case of typos or resulting errors, the best and most effective way to fix any issue is to remove the virtual machine and start from scratch. Fixing the errors in configuration files is a more time-consuming task. </p>
-</aside>
-<p>This will prompt you if this is a Satellite or Client setup. Choose <strong>Y</strong> to select an agent setup:</p>
-<pre><code>Welcome to the Icinga 2 Setup Wizard!
+        <aside class="warning">
+          <p>
+            Warning: Please follow the next instructions very carefully. If you
+            make a typo or a wrong selection, the setup will complete but the
+            agent monitoring will not work properly. So please double-check your
+            inputs. In case of typos or resulting errors, the best and most
+            effective way to fix any issue is to remove the virtual machine and
+            start from scratch. Fixing the errors in configuration files is a
+            more time-consuming task.
+          </p>
+        </aside>
+        <p>
+          This will prompt you if this is a Satellite or Client setup. Choose
+          <strong>Y</strong> to select an agent setup:
+        </p>
+        <pre><code>Welcome to the Icinga 2 Setup Wizard!
 
 We will guide you through all required configuration details.
 
@@ -325,45 +541,108 @@ Done.
 
 Now restart your Icinga 2 daemon to finish the installation!
 </code></pre>
-<p>The setup wizard fetches the parent node&#39;s certificate and ask you to verify that information. This is to prevent MITM attacks or any kind of untrusted parent relationship.</p>
-<p>Once this setup is done, run the following command to restart and check the Icinga2 service. This will finalize the setup.</p>
-<pre><code>sudo systemctl restart icinga2
+        <p>
+          The setup wizard fetches the parent node&#39;s certificate and ask you
+          to verify that information. This is to prevent MITM attacks or any
+          kind of untrusted parent relationship.
+        </p>
+        <p>
+          Once this setup is done, run the following command to restart and
+          check the Icinga2 service. This will finalize the setup.
+        </p>
+        <pre><code>sudo systemctl restart icinga2
 sudo systemctl status icinga2
 </code></pre>
-<p>Is Icinga2 up and running? Good, go ahead. If not, go back and run the setup again.</p>
-<h2 is-upgraded>Set up the firewalls</h2>
-<p>If a firewall is running on your server and your node, you have to open the following port on both (!) virtual machines. This enables the communication between server and node.</p>
-<pre><code>sudo ufw allow 5665
+        <p>
+          Is Icinga2 up and running? Good, go ahead. If not, go back and run the
+          setup again.
+        </p>
+        <h2 is-upgraded>Set up the firewalls</h2>
+        <p>
+          If a firewall is running on your server and your node, you have to
+          open the following port on both (!) virtual machines. This enables the
+          communication between server and node.
+        </p>
+        <pre><code>sudo ufw allow 5665
 sudo ufw reload
 </code></pre>
-<aside class="warning"><p> If you get an error here, the ufw service and the local firewall are already disabled (or de-installed) on both virtual machines, server and node. However, disabling the firewall is not recommended on production systems. </p>
-</aside>
-<p>You can verify with the following command <strong>socket statistic</strong> (ss) that the master and the client node are now connected:</p>
-<pre><code>ss | grep 5665
+        <aside class="warning">
+          <p>
+            If you get an error here, the ufw service and the local firewall are
+            already disabled (or de-installed) on both virtual machines, server
+            and node. However, disabling the firewall is not recommended on
+            production systems.
+          </p>
+        </aside>
+        <p>
+          You can verify with the following command
+          <strong>socket statistic</strong> (ss) that the master and the client
+          node are now connected:
+        </p>
+        <pre><code>ss | grep 5665
 </code></pre>
-<p>The output of the <strong>socket statistic</strong> command should look like this:</p>
-<pre><code>tcp ESTAB 0         0          192.168.0.125:51928 192.168.0.115:5665
+        <p>
+          The output of the <strong>socket statistic</strong> command should
+          look like this:
+        </p>
+        <pre><code>tcp ESTAB 0         0          192.168.0.125:51928 192.168.0.115:5665
 </code></pre>
-<p>As shown, the agent running on the node (192.168.0.125) is connected (ESTAB) with the server (192.168.0.115). The node uses a so-called high port number (here 51928/tcp) while the server uses 5665/tcp.</p>
-<aside class="warning"><p> Servers listen on a fixed port number so that clients will know where to connect. Clients do not need to use a fixed port number, since no one is initiating a connection to them, and in fact they cannot use a fixed port number if there may be more than one client running on the same machine (e.g. a web browser) connecting to the same server. IANA (Internet Assigned Numbers Authority) has designated ports in the range 0..49151 as fixed port numbers for specific services, and ports in the range 49152..65535 as dynamic (ephemeral) ports which are not assigned to any service and can be used when a fixed port number is not required. </p>
-</aside>
-<p>If you run the <strong>socket statistic</strong> command on the server, you will get similar output, this time from the server&#39;s point of view.</p>
-
-
+        <p>
+          As shown, the agent running on the node (192.168.0.125) is connected
+          (ESTAB) with the server (192.168.0.115). The node uses a so-called
+          high port number (here 51928/tcp) while the server uses 5665/tcp.
+        </p>
+        <aside class="warning">
+          <p>
+            Servers listen on a fixed port number so that clients will know
+            where to connect. Clients do not need to use a fixed port number,
+            since no one is initiating a connection to them, and in fact they
+            cannot use a fixed port number if there may be more than one client
+            running on the same machine (e.g. a web browser) connecting to the
+            same server. IANA (Internet Assigned Numbers Authority) has
+            designated ports in the range 0..49151 as fixed port numbers for
+            specific services, and ports in the range 49152..65535 as dynamic
+            (ephemeral) ports which are not assigned to any service and can be
+            used when a fixed port number is not required.
+          </p>
+        </aside>
+        <p>
+          If you run the <strong>socket statistic</strong> command on the
+          server, you will get similar output, this time from the server&#39;s
+          point of view.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Configure Agent Monitoring" duration="0">
-        <p>Now that the master node and the client node are connected, it is time to configure the master so it can execute a remote check on the client node using the command endpoint.</p>
-<aside class="special"><p> Note that you have to work on the master node. Don&#39;t mix up the virtual machines. </p>
-</aside>
-<p>First, login to master node and create a zone directory where you can add the configuration files for the host and service objects you want to monitor.</p>
-<pre><code>sudo mkdir /etc/icinga2/zones.d/master
+        <p>
+          Now that the master node and the client node are connected, it is time
+          to configure the master so it can execute a remote check on the client
+          node using the command endpoint.
+        </p>
+        <aside class="special">
+          <p>
+            Note that you have to work on the master node. Don&#39;t mix up the
+            virtual machines.
+          </p>
+        </aside>
+        <p>
+          First, login to master node and create a zone directory where you can
+          add the configuration files for the host and service objects you want
+          to monitor.
+        </p>
+        <pre><code>sudo mkdir /etc/icinga2/zones.d/master
 </code></pre>
-<p>Next, create and open the hosts configuration file with an editor of your choice (here nano).</p>
-<pre><code>sudo nano /etc/icinga2/zones.d/master/hosts.conf
+        <p>
+          Next, create and open the hosts configuration file with an editor of
+          your choice (here nano).
+        </p>
+        <pre><code>sudo nano /etc/icinga2/zones.d/master/hosts.conf
 </code></pre>
-<p>Next, copy the following content in to the <code>hosts.conf</code> file:</p>
-<pre><code>// our node server
+        <p>
+          Next, copy the following content in to the
+          <code>hosts.conf</code> file:
+        </p>
+        <pre><code>// our node server
 object Endpoint &#34;node&#34; {
 }
 
@@ -377,17 +656,42 @@ object Host &#34;node&#34; {
   vars.client_endpoint = name //follows the convention that host name == endpoint name
 }
 </code></pre>
-<p>Where,</p>
-<ul>
-<li><strong>Endpoint</strong> objects are used to specify connection information for remote Icinga 2 instances.</li>
-<li><strong>Zone</strong> objects are used to specify which Icinga 2 instances are located in a zone. A Zone object accepts <strong>Endpoints</strong>, <strong>parent</strong> and <strong>global</strong> as attributes. <strong>Endpoints</strong> represent endpoints in a zone, <strong>parent</strong> is the name of the parent zone (here master), and <strong>global</strong> as a boolean value indicates if configuration file should be synced to all endpoints or not. Default = false.</li>
-<li><strong>Host</strong> objects represent hosts. Additionally, Icinga2 allows the definition of custom variables (<strong>vars</strong>) which can be used across all hosts and services (technically, Icinga2 inserts the variable&#39;s values in the http_header).</li>
-</ul>
-<p>After saving the <code>hosts.conf</code>, create a services configuration file for the node with the following command (here nano):</p>
-<pre><code>sudo nano /etc/icinga2/zones.d/master/services.conf
+        <p>Where,</p>
+        <ul>
+          <li>
+            <strong>Endpoint</strong> objects are used to specify connection
+            information for remote Icinga 2 instances.
+          </li>
+          <li>
+            <strong>Zone</strong> objects are used to specify which Icinga 2
+            instances are located in a zone. A Zone object accepts
+            <strong>Endpoints</strong>, <strong>parent</strong> and
+            <strong>global</strong> as attributes.
+            <strong>Endpoints</strong> represent endpoints in a zone,
+            <strong>parent</strong> is the name of the parent zone (here
+            master), and <strong>global</strong> as a boolean value indicates if
+            configuration file should be synced to all endpoints or not. Default
+            = false.
+          </li>
+          <li>
+            <strong>Host</strong> objects represent hosts. Additionally, Icinga2
+            allows the definition of custom variables (<strong>vars</strong>)
+            which can be used across all hosts and services (technically,
+            Icinga2 inserts the variable&#39;s values in the http_header).
+          </li>
+        </ul>
+        <p>
+          After saving the <code>hosts.conf</code>, create a services
+          configuration file for the node with the following command (here
+          nano):
+        </p>
+        <pre><code>sudo nano /etc/icinga2/zones.d/master/services.conf
 </code></pre>
-<p>Next, copy the following content in to the <code>services.conf</code> file:</p>
-<pre><code>// Check system disk usage
+        <p>
+          Next, copy the following content in to the
+          <code>services.conf</code> file:
+        </p>
+        <pre><code>// Check system disk usage
 apply Service &#34;Disk&#34; {
   check_command = &#34;disk&#34; // the check itself
   command_endpoint = host.vars.client_endpoint // Check executed on client node
@@ -430,91 +734,178 @@ apply Service &#34;Users&#34; {
   assign where host.vars.client_endpoint
 }
 </code></pre>
-<p>Where,</p>
-<ul>
-<li>The <strong>apply</strong> keyword is used to create new objects</li>
-<li><strong>Assign where</strong> represents a <code>Condition</code> which allows the use of expression operators such as <code>Equal to (==)</code>, <code>Less than (<)</code> or <code>Not Equal (!=)</code></li>
-</ul>
-<p>Save the changes here. We will validate the configuration on the master node in the next section.</p>
-
-
+        <p>Where,</p>
+        <ul>
+          <li>
+            The <strong>apply</strong> keyword is used to create new objects
+          </li>
+          <li>
+            <strong>Assign where</strong> represents a
+            <code>Condition</code> which allows the use of expression operators
+            such as <code>Equal to (==)</code>, <code>Less than (<)</code> or
+            <code>Not Equal (!=)</code>
+          </li>
+        </ul>
+        <p>
+          Save the changes here. We will validate the configuration on the
+          master node in the next section.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Test and restart" duration="0">
         <p>Okay, time to validate the configuration. Run the command:</p>
-<pre><code>sudo icinga2 daemon -C
+        <pre><code>sudo icinga2 daemon -C
 </code></pre>
-<p>Do you see errors? If yes, try to fix them. Otherwise, if not errors occur, restart and check the Icinga2 service with the following commands:</p>
-<pre><code>sudo systemctl restart icinga2
+        <p>
+          Do you see errors? If yes, try to fix them. Otherwise, if not errors
+          occur, restart and check the Icinga2 service with the following
+          commands:
+        </p>
+        <pre><code>sudo systemctl restart icinga2
 sudo systemctl status icinga2
 </code></pre>
-<p>Any errors? Try to fix them. Otherwise, go ahead.</p>
-
-
+        <p>Any errors? Try to fix them. Otherwise, go ahead.</p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="In action" duration="0">
-        <p>If the restart of the icinga2 service was successful, open the Icinga2 Dashboard.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/b18865db7a10486f.png"></p>
-<p>We will see our new checks (in Pending status) in the Icinga2 Dashboard in the <code>Service Problems</code> card.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/f6c9ccb764bdf52a.png"></p>
-<p>More and more checks will move to the card <code>Recently Recovered Services</code></p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/dd7c9852aae63fc7.png"></p>
-<p>Depending on the performance of the node client, Icinga2 will still report Host problems with your node server.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/d54f3508614b70ae.png"></p>
-<p>Finally, all checks should operate in normal state (except my_mem). No other services or host problems occur.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/d54f3508614b70ae.png"></p>
-
-
+        <p>
+          If the restart of the icinga2 service was successful, open the Icinga2
+          Dashboard.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/b18865db7a10486f.png" />
+        </p>
+        <p>
+          We will see our new checks (in Pending status) in the Icinga2
+          Dashboard in the <code>Service Problems</code> card.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/f6c9ccb764bdf52a.png" />
+        </p>
+        <p>
+          More and more checks will move to the card
+          <code>Recently Recovered Services</code>
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/dd7c9852aae63fc7.png" />
+        </p>
+        <p>
+          Depending on the performance of the node client, Icinga2 will still
+          report Host problems with your node server.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/d54f3508614b70ae.png" />
+        </p>
+        <p>
+          Finally, all checks should operate in normal state (except my_mem). No
+          other services or host problems occur.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/d54f3508614b70ae.png" />
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Check now" duration="0">
-        <p>When clicking on a service problem and trying to check the service again, you will notice the following error:</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/45dc5d9faf3321e9.png"></p>
-<p>To fix this error, we have to activate a feature named &#34;command&#34; on the Icinga2 master server. Run the following command:</p>
-<pre><code>sudo icinga2 feature enable command
+        <p>
+          When clicking on a service problem and trying to check the service
+          again, you will notice the following error:
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/45dc5d9faf3321e9.png" />
+        </p>
+        <p>
+          To fix this error, we have to activate a feature named
+          &#34;command&#34; on the Icinga2 master server. Run the following
+          command:
+        </p>
+        <pre><code>sudo icinga2 feature enable command
 </code></pre>
-<p>Icinga2 will prompt you that the command feature has been enabled and that Icinga2 needs to be restarted.</p>
-<pre><code>sudo systemctl restart icinga2
+        <p>
+          Icinga2 will prompt you that the command feature has been enabled and
+          that Icinga2 needs to be restarted.
+        </p>
+        <pre><code>sudo systemctl restart icinga2
 </code></pre>
-<p>Now go back to the Icinga2 Dashboard and reload the browser&#39;s page. Next, click on the Critical message (caused by my_mem) in the left pane. This opens a detail view in the right pane. Now click the <code>Check now</code> button.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/403a62f26e15d48.png"></p>
-<p>A notification bar will appear indicating that the CheckCommand has been executed.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/1d3a1643cf9fd997.png"></p>
-<p>You can click the &#34;Check now&#34; button as many times as you want. You will notice changes of the Plugin Output (more or less free memory). Notification bars will pop up and disappear after a few seconds.</p>
-
-
+        <p>
+          Now go back to the Icinga2 Dashboard and reload the browser&#39;s
+          page. Next, click on the Critical message (caused by my_mem) in the
+          left pane. This opens a detail view in the right pane. Now click the
+          <code>Check now</code> button.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/403a62f26e15d48.png" />
+        </p>
+        <p>
+          A notification bar will appear indicating that the CheckCommand has
+          been executed.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/1d3a1643cf9fd997.png" />
+        </p>
+        <p>
+          You can click the &#34;Check now&#34; button as many times as you
+          want. You will notice changes of the Plugin Output (more or less free
+          memory). Notification bars will pop up and disappear after a few
+          seconds.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Acknowledgements" duration="0">
-        <p>In addition, Icinga2 allows you to acknowledge a problem. When a problem is acknowledged, all future notifications about this problem are temporary disabled until the host or the service is recovered.</p>
-<p>Click on the <code>Acknowledge</code> button and the Acknowledge section shows up <img alt="Icinga Web 2" src="img/a6e8b5073886c5ef.png"></p>
-<p>Enter a meaningful text in the comment field. Leave the rest as default. Press the button <code>Acknowledge problem</code>.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/795aa16d5e5d3828.png"></p>
-<p>A notification bar will appear indicating that the problem has been acknowledged.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/47a5ba246a25d552.png"></p>
-<p>The Service Problem is now marked with an <strong>OK</strong> icon. Note that the problem still exists but all future notifications are temporay disabled.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/98efe63b0444891f.png"></p>
-<p>If you wish to enable future notifications (although the problem exists and you don&#39;t want to wait until it is fixed) you can always remove to acknowledgement manually.</p>
-<p class="image-container"><img alt="Icinga Web 2" src="img/ee3e4da96b7244a.png"></p>
-
-
+        <p>
+          In addition, Icinga2 allows you to acknowledge a problem. When a
+          problem is acknowledged, all future notifications about this problem
+          are temporary disabled until the host or the service is recovered.
+        </p>
+        <p>
+          Click on the <code>Acknowledge</code> button and the Acknowledge
+          section shows up
+          <img alt="Icinga Web 2" src="img/a6e8b5073886c5ef.png" />
+        </p>
+        <p>
+          Enter a meaningful text in the comment field. Leave the rest as
+          default. Press the button <code>Acknowledge problem</code>.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/795aa16d5e5d3828.png" />
+        </p>
+        <p>
+          A notification bar will appear indicating that the problem has been
+          acknowledged.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/47a5ba246a25d552.png" />
+        </p>
+        <p>
+          The Service Problem is now marked with an <strong>OK</strong> icon.
+          Note that the problem still exists but all future notifications are
+          temporay disabled.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/98efe63b0444891f.png" />
+        </p>
+        <p>
+          If you wish to enable future notifications (although the problem
+          exists and you don&#39;t want to wait until it is fixed) you can
+          always remove to acknowledgement manually.
+        </p>
+        <p class="image-container">
+          <img alt="Icinga Web 2" src="img/ee3e4da96b7244a.png" />
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Cleanup" duration="0">
         <p>Congratulations !</p>
-<p>You have successfully set up your first remote host for agentbased monitoring.</p>
-
-
+        <p>
+          You have successfully set up your first remote host for agentbased
+          monitoring.
+        </p>
       </google-codelab-step>
-    
-  </google-codelab>
+    </google-codelab>
 
-  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
-  <script src="//support.google.com/inapp/api.js"></script>
-
-</body>
+    <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+    <script src="//support.google.com/inapp/api.js"></script>
+  </body>
 </html>

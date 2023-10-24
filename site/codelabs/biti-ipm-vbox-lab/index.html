@@ -1,173 +1,317 @@
-
-<!doctype html>
+<!DOCTYPE html>
 
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>BITI IPM Lab - VirtualBox</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="biti-ipm-vbox-lab"
-                  title="BITI IPM Lab - VirtualBox"
-                  environment="web"
-                  feedback-link="">
-    
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
+    />
+    <meta name="theme-color" content="#4F7DC9" />
+    <meta charset="UTF-8" />
+    <title>BITI IPM Lab - VirtualBox</title>
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono"
+    />
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://storage.googleapis.com/claat-public/codelab-elements.css"
+    />
+    <style>
+      .success {
+        color: #1e8e3e;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+    <google-codelab
+      codelab-gaid=""
+      id="biti-ipm-vbox-lab"
+      title="BITI IPM Lab - VirtualBox"
+      environment="web"
+      feedback-link=""
+    >
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-<p>Oracle VM VirtualBox is a free and open-source hosted hypervisor for x86 hardware, which allows the user to install additional operating systems (guests) under a running system (host).</p>
-<p>This codelab shows you</p>
-<ul>
-<li>how to install VirtualBox on your HostOS</li>
-<li>how to install a GuestOS based on Debian 11</li>
-<li>how to install software required for the lectures.</li>
-</ul>
-
-
+        <p>
+          Oracle VM VirtualBox is a free and open-source hosted hypervisor for
+          x86 hardware, which allows the user to install additional operating
+          systems (guests) under a running system (host).
+        </p>
+        <p>This codelab shows you</p>
+        <ul>
+          <li>how to install VirtualBox on your HostOS</li>
+          <li>how to install a GuestOS based on Debian</li>
+          <li>how to install software required for the lectures.</li>
+        </ul>
       </google-codelab-step>
-    
+
       <google-codelab-step label="What You&#39;ll need" duration="0">
         <h2 is-upgraded>Host operating system (Host OS)</h2>
-<p>This is the OS of the physical computer on which Oracle VM VirtualBox is installed.</p>
-<p>This can be Microsoft Windows, Linux, or Mac OS host. Check the Documentation on the <a href="https://www.virtualbox.org/" target="_blank">official web site</a> for more details.</p>
-<h2 is-upgraded>Administators privileges</h2>
-<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
-<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
-<p>Typically, the GuestOS user for all codelabs is called <code>icinga</code>.</p>
-
-
+        <p>
+          This is the OS of the physical computer on which Oracle VM VirtualBox
+          is installed.
+        </p>
+        <p>
+          This can be Microsoft Windows, Linux, or Mac OS host. Check the
+          Documentation on the
+          <a href="https://www.virtualbox.org/" target="_blank"
+            >official web site</a
+          >
+          for more details.
+        </p>
+        <h2 is-upgraded>Administators privileges</h2>
+        <p>
+          By default, administrator privileges are required on the Host OS to
+          install additional software. Make sure that you have the required
+          permissions.
+        </p>
+        <p>
+          For the Guest OS, you will create and manage your own users. These
+          users will therefore be different from the Host&#39;s user
+          administration.
+        </p>
+        <p>
+          Typically, the GuestOS user for all codelabs is called
+          <code>icinga</code>.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Get and set up Virtual Box" duration="0">
         <h2 is-upgraded>VirtualBox.org</h2>
-<ul>
-<li>Download VirtalBox (packaged for your Host-OS) from the <a href="https://www.virtualbox.org/" target="_blank">official web site</a>.</li>
-<li>Install it on your host. For Windows: make sure to disable all Hyper-V features first.</li>
-<li>Download the VirtualBox Extension Pack from the <a href="https://www.virtualbox.org/" target="_blank">official web site</a>.</li>
-<li>Install the VirtualBox Extension Pack via File –&gt; Preferences –&gt; Extensions. <img alt="VirtualBox Extension" src="img/50bb6b4f41e22ef1.png">.</li>
-<li>Setup a virtual machine for Debian installation.</li>
-<li>Set the virtual machine memory size to 4 GB for smooth operation. If your HostOS has less memory, reduce the memory size accordingly for the virtual machine.</li>
-<li>Ensure that the virtual network is attached to a Bridge Adapter (Open Settings -&gt; Network -&gt; Adapter 1 -&gt; Attached to Bridge Adapter). <img alt="VirtualBox Extension" src="img/4bd5337522d1f684.png"></li>
-</ul>
-<aside class="warning"><p> If UEFI is enabled on your Host, compilation of VirtualBox kernel modules will fail due to security reason. In this case, all VirtualBox kernel modules must be signed manually. Contact your instructor for more details. </p>
-</aside>
-
-
+        <ul>
+          <li>
+            Download VirtalBox (packaged for your Host-OS) from the
+            <a href="https://www.virtualbox.org/" target="_blank"
+              >official web site</a
+            >.
+          </li>
+          <li>
+            Install it on your host. For Windows: make sure to disable all
+            Hyper-V features first.
+          </li>
+          <li>
+            Download the VirtualBox Extension Pack from the
+            <a href="https://www.virtualbox.org/" target="_blank"
+              >official web site</a
+            >.
+          </li>
+          <li>
+            Install the VirtualBox Extension Pack via File –&gt; Preferences
+            –&gt; Extensions.
+            <img alt="VirtualBox Extension" src="img/50bb6b4f41e22ef1.png" />.
+          </li>
+          <li>Setup a virtual machine for Debian installation.</li>
+          <li>
+            Set the virtual machine memory size to 4 GB for smooth operation. If
+            your HostOS has less memory, reduce the memory size accordingly for
+            the virtual machine.
+          </li>
+          <li>
+            Ensure that the virtual network is attached to a Bridge Adapter
+            (Open Settings -&gt; Network -&gt; Adapter 1 -&gt; Attached to
+            Bridge Adapter).
+            <img alt="VirtualBox Extension" src="img/4bd5337522d1f684.png" />
+          </li>
+        </ul>
+        <aside class="warning">
+          <p>
+            If UEFI is enabled on your Host, compilation of VirtualBox kernel
+            modules will fail due to security reason. In this case, all
+            VirtualBox kernel modules must be signed manually. Contact your
+            instructor for more details.
+          </p>
+        </aside>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Get and set up Debian" duration="0">
-        <h2 is-upgraded>Debian 11 Bullseye</h2>
-<ul>
-<li>Download Debian 11 Bullseye from from the <a href="https://www.debian.org/" target="_blank">official web site</a>.</li>
-<li>Ask your instructur for details about root and non-privileged user and password to ensure smooth administration.</li>
-<li>Start the virtual Machine and install Debian.</li>
-<li>Keep the installation simple.</li>
-<li>Use default settings. No need to encrypt your disks.</li>
-<li>Set up the given user and password. Ask your instructor for more details.</li>
-<li>After installation has finished, reboot the VM, log in with user and password, open a shell and fire a ping to a server of your choice. If you get a response, then you have done a good job. Congratulations!</li>
-</ul>
-<h2 is-upgraded>Administrative Tasks</h2>
-<p>First, add the user icinga to the sudoers. Open a terminal as icinga user and run the following commands:</p>
-<pre><code>su - 
+        <h2 is-upgraded>Debian Bullseye</h2>
+        <ul>
+          <li>
+            Download Debian Bullseye from from the
+            <a href="https://www.debian.org/" target="_blank"
+              >official web site</a
+            >.
+          </li>
+          <li>
+            Ask your instructur for details about root and non-privileged user
+            and password to ensure smooth administration.
+          </li>
+          <li>Start the virtual Machine and install Debian.</li>
+          <li>Keep the installation simple.</li>
+          <li>Use default settings. No need to encrypt your disks.</li>
+          <li>
+            Set up the given user and password. Ask your instructor for more
+            details.
+          </li>
+          <li>
+            After installation has finished, reboot the VM, log in with user and
+            password, open a shell and fire a ping to a server of your choice.
+            If you get a response, then you have done a good job.
+            Congratulations!
+          </li>
+        </ul>
+        <h2 is-upgraded>Administrative Tasks</h2>
+        <p>
+          First, add the user icinga to the sudoers. Open a terminal as icinga
+          user and run the following commands:
+        </p>
+        <pre><code>su - 
 adduser icinga sudo
 </code></pre>
-<p>Where,</p>
-<ul>
-<li>su - : switch to root user</li>
-<li>adduser : add icinga user to the /etc/sudoers file</li>
-</ul>
-<p>Now logoff from Gnome and and login again to activate <code>sudo</code> for icinga user.</p>
-<p>Second, from time to time, your debian installation requires an update and an upgrade due to security issues. To keep your installation up-to-date, run the following commands with root privileges:</p>
-<pre><code>sudo apt update
+        <p>Where,</p>
+        <ul>
+          <li>su - : switch to root user</li>
+          <li>adduser : add icinga user to the /etc/sudoers file</li>
+        </ul>
+        <p>
+          Now logoff from Gnome and and login again to activate
+          <code>sudo</code> for icinga user.
+        </p>
+        <p>
+          Second, from time to time, your debian installation requires an update
+          and an upgrade due to security issues. To keep your installation
+          up-to-date, run the following commands with root privileges:
+        </p>
+        <pre><code>sudo apt update
 sudo apt upgrade
 </code></pre>
-
-
       </google-codelab-step>
-    
+
       <google-codelab-step label="Required Software" duration="0">
         <h2 is-upgraded>From Debian repository</h2>
-<p>The following software packages are part of the <strong>official</strong> Debian Repository and can be installed with the following command:</p>
-<pre><code>sudo apt install mc htop cpulimit stress stress-ng stressant hdparm smartmontools inxi iotop dstat speedtest-cli iftop etherape monitorix cockpit bonnie++ fio gdu hwinfo sysstat cpuid
+        <p>
+          The following software packages are part of the
+          <strong>official</strong> Debian Repository and can be installed with
+          the following command:
+        </p>
+        <pre><code>sudo apt install mc htop cpulimit stress stress-ng stressant hdparm smartmontools inxi iotop dstat speedtest-cli iftop etherape monitorix cockpit bonnie++ fio gdu hwinfo sysstat cpuid
 </code></pre>
-<p>Where,</p>
-<ul>
-<li>mc - Midnight commander (tool ala Total Commander), a very handy tool</li>
-<li>cpulimit -  Tool to interrupt execution of a process</li>
-<li>stress, stress-ng, stressant - Workload generators</li>
-<li>hdparm - Test performance tool for ATA HDDs</li>
-<li>smartmontools - Utility programs to control and monitor computer storage systems</li>
-<li>inxi - Tool to find Linux sytem details (CPU, Kernel, Memory, etc.)</li>
-<li>dstat - Linux server performance tool, replacement for the vmstat, iostat, and ifstat</li>
-<li>speedtest-cli - Internet bandwidth tester using speedtest.net</li>
-<li>iftop - Realtime network bandwidth monitoring tool</li>
-<li>etherape - A packet sniffer/network traffic monitoring tool</li>
-<li>monitorix - A lightweight system monitoring tool</li>
-<li>cockpit -  Administration of linux servers via a web browser.</li>
-<li>bonnie++ - Test hard drives and file systems for performance</li>
-<li>fio - Flexible io tester</li>
-<li>gdu - Disk usage analyzer, primarly for SSD</li>
-<li>hwinfo - Probe for hardware</li>
-<li>sysstat - All-in-One system performance tool</li>
-<li>cpuid - Show CPU details</li>
-</ul>
-<h2 is-upgraded>From an external repository</h2>
-<p>The <strong>Phoronix Test Suite</strong> is a comprehensive testing and benchmarking platform available for the Windows and Linux operating system. The software is not part of the Debian Repository but can be installed very easily.</p>
-<p>The installation is documented in the codelab <code>BITI IPM - Benchmark</code>.</p>
-
-
+        <p>Where,</p>
+        <ul>
+          <li>
+            mc - Midnight commander (tool ala Total Commander), a very handy
+            tool
+          </li>
+          <li>cpulimit - Tool to interrupt execution of a process</li>
+          <li>stress, stress-ng, stressant - Workload generators</li>
+          <li>hdparm - Test performance tool for ATA HDDs</li>
+          <li>
+            smartmontools - Utility programs to control and monitor computer
+            storage systems
+          </li>
+          <li>
+            inxi - Tool to find Linux sytem details (CPU, Kernel, Memory, etc.)
+          </li>
+          <li>
+            dstat - Linux server performance tool, replacement for the vmstat,
+            iostat, and ifstat
+          </li>
+          <li>speedtest-cli - Internet bandwidth tester using speedtest.net</li>
+          <li>iftop - Realtime network bandwidth monitoring tool</li>
+          <li>etherape - A packet sniffer/network traffic monitoring tool</li>
+          <li>monitorix - A lightweight system monitoring tool</li>
+          <li>cockpit - Administration of linux servers via a web browser.</li>
+          <li>bonnie++ - Test hard drives and file systems for performance</li>
+          <li>fio - Flexible io tester</li>
+          <li>gdu - Disk usage analyzer, primarly for SSD</li>
+          <li>hwinfo - Probe for hardware</li>
+          <li>sysstat - All-in-One system performance tool</li>
+          <li>cpuid - Show CPU details</li>
+        </ul>
+        <h2 is-upgraded>From an external repository</h2>
+        <p>
+          The <strong>Phoronix Test Suite</strong> is a comprehensive testing
+          and benchmarking platform available for the Windows and Linux
+          operating system. The software is not part of the Debian Repository
+          but can be installed very easily.
+        </p>
+        <p>
+          The installation is documented in the codelab
+          <code>BITI IPM - Benchmark</code>.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Guest Additions" duration="0">
-        <p>If you&#39;re running Linux inside a VirtualBox virtual machine, installing the Guest Additions software will help you get the most out of the system. VirtualBox Guest Additions will give the machine more capabilities, such as a shared clipboard with the host system, drag and drop file transfer, time synchronization, shared folders, automatic window resizing, and more.</p>
-<p>In this guide, we&#39;ll be going over the step by step instructions to get VirtualBox Guest Additions installed on Debian based systems.</p>
-<h2 is-upgraded>For Debian</h2>
-<p>The first thing you need to do is install a few prerequisite packages. Open a terminal and use your system&#39;s package manager to install them with the following commands.</p>
-<p>Open a shell and run the following commands:</p>
-<pre><code>sudo apt update
+        <p>
+          If you&#39;re running Linux inside a VirtualBox virtual machine,
+          installing the Guest Additions software will help you get the most out
+          of the system. VirtualBox Guest Additions will give the machine more
+          capabilities, such as a shared clipboard with the host system, drag
+          and drop file transfer, time synchronization, shared folders,
+          automatic window resizing, and more.
+        </p>
+        <p>
+          In this guide, we&#39;ll be going over the step by step instructions
+          to get VirtualBox Guest Additions installed on Debian based systems.
+        </p>
+        <h2 is-upgraded>For Debian</h2>
+        <p>
+          The first thing you need to do is install a few prerequisite packages.
+          Open a terminal and use your system&#39;s package manager to install
+          them with the following commands.
+        </p>
+        <p>Open a shell and run the following commands:</p>
+        <pre><code>sudo apt update
 sudo apt install build-essential dkms linux-headers-$(uname -r)
 </code></pre>
-<p>Note that the installed packages are needed to build the VBox kernel modules.</p>
-<p>Next, on the virtual machine window, click on <strong>Devices</strong> &gt; <strong>Insert Guest Additions CD Image</strong>.</p>
-<p>Next, you need to create a mount point for the CD image:</p>
-<pre><code>sudo mkdir /media/cdrom0
+        <p>
+          Note that the installed packages are needed to build the VBox kernel
+          modules.
+        </p>
+        <p>
+          Next, on the virtual machine window, click on
+          <strong>Devices</strong> &gt;
+          <strong>Insert Guest Additions CD Image</strong>.
+        </p>
+        <p>Next, you need to create a mount point for the CD image:</p>
+        <pre><code>sudo mkdir /media/cdrom0
 sudo mount /dev/sr0 /media/cdrom0
 </code></pre>
-<p>Please note that the command <strong>mkdir /media/cdrom0</strong> may return an error if the target directory already exists. in this case, you can ignore the error.</p>
-<p>The command <strong>mount /dev/sr0 /media/cdrom0</strong> will return the following message:</p>
-<pre><code>mount: /media/cdrom0: WARNING: source write-protected, mounted read-only.
+        <p>
+          Please note that the command <strong>mkdir /media/cdrom0</strong> may
+          return an error if the target directory already exists. in this case,
+          you can ignore the error.
+        </p>
+        <p>
+          The command <strong>mount /dev/sr0 /media/cdrom0</strong> will return
+          the following message:
+        </p>
+        <pre><code>mount: /media/cdrom0: WARNING: source write-protected, mounted read-only.
 </code></pre>
-<p>This warning is correct because CD images are mounted <strong>read-only</strong> by default.</p>
-<p>Next, change to the directory and list all files to check them out.</p>
-<pre><code>sudo cd /media/cdrom0
+        <p>
+          This warning is correct because CD images are mounted
+          <strong>read-only</strong> by default.
+        </p>
+        <p>
+          Next, change to the directory and list all files to check them out.
+        </p>
+        <pre><code>sudo cd /media/cdrom0
 sudo ls
 </code></pre>
-<p>Here is the output:</p>
-<pre><code>AUTORUN.INF  runasroot.sh			VBoxSolarisAdditions.pkg
+        <p>Here is the output:</p>
+        <pre><code>AUTORUN.INF  runasroot.sh			VBoxSolarisAdditions.pkg
 autorun.sh   TRANS.TBL				VBoxWindowsAdditions-amd64.exe
 cert	     VBoxDarwinAdditions.pkg		VBoxWindowsAdditions.exe
 NT3x	     VBoxDarwinAdditionsUninstall.tool	VBoxWindowsAdditions-x86.exe
 OS2	     VBoxLinuxAdditions.run		windows11-bypass.reg
 </code></pre>
-<p>If no errors occur, run the following command to install the guest additions:</p>
-<pre><code>sudo sh ./VBoxLinuxAdditions.run
+        <p>
+          If no errors occur, run the following command to install the guest
+          additions:
+        </p>
+        <pre><code>sudo sh ./VBoxLinuxAdditions.run
 </code></pre>
-<p>The sample output:</p>
-<pre><code>Verifying archive integrity... All good.
+        <p>The sample output:</p>
+        <pre><code>Verifying archive integrity... All good.
 Uncompressing VirtualBox 6.1.38 Guest Additions for Linux........
 VirtualBox Guest Additions installer
 Removing installed version 6.1.38 of VirtualBox Guest Additions...
@@ -185,23 +329,36 @@ VirtualBox Guest Additions: Building the modules for kernel 5.10.0-19-amd64.
 update-initramfs: Generating /boot/initrd.img-5.10.0-19-amd64
 VirtualBox Guest Additions: Running kernel modules will not be replaced until the system is restarted
 </code></pre>
-<p>Once the installation is complete, all you need to do now is reboot the system for the new changes to take effect.</p>
-<pre><code>sudo reboot
+        <p>
+          Once the installation is complete, all you need to do now is reboot
+          the system for the new changes to take effect.
+        </p>
+        <pre><code>sudo reboot
 </code></pre>
-<p>That&#39;s all there is to it. When the virtual machine finishes loading back up, you&#39;ll be able to utilize the shared clipboard, drag and drop function, automatic resolution resizing, and other features mentioned earlier. Make sure you enable the shared clipboard and drag and drop option if you wish to use them, from inside the Devices menu.</p>
-<h2 is-upgraded>For Microsoft Windows</h2>
-<p>For Windows, follow the <a href="https://docs.oracle.com/cd/E36500_01/E36502/html/qs-guest-additions.html" target="_blank">official guide</a>.</p>
-
-
+        <p>
+          That&#39;s all there is to it. When the virtual machine finishes
+          loading back up, you&#39;ll be able to utilize the shared clipboard,
+          drag and drop function, automatic resolution resizing, and other
+          features mentioned earlier. Make sure you enable the shared clipboard
+          and drag and drop option if you wish to use them, from inside the
+          Devices menu.
+        </p>
+        <h2 is-upgraded>For Microsoft Windows</h2>
+        <p>
+          For Windows, follow the
+          <a
+            href="https://docs.oracle.com/cd/E36500_01/E36502/html/qs-guest-additions.html"
+            target="_blank"
+            >official guide</a
+          >.
+        </p>
       </google-codelab-step>
-    
-  </google-codelab>
+    </google-codelab>
 
-  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
-  <script src="//support.google.com/inapp/api.js"></script>
-
-</body>
+    <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+    <script src="//support.google.com/inapp/api.js"></script>
+  </body>
 </html>

@@ -6,30 +6,37 @@ status: Published
 authors: Roland Pellegrini
 
 # BITI IPM Lab - Network
+
 <!-- ------------------------ -->
-## Before You Begin 
+
+## Before You Begin
 
 ### What You’ll Learn
+
 In this codelab you will learn
 
-* how to get information about local network devices
-* how to monitor networks using Linux tools
-* how to check network performance
+- how to get information about local network devices
+- how to monitor networks using Linux tools
+- how to check network performance
 
-###  Where You Can Look Up
+### Where You Can Look Up
+
 The **man** is a short term for manual page and acts as an interface to view the reference manual of a command.
 
 Syntax of man:
+
 ```
 man [option(s)] keyword(s)
 ```
 
 For example, if you want top find out more about the command **ps** and how to use it, just open a shell and type:
+
 ```
 man ps
 ```
 
 This command will display all the information about **ps**.
+
 ```
 PS(1)                            User Commands                           PS(1)
 
@@ -46,17 +53,18 @@ DESCRIPTION
 ...
 ...
 ```
+
 ### What You'll need
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian 11 (Bullseye).
+This is the OS of the virtual machine. This will be Debian .
 
 #### Administators privileges
 
 By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.
 
-For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
+For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration.
 
 ## Device information
 
@@ -64,24 +72,26 @@ For the Guest OS, you will create and manage your own users. These users will th
 
 You can use one of the following commands to find detailed information about the physical or virtual network devices on Linux:
 
-* lspci
-* hwinfo
-* ip 
-* nmcli
+- lspci
+- hwinfo
+- ip
+- nmcli
 
 ## lscpi
 
 ### Description
+
 The **lspci** command is a utility on linux systems used to find out information about the Peripheral Component Interconnect (PCI) busses and devices connected to the PCI subsystem.
 
 ### Sample code
 
-To list all PCI devices, run the following command: 
+To list all PCI devices, run the following command:
+
 ```
 lspci
 ```
 
-### Sample output 
+### Sample output
 
 ```
 00:00.0 Host bridge: Intel Corporation 440FX - 82441FX PMC [Natoma] (rev 02)
@@ -102,6 +112,7 @@ The list shows the model of the Ethernet controller, but not the network device 
 ### References
 
 Need help? Use this:
+
 ```
 man lspci
 ```
@@ -119,6 +130,7 @@ Hwinfo requires root privileges.
 ### Sample code
 
 Run the following command:
+
 ```
 hwinfo
 ```
@@ -191,6 +203,7 @@ In addition, the tool also reports the Ethernet Network Interface (which is atta
 ### References
 
 More information needed? See here:
+
 ```
 man hwinfo
 ```
@@ -200,28 +213,31 @@ man hwinfo
 ### Description
 
 The `ip` command is one of the basic commands every administrator will need in daily work, from setting up new systems and assigning IPs to troubleshooting existing systems. The `ip` command can show address information, manipulate routing, plus display network various devices, interfaces, and tunnels.
+
 ### Sample code
 
 To show the IP addresses assigned to an interface on your server:
+
 ```
 ip address show
 ```
 
-### Sample output 
+### Sample output
 
 The output will look different from yours:
+
 ```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host 
+    inet6 ::1/128 scope host
        valid_lft forever preferred_lft forever
 2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
     link/ether 08:00:27:38:d0:34 brd ff:ff:ff:ff:ff:ff
     inet 192.168.7.187/24 brd 192.168.0.255 scope global dynamic noprefixroute enp0s3
        valid_lft 82004sec preferred_lft 82004sec
-    inet6 fe80::a00:27ff:fe38:d034/64 scope link noprefixroute 
+    inet6 fe80::a00:27ff:fe38:d034/64 scope link noprefixroute
        valid_lft forever preferred_lft forever
 ```
 
@@ -232,10 +248,10 @@ At this point, check how the outputs of lspci, hwinfo and ip are linked together
 ### References
 
 Read the manual for more information:
+
 ```
 man ip
 ```
-
 
 ## nmcli
 
@@ -246,6 +262,7 @@ man ip
 ### Sample code
 
 Open a shell and run the command twice but with different options each time:
+
 ```
 nmcli device show
 nmcli connection show
@@ -290,13 +307,14 @@ IP6.ROUTE[1]:                           dst = ::1/128, nh = ::, mt = 256
 
 --More--
 
-NAME                UUID                                  TYPE      DEVICE 
-Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3 
+NAME                UUID                                  TYPE      DEVICE
+Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3
 ```
 
 ### References
 
 Read the manual:
+
 ```
 man nmcli
 ```
@@ -307,11 +325,12 @@ man nmcli
 
 You can use one of the following commands to find detailed information about the physical or virtual network devices on Linux:
 
-* ping
-* speedtest
-* iperf3 (has been moved to the section `Hands-On`)
+- ping
+- speedtest
+- iperf3 (has been moved to the section `Hands-On`)
 
 ## ping
+
 ### Description
 
 The **ping** command is one of the most used tools for diagnosing network connectivity issues.
@@ -331,10 +350,12 @@ ping -c 3 www.orf.at
 ```
 
 Where,
-* -c 3 - Stop after sending count ECHO_REQUEST packets
-* www.orf.at - the target
+
+- -c 3 - Stop after sending count ECHO_REQUEST packets
+- www.orf.at - the target
 
 ### Sample output
+
 ```
 PING www.orf.at (194.232.104.140) 56(84) bytes of data.
 64 bytes from www.orf.at (194.232.104.140): icmp_seq=1 ttl=55 time=57.9 ms
@@ -347,20 +368,23 @@ rtt min/avg/max/mdev = 21.228/34.314/57.876/16.694 ms
 ```
 
 Where,
-* The number of data bytes. The default is 56, which translates into 64 ICMP data bytes - 64 bytes.
-* The IP address of the destination - from www.orf.at (194.232.104.140).
-* The ICMP sequence number for each packet. icmp_seq=1.
-* The Time to Live. - ttl=53 - How does TTL work?.
-* The ping time, measured in milliseconds which is the round trip time for the packet to reach the host, and the response to return to the sender. - time=21.2 ms.
+
+- The number of data bytes. The default is 56, which translates into 64 ICMP data bytes - 64 bytes.
+- The IP address of the destination - from www.orf.at (194.232.104.140).
+- The ICMP sequence number for each packet. icmp_seq=1.
+- The Time to Live. - ttl=53 - How does TTL work?.
+- The ping time, measured in milliseconds which is the round trip time for the packet to reach the host, and the response to return to the sender. - time=21.2 ms.
 
 ### References
 
 Ping the man:
+
 ```
 man ping
 ```
 
 ## speedtest-cli
+
 ### Description
 
 One of the most famous online internet connection test apps is speedtest.net. The tool **speedtest-cli** is a command line interface for testing internet bandwidth using speedtest.net. The test is simple to use and provides multiple options. To view all of them, pass the `-h` flag to display the speedtest-cli help file.
@@ -368,6 +392,7 @@ One of the most famous online internet connection test apps is speedtest.net. Th
 ### Sample code
 
 To run the tool, simple execute the command without options.
+
 ```
 speedtest-cli
 ```
@@ -385,9 +410,11 @@ Download: 10.79 Mbit/s
 Testing upload speed........................................
 Upload: 1.01 Mbit/s
 ```
- ### References
+
+### References
 
 What is faster than man?
+
 ```
 man speedtest-cli
 ```
@@ -398,11 +425,12 @@ man speedtest-cli
 
 You can use one of the following tools to find detailed information about the network traffic:
 
-* iftop
-* etherape
-* monitorix
+- iftop
+- etherape
+- monitorix
 
 ## iftop
+
 ### Description
 
 **iftop** is a real time console-based Linux network bandwidth monitoring tool. It shows a quick overview of the networking activities on an interface. It even acts as a diagnostics to diagnose which program is causing the problem to the network.
@@ -410,11 +438,13 @@ You can use one of the following tools to find detailed information about the ne
 ### Sample code
 
 Run the command as follows:
+
 ```
 iftop
 ```
 
 To view the network bandwidth of a particular interface, use the following command.
+
 ```
 iftop -i enp0s3
 ```
@@ -429,13 +459,14 @@ Keep in mind the difference between eth0 and enp0s3.
 
 Where,
 
-* At the very top of the screen is a scale that goes along with the bar graph iftop might display with each connection.
-* The next rows of output correspond to each network connection between a pair of hosts. In between the two hosts are arrows that let you know the direction the traffic is flowing. 
-* The final three columns provide average bandwidth for each connection during the last 2, 10 and 40 seconds, respectively.
+- At the very top of the screen is a scale that goes along with the bar graph iftop might display with each connection.
+- The next rows of output correspond to each network connection between a pair of hosts. In between the two hosts are arrows that let you know the direction the traffic is flowing.
+- The final three columns provide average bandwidth for each connection during the last 2, 10 and 40 seconds, respectively.
 
- ### References
+### References
 
 Here is the link to the documentation:
+
 ```
 man iftop
 ```
@@ -444,13 +475,14 @@ man iftop
 
 ### Description
 
-**Etherape** is a graphical tool that provides a view of current network activity. Current connections are displayed thicker than passive connections depending on the volume transferred. 
+**Etherape** is a graphical tool that provides a view of current network activity. Current connections are displayed thicker than passive connections depending on the volume transferred.
 
 **Etherape** supports Ethernet, FDDI, Token Ring, ISDN, PPP, SLIP and WLAN devices. It can filter traffic to be shown, and can read packets from a file as well as live from the network. Node statistics can be exported.
 
 ### Sample code
 
 To start Etherape, run the following command with root privileges:
+
 ```
 sudo etherape
 ```
@@ -459,7 +491,7 @@ sudo etherape
 
 ![itop](./img/biti-ipm-network-linux-etherape.png)
 
-In contrast to other network monitors, Etherape visualizes the logged connections in a graphical representation. The approach of the open source program is intuitive: Each IP address is graphically represented as a node, connection lines trace the transmitted data. The thickness of the lines shows the data volume of the corresponding connection between the nodes and the color of the lines shows the protocol used in each case. 
+In contrast to other network monitors, Etherape visualizes the logged connections in a graphical representation. The approach of the open source program is intuitive: Each IP address is graphically represented as a node, connection lines trace the transmitted data. The thickness of the lines shows the data volume of the corresponding connection between the nodes and the color of the lines shows the protocol used in each case.
 
 ### References
 
@@ -474,25 +506,28 @@ Online documentation:
 Monitorix is an open source, free and most powerful lightweight tool designed to monitor system and network resources in Linux. It regularly collects system and network data and display the information in graphs using its own web interface. Monitorix allows to monitor overall system performance and also help in detecting bottlenecks, failures, unwanted long response times and other abnormal activities.
 
 Monitorix has a rich set of features some of them are listed below:
-* System load average and usage
-* Per-processor kernel usage
-* Global kernel usage
-* Generic sensors statistics
-* LM-Sensors and GPU temperatures
-* NVIDIA temperatures and usage
-* Filesystem usage and I/O activity
-* Network traffic and usage
+
+- System load average and usage
+- Per-processor kernel usage
+- Global kernel usage
+- Generic sensors statistics
+- LM-Sensors and GPU temperatures
+- NVIDIA temperatures and usage
+- Filesystem usage and I/O activity
+- Network traffic and usage
 
 Documentation and more details of Monitorix can be found [here](https://www.monitorix.org/).
 
 ### Sample code
 
 Typically, monitorix is running as a service in the backgrund. You can check this by running the following command:
+
 ```
 sudo systemctl status monitorix
 ```
 
 You should see the following result, indicating the active status as `running`
+
 ```
   monitorix.service - Monitorix
      Loaded: loaded (/lib/systemd/system/monitorix.service; enabled; vendor preset: enabled)
@@ -514,18 +549,20 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
 ### Sample output
 
 Start a browser which points to the following URL:
+
 ```
 http://<ip-address>:8080/monitorix
 ```
+
 Where
-* ip-address - The server's IP address or it's hostname.
+
+- ip-address - The server's IP address or it's hostname.
 
 Monitorix offers a wide range of performance counters. However, in this codelab we are interested in networking. Therefore select the Graph `enps03 Network traffic` from the Host `localhost`.
 
 ![itop](./img/biti-ipm-network-linux-monitorix-1.png)
 
 After clicking on the OK button, monitorix will show up the **Netstat statistic**. By default, the page refreshes automatically every 150 seconds, displaying the network activity, packetes and errors.
-
 
 ![itop](./img/biti-ipm-network-linux-monitorix-2.png)
 
@@ -534,31 +571,31 @@ After clicking on the OK button, monitorix will show up the **Netstat statistic*
 No manual, but documented online:
 [Monitorix](https://www.monitorix.org/)
 
-
 ## cockpit
 
 ### Description
+
 Cockpit is another server management tool. It is easy to use, lightweight and simple, yet very powerful. It provides a web-based user interface that facilitates storage management tasks, starting / stopping services, checking journals and setup management for multiple servers.
 
 The tool was created for Red Hat, but runs on many Linux server distributions in addition to Red Hat Enterprise Linux (RHEL): Fedora, Arch Linux, Ubuntu, CentOS and others.
 
 ### Sample output
 
- To access the Cockpit interface, just point your browser to the following URL:
+To access the Cockpit interface, just point your browser to the following URL:
+
 ```
 http://<ip-address>:9090/
 ```
-Where
-* ip-address - The server's IP address or it's hostname.
 
+Where
+
+- ip-address - The server's IP address or it's hostname.
 
 <aside class="negative">
 Please note that Cockpit is installed on a virtual machine, which is only used within the course. Always make sure that you secure the http connection.
 </aside>
 
-
-Log in with a normal account. Hoyever, it might be a good idea for this account to have root privileges. 
-
+Log in with a normal account. Hoyever, it might be a good idea for this account to have root privileges.
 
 ![itop](./img/biti-ipm-network-linux-cockpit-1.png)
 
@@ -570,7 +607,6 @@ The Networking section allows you to manage firewall and network interfaces. You
 
 ![itop](./img/biti-ipm-network-linux-cockpit-3.png)
 
-
 <aside class="positive">
 Please note that essential software components have not been installed on this virtual machine. Therefore, some important functionalities are missing in Cockpit, such as tools for a proper firewall configuration. 
 </aside>
@@ -580,43 +616,46 @@ Please note that essential software components have not been installed on this v
 No manual, but still documented:
 [cockpit](https://cockpit-project.org/)
 
-
 ## Hands-on
 
 ### What you will learn:
 
-In this codelab, you will learn 
+In this codelab, you will learn
 
-* how to use the iperf3 programm
-* how to generate workload with iperf3
+- how to use the iperf3 programm
+- how to generate workload with iperf3
 
 ### What you will need:
 
 In this codelab, you will need the following tools:
 
-* iperf3
+- iperf3
 
 ### Scenario
 
-In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). The HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
+In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). The HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
 
 ### Test Run
 
 To start the server, run iperf3 on the HostOS with the following option:
+
 ```
 iperf3 -s
 ```
 
 Where,
-* -s -  Run iperf3 in server mode. iperf3 can handle multiple client requests.
 
-To start the client, run iperf3 on the GuestOS with the following option by specifying the server's ip address 
+- -s - Run iperf3 in server mode. iperf3 can handle multiple client requests.
+
+To start the client, run iperf3 on the GuestOS with the following option by specifying the server's ip address
+
 ```
 iperf3 -c 192.168.7.187
 ```
 
 Where,
-* -s 192.168.7.11 - Run iperf3 in client mode, connecting to an iperf3 server running on host with IP 192.168.10.2.
+
+- -s 192.168.7.11 - Run iperf3 in client mode, connecting to an iperf3 server running on host with IP 192.168.10.2.
 
 ### Sample output
 
@@ -633,7 +672,6 @@ TCP window size: 128 KByte (default)
 
 ```
 
-
 iperf3 client's output:
 
 ```
@@ -648,6 +686,6 @@ TCP window size: 85.0 KByte (default)
 
 ### Clean Up
 
-You can stop all programs and close all open terminals. 
+You can stop all programs and close all open terminals.
 
 This is the end of the hands-on.

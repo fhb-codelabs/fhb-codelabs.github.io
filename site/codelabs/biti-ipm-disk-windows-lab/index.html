@@ -1,177 +1,428 @@
-
-<!doctype html>
+<!DOCTYPE html>
 
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>BITI IPM Lab - Disk</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="biti-ipm-disk-windows-lab"
-                  title="BITI IPM Lab - Disk"
-                  environment="web"
-                  feedback-link="">
-    
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
+    />
+    <meta name="theme-color" content="#4F7DC9" />
+    <meta charset="UTF-8" />
+    <title>BITI IPM Lab - Disk</title>
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono"
+    />
+    <link
+      rel="stylesheet"
+      href="//fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://storage.googleapis.com/claat-public/codelab-elements.css"
+    />
+    <style>
+      .success {
+        color: #1e8e3e;
+      }
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+    <google-codelab
+      codelab-gaid=""
+      id="biti-ipm-disk-windows-lab"
+      title="BITI IPM Lab - Disk"
+      environment="web"
+      feedback-link=""
+    >
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-<p>In this codelab you will learn</p>
-<ul>
-<li>how to get information about the internal disk</li>
-<li>how to monitor the disk with Windows Tools</li>
-<li>how to perform a test run</li>
-</ul>
-<h2 is-upgraded>What You&#39;ll need</h2>
-<h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Microsoft Windows.</p>
-<h3 is-upgraded>Administators privileges</h3>
-<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
-<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
-
-
+        <p>In this codelab you will learn</p>
+        <ul>
+          <li>how to get information about the internal disk</li>
+          <li>how to monitor the disk with Windows Tools</li>
+          <li>how to perform a test run</li>
+        </ul>
+        <h2 is-upgraded>What You&#39;ll need</h2>
+        <h3 is-upgraded>Guest operation system (Guest OS)</h3>
+        <p>
+          This is the OS of the virtual machine. This will be Microsoft Windows.
+        </p>
+        <h3 is-upgraded>Administators privileges</h3>
+        <p>
+          By default, administrator privileges are required on the Host OS to
+          install additional software. Make sure that you have the required
+          permissions.
+        </p>
+        <p>
+          For the Guest OS, you will create and manage your own users. These
+          users will therefore be different from the Host&#39;s user
+          administration.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Disk Information" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
-<p>You can use the following command to find some information about the pyhsical or virtual disks on Windows:</p>
-<ul>
-<li>msinfo32 application</li>
-</ul>
-
-
+        <p>
+          You can use the following command to find some information about the
+          pyhsical or virtual disks on Windows:
+        </p>
+        <ul>
+          <li>msinfo32 application</li>
+        </ul>
       </google-codelab-step>
-    
+
       <google-codelab-step label="msinfo32" duration="0">
-        <p>The tool <strong>msinfo32</strong> is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.</p>
-<p>To launch <strong>msinfo32</strong>, simple press the <strong>Win+R</strong> keys, type <strong>msinfo32</strong> and click the <strong>OK</strong>-button.</p>
-<p class="image-container"><img alt="Windows Registry" src="img/86e05806317042a.png"></p>
-<p>Details about the Disks can be found in the <strong>Components -&gt; Storage</strong> Section at the <strong>Disks</strong> value in the right pane.</p>
-
-
+        <p>
+          The tool <strong>msinfo32</strong> is a built-in system profiler for
+          Microsoft Windows which collects and displays system information about
+          the the Operating systems, hard- and software.
+        </p>
+        <p>
+          To launch <strong>msinfo32</strong>, simple press the
+          <strong>Win+R</strong> keys, type <strong>msinfo32</strong> and click
+          the <strong>OK</strong>-button.
+        </p>
+        <p class="image-container">
+          <img alt="Windows Registry" src="img/86e05806317042a.png" />
+        </p>
+        <p>
+          Details about the Disks can be found in the
+          <strong>Components -&gt; Storage</strong> Section at the
+          <strong>Disks</strong> value in the right pane.
+        </p>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Disk Monitoring" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
-<p>You can use the following application to monitor the pyhsical or virtual disks on Windows:</p>
-<ul>
-<li>Windows Performance Monitor</li>
-</ul>
-
-
+        <p>
+          You can use the following application to monitor the pyhsical or
+          virtual disks on Windows:
+        </p>
+        <ul>
+          <li>Windows Performance Monitor</li>
+        </ul>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Windows Performance Monitor" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>On Microsoft Windows, IT Administrators can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
-<h2 is-upgraded>Sample code</h2>
-<p>To add Perfmon counters to monitor Disk IO (Input\Output) Activity please execute the following steps.</p>
-<ul>
-<li>Run Performance Monitor (Perfmon.exe) this is part of the Windows Administrative tools.</li>
-<li>Navigate to Performance -&gt; Data Collector Sets -&gt; User Defined</li>
-<li>In the Right hand Pane right click and Select New - &gt; Data Collector Set</li>
-<li>Provide a Friendly name (i.e. Task Set) <img alt="Windows Performance Monitor" src="img/48fa2f151878de40.png"></li>
-<li>Click on &#34;Create Manually (Advanced)&#34;</li>
-<li>Click &#34;Next&#34;</li>
-<li>Under &#34;Create Data Logs&#34; select Performance Counter <img alt="Windows Performance Monitor" src="img/f12c306eae9f5e13.png"></li>
-<li>Click Finish</li>
-</ul>
-<p>The data set (i.e. Task Set) should now appear in the right hand pane.</p>
-<ul>
-<li>Double click on the data set (ie Task Set)</li>
-<li>&#34;DataCollector01&#34; should appear in the right hand pane. <img alt="Windows Performance Monitor" src="img/66fe8378005afbf8.png"></li>
-<li>Double click on the &#34;DataCollector01&#34;</li>
-<li>In the &#34;Performance Counters&#34; tab click Add.<br><img alt="Windows Performance Monitor" src="img/beb9ebdab5356c1b.png"></li>
-<li>A list of the available counters appears on the screen,  Navigate to &#34;LogicalDisk&#34; and click to highlight (do NOT expand the list).  Under instances of Selected objects select the specific volume (drive) where the journal files are located (ie C:) and click &#34;Add&#34;.</li>
-</ul>
-<p>This will list all LogicalDisk performance counters associated with activity on the specified volume (drive).  You will see something like the following in the Added Counters window: <img alt="Windows Performance Monitor" src="img/75faf4714a8af01c.png"></p>
-<ul>
-<li>Click OK to return to the &#34;DataCollector01&#34; Properties screen.</li>
-<li>Leave the other values at default settings - Log Format set to &#34;Binary&#34; and Sample Interval set to &#34;15&#34; Seconds and Click &#34;OK&#34;</li>
-</ul>
-<p>This creates the basic dataset.</p>
-<ul>
-<li>The data set (ie Task Set) should now appear in the left hand pane.  Right click and select &#34;Properties&#34;</li>
-<li>The DataSet Properties includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png"> * Use the General tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM) * Use the Directory tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics. * Use the schedule tab to Set the days to run and the time to commence collection.  This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am * Use the Stop Condition to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).</li>
-<li>Click OK when all required parameters are configured.</li>
-<li>You can start data collection by clicking on the DataSet (ie Task Set) right click and press start. <img alt="Windows Performance Monitor" src="img/9201675bd5a98527.png"></li>
-<li>You can stop data collection by clicking on the DataSet (ie Task Set) right click and press stop. <img alt="Windows Performance Monitor" src="img/306d8712ff2262c4.png"></li>
-<li>Navigate to Performance -&gt; Reports -&gt; User Defined –&gt; Data set (ie Task Set)</li>
-<li>Open the last recent report <img alt="Windows Performance Monitor" src="img/86fe8fd189261274.png"></li>
-</ul>
-<h2 is-upgraded>Metrics</h2>
-<p>All &#34;LogicalDisk&#34; perfmon metrics are useful for analysis but the following are particularly interesting.</p>
-<ul>
-<li><strong>Current disk queue length</strong>: Current Disk Queue Length is the number of requests outstanding on the disk at the time the performance data is collected. This means that the disk is not able to honor I/O requests as fast as they are being made. If the disk has a consistently high value for the Current Queue Length counter over multiple consecutive samples this suggests I/O requests latency is on the increase.</li>
-<li><strong>Disk Averages (Idle\Read\Write)</strong>: This will give us a snapshot of the IO Trends over the period of the sample</li>
-<li><strong>Disk Read\ Write\Transfers</strong>: This will give us the granularity of the IO activity</li>
-</ul>
-
-
+        <p>
+          On Microsoft Windows, IT Administrators can use
+          <strong>Windows Performance Monitor</strong> to analyze data, such as
+          processor, hard drive, memory, and network usage.
+        </p>
+        <h2 is-upgraded>Sample code</h2>
+        <p>
+          To add Perfmon counters to monitor Disk IO (Input\Output) Activity
+          please execute the following steps.
+        </p>
+        <ul>
+          <li>
+            Run Performance Monitor (Perfmon.exe) this is part of the Windows
+            Administrative tools.
+          </li>
+          <li>
+            Navigate to Performance -&gt; Data Collector Sets -&gt; User Defined
+          </li>
+          <li>
+            In the Right hand Pane right click and Select New - &gt; Data
+            Collector Set
+          </li>
+          <li>
+            Provide a Friendly name (i.e. Task Set)
+            <img
+              alt="Windows Performance Monitor"
+              src="img/48fa2f151878de40.png"
+            />
+          </li>
+          <li>Click on &#34;Create Manually (Advanced)&#34;</li>
+          <li>Click &#34;Next&#34;</li>
+          <li>
+            Under &#34;Create Data Logs&#34; select Performance Counter
+            <img
+              alt="Windows Performance Monitor"
+              src="img/f12c306eae9f5e13.png"
+            />
+          </li>
+          <li>Click Finish</li>
+        </ul>
+        <p>
+          The data set (i.e. Task Set) should now appear in the right hand pane.
+        </p>
+        <ul>
+          <li>Double click on the data set (ie Task Set)</li>
+          <li>
+            &#34;DataCollector01&#34; should appear in the right hand pane.
+            <img
+              alt="Windows Performance Monitor"
+              src="img/66fe8378005afbf8.png"
+            />
+          </li>
+          <li>Double click on the &#34;DataCollector01&#34;</li>
+          <li>
+            In the &#34;Performance Counters&#34; tab click Add.<br /><img
+              alt="Windows Performance Monitor"
+              src="img/beb9ebdab5356c1b.png"
+            />
+          </li>
+          <li>
+            A list of the available counters appears on the screen, Navigate to
+            &#34;LogicalDisk&#34; and click to highlight (do NOT expand the
+            list). Under instances of Selected objects select the specific
+            volume (drive) where the journal files are located (ie C:) and click
+            &#34;Add&#34;.
+          </li>
+        </ul>
+        <p>
+          This will list all LogicalDisk performance counters associated with
+          activity on the specified volume (drive). You will see something like
+          the following in the Added Counters window:
+          <img
+            alt="Windows Performance Monitor"
+            src="img/75faf4714a8af01c.png"
+          />
+        </p>
+        <ul>
+          <li>
+            Click OK to return to the &#34;DataCollector01&#34; Properties
+            screen.
+          </li>
+          <li>
+            Leave the other values at default settings - Log Format set to
+            &#34;Binary&#34; and Sample Interval set to &#34;15&#34; Seconds and
+            Click &#34;OK&#34;
+          </li>
+        </ul>
+        <p>This creates the basic dataset.</p>
+        <ul>
+          <li>
+            The data set (ie Task Set) should now appear in the left hand pane.
+            Right click and select &#34;Properties&#34;
+          </li>
+          <li>
+            The DataSet Properties includes a number of tabs.<br /><img
+              alt="Windows Performance Monitor"
+              src="img/2564bed10b2435b9.png"
+            />
+            * Use the General tab to set user credentials with the relevant
+            privileges to run the perfmon (By default this is set to SYSTEM) *
+            Use the Directory tab to set the data path of where you would like
+            to store the logs files (by default this is set to the %systemdrive%
+            - ie C:) we would recoomend that the log files are stored on a drive
+            which is not being monitored as this will skew the statistics. * Use
+            the schedule tab to Set the days to run and the time to commence
+            collection. This would be specific to the customers working
+            practices, for example if the issue under investigation is seen
+            commonly at the start of normal office hours the schedule should be
+            set for Monday - Friday commencing at 09:00am * Use the Stop
+            Condition to set the parameters to stop (ie the Overall Duration of
+            monitoring is 8 hours).
+          </li>
+          <li>Click OK when all required parameters are configured.</li>
+          <li>
+            You can start data collection by clicking on the DataSet (ie Task
+            Set) right click and press start.
+            <img
+              alt="Windows Performance Monitor"
+              src="img/9201675bd5a98527.png"
+            />
+          </li>
+          <li>
+            You can stop data collection by clicking on the DataSet (ie Task
+            Set) right click and press stop.
+            <img
+              alt="Windows Performance Monitor"
+              src="img/306d8712ff2262c4.png"
+            />
+          </li>
+          <li>
+            Navigate to Performance -&gt; Reports -&gt; User Defined –&gt; Data
+            set (ie Task Set)
+          </li>
+          <li>
+            Open the last recent report
+            <img
+              alt="Windows Performance Monitor"
+              src="img/86fe8fd189261274.png"
+            />
+          </li>
+        </ul>
+        <h2 is-upgraded>Metrics</h2>
+        <p>
+          All &#34;LogicalDisk&#34; perfmon metrics are useful for analysis but
+          the following are particularly interesting.
+        </p>
+        <ul>
+          <li>
+            <strong>Current disk queue length</strong>: Current Disk Queue
+            Length is the number of requests outstanding on the disk at the time
+            the performance data is collected. This means that the disk is not
+            able to honor I/O requests as fast as they are being made. If the
+            disk has a consistently high value for the Current Queue Length
+            counter over multiple consecutive samples this suggests I/O requests
+            latency is on the increase.
+          </li>
+          <li>
+            <strong>Disk Averages (Idle\Read\Write)</strong>: This will give us
+            a snapshot of the IO Trends over the period of the sample
+          </li>
+          <li>
+            <strong>Disk Read\ Write\Transfers</strong>: This will give us the
+            granularity of the IO activity
+          </li>
+        </ul>
       </google-codelab-step>
-    
+
       <google-codelab-step label="Hands-on" duration="0">
-        <p>Application performance often depends on how well and quickly storage systems can be provisioned to end users. Storage performance is usually an important factor in the deployment of an application. For this reason, the appropriate storage system must be evaluated, designed and selected in terms of IOPS as well as throughput, speed and bandwidth.</p>
-<p>The following section describes the Microsoft tool Diskspd.exe for evaluating the performance of disk and storage systems.</p>
-<h2 is-upgraded>What you will learn:</h2>
-<p>In this codelab, you will learn</p>
-<ul>
-<li>how to generate workload with the diskspd.exe tool</li>
-</ul>
-<h2 is-upgraded>What you will need:</h2>
-<p>In this codelab, you will need the following tools:</p>
-<ul>
-<li>diskspd.exe</li>
-</ul>
-<h2 is-upgraded>diskspd</h2>
-<h2 is-upgraded>Description</h2>
-<p>The free Microsoft tool called <a href="https://github.com/microsoft/diskspd/releases" target="_blank">Diskspd.exe</a> measures the performance of a storage system for Windows, Windows Server and Cloud Server infrastructure at Microsoft Azure and simulates various application loads. Please visit the following <a href="https://github.com/Microsoft/diskspd/wiki" target="_blank">page</a> for updated documentation.</p>
-<p>The program can be downloaded <a href="https://github.com/microsoft/diskspd/releases" target="_blank">here</a>) and copied to any directory on the target server.  The zipfile contains several versions, including a 64-bit variant in the amd64 folder. If you need a graphical user interface instead of the console window, you can get the Diskspd GUI from the <a href="https://gallery.technet.microsoft.com/DiskSpeed-90d37d55" target="_blank">DiskSpeed</a> project.</p>
-<p>To use the tool on the console, open a command prompt with <strong>administrator rights</strong> and then navigate to the directory where you copied and unpacked the zipfile. Finally go to the subdirectory corresponding to your target architecture (e.g. amd64).</p>
-<h2 is-upgraded>Scenario</h2>
-<p>In this codelab, the target is a virtual machine with 2 CPU Cores and 8 GB RAM. The operating system is based on Windows 10 Education Version 10,0,19042 Build 19042. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6,1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
-<h2 is-upgraded>Test Run</h2>
-<p>This test run is based on the Online Transaction Processing (OLTP) workload, which involves high levels of write activity.</p>
-<h3 is-upgraded>SQL Server OLTP</h3>
-<p>Open a Powershell terminal as Administrator and execute diskspd.exe with the following options:</p>
-<pre><code>diskspd.exe -b8K -d180 -h -L -o32 -t3 -r -w75 -c5G sqldata.dat &gt; result.csv
+        <p>
+          Application performance often depends on how well and quickly storage
+          systems can be provisioned to end users. Storage performance is
+          usually an important factor in the deployment of an application. For
+          this reason, the appropriate storage system must be evaluated,
+          designed and selected in terms of IOPS as well as throughput, speed
+          and bandwidth.
+        </p>
+        <p>
+          The following section describes the Microsoft tool Diskspd.exe for
+          evaluating the performance of disk and storage systems.
+        </p>
+        <h2 is-upgraded>What you will learn:</h2>
+        <p>In this codelab, you will learn</p>
+        <ul>
+          <li>how to generate workload with the diskspd.exe tool</li>
+        </ul>
+        <h2 is-upgraded>What you will need:</h2>
+        <p>In this codelab, you will need the following tools:</p>
+        <ul>
+          <li>diskspd.exe</li>
+        </ul>
+        <h2 is-upgraded>diskspd</h2>
+        <h2 is-upgraded>Description</h2>
+        <p>
+          The free Microsoft tool called
+          <a
+            href="https://github.com/microsoft/diskspd/releases"
+            target="_blank"
+            >Diskspd.exe</a
+          >
+          measures the performance of a storage system for Windows, Windows
+          Server and Cloud Server infrastructure at Microsoft Azure and
+          simulates various application loads. Please visit the following
+          <a href="https://github.com/Microsoft/diskspd/wiki" target="_blank"
+            >page</a
+          >
+          for updated documentation.
+        </p>
+        <p>
+          The program can be downloaded
+          <a
+            href="https://github.com/microsoft/diskspd/releases"
+            target="_blank"
+            >here</a
+          >) and copied to any directory on the target server. The zipfile
+          contains several versions, including a 64-bit variant in the amd64
+          folder. If you need a graphical user interface instead of the console
+          window, you can get the Diskspd GUI from the
+          <a
+            href="https://gallery.technet.microsoft.com/DiskSpeed-90d37d55"
+            target="_blank"
+            >DiskSpeed</a
+          >
+          project.
+        </p>
+        <p>
+          To use the tool on the console, open a command prompt with
+          <strong>administrator rights</strong> and then navigate to the
+          directory where you copied and unpacked the zipfile. Finally go to the
+          subdirectory corresponding to your target architecture (e.g. amd64).
+        </p>
+        <h2 is-upgraded>Scenario</h2>
+        <p>
+          In this codelab, the target is a virtual machine with 2 CPU Cores and
+          8 GB RAM. The operating system is based on Windows 10 Education
+          Version 10,0,19042 Build 19042. The VM is installed and running on the
+          Linux-based Hypervisor VirtualBox, Version 6,1.16 r140961 (QT 5.11.3).
+          THe HostOS is based on Debian with Linux Kernel version
+          4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a
+          Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top
+          512GB.
+        </p>
+        <h2 is-upgraded>Test Run</h2>
+        <p>
+          This test run is based on the Online Transaction Processing (OLTP)
+          workload, which involves high levels of write activity.
+        </p>
+        <h3 is-upgraded>SQL Server OLTP</h3>
+        <p>
+          Open a Powershell terminal as Administrator and execute diskspd.exe
+          with the following options:
+        </p>
+        <pre><code>diskspd.exe -b8K -d180 -h -L -o32 -t3 -r -w75 -c5G sqldata.dat &gt; result.csv
 </code></pre>
-<p>Where,</p>
-<ul>
-<li>-b - Block size of the input/output, specified as (K/M/G). For example, -b8K means a block size of 8 KB, which is relevant for SQL Server.</li>
-<li>-d - Test duration in seconds. Tests of 30-60 seconds are usually long enough to get valid results. Here, test duration is defined with 180 seconds.</li>
-<li>-h - Disables operating system-level software caching and hardware write caching. Here it is disabled becauseSQL Server works this way.</li>
-<li>-L - Captures latency information during the test</li>
-<li>-o - Pending I/Os (i.e. queue depth) per target, per worker thread.</li>
-<li>-t - worker threads per test file target. Here it is defined with 3 workers.</li>
-<li>-r - If the -r option is used, random tests are performed, otherwise sequential tests are performed. Here, SQL Server accesses data files randomly.</li>
-<li>-w - Specifies the percentage. For example, -w75 means that 75% write and 25% read operations are performed. Here, value is set to 75 because OLTP workloads involves more writung activities than reading.</li>
-<li>sqldata.at - the sample sql file name that will be used in the test.</li>
-<li>-c - Creates workload file(s) of the specified size, specified as (K/M/G).</li>
-<li><ul>
-<li>sqldata.dat - the workload file (see option -c)</li>
-</ul>
-</li>
-<li><ul>
-<li>result.csv - the output file of the test results</li>
-</ul>
-</li>
-</ul>
-<p>After the execution of the test, the results are written to the file named <strong>result.csv</strong>. The results of the test are divided into 5 sections. The first section of the test result shows us the input parameters and all other settings.</p>
-<pre><code>Command Line: C:\Users\icinga\Downloads\DiskSpd\amd64\diskspd.exe -b8K -d180 -h -L -o32 -t3 -r -w75 -c5G sqldata.dat
+        <p>Where,</p>
+        <ul>
+          <li>
+            -b - Block size of the input/output, specified as (K/M/G). For
+            example, -b8K means a block size of 8 KB, which is relevant for SQL
+            Server.
+          </li>
+          <li>
+            -d - Test duration in seconds. Tests of 30-60 seconds are usually
+            long enough to get valid results. Here, test duration is defined
+            with 180 seconds.
+          </li>
+          <li>
+            -h - Disables operating system-level software caching and hardware
+            write caching. Here it is disabled becauseSQL Server works this way.
+          </li>
+          <li>-L - Captures latency information during the test</li>
+          <li>
+            -o - Pending I/Os (i.e. queue depth) per target, per worker thread.
+          </li>
+          <li>
+            -t - worker threads per test file target. Here it is defined with 3
+            workers.
+          </li>
+          <li>
+            -r - If the -r option is used, random tests are performed, otherwise
+            sequential tests are performed. Here, SQL Server accesses data files
+            randomly.
+          </li>
+          <li>
+            -w - Specifies the percentage. For example, -w75 means that 75%
+            write and 25% read operations are performed. Here, value is set to
+            75 because OLTP workloads involves more writung activities than
+            reading.
+          </li>
+          <li>
+            sqldata.at - the sample sql file name that will be used in the test.
+          </li>
+          <li>
+            -c - Creates workload file(s) of the specified size, specified as
+            (K/M/G).
+          </li>
+          <li>
+            <ul>
+              <li>sqldata.dat - the workload file (see option -c)</li>
+            </ul>
+          </li>
+          <li>
+            <ul>
+              <li>result.csv - the output file of the test results</li>
+            </ul>
+          </li>
+        </ul>
+        <p>
+          After the execution of the test, the results are written to the file
+          named <strong>result.csv</strong>. The results of the test are divided
+          into 5 sections. The first section of the test result shows us the
+          input parameters and all other settings.
+        </p>
+        <pre><code>Command Line: C:\Users\icinga\Downloads\DiskSpd\amd64\diskspd.exe -b8K -d180 -h -L -o32 -t3 -r -w75 -c5G sqldata.dat
 
 Input parameters:
 
@@ -200,8 +451,10 @@ System information:
 	computer name: DESKTOP-12345678
 	start time: 2021/10/13 17:19:51 UTC
 </code></pre>
-<p>In the second section we can read the details of the average CPU load.</p>
-<pre><code>Results for timespan 1:
+        <p>
+          In the second section we can read the details of the average CPU load.
+        </p>
+        <pre><code>Results for timespan 1:
 *******************************************************************************
 
 actual test time:	180.01s
@@ -215,8 +468,17 @@ CPU |  Usage |  User  |  Kernel |  Idle
 -------------------------------------------
 avg.|   8.44%|   0.70%|    7.74%|  91.56%
 </code></pre>
-<p>The third section <strong>Total IO</strong> gives us all the performance details about the Storage performance. The total number of IOPS generated for this test is <strong>274106</strong>. The test duration is 180 seconds, therefore the IOPS per second is rounded up to <strong>1523</strong> (=result of 274106/180, note the variance to 1522.76). The AvgLat column indicates the average latency, and the result is <strong>63.514</strong>. The throughput per second is <strong>11.90</strong> MB/s.</p>
-<pre><code>Total IO
+        <p>
+          The third section <strong>Total IO</strong> gives us all the
+          performance details about the Storage performance. The total number of
+          IOPS generated for this test is <strong>274106</strong>. The test
+          duration is 180 seconds, therefore the IOPS per second is rounded up
+          to <strong>1523</strong> (=result of 274106/180, note the variance to
+          1522.76). The AvgLat column indicates the average latency, and the
+          result is <strong>63.514</strong>. The throughput per second is
+          <strong>11.90</strong> MB/s.
+        </p>
+        <pre><code>Total IO
 thread |       bytes     |     I/Os     |    MiB/s   |  I/O per s |  AvgLat  | LatStdDev |  file
 -----------------------------------------------------------------------------------------------------
      0 |       653434880 |        79765 |       3.46 |     443.12 |   72.773 |   787.590 | sqldata.dat (5GiB)
@@ -225,8 +487,14 @@ thread |       bytes     |     I/Os     |    MiB/s   |  I/O per s |  AvgLat  | L
 -----------------------------------------------------------------------------------------------------
 total:        2245476352 |       274106 |      11.90 |    1522.76 |   63.514 |   734.032
 </code></pre>
-<p>The fourth section is split in <strong>Read IO</strong> and <strong>Write IO</strong> operations. The <strong>Read IO</strong> section contains details about the read operations. The <strong>Write IO</strong> section contains details about the write operations.</p>
-<pre><code>Read IO
+        <p>
+          The fourth section is split in <strong>Read IO</strong> and
+          <strong>Write IO</strong> operations. The
+          <strong>Read IO</strong> section contains details about the read
+          operations. The <strong>Write IO</strong> section contains details
+          about the write operations.
+        </p>
+        <pre><code>Read IO
 thread |       bytes     |     I/Os     |    MiB/s   |  I/O per s |  AvgLat  | LatStdDev |  file
 -----------------------------------------------------------------------------------------------------
      0 |       163168256 |        19918 |       0.86 |     110.65 |   90.790 |   787.774 | sqldata.dat (5GiB)
@@ -244,8 +512,13 @@ thread |       bytes     |     I/Os     |    MiB/s   |  I/O per s |  AvgLat  | L
 -----------------------------------------------------------------------------------------------------
 total:        1683832832 |       205546 |       8.92 |    1141.88 |   58.809 |   737.150
 </code></pre>
-<p>The last section of the test results shows us the latency percentile analysis of the storage performance from the minimum to the maximum value. This result helps us to find out how the storage or the disks behave under different work loads.</p>
-<pre><code>total:
+        <p>
+          The last section of the test results shows us the latency percentile
+          analysis of the storage performance from the minimum to the maximum
+          value. This result helps us to find out how the storage or the disks
+          behave under different work loads.
+        </p>
+        <pre><code>total:
   %-ile |  Read (ms) | Write (ms) | Total (ms)
 ----------------------------------------------
     min |      0.244 |      0.149 |      0.149
@@ -264,22 +537,18 @@ total:        1683832832 |       205546 |       8.92 |    1141.88 |   58.809 |  
 9-nines |  23444.205 |  23829.449 |  23829.449
     max |  23444.205 |  23829.449 |  23829.449
 </code></pre>
-<h2 is-upgraded>Clean Up</h2>
-<ul>
-<li>To clean up, delete the files report.csv and the sqldata.dat.</li>
-</ul>
-<p>This is the end of the hands-on.</p>
-
-
+        <h2 is-upgraded>Clean Up</h2>
+        <ul>
+          <li>To clean up, delete the files report.csv and the sqldata.dat.</li>
+        </ul>
+        <p>This is the end of the hands-on.</p>
       </google-codelab-step>
-    
-  </google-codelab>
+    </google-codelab>
 
-  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
-  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
-  <script src="//support.google.com/inapp/api.js"></script>
-
-</body>
+    <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+    <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+    <script src="//support.google.com/inapp/api.js"></script>
+  </body>
 </html>

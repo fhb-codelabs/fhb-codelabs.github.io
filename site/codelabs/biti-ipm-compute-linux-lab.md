@@ -6,30 +6,37 @@ status: Published
 authors: Roland Pellegrini
 
 # BITI IPM Lab - Compute
+
 <!-- ------------------------ -->
-## Before You Begin 
+
+## Before You Begin
 
 ### What You’ll Learn
+
 In this codelab you will learn
 
-* how to get information about the CPU (Central Processing Unit) 
-* how to monitor CPU with Linux tools
-* how to perform a test run
+- how to get information about the CPU (Central Processing Unit)
+- how to monitor CPU with Linux tools
+- how to perform a test run
 
-###  Where You Can Look Up
+### Where You Can Look Up
+
 The **man** is a short term for manual page and acts as an interface to view the reference manual of a command.
 
 Syntax of man:
+
 ```
 man [option(s)] keyword(s)
 ```
 
 For example, if you want top find out more about the command **ps** and how to use it, just open a shell and type:
+
 ```
 man ps
 ```
 
 This command will display all the information about **ps**.
+
 ```
 PS(1)                            User Commands                           PS(1)
 
@@ -50,13 +57,13 @@ DESCRIPTION
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian 11 (Bullseye).
+This is the OS of the virtual machine. This will be Debian .
 
 #### Administators privileges
 
 By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.
 
-For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
+For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration.
 
 ## CPU Information
 
@@ -64,14 +71,13 @@ For the Guest OS, you will create and manage your own users. These users will th
 
 You can use one of the following commands to find detailed information about the physical CPUs (pCPU) including all cores on Linux:
 
-* nproc command
-* lscpu command
-* cat /proc/cpuinfo
-* hwinfo command
-* dmidecode command
-* getconf command
-* cpuid command
-
+- nproc command
+- lscpu command
+- cat /proc/cpuinfo
+- hwinfo command
+- dmidecode command
+- getconf command
+- cpuid command
 
 ## nproc
 
@@ -82,6 +88,7 @@ The **nproc** command displays the number of available processing units. The com
 ### Sample code
 
 Open a shell and run **nproc** with the following option:
+
 ```
 echo "Threads/core: $(nproc --all)"
 ```
@@ -89,6 +96,7 @@ echo "Threads/core: $(nproc --all)"
 ### Sample output
 
 The output may look like this:
+
 ```
 Threads/core: 4
 ```
@@ -101,6 +109,7 @@ Use the --help flag for more information.
 ### References
 
 Need help or list of parameters? Use this:
+
 ```
 man nproc
 ```
@@ -114,6 +123,7 @@ On most Linux distributions, you can also use the **lscpu** command. It displays
 ### Sample code
 
 Open a shell and run the following command:
+
 ```
 lscpu
 ```
@@ -164,7 +174,7 @@ Vulnerability Tsx async abort:   Mitigation; Clear CPU buffers; SMT vulnerable
 Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
                                  r pge mca cmov pat pse36 clflush dts acpi mmx f
                                  xsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rd
-                                 tscp lm constant_tsc art arch_perfmon pebs bts 
+                                 tscp lm constant_tsc art arch_perfmon pebs bts
                                  rep_good nopl xtopology nonstop_tsc cpuid aperf
                                  mperf pni pclmulqdq dtes64 monitor ds_cpl vmx s
                                  mx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid s
@@ -175,18 +185,22 @@ Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
                                   ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle a
                                  vx2 smep bmi2 erms invpcid rtm mpx rdseed adx s
                                  map clflushopt intel_pt xsaveopt xsavec xgetbv1
-                                  xsaves dtherm ida arat pln pts hwp hwp_notify 
+                                  xsaves dtherm ida arat pln pts hwp hwp_notify
                                  hwp_act_window hwp_epp md_clear flush_l1d
 ```
 
 ### Sample code
+
 Open a shell and run the following command:
+
 ```
 lscpu | egrep 'Model name|Socket|Thread|NUMA|CPU\(s\)'
 ```
 
 ### Sample output
+
 The command above provides the following result:
+
 ```
 --More--
 CPU(s):                          4
@@ -200,15 +214,16 @@ NUMA node0 CPU(s):               0-3
 
 The output shows the CPU information:
 
-* CPU model: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
-* Socket: 1
-* CPU Cores: 2
-* Thread per core: 2 
-* Total threads: 4
+- CPU model: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
+- Socket: 1
+- CPU Cores: 2
+- Thread per core: 2
+- Total threads: 4
 
 ### References
 
 Need help? Use this:
+
 ```
 man lscpu
 ```
@@ -222,13 +237,14 @@ All Linux distributions allows you to run **cat /proc/cpuinfo**. This file conta
 ### Sample code
 
 Open a shell and run the following command:
+
 ```
 cat /proc/cpuinfo | more
 ```
 
 ### Sample output
 
-Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description. 
+Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description.
 
 ```
 processor	: 0
@@ -287,6 +303,7 @@ cpuid level	: 22
 ### Sample code
 
 To count the number of processing units use grep command.
+
 ```
 cat /proc/cpuinfo | grep processor
 ```
@@ -310,6 +327,7 @@ processor	: 3
 ```
 
 The second output may look like this:
+
 ```
 CPU threads : 4
 cpu cores   : 2
@@ -322,6 +340,7 @@ The number of processors shown by /proc/cpuinfo might be different from the actu
 ### References
 
 Need help? Use this:
+
 ```
 [cpuinfo](https://linuxwiki.de/proc/cpuinfo)
 ```
@@ -339,6 +358,7 @@ The command hwinfo requires root privileges.
 ### Sample code
 
 Run the following command:
+
 ```
 hwinfo | more
 ```
@@ -411,7 +431,7 @@ hwinfo --short --cpu
 Sample output:
 
 ```
-cpu:                                                            
+cpu:
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2550 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1075 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1841 MHz
@@ -427,6 +447,7 @@ hwinfo --all --log hardware_info.txt
 ### References
 
 Need help? Use this:
+
 ```
 man hwinfo
 ```
@@ -437,7 +458,7 @@ man hwinfo
 
 The Linux command **dmidecode** reads the data from DMI (Desktop Management Interface) table which holds information for system’s hardware components like BIOS Revision, Serial Number, CPU, RAM, etc.
 
-The tools is useful when users run into situations where they need to find out maximum RAM supported by the BIOS and motherboard, a serial number or a key piece of hardware information during troubleshooting. 
+The tools is useful when users run into situations where they need to find out maximum RAM supported by the BIOS and motherboard, a serial number or a key piece of hardware information during troubleshooting.
 
 <aside class="positive">
 The command dmidecode requires root privileges.
@@ -516,10 +537,11 @@ Processor Information
 You can further filter details with egrep command to filter only the required details.
 
 ```
-dmidecode -t processor | egrep "Family|Manufacturer|Version|Max Speed|Core Count|Thread Count" 
+dmidecode -t processor | egrep "Family|Manufacturer|Version|Max Speed|Core Count|Thread Count"
 ```
 
 Sample output:
+
 ```
 	Family: Core i7
 	Manufacturer: Intel(R) Corporation
@@ -533,6 +555,7 @@ Sample output:
 ### References
 
 Need help? Use this:
+
 ```
 man dmidecode
 ```
@@ -550,12 +573,13 @@ Run the following code:
 ```
 getconf -a
 ```
-The option `-a` displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command
 
+The option `-a` displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command
 
 ### Sample output
 
 The output may look like this:
+
 ```
 getconf -a | more
 LINK_MAX                           65000
@@ -567,11 +591,13 @@ MAX_INPUT                          255
 ```
 
 To get the number of CPU/Cores, run the following command:
+
 ```
 echo "Number of CPU/cores online at $HOSTNAME: $(getconf _NPROCESSORS_ONLN)"
 ```
 
 Sample output:
+
 ```
 Number of CPU/cores online at server: 4
 ```
@@ -579,6 +605,7 @@ Number of CPU/cores online at server: 4
 ### References
 
 Need help? Use this:
+
 ```
 man getconf
 ```
@@ -600,6 +627,7 @@ cpuid
 ### Sample output
 
 Here is a sample output:
+
 ```
 CPU 0:
    vendor_id = "GenuineIntel"
@@ -611,11 +639,13 @@ CPU 0:
       extended family = 0x0 (0)
 --More--
 ```
+
 Note that the command provides additional information about CPU caches, number of cores, brand strings, etc.
 
 ### References
 
 Need help or more information about parameters? Use this:
+
 ```
 man cpuid
 ```
@@ -626,13 +656,12 @@ man cpuid
 
 You can use one of the following commands to monitor the physical CPU cores:
 
-* uptime command
-* top program
-* htop program
-* mpstat command
+- uptime command
+- top program
+- htop program
+- mpstat command
 
-
-## uptime 
+## uptime
 
 ### Description
 
@@ -640,7 +669,7 @@ The command **uptime** shows the basic information. The Linux tool requires few 
 
 ### Sample code
 
-Open a shell  and run the command as follows:
+Open a shell and run the command as follows:
 
 ```
 uptime
@@ -674,6 +703,7 @@ Consult the documentation about the CPU load average, its meaning and how to int
 ### References
 
 How many pages has this manual? Find it out:
+
 ```
 man uptime
 ```
@@ -688,15 +718,17 @@ Like **uptime**, the command **top** displays the CPU load averages. In addition
 ### Sample code
 
 Run the **top** command as follows:
+
 ```
 top
 ```
+
 ### Sample output
 
 The output will probably be different from yours:
 ![top](./img/biti-ipm-compute-linux-top.png)
 
-The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table  (the Process Table) with information about each individual process.
+The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table (the Process Table) with information about each individual process.
 
 <aside class="positive">
 Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it.
@@ -705,6 +737,7 @@ Consult the man-pages for more details about top, about the Header Block and the
 ### References
 
 Need more help or unsure? Use this:
+
 ```
 man top
 ```
@@ -718,16 +751,17 @@ This tool is another interactive real-time process monitoring application for Li
 ### Sample code
 
 Run the command as follows:
+
 ```
 htop
 ```
+
 ### Sample output
 
 The output below will differ from yours:
 ![htop](./img/biti-ipm-compute-linux-htop.png)
 
 The top section is more easier to read and the bottom section is better organized.
-
 
 <aside class="positive">
 Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it.
@@ -736,16 +770,16 @@ Consult the man-pages for more details about htop. Run your own research about t
 ### References
 
 The Hitchhiker's manual:
+
 ```
 man htop
 ```
 
-## mpstat 
+## mpstat
 
 ### Description
 
 The tool **mpstat** is a Linux command that is used to report processor related statistics. It displays the statistics of the CPU usage of the system and information about CPU utilization. It initializes the first processor with CPU 0, the second one with CPU 1, and so on.
-
 
 ### Sample code
 
@@ -758,6 +792,7 @@ mpstat
 ### Sample output
 
 The sample output:
+
 ```
 Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
@@ -765,13 +800,14 @@ Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 10:13:59 AM  all    7.67    0.06    1.82    0.46    0.00    0.21    0.00    0.00    0.00   89.77
 ```
 
-
 Next, to display processor numbers to all CPUs, run the command with the following flags:
+
 ```
 mpstat -P ALL
 ```
 
 Again, the output will probably be very different from yours:
+
 ```
 Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
@@ -781,12 +817,14 @@ Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 10:15:43 AM    1    7.33    0.06    1.57    0.41    0.00    0.16    0.00    0.00    0.00   90.47
 ```
 
-
 Next, to get all information, run the command with the following flag:
+
 ```
 mpstat -A
 ```
+
 This will display each and every detail of CPU usage.:
+
 ```
 Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
@@ -816,11 +854,13 @@ Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 Finally, to display CPU utilization by a specific processor, run the command with the following flags:
 
 Next, to get all information, run the command with the following flag:
+
 ```
 mpstat -P 1
 ```
 
 This will display CPU usage of the 1st processor:
+
 ```
 Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
@@ -836,6 +876,7 @@ Consult the man-pages for more details about mpstat. Do your own research about 
 ### References
 
 Need any help? Use this anyway:
+
 ```
 man mpstat
 ```
@@ -844,24 +885,25 @@ man mpstat
 
 ### What you will learn:
 
-In this codelab, you will learn 
+In this codelab, you will learn
 
-* how to use the htop programm
-* how to generate workload
-* how to limit CPU time that the workload generator may consume
+- how to use the htop programm
+- how to generate workload
+- how to limit CPU time that the workload generator may consume
 
 ### What you will need:
 
 In this codelab, you will need the following tools:
 
-* Stress
-* htop
-* uptime
-* cpulimit
+- Stress
+- htop
+- uptime
+- cpulimit
 
 Details of these two (2) tools can be found in the corresponding Codelab named `Stress`. Create workloads with Yes and/or Stress to see how the CPU responds.
 
 For example, run the following command to create a CPU workload for 2 cores for the next two (2) minutes:
+
 ```
 stress -c 2 -t 120s
 ```
@@ -870,59 +912,68 @@ This gives you time to run commands like htop or uptime to observe CPU usage. Re
 
 ### Scenario
 
-In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
+In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
 
 ### Test Run
 
-* Open a shell terminal and execute the following command:
+- Open a shell terminal and execute the following command:
+
 ```
 htop
 ```
 
-* Open another shell terminal and execute the following command:
+- Open another shell terminal and execute the following command:
+
 ```
 watch uptime
 ```
 
-* Open another shell terminal and start the workload generator with the following option.
+- Open another shell terminal and start the workload generator with the following option.
+
 ```
 stress -c 2
 ```
+
 Notice that the workload generator runs without a time limit.
 
-* Observe how the CPU utilization changes in the uptime window. 
-* Sample output for **uptime**:
-![Exercise](./img/biti-ipm-compute-exercise-uptime.png) 
-* Sample output for **htop** 
-![Exercise](./img/biti-ipm-compute-exercise-htop.png)
+- Observe how the CPU utilization changes in the uptime window.
+- Sample output for **uptime**:
+  ![Exercise](./img/biti-ipm-compute-exercise-uptime.png)
+- Sample output for **htop**
+  ![Exercise](./img/biti-ipm-compute-exercise-htop.png)
 
 As you can see, the CPU Load rises above 3.0, indicating that the CPU is overloaded. At this point, we will try to limit the stress processes to 10% each.
 
-* Get the identifiers of all stress processes. In this example the PID's are: 31210, 31211, and 31212
+- Get the identifiers of all stress processes. In this example the PID's are: 31210, 31211, and 31212
 
-* Open a shell and execute the following command.
+- Open a shell and execute the following command.
+
 ```
 cpulimit -p 31210 --limit 10 &
 ```
+
 Sample output
+
 ```
 root@server' Process 31210 detected
 ```
-* Repeat the command above for the PID 31211 and 31212.
-* Observe how the CPU utilization changes in the two tools **htop** and **uptime**.
-* Sample output for **htop**:
-![Exercise](./img/biti-ipm-compute-exercise-htop-low.png)
-* Sample output for **uptime**:
-![Exercise](./img/biti-ipm-compute-exercise-uptime-low.png)
-* As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.
+
+- Repeat the command above for the PID 31211 and 31212.
+- Observe how the CPU utilization changes in the two tools **htop** and **uptime**.
+- Sample output for **htop**:
+  ![Exercise](./img/biti-ipm-compute-exercise-htop-low.png)
+- Sample output for **uptime**:
+  ![Exercise](./img/biti-ipm-compute-exercise-uptime-low.png)
+- As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.
 
 ### Clean Up
 
-* To clean up, stop all running stress processes with the following command:
+- To clean up, stop all running stress processes with the following command:
+
 ```
 killall stress
 ```
 
-* Finally, you can close all open terminals. 
+- Finally, you can close all open terminals.
 
 This is the end of the hands-on.
