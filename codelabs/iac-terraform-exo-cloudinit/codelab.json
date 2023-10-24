@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2023-10-24T19:23:32Z",
+  "updated": "2023-10-24T19:32:05Z",
   "id": "iac-terraform-exo-cloudinit",
   "duration": 0,
   "title": "Infrastructure-as-Code - Lab 2 - Installing a Microservice Application with Terraform (Exoscale Edition)",
