@@ -6,17 +6,19 @@ status: Draft
 authors: Roland Pellegrini
 
 # BITI IPM Lab - Icinga Installation
+
 <!-- ------------------------ -->
-## Before You Begin 
+
+## Before You Begin
 
 ### What You’ll Learn
 
 In this codelab you will learn
 
-* how to install Icinga2 on Debian 11 
-* how to configure Icinga2 as a single node
+- how to install Icinga2 on Debian
+- how to configure Icinga2 as a single node
 
-###  Where You Can Look Up
+### Where You Can Look Up
 
 The best source of documentation is the homepage of Icinga2. The latest documentation can be found [here](https://icinga.com/docs/icinga-2/latest/doc/01-about/).
 
@@ -24,23 +26,26 @@ The best source of documentation is the homepage of Icinga2. The latest document
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian 11 (Bullseye).
+This is the OS of the virtual machine. This will be Debian .
 
 #### Administators privileges
 
 By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.
 
-For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
+For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration.
 
 ### Root privileges via sudo
 
 In this codelab you have to work with root privileges. Therefore, a few words of caution: double check whatever you type and make backups whenever necessary.
 
 Working with root privileges is quite easy. Open a terminal (a shell) and enter the following commmand:
+
 ```
 sudo -s
 ```
+
 Enter the password of the icinga user and voila:
+
 ```
 root@server:/home/icinga#
 ```
@@ -59,6 +64,7 @@ Run the following commands to update your system package repositories.
 sudo apt update
 sudo apt upgrade
 ```
+
 <aside class="positive">
 When using the sudo command, you will be prompted for your password.
 </aside>
@@ -70,6 +76,7 @@ Depending on the package upgrades, it is useful to restart the system here.
 ## Icinga2 Application
 
 ### Core App
+
 Now that Icinga 2 repos are in place, you can install it by running the command below:
 
 ```
@@ -77,6 +84,7 @@ sudo apt install icinga2
 ```
 
 Durning the installation, the apt command will output the following information.
+
 ```
 --- more ---
 enabling default icinga2 features
@@ -91,12 +99,14 @@ Please do not restart any Icinga2 service here. We will do this later.
 </aside>
 
 On Debian, Icinga2 is started and enabled upon installation. You can check this by running the command;
+
 ```
 systemctl status icinga2
 ```
 
 The output of the service status should look like the following:
-``` 
+
+```
   icinga2.service - Icinga host/service/network monitoring system
      Loaded: loaded (/lib/systemd/system/icinga2.service; enabled; vendor preset: enabled)
      Active: active (running) since Wed 2021-10-16 22:05:17 CET; 35min ago
@@ -127,7 +137,7 @@ Check if the status Active is in **running** mode which indicates that the servi
 
 ### Monitoring Plugins
 
-To  check external services, Icinga 2 requires additional monitoring plugins.  Run the command below to install the plugins.
+To check external services, Icinga 2 requires additional monitoring plugins. Run the command below to install the plugins.
 
 ```
 sudo apt install monitoring-plugins
@@ -166,11 +176,11 @@ sudo apt install mariadb-server mariadb-client
 Proceed to install MariaDB packages and all its dependencies.
 
 Finally, start and enable MariaDB.
+
 ```
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 ```
-
 
 You can check the status of the MariaDB service with the following command:
 
@@ -180,6 +190,7 @@ sudo systemctl status mariadb
 ```
 
 The output should look like this:
+
 ```
 root@server:~# systemctl status mariadb
 ● mariadb.service - MariaDB 10.6.4 database server
@@ -213,14 +224,15 @@ Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: OK
 Oct 16 22:43:29 server /etc/mysql/debian-start[26501]: Checking for insecure root accounts.
 ```
 
-### IDO modules for MariaDB/MySQL 
+### IDO modules for MariaDB/MySQL
 
 The package `icinga2-ido-mysql` provides IDO modules for MySQL and can be installed by running the command below:
 
 ```
 sudo apt install icinga2-ido-mysql
 ```
-During installation, you are prompted to specify whether Icinga 2 should use MySQL. Select `Yes` to enable this feature. 
+
+During installation, you are prompted to specify whether Icinga 2 should use MySQL. Select `Yes` to enable this feature.
 ![Windows Registry](./img/biti-ipm-icinga-installation-1.png)
 
 Next, you are prompted to specify whether database should be configured with dbconfig-common. Select `Yes` to enable dbconfig-common.
@@ -236,7 +248,7 @@ Some database administrators simply don't like the dbconfig-common framework.
 However, we choose this option because we don't want to administrate a database. Instead, we just want to use it for demonstration purpose only.
 </aside>
 
-Next,  you will be prompt to provide MySQL application password for icinga2-ido-mysql as shown in the following screen. To keep things easy, use `icinga2` as password.
+Next, you will be prompt to provide MySQL application password for icinga2-ido-mysql as shown in the following screen. To keep things easy, use `icinga2` as password.
 
 <aside class="negative">
 Warning: 
@@ -246,11 +258,9 @@ Under no circumstances do not use this password in other systems or environments
 
 ![Windows Registry](./img/biti-ipm-icinga-installation-3.png)
 
-
 You have to repeat the password. Type `icinga2` again and hit **ENTER**.
 
 ![Windows Registry](./img/biti-ipm-icinga-installation-4.png)
-
 
 Finally, you have check if `ido-mysql` feature is enabled. Run the command:
 
@@ -259,6 +269,7 @@ sudo icinga2 feature list
 ```
 
 The command above lists both disabled and enabled features:
+
 ```
 Disabled features: api command compatlog debuglog elasticsearch gelf graphite icingadb ido-mysql influxdb livestatus opentsdb perfdata statusdata syslog
 
@@ -274,11 +285,13 @@ sudo icinga2 feature enable ido-mysql
 ```
 
 Check, if `ido-mysql` feature is enabled now. Run the command:
+
 ```
 sudo icinga2 feature list
 ```
 
 Note that the feature `ido-mysql` is activated now.
+
 ```
 Disabled features: api command compatlog debuglog elasticsearch gelf graphite icingadb influxdb livestatus opentsdb perfdata statusdata syslog
 
@@ -286,6 +299,7 @@ Enabled features: checker ido-mysql mainlog notification
 ```
 
 Great, you are fine here. Now restart Icinga 2.
+
 ```
 sudo systemctl restart icinga2
 ```
@@ -295,11 +309,13 @@ sudo systemctl restart icinga2
 ## IDO Configfile
 
 Next, open Icinga 2 MySQL IDO configuration file and set the Icinga2 database connection details.
+
 ```
 sudo nano /etc/icinga2/features-available/ido-mysql.conf
 ```
 
 The configuration **must** look like this:
+
 ```
 /**
  * The db_ido_mysql library implements IDO functionality
@@ -315,9 +331,10 @@ object IdoMysqlConnection "ido-mysql" {
   database = "icinga2"
 }
 ```
+
 If your configfile looks different, set the Icinga2 database connection details manually.
 
-Quit the configuration file with `CTRL-X` (and confirm with `y` if you changed something in the configfile). 
+Quit the configuration file with `CTRL-X` (and confirm with `y` if you changed something in the configfile).
 
 ## Icinga2 Restart
 
@@ -336,6 +353,7 @@ Please note that you will restart icinga2 multiple times. The reason is that Ici
 ## Icinga Web2 Application
 
 ### Installation
+
 Icinga Web 2 requires Icinga 2 with IDO configured plus some additional requirements include a web server, PHP and some extensions. Run the command below to install these requirements before you can proceed.
 
 ```
@@ -347,15 +365,17 @@ sudo apt install icingaweb2
 Icinga web setup requires authentication using tokens. To generate the authentication token, run the next command:
 
 ```
-sudo icingacli setup token create 
+sudo icingacli setup token create
 ```
 
 The command above will generate a token as follows:
-```                                    
+
+```
 The newly generated setup token is: **7fb3fb0cbae252b3**
 ```
 
 You can always display the taken using the command:
+
 ```
 sudo icingacli setup token show
 ```
@@ -366,27 +386,29 @@ You will need this token for the frontend wizard.
 
 Next, ensure that the icingaweb2 system group exists and that the web server user `www-data` is a member of the group.
 
-```                                    
+```
 sudo id www-data
 ```
 
 This will display a message as follows:
 
-```                                    
+```
 uid=33(www-data) gid=33(www-data) groups=33(www-data),117(icingaweb2)
 ```
 
 ### Restart Apache Web Server
 
 Make sure that the web server accepts all changes.
+
 ```
 sudo systemctl restart apache2
 ```
+
 ## Icinga Web2 Backend
 
 ### Database installation
 
-Sorry but true: you have to create a database and a database user for Icinga web 2 manually. 
+Sorry but true: you have to create a database and a database user for Icinga web 2 manually.
 
 First, log in to MariaDB shell with the following command:
 
@@ -400,8 +422,8 @@ Provide your root password (or simple press enter) and create a database and use
 create database icingaweb2;
 ```
 
-
 MariaDB/MySQL answers with:
+
 ```
 Query OK, 1 row affected (0.001 sec)
 ```
@@ -411,15 +433,16 @@ Some people may wonder why the name of the database does not end with db (e.g. i
 </aside>
 
 Create Icinga 2 database user. Remember, we want to keep things easy.
+
 ```
 grant all on icingaweb2.* to icingaweb2@localhost identified by 'icingaweb2';
 ```
 
 MariaDB/MySQL answers with:
+
 ```
 Query OK, o row affected (0.001 sec)
 ```
-
 
 <aside class="negative">
 Warning: 
@@ -428,11 +451,11 @@ Under no circumstances do not use this password in other systems or environments
 </aside>
 
 Reload privileges tables with the following commands:
+
 ```
 flush privileges;
 quit
 ```
-
 
 ## Icinga Web2 Frontend
 
@@ -474,9 +497,9 @@ Configure database authentication details. Click `Validate` to test connection t
 
 Where
 
-* Database Name = icingaweb2
-* Usermame = icingaweb2
-* Password = icingaweb2
+- Database Name = icingaweb2
+- Usermame = icingaweb2
+- Password = icingaweb2
 
 You should see a positive feedback, saying that the configuration bas been successfully validated.
 
@@ -489,16 +512,18 @@ Set the Icinga web 2 authentication backend name and click `Next`.
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-7.png)
 
 Where
-* Backend Name = icingaweb2
+
+- Backend Name = icingaweb2
 
 Setup Icinga Web 2 administrative user. Note, these are the authentication details for Icinga Web interface.
 
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-8.png)
 
 Where
-* Username = icinga2
-* Password = icinga2
-* RepeatPw = icinga2
+
+- Username = icinga2
+- Password = icinga2
+- RepeatPw = icinga2
 
 <aside class="negative">
 Warning: 
@@ -511,13 +536,14 @@ Configure application and logging related options and click `Next`.
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-9.png)
 
 Where
-* Show Stacktraces = yes
-* Show Application State Messages = yes
-* User Preference Storage Type = Database
-* Logging Type = Syslog
-* Logging Level = Error
-* Application Prefix = icingaweb2
-* Facility = user
+
+- Show Stacktraces = yes
+- Show Application State Messages = yes
+- User Preference Storage Type = Database
+- Logging Type = Syslog
+- Logging Level = Error
+- Application Prefix = icingaweb2
+- Facility = user
 
 Icinga Web 2 configuration summary.
 
@@ -532,8 +558,9 @@ Configure Backend details for the IDO database set in the previous section.
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-12.png)
 
 Where,
-* Backend Name = icinga2
-* Backend Type = IDO
+
+- Backend Name = icinga2
+- Backend Type = IDO
 
 <aside class="positive">
 If you get the error, “There is currently no icinga instance writing to the IDO. Make sure that a icinga instance is configured and able to write to the IDO“, it means that the ido-mysql is not enabled. Enable it and restart Icinga 2 and proceed.
@@ -544,9 +571,10 @@ Configure authentication details for the IDO database set in the previous sectio
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-13.png)
 
 Where,
-* Database Name = icinga2
-* Username = icinga2
-* Password = icinga2
+
+- Database Name = icinga2
+- Username = icinga2
+- Password = icinga2
 
 You should see a positive feedback, saying that the configuration bas been successfully validated.
 
@@ -560,17 +588,17 @@ Configure Icinga Transport commands. In this codelab, we are setting up `Local C
 
 Where,
 
-* Transport name = icinga2
-* Transport type = LOcal Command File
-* Command File = /var/run/icinga2/cmd/icinga2.cmd
-
+- Transport name = icinga2
+- Transport type = LOcal Command File
+- Command File = /var/run/icinga2/cmd/icinga2.cmd
 
 Next, define your custom variables to protect.
 
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-16.png)
 
 Where,
-* Protected Custom Variables = *pw*,*pass*,community
+
+- Protected Custom Variables = _pw_,_pass_,community
 
 Review configuration summary and click `Finish` to complete the installation.
 
@@ -586,7 +614,7 @@ Enter the username and password from the previous section.
 
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-19.png)
 
-If URL is unknown, try this: 
+If URL is unknown, try this:
 
 ```
 http://<icinga-server-IP>/icingaweb2/
@@ -595,6 +623,5 @@ http://<icinga-server-IP>/icingaweb2/
 After logging in, Icinga2 will greet you with a critical message (at least in this screenshot)
 
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-20.png)
-
 
 Congratulations! You have successfully installed Icinga2 and Icingaweb2 on your GuestOS. You can now browse through the sidebar menu to discover the features of Icinga2. Familiarize yourself with the menu navigation.

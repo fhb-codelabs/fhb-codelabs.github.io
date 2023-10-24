@@ -6,32 +6,37 @@ status: Published
 authors: Roland Pellegrini
 
 # BITI IPM Lab - Disk
+
 <!-- ------------------------ -->
-## Before You Begin 
+
+## Before You Begin
 
 ### What You’ll Learn
 
 In this codelab you will learn
 
-* how to get information about the internal disk 
-* how to monitor the disk with Linux tools
-* how to perform a test run
+- how to get information about the internal disk
+- how to monitor the disk with Linux tools
+- how to perform a test run
 
+### Where You Can Look Up
 
-###  Where You Can Look Up
 The **man** is a short term for manual page and acts as an interface to view the reference manual of a command.
 
 Syntax of man:
+
 ```
 man [option(s)] keyword(s)
 ```
 
 For example, if you want to find out more about the command **ps** and how to use it, just open a shell and type:
+
 ```
 man ps
 ```
 
 This command will display all the information about **ps**.
+
 ```
 PS(1)                            User Commands                           PS(1)
 
@@ -48,17 +53,18 @@ DESCRIPTION
 ...
 ...
 ```
+
 ### What You'll need
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian 11 (Bullseye).
+This is the OS of the virtual machine. This will be Debian .
 
 #### Administators privileges
 
 By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.
 
-For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration. 
+For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration.
 
 ## Disk Information
 
@@ -66,25 +72,27 @@ For the Guest OS, you will create and manage your own users. These users will th
 
 You can use one of the following commands to find detailed information about the pyhsical or virtual disks on Linux:
 
-* lshw 
-* inxi
-* smartctl
+- lshw
+- inxi
+- smartctl
 
-## lshw 
+## lshw
 
 ### Description
 
-The **lshw** (Hardware Lister) is a simple, yet full-featured tool that provides detailed information on the hardware configuration. It can report memory configuration, mainboard configuration, CPU version and speed, Hard disk drive details, cache configuration, bus speed and a lot more. **lshw** requires root privileges. 
+The **lshw** (Hardware Lister) is a simple, yet full-featured tool that provides detailed information on the hardware configuration. It can report memory configuration, mainboard configuration, CPU version and speed, Hard disk drive details, cache configuration, bus speed and a lot more. **lshw** requires root privileges.
 
 Open a shell and run the following command:
+
 ```
 sudo lshw -class disk
 ```
 
 Here is a sample output:
+
 ```
 root@server:~# lshw -class disk
-  *-cdrom                   
+  *-cdrom
        description: DVD reader
        product: CD-ROM
        vendor: VBOX
@@ -117,7 +125,8 @@ root@server:~# lshw -class disk
 The lshw tool provides also information about Memory, CPU, and more in a very user-friendly format. Consult the documentation and man-pages for more details. Try to identify keywords and details of the disk and other components. 
 </aside>
 
-To  display only the name of the disks, run:
+To display only the name of the disks, run:
+
 ```
 root@server:~# lshw -short -class disk
 ```
@@ -125,17 +134,19 @@ root@server:~# lshw -short -class disk
 The `-short` option is useful when you need the name of the drives only (here: /dev/cdrom or /dev/sda).
 
 Sample output:
+
 ```
 H/W path            Device      Class       Description
 =======================================================
 /0/100/1.1/0.0.0    /dev/cdrom  disk        CD-ROM
-/0/100/1.1/0.0.0/0  /dev/cdrom  disk        
+/0/100/1.1/0.0.0/0  /dev/cdrom  disk
 /0/100/d/0.0.0      /dev/sda    disk        25GB VBOX HARDDISK
 ```
 
 ### References
 
 Help needed? Use manual page:
+
 ```
 man lshw
 ```
@@ -149,17 +160,19 @@ man lshw
 ### Sample code
 
 To get the details of the installed hard disk drives in your Linux system, run the following command:
+
 ```
 inxi -D
 ```
 
-Information is grouped per memory device. That means that every memory device is listed separately and various details about the memory are included in the description. 
+Information is grouped per memory device. That means that every memory device is listed separately and various details about the memory are included in the description.
 
 Sample output:
+
 ```
 root@server:~# inxi -D
-Drives:    Local Storage: total: 24 GiB used: 13.57 GiB (56.5%) 
-           ID-1: /dev/sda vendor: VirtualBox model: VBOX HARDDISK size: 24 GiB 
+Drives:    Local Storage: total: 24 GiB used: 13.57 GiB (56.5%)
+           ID-1: /dev/sda vendor: VirtualBox model: VBOX HARDDISK size: 24 GiB
 ```
 
 <aside class="positive">
@@ -167,14 +180,16 @@ Consult the documentation and man-pages for more details. Try to identify keywor
 </aside>
 
 You can also display more disk details like disk controller speed, serial no and temperature using the following command:
+
 ```
 inxi -Dxx
 ```
 
 Sample output:
+
 ```
-Drives:    Local Storage: total: 24 GiB used: 13.57 GiB (56.5%) 
-           ID-1: /dev/sda vendor: VirtualBox model: VBOX HARDDISK size: 24 GiB speed: 3.0 Gb/s serial: VB7b3622bd-ddc6a90c 
+Drives:    Local Storage: total: 24 GiB used: 13.57 GiB (56.5%)
+           ID-1: /dev/sda vendor: VirtualBox model: VBOX HARDDISK size: 24 GiB speed: 3.0 Gb/s serial: VB7b3622bd-ddc6a90c
 ```
 
 <aside class="positive">
@@ -184,6 +199,7 @@ Be aware that all commands are executed within a virtual machine. Running the to
 ### References
 
 More when you read the manual:
+
 ```
 man inxi
 ```
@@ -192,19 +208,21 @@ man inxi
 
 ### Description
 
-**Smartclt** is a command line, control and monitor utility for SMART disks. It controls the **S**elf-**M**onitoring, **A**nalysis and **R**eporting **T**echnology (SMART) system built into most ATA/SATA and SCSI/SAS hard drives and solid-state drives. 
+**Smartclt** is a command line, control and monitor utility for SMART disks. It controls the **S**elf-**M**onitoring, **A**nalysis and **R**eporting **T**echnology (SMART) system built into most ATA/SATA and SCSI/SAS hard drives and solid-state drives.
 
-**Smartclt** command is part of the **smartmontools** package, which comes pre-installed in most Linux versions. 
+**Smartclt** command is part of the **smartmontools** package, which comes pre-installed in most Linux versions.
 **Smartclt** requires root privileges.
 
 ### Sample code
 
 To get all details about the first hard disk drive (dev/sda) in your Linux box, run **Smartclt** the following options:
+
 ```
 sudo smartctl -d ata -a -i /dev/sda
 ```
 
 Sample output:
+
 ```
 smartctl 6.6 2017-11-05 r4594 [x86_64-linux-4.19.0-17-amd64] (local build)
 Copyright (C) 2002-17, Bruce Allen, Christian Franke, www.smartmontools.org
@@ -232,9 +250,9 @@ Offline data collection status:  (0x00)	Offline data collection activity
 					was never started.
 					Auto Offline Data Collection: Disabled.
 Self-test execution status:      (   0)	The previous self-test routine completed
-					without error or no self-test has ever 
+					without error or no self-test has ever
 					been run.
-Total time to complete Offline 
+Total time to complete Offline
 data collection: 		(  120) seconds.
 Offline data collection
 capabilities: 			 (0x11) SMART execute Offline immediate.
@@ -250,7 +268,7 @@ SMART capabilities:            (0x0002)	Does not save SMART data before
 					Supports SMART auto save timer.
 Error logging capability:        (0x01)	Error logging supported.
 					General Purpose Logging supported.
-Short self-test routine 
+Short self-test routine
 recommended polling time: 	 (   2) minutes.
 Extended self-test routine
 recommended polling time: 	 (  10) minutes.
@@ -299,13 +317,14 @@ Selective Self-tests/Logging not supported
 ```
 
 Here is a short list of SMART attributes:
-* Read Error Rate - Non-correctable errors when reading from the hard disk, leads to re-reading.
-* Throughput Performance - data throughput or efficiency of the hard disk drive
-* Power On Hours - Uptime in hours or seconds (including standby)
-* Temperature - Temperature of the drive in °C
-* Power Cycle Count - Indicates how many times the drive has been turned on and off
-* Hardware ECC Recovered - corrected bit errors during reading
-* Total LBAs Written - The total number of sectors written by the host system
+
+- Read Error Rate - Non-correctable errors when reading from the hard disk, leads to re-reading.
+- Throughput Performance - data throughput or efficiency of the hard disk drive
+- Power On Hours - Uptime in hours or seconds (including standby)
+- Temperature - Temperature of the drive in °C
+- Power Cycle Count - Indicates how many times the drive has been turned on and off
+- Hardware ECC Recovered - corrected bit errors during reading
+- Total LBAs Written - The total number of sectors written by the host system
 
 ## Disk Space
 
@@ -313,23 +332,25 @@ Here is a short list of SMART attributes:
 
 You can use one of the following commands to find detailed information about the disk usage on Linux:
 
-* df
-* gdu 
+- df
+- gdu
 
 ## df
 
 ### Description
-Linux has a strong built-in utility called `df`. The `df` command stands for “disk filesystem“, it is used to get a full summary of available and used disk space usage of the file system on the Linux system.
 
+Linux has a strong built-in utility called `df`. The `df` command stands for “disk filesystem“, it is used to get a full summary of available and used disk space usage of the file system on the Linux system.
 
 ### Sample code
 
 To run `df`, just open a terminal and run:
+
 ```
 df
 ```
 
 Using `-h` parameter with (df -h) will show the file system disk space statistics in “human-readable” format, means it gives the details in bytes, megabytes, and gigabyte.
+
 ```
 df -h
 ```
@@ -337,6 +358,7 @@ df -h
 ### Sample output
 
 When running `df -h`, you can see the following output.
+
 ```
 Filesystem                     Size  Used Avail Use% Mounted on
 udev                           1.8G     0  1.8G   0% /dev
@@ -360,12 +382,15 @@ Consult the documentation and man pages for more details. Try to identify keywor
 The tool `gdu` is a pretty fast disk usage analyzer written in Go. It is intended primarily for SSD disks where it can fully utilize parallel processing. However, HDDs work as well, but the performance gain is not so huge.
 
 ### Sample code
+
 If you run the `gdu` command without passing any argument it will scan your current working directory. To run gdu, just open a terminal and run:
+
 ```
 gdu
 ```
 
 If you want to know the arguments, just run the following:
+
 ```
 gdu -h
 ```
@@ -374,16 +399,17 @@ gdu -h
 
 When running gdu, you can see from the below image the home directory is scanned sorted by size:
 
-![gdu](./img/biti-ipm-disk-linux-gdu.png) 
+![gdu](./img/biti-ipm-disk-linux-gdu.png)
 
-Use the arrow keys to move up and down in the directory tree. Press `Enter` to move to a subdirectory. If you want to leave the subdirectory, move the cursor up to `...` and press `Enter`. 
+Use the arrow keys to move up and down in the directory tree. Press `Enter` to move to a subdirectory. If you want to leave the subdirectory, move the cursor up to `...` and press `Enter`.
 
 There are few operations you can perform with the gdu command. Press `?` to access help.
-![gdu-help](./img/biti-ipm-disk-linux-gdu-help.png) 
+![gdu-help](./img/biti-ipm-disk-linux-gdu-help.png)
 
 ### References
 
 Reading the manual pages may answer open questions:
+
 ```
 man smartctl
 ```
@@ -394,8 +420,8 @@ man smartctl
 
 You can use one of the following command to monitor disks on Linux:
 
-* iotop
-* dstat
+- iotop
+- dstat
 
 ## iotop
 
@@ -406,13 +432,15 @@ You can use one of the following command to monitor disks on Linux:
 ### Sample code
 
 Here is a quick example:
+
 ```
 iotop -o
 ```
-The `-o` or  `--only` option presents only processes or threads actually doing I/O.
+
+The `-o` or `--only` option presents only processes or threads actually doing I/O.
 
 Sample output:
-![Exercise](./img/biti-ipm-disk-linux-iotop.png) 
+![Exercise](./img/biti-ipm-disk-linux-iotop.png)
 
 The **iotop** command displays columns for the I/O bandwidth read and written by each process/thread during the sampling period. It also displays the percentage of time the thread/process spent while swapping in and while waiting on I/O. For each process, its I/O priority (class/level) is shown. In addition, the total I/O bandwidth read and written during the sampling period is displayed at the top of the interface.
 
@@ -423,6 +451,7 @@ Consult the documentation and man-pages for more details.
 ### References
 
 Don't blame it on the manual:
+
 ```
 man iotop
 ```
@@ -431,50 +460,51 @@ man iotop
 
 ### Description
 
-The **dstat** tool is used to retrieve information or statistics form components of the system such as network connections, IO devices, or CPU. By using this tool a system administrator can even see the throughput for block devices that make up a single filesystem or storage system. 
+The **dstat** tool is used to retrieve information or statistics form components of the system such as network connections, IO devices, or CPU. By using this tool a system administrator can even see the throughput for block devices that make up a single filesystem or storage system.
 
 ### Sample code
 
 Open a shell and run **dstat** without any option to see major OS components:
+
 ```
 dstat
 ```
 
 Sample output:
+
 ```
 root@server:~# dstat
 You did not select any stats, using -cdngy by default.
 --total-cpu-usage-- -dsk/total- -net/total- ---paging-- ---system--
-usr sys idl wai stl| read  writ| recv  send|  in   out | int   csw 
-  1   0  99   0   0|  54k  265k|   0     0 |   0     0 | 189    80 
-  4   0  96   0   0|   0     0 |   0     0 |   0     0 | 254   228 
-  5   1  94   0   0|   0   124k|   0     0 |   0     0 | 523   589 
-  4   1  95   0   0|   0     0 |   0     0 |   0     0 | 317   252 
-  3   1  96   0   0|   0     0 |   0     0 |   0     0 | 331   334 
-  4   1  96   0   0|   0     0 |   0     0 |   0     0 | 303   282 
-  5   1  95   0   0|   0     0 |   0     0 |   0     0 | 284   269 
-  4   1  95   0   0|   0     0 |   0     0 |   0     0 | 267   238 
-  4   0  96   0   0|   0     0 |   0     0 |   0     0 | 283   246 
-  3   1  97   0   0|   0     0 |   0     0 |   0     0 | 247   181 
-  5   0  95   0   0|   0     0 |   0     0 |   0     0 | 515   646 
-  4   0  96   0   0|   0     0 |   0     0 |   0     0 | 312   242 
-  4   1  96   0   0|   0   280k|   0     0 |   0     0 | 355   276 
-  4   1  96   0   0|   0     0 |   0     0 |   0     0 | 316   241 
+usr sys idl wai stl| read  writ| recv  send|  in   out | int   csw
+  1   0  99   0   0|  54k  265k|   0     0 |   0     0 | 189    80
+  4   0  96   0   0|   0     0 |   0     0 |   0     0 | 254   228
+  5   1  94   0   0|   0   124k|   0     0 |   0     0 | 523   589
+  4   1  95   0   0|   0     0 |   0     0 |   0     0 | 317   252
+  3   1  96   0   0|   0     0 |   0     0 |   0     0 | 331   334
+  4   1  96   0   0|   0     0 |   0     0 |   0     0 | 303   282
+  5   1  95   0   0|   0     0 |   0     0 |   0     0 | 284   269
+  4   1  95   0   0|   0     0 |   0     0 |   0     0 | 267   238
+  4   0  96   0   0|   0     0 |   0     0 |   0     0 | 283   246
+  3   1  97   0   0|   0     0 |   0     0 |   0     0 | 247   181
+  5   0  95   0   0|   0     0 |   0     0 |   0     0 | 515   646
+  4   0  96   0   0|   0     0 |   0     0 |   0     0 | 312   242
+  4   1  96   0   0|   0   280k|   0     0 |   0     0 | 355   276
+  4   1  96   0   0|   0     0 |   0     0 |   0     0 | 316   241
 ```
 
-This command will display CPU, Disk, Network, Paging and System stats. 
+This command will display CPU, Disk, Network, Paging and System stats.
 The output above indicates:
 
-* CPU stats: cpu usage by a user (usr) processes, system (sys) processes, as well as the number of idle (idl) and waiting (wai) processes, hard interrupt (hiq) and soft interrupt (siq).
-* Disk stats: total number of read (read) and write (writ) operations on disks.
-* Network stats: total amount of bytes received (recv) and sent (send) on network interfaces.
-* Paging stats: number of times information is copied into (in) and moved out (out) of memory.
-* System stats: number of interrupts (int) and context switches (csw). A CSW is a process that involves switching of the CPU from one process or task to another.
+- CPU stats: cpu usage by a user (usr) processes, system (sys) processes, as well as the number of idle (idl) and waiting (wai) processes, hard interrupt (hiq) and soft interrupt (siq).
+- Disk stats: total number of read (read) and write (writ) operations on disks.
+- Network stats: total amount of bytes received (recv) and sent (send) on network interfaces.
+- Paging stats: number of times information is copied into (in) and moved out (out) of memory.
+- System stats: number of interrupts (int) and context switches (csw). A CSW is a process that involves switching of the CPU from one process or task to another.
 
 <aside class="positive">
 Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more. 
 </aside>
-
 
 Additionally, you can also store the output of dstat in a CSV file for analysis at a latter time by enabling the `--output` option.
 
@@ -485,9 +515,10 @@ dstat --time --cpu --mem disk --load --output report.csv 1 5
 ```
 
 Sample output:
+
 ```
 ----system---- --total-cpu-usage-- ------memory-usage----- -dsk/total- ---load-avg---
-     time     |usr sys idl wai stl| used  free  buff  cach| read  writ| 1m   5m  15m 
+     time     |usr sys idl wai stl| used  free  buff  cach| read  writ| 1m   5m  15m
 12-10 23:17:49|  1   1  99   0   0| 704M 2957M 5680k  254M| 115k  413k|1.91 0.57 0.20
 12-10 23:17:50| 19   5  68   9   0| 718M 2931M 6012k  266M|  12M   56k|1.91 0.57 0.20
 12-10 23:17:51|  6   2  90   2   0| 718M 2928M 6012k  269M|2448k    0 |1.91 0.57 0.20
@@ -503,6 +534,7 @@ Sample output:
 ```
 
 ### Bug fixing
+
 The program may have a bug in the Python3 CSV library. This causes the following error:
 
 ```
@@ -534,6 +566,7 @@ elif isinstance(self.val[name], str):
 ### References
 
 Manual Page:
+
 ```
 man dstat
 ```
@@ -545,49 +578,53 @@ Click [here](https://icinga.com/docs/icinga-2/latest/doc/01-about/) to get to th
 
 ### What you will learn:
 
-In this codelab, you will learn 
+In this codelab, you will learn
 
-* how to use the dstat tool
-* how to generate workload
-* how to create a report file
+- how to use the dstat tool
+- how to generate workload
+- how to create a report file
 
 ### What you will need:
 
 In this codelab, you will need the following tools:
 
-* dstat
-* Stress
+- dstat
+- Stress
 
 Details of the **Stress** tool can be found in the corresponding Codelab named `Stress`.
 
 ### Scenario
 
-In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
+In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
 
 ### Test Run
 
-* Open a shell terminal and execute the following command:
+- Open a shell terminal and execute the following command:
+
 ```
 dstat --time --cpu --mem disk --load --output report.csv 1 5
 ```
 
-* Open the second shell terminal and start the workload generator with the following option.
+- Open the second shell terminal and start the workload generator with the following option.
+
 ```
 stress --hdd 2 --io 4 --vm 6 --cpu 8 --timeout 30s
 ```
 
-Where, 
-* --hdd 2 -  This will start a 2-thread test, which will write data to the storage and delete it.
-* --io 4 -  This will start a 4-thread test, which will stress the system' storage read and write buffers
-* --vm 6 -  This will start a 6-thread test, running malloc() and free() functions
-* --cpu 4 - This will start a 8-thread test, running sqrt()) functions
+Where,
+
+- --hdd 2 - This will start a 2-thread test, which will write data to the storage and delete it.
+- --io 4 - This will start a 4-thread test, which will stress the system' storage read and write buffers
+- --vm 6 - This will start a 6-thread test, running malloc() and free() functions
+- --cpu 4 - This will start a 8-thread test, running sqrt()) functions
 
 Notice that the workload generator runs with a time limit of 30 seconds. Afterwards, open the report.csv file and analyse the results within your team.
 
 Sample output:
+
 ```
 ----system---- --total-cpu-usage-- ------memory-usage----- -dsk/total- ---load-avg---
-     time     |usr sys idl wai stl| used  free  buff  cach| read  writ| 1m   5m  15m 
+     time     |usr sys idl wai stl| used  free  buff  cach| read  writ| 1m   5m  15m
 12-10 23:23:28|  1   1  98   0   0|1709M  126M 7208k 2031M| 117k  579k|1.37 0.55 0.28
 12-10 23:23:29| 24  76   0   0   0|1449M  497M 7172k 1922M|  16k  323M|1.37 0.55 0.28
 12-10 23:23:30| 23  77   0   0   0|1512M 1527M 7188k  860M|4096B  183M|2.54 0.80 0.36
@@ -625,7 +662,6 @@ Sample output:
 
 ### Clean Up
 
-* To clean up, delete the report file.
-
+- To clean up, delete the report file.
 
 This is the end of the hands-on.

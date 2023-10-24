@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="biti-ipm-memory-linux-lab"
                   title="BITI IPM Lab - Memory"
                   environment="web"
@@ -60,7 +61,7 @@ DESCRIPTION
 </code></pre>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -166,7 +167,7 @@ Memory Device
 	Manufacturer: Samsung
 	Serial Number: 2266B43B
 	Asset Tag: 9876543210
-	Part Number: M471B1G73BH0-YK0  
+	Part Number: M471B1G73BH0-YK0
 	Rank: 2
 	Configured Memory Speed: 1600 MT/s
 	Minimum Voltage: 1.35 V
@@ -200,7 +201,7 @@ Memory Device
     
       <google-codelab-step label="free" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>The <strong>free</strong> command is a simple and easy to use command to check memory usage on Linux.  It provides information about the total amount of the physical and swap memory, as well as the free and used memory.</p>
+<p>The <strong>free</strong> command is a simple and easy to use command to check memory usage on Linux. It provides information about the total amount of the physical and swap memory, as well as the free and used memory.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>Here is a quick example:</p>
 <pre><code>free -h
@@ -303,9 +304,9 @@ watch free
 <li>Stress</li>
 <li>htop</li>
 </ul>
-<p>Details of the <strong>Stress</strong> tool can be found in the corresponding Codelab named <code>Stress</code>,  details of the <strong>htop</strong> command can be found in the Codelab <code>Compute</code></p>
+<p>Details of the <strong>Stress</strong> tool can be found in the corresponding Codelab named <code>Stress</code>, details of the <strong>htop</strong> command can be found in the Codelab <code>Compute</code></p>
 <h2 is-upgraded>Scenario</h2>
-<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>
 <ul>
 <li>Open a shell terminal and execute the following command:</li>

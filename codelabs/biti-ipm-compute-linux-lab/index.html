@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="biti-ipm-compute-linux-lab"
                   title="BITI IPM Lab - Compute"
                   environment="web"
@@ -60,7 +61,7 @@ DESCRIPTION
 </code></pre>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -155,7 +156,7 @@ Vulnerability Tsx async abort:   Mitigation; Clear CPU buffers; SMT vulnerable
 Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
                                  r pge mca cmov pat pse36 clflush dts acpi mmx f
                                  xsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rd
-                                 tscp lm constant_tsc art arch_perfmon pebs bts 
+                                 tscp lm constant_tsc art arch_perfmon pebs bts
                                  rep_good nopl xtopology nonstop_tsc cpuid aperf
                                  mperf pni pclmulqdq dtes64 monitor ds_cpl vmx s
                                  mx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid s
@@ -166,7 +167,7 @@ Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
                                   ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle a
                                  vx2 smep bmi2 erms invpcid rtm mpx rdseed adx s
                                  map clflushopt intel_pt xsaveopt xsavec xgetbv1
-                                  xsaves dtherm ida arat pln pts hwp hwp_notify 
+                                  xsaves dtherm ida arat pln pts hwp hwp_notify
                                  hwp_act_window hwp_epp md_clear flush_l1d
 </code></pre>
 <h2 is-upgraded>Sample code</h2>
@@ -357,7 +358,7 @@ shm: attached segment 26 at 0x7f2ea7189000
 <pre><code>hwinfo --short --cpu
 </code></pre>
 <p>Sample output:</p>
-<pre><code>cpu:                                                            
+<pre><code>cpu:
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2550 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1075 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1841 MHz
@@ -441,7 +442,7 @@ Processor Information
 --More--
 </code></pre>
 <p>You can further filter details with egrep command to filter only the required details.</p>
-<pre><code>dmidecode -t processor | egrep &#34;Family|Manufacturer|Version|Max Speed|Core Count|Thread Count&#34; 
+<pre><code>dmidecode -t processor | egrep &#34;Family|Manufacturer|Version|Max Speed|Core Count|Thread Count&#34;
 </code></pre>
 <p>Sample output:</p>
 <pre><code>	Family: Core i7
@@ -537,7 +538,7 @@ MAX_INPUT                          255
         <h2 is-upgraded>Description</h2>
 <p>The command <strong>uptime</strong> shows the basic information. The Linux tool requires few system resources only and can be helpful when a system is responding slow.</p>
 <h2 is-upgraded>Sample code</h2>
-<p>Open a shell  and run the command as follows:</p>
+<p>Open a shell and run the command as follows:</p>
 <pre><code>uptime
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
@@ -573,7 +574,7 @@ MAX_INPUT                          255
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
 <p>The output will probably be different from yours: <img alt="top" src="img/58d98ef842e325a3.png"></p>
-<p>The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table  (the Process Table) with information about each individual process.</p>
+<p>The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table (the Process Table) with information about each individual process.</p>
 <aside class="special"><p> Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it. </p>
 </aside>
 <h2 is-upgraded>References</h2>
@@ -700,7 +701,7 @@ MAX_INPUT                          255
 </code></pre>
 <p>This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.</p>
 <h2 is-upgraded>Scenario</h2>
-<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>
 <ul>
 <li>Open a shell terminal and execute the following command:</li>

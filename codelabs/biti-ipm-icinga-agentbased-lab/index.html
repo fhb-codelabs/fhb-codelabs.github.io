@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="biti-ipm-icinga-agentbased-lab"
                   title="BITI IPM Lab - Icinga Agentbased Monitoring"
                   environment="web"
@@ -48,9 +49,9 @@
 <li>A working Icinga2 instance (called server,master) that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab <strong>BITI IPM Lab - Icinga Installation</strong> how to install Icinga2 on your local computer.</li>
 <li>A working Debian instance (called node, client) where you will install Icinga2 Agent software for remote monitoring. Contact your instructor where to download it. Import the virtual machine by using the &#34;Import Appliance&#34; command of Virtual Box.</li>
 </ol>
-<p>Both virtual machines run on Debian 11 but the specification of the node instance differs from the server instance. First, the node instance has no GUI, all commands have to be executed on the console. Second, the hardware is limited to 1 CPU core with 1 GB Ram to ensure that you HostOS (= your laptop) will not be overloaded.</p>
+<p>Both virtual machines run on Debian but the specification of the node instance differs from the server instance. First, the node instance has no GUI, all commands have to be executed on the console. Second, the hardware is limited to 1 CPU core with 1 GB Ram to ensure that you HostOS (= your laptop) will not be overloaded.</p>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -117,10 +118,10 @@ Now restart your Icinga 2 daemon to finish the installation!
 <h2 is-upgraded>Generate a client ticket</h2>
 <p>A client (=Icinga2 satellite) which sends a Certificate Signing Request (CSR) must authenticate itself in a trusted way. The master generates a client ticket which is included in this request. That way the master can verify that the request matches the previously trusted ticket and sign the request.</p>
 <p>Run the commands below on the master node to generate the ticket for your client node:</p>
-<pre><code>icinga2 pki ticket --cn &#39;node&#39; 
+<pre><code>icinga2 pki ticket --cn &#39;node&#39;
 </code></pre>
 <p>The command will print a ticket on screen:</p>
-<pre><code>3bcb8a06466706f6a5d5f541c175004149e6dbb2 
+<pre><code>3bcb8a06466706f6a5d5f541c175004149e6dbb2
 </code></pre>
 <p>In this codelab, we will assume the key above. Save your key as you will require it later while setting up the client nodes.</p>
 <p>If a ticket is created without any errors, skip the next chapter, <strong>scroll down</strong> and continue with the chapter called <strong>Listen on port 5665</strong>.</p>
@@ -274,7 +275,7 @@ Please specify if this is an agent/satellite setup (&#39;n&#39; installs a maste
 
 Starting the Agent/Satellite setup routine...
 
-Please specify the common name (CN) [node]: &lt;&lt;&lt;--- PRESS ENTER  
+Please specify the common name (CN) [node]: &lt;&lt;&lt;--- PRESS ENTER
 
 Please specify the parent endpoint(s) (master or satellite) where this node should connect to:
 Master/Satellite Common Name (CN from your master/satellite node): server &lt;&lt;&lt;--- ENTER THIS
@@ -296,7 +297,7 @@ Parent certificate information:
 
  Signature Algorithm: sha256WithRSAEncryption
  Subject Alt Names:   server
- Fingerprint:         B6 53 F1 17 35 84 35 B3 B3 DE 36 82 4F F9 BC B5 13 75 50 44 E1 40 11 7C 3D F9 A1 78 7C 2A 03 48 
+ Fingerprint:         B6 53 F1 17 35 84 35 B3 B3 DE 36 82 4F F9 BC B5 13 75 50 44 E1 40 11 7C 3D F9 A1 78 7C 2A 03 48
 
 Is this information correct? [y/N]: y &lt;&lt;&lt;--- ENTER THIS
 

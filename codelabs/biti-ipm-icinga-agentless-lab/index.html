@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="biti-ipm-icinga-agentless-lab"
                   title="BITI IPM Lab - Icinga Agentless Monitoring"
                   environment="web"
@@ -45,7 +46,7 @@
 <h3 is-upgraded>Icinga2 instance</h3>
 <p>You need a working Icinga2 instance that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab <strong>BITI IPM Lab - Icinga Installation</strong> how to install Icinga2 on your local computer.</p>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -161,14 +162,14 @@ drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
 <p>Next, copy the following content in to the template file:</p>
 <pre><code>template Host &#34;generic-host&#34; {
   max_check_attempts = 3
-  check_interval = 5m  
-  retry_interval = 150s 
+  check_interval = 5m
+  retry_interval = 150s
 }
 
 template Service &#34;generic-service&#34; {
   max_check_attempts = 3
-  check_interval = 1m  
-  retry_interval = 30s 
+  check_interval = 1m
+  retry_interval = 30s
 }
 </code></pre>
 <p>Where,</p>

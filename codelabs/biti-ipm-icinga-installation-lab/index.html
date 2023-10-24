@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="biti-ipm-icinga-installation-lab"
                   title="BITI IPM Lab - Icinga Installation"
                   environment="web"
@@ -31,14 +32,14 @@
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>In this codelab you will learn</p>
 <ul>
-<li>how to install Icinga2 on Debian 11</li>
+<li>how to install Icinga2 on Debian</li>
 <li>how to configure Icinga2 as a single node</li>
 </ul>
 <h2 is-upgraded>Where You Can Look Up</h2>
 <p>The best source of documentation is the homepage of Icinga2. The latest documentation can be found <a href="https://icinga.com/docs/icinga-2/latest/doc/01-about/" target="_blank">here</a>.</p>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -114,7 +115,7 @@ Oct 16 22:40:47 server icinga2[9851]: [2021-10-16 22:40:47 +0100] information/Id
 </code></pre>
 <p>Check if the status Active is in <strong>running</strong> mode which indicates that the service is up and running.</p>
 <h2 is-upgraded>Monitoring Plugins</h2>
-<p>To  check external services, Icinga 2 requires additional monitoring plugins.  Run the command below to install the plugins.</p>
+<p>To check external services, Icinga 2 requires additional monitoring plugins. Run the command below to install the plugins.</p>
 <pre><code>sudo apt install monitoring-plugins
 </code></pre>
 <aside class="special"><p> The command above will install a lot of Nagios-plugins.  </p>
@@ -186,7 +187,7 @@ Oct 16 22:43:29 server /etc/mysql/debian-start[26501]: Checking for insecure roo
 <p>Next, you are prompted to specify whether database should be configured with dbconfig-common. Select <code>Yes</code> to enable dbconfig-common. <img alt="Windows Registry" src="img/497d42626ce95356.png"></p>
 <aside class="special"><p> Dbconfig-common is not completely uncircumvented. This framework presents a policy and implementation for managing various databases used by applications included in Debian packages. <br><br> Some database administrators simply don&#39;t like the dbconfig-common framework.  <br><br> However, we choose this option because we don&#39;t want to administrate a database. Instead, we just want to use it for demonstration purpose only. </p>
 </aside>
-<p>Next,  you will be prompt to provide MySQL application password for icinga2-ido-mysql as shown in the following screen. To keep things easy, use <code>icinga2</code> as password.</p>
+<p>Next, you will be prompt to provide MySQL application password for icinga2-ido-mysql as shown in the following screen. To keep things easy, use <code>icinga2</code> as password.</p>
 <aside class="warning"><p> Warning:  <br> Under no circumstances do not use this password in other systems or environments, especially not in a production system. We use this password to ensure a smooth installation process during the lecture and to eliminate potential sources of error. </p>
 </aside>
 <p class="image-container"><img alt="Windows Registry" src="img/845c56b52b953161.png"></p>
@@ -262,7 +263,7 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
 </code></pre>
 <h2 is-upgraded>Authentication Token</h2>
 <p>Icinga web setup requires authentication using tokens. To generate the authentication token, run the next command:</p>
-<pre><code>sudo icingacli setup token create 
+<pre><code>sudo icingacli setup token create
 </code></pre>
 <p>The command above will generate a token as follows:</p>
 <pre><code>The newly generated setup token is: **7fb3fb0cbae252b3**

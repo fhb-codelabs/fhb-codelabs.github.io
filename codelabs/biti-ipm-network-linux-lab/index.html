@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="biti-ipm-network-linux-lab"
                   title="BITI IPM Lab - Network"
                   environment="web"
@@ -61,7 +62,7 @@ DESCRIPTION
 </code></pre>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -199,13 +200,13 @@ DESCRIPTION
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host 
+    inet6 ::1/128 scope host
        valid_lft forever preferred_lft forever
 2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
     link/ether 08:00:27:38:d0:34 brd ff:ff:ff:ff:ff:ff
     inet 192.168.7.187/24 brd 192.168.0.255 scope global dynamic noprefixroute enp0s3
        valid_lft 82004sec preferred_lft 82004sec
-    inet6 fe80::a00:27ff:fe38:d034/64 scope link noprefixroute 
+    inet6 fe80::a00:27ff:fe38:d034/64 scope link noprefixroute
        valid_lft forever preferred_lft forever
 </code></pre>
 <aside class="special"><p> At this point, check how the outputs of lspci, hwinfo and ip are linked together!  </p>
@@ -262,8 +263,8 @@ IP6.ROUTE[1]:                           dst = ::1/128, nh = ::, mt = 256
 
 --More--
 
-NAME                UUID                                  TYPE      DEVICE 
-Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3 
+NAME                UUID                                  TYPE      DEVICE
+Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3
 </code></pre>
 <h2 is-upgraded>References</h2>
 <p>Read the manual:</p>
@@ -505,14 +506,14 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
 <li>iperf3</li>
 </ul>
 <h2 is-upgraded>Scenario</h2>
-<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian 11.0 (Bullseye) with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). The HostOS is based on Debian 10 (Buster) with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). The HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>
 <p>To start the server, run iperf3 on the HostOS with the following option:</p>
 <pre><code>iperf3 -s
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>-s -  Run iperf3 in server mode. iperf3 can handle multiple client requests.</li>
+<li>-s - Run iperf3 in server mode. iperf3 can handle multiple client requests.</li>
 </ul>
 <p>To start the client, run iperf3 on the GuestOS with the following option by specifying the server&#39;s ip address</p>
 <pre><code>iperf3 -c 192.168.7.187

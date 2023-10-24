@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="biti-ipm-icinga-custom-check-lab"
                   title="BITI IPM Lab - Icinga Custom Check"
                   environment="web"
@@ -40,7 +41,7 @@
 <h3 is-upgraded>Icinga2 instance</h3>
 <p>You need a working Icinga2 instance that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab <strong>BITI IPM Lab - Icinga Installation</strong> and <strong>BITI IPM Lab - Icinga Agentless Monitoring</strong>.</p>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -73,7 +74,7 @@ HTTP request sent, awaiting response... 200 OK
 Length: 15019 (15K) [text/plain]
 Saving to: ‘check_mem.pl.2&#39;
 
-check_mem.pl.2                        100%[======================================================================&gt;]  14.67K  --.-KB/s    in 0s      
+check_mem.pl.2                        100%[======================================================================&gt;]  14.67K  --.-KB/s    in 0s
 
 2021-12-03 22:45:12 (85.4 MB/s) - ‘check_mem.pl.2&#39; saved [15019/15019]
 </code></pre>
@@ -104,9 +105,9 @@ sudo nano /etc/icinga2/conf.d/commands.conf
 <p>Now, go to the bottom of this file and add the command definition as follows:</p>
 <pre><code>object CheckCommand &#34;my_mem&#34; {
   import &#34;plugin-check-command&#34;
- 
+
   command = [ PluginDir + &#34;/check_mem.pl&#34; ]
- 
+
   arguments = {
     &#34;-f&#34; = {
       description               = &#34;Check FREE memory&#34;

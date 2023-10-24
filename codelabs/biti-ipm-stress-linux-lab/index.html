@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="biti-ipm-stress-linux-lab"
                   title="BITI IPM Lab - Stress"
                   environment="web"
@@ -39,7 +40,7 @@
 </aside>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian 11 (Bullseye).</p>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -76,9 +77,9 @@
 </code></pre>
 <p>Where,</p>
 <ul>
-<li><code>-c 1</code>   : Run one (1) worker spinning on sqrt()</li>
+<li><code>-c 1</code> : Run one (1) worker spinning on sqrt()</li>
 <li><code>-t 60s</code> : Timeout after 60 seconds</li>
-<li><code>-v</code>     : Be verbose</li>
+<li><code>-v</code> : Be verbose</li>
 </ul>
 <h2 is-upgraded>Sample output</h2>
 <p>The output will look like this:</p>
@@ -94,7 +95,7 @@
 </code></pre>
 <p>Where,</p>
 <ul>
-<li><code>-m 2</code>   : Run two (2) workers spinning on sync()</li>
+<li><code>-m 2</code> : Run two (2) workers spinning on sync()</li>
 <li><code>--vm-bytes 1024M</code> : malloc 1024MB per vm worker</li>
 <li><code>-t 20s</code> : Timeout after 20 seconds</li>
 </ul>

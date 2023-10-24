@@ -20,8 +20,9 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="biti-ipm-vbox-lab"
                   title="BITI IPM Lab - VirtualBox"
                   environment="web"
@@ -33,7 +34,7 @@
 <p>This codelab shows you</p>
 <ul>
 <li>how to install VirtualBox on your HostOS</li>
-<li>how to install a GuestOS based on Debian 11</li>
+<li>how to install a GuestOS based on Debian</li>
 <li>how to install software required for the lectures.</li>
 </ul>
 
@@ -70,9 +71,9 @@
       </google-codelab-step>
     
       <google-codelab-step label="Get and set up Debian" duration="0">
-        <h2 is-upgraded>Debian 11 Bullseye</h2>
+        <h2 is-upgraded>Debian Bullseye</h2>
 <ul>
-<li>Download Debian 11 Bullseye from from the <a href="https://www.debian.org/" target="_blank">official web site</a>.</li>
+<li>Download Debian Bullseye from from the <a href="https://www.debian.org/" target="_blank">official web site</a>.</li>
 <li>Ask your instructur for details about root and non-privileged user and password to ensure smooth administration.</li>
 <li>Start the virtual Machine and install Debian.</li>
 <li>Keep the installation simple.</li>
@@ -82,7 +83,7 @@
 </ul>
 <h2 is-upgraded>Administrative Tasks</h2>
 <p>First, add the user icinga to the sudoers. Open a terminal as icinga user and run the following commands:</p>
-<pre><code>su - 
+<pre><code>su -
 adduser icinga sudo
 </code></pre>
 <p>Where,</p>
@@ -107,7 +108,7 @@ sudo apt upgrade
 <p>Where,</p>
 <ul>
 <li>mc - Midnight commander (tool ala Total Commander), a very handy tool</li>
-<li>cpulimit -  Tool to interrupt execution of a process</li>
+<li>cpulimit - Tool to interrupt execution of a process</li>
 <li>stress, stress-ng, stressant - Workload generators</li>
 <li>hdparm - Test performance tool for ATA HDDs</li>
 <li>smartmontools - Utility programs to control and monitor computer storage systems</li>
@@ -117,7 +118,7 @@ sudo apt upgrade
 <li>iftop - Realtime network bandwidth monitoring tool</li>
 <li>etherape - A packet sniffer/network traffic monitoring tool</li>
 <li>monitorix - A lightweight system monitoring tool</li>
-<li>cockpit -  Administration of linux servers via a web browser.</li>
+<li>cockpit - Administration of linux servers via a web browser.</li>
 <li>bonnie++ - Test hard drives and file systems for performance</li>
 <li>fio - Flexible io tester</li>
 <li>gdu - Disk usage analyzer, primarly for SSD</li>
@@ -175,7 +176,7 @@ update-initramfs: Generating /boot/initrd.img-5.10.0-19-amd64
 Copying additional installer modules ...
 Installing additional modules ...
 VirtualBox Guest Additions: Starting.
-VirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel 
+VirtualBox Guest Additions: Building the VirtualBox Guest Additions kernel
 modules.  This may take a while.
 VirtualBox Guest Additions: To build modules for other installed kernels, run
 VirtualBox Guest Additions:   /sbin/rcvboxadd quicksetup &lt;version&gt;
