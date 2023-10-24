@@ -329,7 +329,7 @@ processor	: 3
 The second output may look like this:
 
 ```
-CPU threads : 4
+cpu threads : 4
 cpu cores   : 2
 ```
 
