@@ -5,7 +5,7 @@ tags: containers, introduction, exoscale
 status: Published
 authors: Thomas Schuetz
 
-# Container Technologies - Lab 1 - Introduction / Setup
+# Container Technologies - Lab 1 - Introduction (GitHub Edition)
 
 <!-- ------------------------ -->
 
