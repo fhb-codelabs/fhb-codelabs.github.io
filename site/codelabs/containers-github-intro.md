@@ -70,8 +70,6 @@ Your image should now be running and you should see the output of the curl comma
 The last example was very easy, but it didn't really show the power of Docker. Therefore, we will create a simple application in Go, which will run in a container.
 
 - Create a new directory called `src` in your repository
-
-### Create a simple Go application
 - Create a new file called `main.go` in this directory
 - Add the following content to the file:
 
@@ -93,7 +91,7 @@ func main() {
 
 This application is a very simple webserver, which will return the URL path of the request. 
 
-### Create a Dockerfile to build the application
+## Create a Dockerfile to build the application
 Probably, you are not a Go Developer and you don't have a Go environment installed. Therefore, we will use a Dockerfile to build the application.
 
 - Create a new file called `Dockerfile.build` in the root of your repository
@@ -113,7 +111,7 @@ CMD /app
 
 This Dockerfile will use the official Go image, copy the source code to the image, build the application and run it. 
 
-### Build and run the Dockerfile
+## Build and run the Dockerfile
 Now it's time to build and run the Dockerfile. This can be done with the following commands:
 - `docker build -t hello-fhb:latest -f Dockerfile.build .`
 
@@ -140,7 +138,7 @@ To have the code available on GitHub, please push the current state to GitHub:
 
 When you now open your repository on GitHub, you should see the new files, but nothing is happening yet.
 
-### Run the build in pull-requests when pushing
+## Run the build in pull-requests when pushing
 To start developing your new feature now, check out a new branch:
 - `git checkout -b feature/add_ci_build`
 
@@ -184,7 +182,7 @@ This GitHub Action will run on every pull-request to the main branch and will bu
 
 Finally, push the changes to GitHub.
 
-### Push the image to the registry when merging
+## Push the image to the registry when merging
 Now, we will create a new GitHub Action, which will build the application and push it to the GitHub Container Registry. To do this, we will create a new file called `.github/workflows/push.yml` with the following content:
 
 ```yaml
