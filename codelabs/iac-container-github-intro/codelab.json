@@ -4,12 +4,12 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2023-10-26T14:15:30Z",
-  "id": "iac-container-intro",
+  "id": "iac-container-github-intro",
   "duration": 0,
-  "title": "Container Technologies - Lab 1 - Introduction / Setup",
+  "title": "Container Technologies - Lab 1 - Introduction (GitHub Edition)",
   "authors": "Thomas Schuetz",
-  "summary": "Lab 1 - Container Intro (Exoscale Edition)",
-  "source": "containers-exo-intro.md",
+  "summary": "Lab 1 - Container Intro (GitHub Edition)",
+  "source": "containers-github-intro.md",
   "theme": "",
   "status": [
     "published"
@@ -22,5 +22,5 @@
     "exoscale",
     "introduction"
   ],
-  "url": "iac-container-intro"
+  "url": "iac-container-github-intro"
 }
