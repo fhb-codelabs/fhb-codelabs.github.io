@@ -10,7 +10,9 @@ authors: Thomas Schuetz
 <!-- ------------------------ -->
 
 ## What You’ll Learn
+Today, it's your job to deploy a simple application to Kubernetes and secure it as good as possible.
 
+![BigPicture](img/kubernetes-security-bigpicture.png)
 In this lab, you will:
 - Deploy a simple application to Kubernetes
 - Expose the application via a service
