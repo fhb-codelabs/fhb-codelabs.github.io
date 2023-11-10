@@ -1,146 +1,78 @@
-<!DOCTYPE html>
+
+<!doctype html>
 
 <html>
-  <head>
-    <meta
-      name="viewport"
-      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
-    />
-    <meta name="theme-color" content="#4F7DC9" />
-    <meta charset="UTF-8" />
-    <title>BITI IPM Lab - Icinga Agentless Monitoring</title>
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono"
-    />
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://storage.googleapis.com/claat-public/codelab-elements.css"
-    />
-    <style>
-      .success {
-        color: #1e8e3e;
-      }
-      .error {
-        color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-    <google-codelab
-      codelab-gaid=""
-      id="biti-ipm-icinga-agentless-lab"
-      title="BITI IPM Lab - Icinga Agentless Monitoring"
-      environment="web"
-      feedback-link=""
-    >
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>BITI IPM Lab - Icinga Agentless Monitoring</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="biti-ipm-icinga-agentless-lab"
+                  title="BITI IPM Lab - Icinga Agentless Monitoring"
+                  environment="web"
+                  feedback-link="">
+    
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-        <p>Hosts and services can be monitored in two ways:</p>
-        <ul>
-          <li>
-            <strong>Use of Simple Host Monitoring (Agentless):</strong> This
-            involves the use of services that are accessible across the local
-            network or the Internet for example include HTTP, SSH, ICMP etc.
-            This method is fit for monitoring hosts on which monitoring agents
-            cannot be installed.
-          </li>
-          <li>
-            <strong>Use of Monitoring Agents (Agentbased):</strong> In this
-            method, an agent is required in order to monitor host and services
-            like CPU load, disk space, memory and the running process. In this
-            configuration, Icinga 2 acts as the master node and the remote host
-            acts as the client node.
-          </li>
-        </ul>
-        <p>In this codelab you will learn</p>
-        <ul>
-          <li>
-            how to monitor the availability (=state) of hosts and services
-            agentless with Icinga2
-          </li>
-        </ul>
-        <p>
-          Hosts and services can be anything such as Network services (HTTP,
-          SSH, etc.), printers, switches or routers, or any other local or
-          network-accessible services. Icinga2 monitors the states of hosts and
-          the services they offer. Each host can have the states UP and DOWN,
-          each service can have the states OKAY, WARNING, CRITICAL and UKNOWN.
-        </p>
-        <h2 is-upgraded>Where You Can Look Up</h2>
-        <p>
-          The best source of documentation is the homepage of Icinga2. The
-          latest documentation can be found
-          <a
-            href="https://icinga.com/docs/icinga-2/latest/doc/01-about/"
-            target="_blank"
-            >here</a
-          >.
-        </p>
-        <h2 is-upgraded>What You&#39;ll need</h2>
-        <h3 is-upgraded>Icinga2 instance</h3>
-        <p>
-          You need a working Icinga2 instance that you can access via IcingaWeb2
-          GUI. If you do not have a running Icinga2 instance, please consult the
-          Codelab <strong>BITI IPM Lab - Icinga Installation</strong> how to
-          install Icinga2 on your local computer.
-        </p>
-        <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-        <p>This is the OS of the virtual machine. This will be Debian .</p>
-        <h3 is-upgraded>Administators privileges</h3>
-        <p>
-          By default, administrator privileges are required on the Host OS to
-          install additional software. Make sure that you have the required
-          permissions.
-        </p>
-        <p>
-          For the Guest OS, you will create and manage your own users. These
-          users will therefore be different from the Host&#39;s user
-          administration.
-        </p>
-        <h2 is-upgraded>Root privileges via sudo</h2>
-        <p>
-          In this codelab you have to work with root privileges. Therefore, a
-          few words of caution: double check whatever you type and make backups
-          whenever necessary.
-        </p>
-        <p>
-          Working with root privileges is quite easy. Open a terminal (a shell)
-          and enter the following commmand:
-        </p>
-        <pre><code>sudo -s
+<p>Hosts and services can be monitored in two ways:</p>
+<ul>
+<li><strong>Use of Simple Host Monitoring (Agentless):</strong> This involves the use of services that are accessible across the local network or the Internet for example include HTTP, SSH, ICMP etc. This method is fit for monitoring hosts on which monitoring agents cannot be installed.</li>
+<li><strong>Use of Monitoring Agents (Agentbased):</strong> In this method, an agent is required in order to monitor host and services like CPU load, disk space, memory and the running process. In this configuration, Icinga 2 acts as the master node and the remote host acts as the client node.</li>
+</ul>
+<p>In this codelab you will learn</p>
+<ul>
+<li>how to monitor the availability (=state) of hosts and services agentless with Icinga2</li>
+</ul>
+<p>Hosts and services can be anything such as Network services (HTTP, SSH, etc.), printers, switches or routers, or any other local or network-accessible services. Icinga2 monitors the states of hosts and the services they offer. Each host can have the states UP and DOWN, each service can have the states OKAY, WARNING, CRITICAL and UKNOWN.</p>
+<h2 is-upgraded>Where You Can Look Up</h2>
+<p>The best source of documentation is the homepage of Icinga2. The latest documentation can be found <a href="https://icinga.com/docs/icinga-2/latest/doc/01-about/" target="_blank">here</a>.</p>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Icinga2 instance</h3>
+<p>You need a working Icinga2 instance that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab <strong>BITI IPM Lab - Icinga Installation</strong> how to install Icinga2 on your local computer.</p>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+<h2 is-upgraded>Root privileges via sudo</h2>
+<p>In this codelab you have to work with root privileges. Therefore, a few words of caution: double check whatever you type and make backups whenever necessary.</p>
+<p>Working with root privileges is quite easy. Open a terminal (a shell) and enter the following commmand:</p>
+<pre><code>sudo -s
 </code></pre>
-        <p>Enter the password of the icinga user and voila:</p>
-        <pre><code>root@server:/home/icinga#
+<p>Enter the password of the icinga user and voila:</p>
+<pre><code>root@server:/home/icinga#
 </code></pre>
-        <p>
-          Once you are root via sudo, it is no longer necessary to prepend the
-          sudo command. Instead of <code>sudo ls -lisa /root/</code> you can
-          also type <code>ls -lisa /root/</code> because you have root
-          privileges already. However, all commands in this codelab will always
-          start with <code>sudo</code> to remind you that you are working with
-          root privileges.
-        </p>
-      </google-codelab-step>
+<p>Once you are root via sudo, it is no longer necessary to prepend the sudo command. Instead of <code>sudo ls -lisa /root/</code> you can also type <code>ls -lisa /root/</code> because you have root privileges already. However, all commands in this codelab will always start with <code>sudo</code> to remind you that you are working with root privileges.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Backup configuration" duration="0">
         <h2 is-upgraded>Stop Icinga2 service</h2>
-        <p>
-          Since we reconfigure Icinga2, we first need to stop the service with
-          the following command:
-        </p>
-        <pre><code>sudo systemctl stop icinga2
+<p>Since we reconfigure Icinga2, we first need to stop the service with the following command:</p>
+<pre><code>sudo systemctl stop icinga2
 </code></pre>
-        <p>Check the service status with the following command:</p>
-        <pre><code>sudo systemctl status icinga2
+<p>Check the service status with the following command:</p>
+<pre><code>sudo systemctl status icinga2
 </code></pre>
-        <p>The output should look as this:</p>
-        <pre><code>  icinga2.service - Icinga host/service/network monitoring system
+<p>The output should look as this:</p>
+<pre><code>  icinga2.service - Icinga host/service/network monitoring system
      Loaded: loaded (/lib/systemd/system/icinga2.service; enabled; vendor prese&gt;
      Active: inactive (dead) since Wed 2021-12-03 15:02:38 CET; 2s ago
        Docs: https://icinga.com/docs/icinga2/latest/
@@ -160,24 +92,13 @@ Dec 03 15:02:38 server systemd[1]: icinga2.service: Succeeded.
 Dec 03 15:02:38 server systemd[1]: Stopped Icinga host/service/network monitori&gt;
 Dec 03 15:02:38 server systemd[1]: icinga2.service: Consumed 3.256s CPU time.
 </code></pre>
-        <p>
-          Note that the status <code>Active</code> must be
-          <code>inactive (dead) since XXXXXX</code>, indicating that the service
-          is down. Press <code>Q</code> for quit the output.
-        </p>
-        <h2 is-upgraded>Config.d directory</h2>
-        <p>
-          After a basic Icinga2 installation, there are already some sample
-          files for monitoring the local server. All files can be found in the
-          following directory:
-        </p>
-        <pre><code>sudo ls -al /etc/icinga2/conf.d/
+<p>Note that the status <code>Active</code> must be <code>inactive (dead) since XXXXXX</code>, indicating that the service is down. Press <code>Q</code> for quit the output.</p>
+<h2 is-upgraded>Config.d directory</h2>
+<p>After a basic Icinga2 installation, there are already some sample files for monitoring the local server. All files can be found in the following directory:</p>
+<pre><code>sudo ls -al /etc/icinga2/conf.d/
 </code></pre>
-        <p>
-          The <code>ls -al</code> command displays the following configuration
-          files in detail:
-        </p>
-        <pre><code>drwxr-x--- 2 root   root   4096 Dec  7 14:15 .
+<p>The <code>ls -al</code> command displays the following configuration files in detail:</p>
+<pre><code>drwxr-x--- 2 root   root   4096 Dec  7 14:15 .
 drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
 -rw-r--r-- 1 root   root     35 Dec  7 14:15 app.conf
 -rw-r--r-- 1 root   root    114 Dec  7 14:15 apt.conf
@@ -191,38 +112,23 @@ drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
 -rw-r--r-- 1 root   root    732 Dec  7 14:15 timeperiods.conf
 -rw-r--r-- 1 root   root    308 Dec  7 14:15 users.conf
 </code></pre>
-        <p>
-          These can be very helpful if you want to get an insight into the
-          structure of the configuration files. However, since we want to create
-          our own files and structure here, these files are not needed for this
-          lab.
-        </p>
-        <h2 is-upgraded>How to backup</h2>
-        <p>
-          The easiest way is to move the configuration files to another folder.
-          Run the following commands to backup the Icinga2 config files:
-        </p>
-        <pre><code>sudo cd /etc/icinga2
+<p>These can be very helpful if you want to get an insight into the structure of the configuration files. However, since we want to create our own files and structure here, these files are not needed for this lab.</p>
+<h2 is-upgraded>How to backup</h2>
+<p>The easiest way is to move the configuration files to another folder. Run the following commands to backup the Icinga2 config files:</p>
+<pre><code>sudo cd /etc/icinga2
 sudo cp -R conf.d/ conf.d.backup/
 sudo cd conf.d/
 sudo rm *
 sudo ls -al
 </code></pre>
-        <p>
-          The commands above create a backup directory (conf.b.backup)and delete
-          all configurations in the conf.d directory. The last command will show
-          an empty directory:
-        </p>
-        <pre><code>root@server:/etc/icinga2/conf.d# sudo ls -la
+<p>The commands above create a backup directory (conf.b.backup)and delete all configurations in the conf.d directory. The last command will show an empty directory:</p>
+<pre><code>root@server:/etc/icinga2/conf.d# sudo ls -la
 total 8
 drwxr-x--- 2 root   root   4096 Dec  7 14:19 .
 drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
 </code></pre>
-        <p>
-          In contrast, the backup directory will still have the original
-          configuration files. You can check this with the following command:
-        </p>
-        <pre><code>root@server:/etc/icinga2/conf.d# sudo ls -la /etc/icinga2/conf.d.backup/
+<p>In contrast, the backup directory will still have the original configuration files. You can check this with the following command:</p>
+<pre><code>root@server:/etc/icinga2/conf.d# sudo ls -la /etc/icinga2/conf.d.backup/
 total 56
 drwxr-x--- 2 root   root   4096 Dec  7 14:15 .
 drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
@@ -238,155 +144,91 @@ drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
 -rw-r--r-- 1 root   root    732 Dec  7 14:15 timeperiods.conf
 -rw-r--r-- 1 root   root    308 Dec  7 14:15 users.conf
 </code></pre>
-        <p>
-          After running the commands, we are now able to create our own
-          configuration structure in the next section.
-        </p>
-      </google-codelab-step>
+<p>After running the commands, we are now able to create our own configuration structure in the next section.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Create template files" duration="0">
-        <p>
-          To save work for further configuration, we create two templates: a
-          host and a service template. Template files may contain basic settings
-          (or default settings) which are used
-        </p>
-        <h2 is-upgraded>templates.conf</h2>
-        <p>
-          The <code>templates.conf</code> file contains basic settings for
-          monitoring hosts (e.g. servers) and services (e.g. HTTP service, SSH
-          service).
-        </p>
-        <p>First, create an empty file:</p>
-        <pre><code>sudo touch /etc/icinga2/conf.d/templates.conf
+        <p>To save work for further configuration, we create two templates: a host and a service template. Template files may contain basic settings (or default settings) which are used</p>
+<h2 is-upgraded>templates.conf</h2>
+<p>The <code>templates.conf</code> file contains basic settings for monitoring hosts (e.g. servers) and services (e.g. HTTP service, SSH service).</p>
+<p>First, create an empty file:</p>
+<pre><code>sudo touch /etc/icinga2/conf.d/templates.conf
 </code></pre>
-        <p>Next, open the file with an editor:</p>
-        <pre><code>sudo nano /etc/icinga2/conf.d/templates.conf
+<p>Next, open the file with an editor:</p>
+<pre><code>sudo nano /etc/icinga2/conf.d/templates.conf
 </code></pre>
-        <p>Next, copy the following content in to the template file:</p>
-        <pre><code>template Host &#34;generic-host&#34; {
+<p>Next, copy the following content in to the template file:</p>
+<pre><code>template Host &#34;generic-host&#34; {
   max_check_attempts = 3
-  check_interval = 5m  
-  retry_interval = 150s 
+  check_interval = 5m
+  retry_interval = 150s
 }
 
 template Service &#34;generic-service&#34; {
   max_check_attempts = 3
-  check_interval = 1m  
-  retry_interval = 30s 
+  check_interval = 1m
+  retry_interval = 30s
 }
 </code></pre>
-        <p>Where,</p>
-        <ul>
-          <li>template - the key word</li>
-          <li>
-            Host / Service- template type (type can be Host, Service, User,
-            Period, etc.)
-          </li>
-          <li>
-            &#34;generic-host&#34; / &#34;generic-service&#34; - name of the
-            template
-          </li>
-          <li>
-            max_check_attempts - specifies how often a check may fail before a
-            reaction is triggered
-          </li>
-          <li>
-            check_interval - specifies after how many minutes/seconds a check
-            should be repeated if no failures occur
-          </li>
-          <li>
-            retry_interval -specifies after how many minutes/seconds a check
-            should be repeated if failures occur
-          </li>
-        </ul>
-        <aside class="special">
-          <p>
-            Note that you can change the values for max_check_attempts,
-            check_interval and retry_interval according to your specifications.
-            Again, the templates.conf specifies basic settings. Therefore, the
-            basic settings can always be overwritten in the hosts and/or
-            services files.
-          </p>
-        </aside>
-        <p>
-          Quit the configuration file with <code>CTRL-X</code> and confirm with
-          <code>y</code> to save all changes.
-        </p>
-      </google-codelab-step>
+<p>Where,</p>
+<ul>
+<li>template - the key word</li>
+<li>Host / Service- template type (type can be Host, Service, User, Period, etc.)</li>
+<li>&#34;generic-host&#34; / &#34;generic-service&#34; - name of the template</li>
+<li>max_check_attempts - specifies how often a check may fail before a reaction is triggered</li>
+<li>check_interval - specifies after how many minutes/seconds a check should be repeated if no failures occur</li>
+<li>retry_interval -specifies after how many minutes/seconds a check should be repeated if failures occur</li>
+</ul>
+<aside class="special"><p> Note that you can change the values for max_check_attempts, check_interval and retry_interval according to your specifications. Again, the templates.conf specifies basic settings. Therefore, the basic settings can always be overwritten in the hosts and/or services files. </p>
+</aside>
+<p>Quit the configuration file with <code>CTRL-X</code> and confirm with <code>y</code> to save all changes.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Create commands file" duration="0">
         <h2 is-upgraded>Commands.conf</h2>
-        <p>
-          The <strong>commands.conf</strong> file contains information how
-          CheckComma are triggered by Icinga2. Since the explaination of all
-          check_commands is out of scope of this codelab, simple restore the
-          previously saved commands.conf file into the conf.d/ directory and we
-          are fine here.
-        </p>
-        <pre><code>sudo cp /etc/icinga2/conf.d.backup/commands.conf /etc/icinga2/conf.d/commands.conf
+<p>The <strong>commands.conf</strong> file contains information how CheckComma are triggered by Icinga2. Since the explaination of all check_commands is out of scope of this codelab, simple restore the previously saved commands.conf file into the conf.d/ directory and we are fine here.</p>
+<pre><code>sudo cp /etc/icinga2/conf.d.backup/commands.conf /etc/icinga2/conf.d/commands.conf
 </code></pre>
-        <h2 is-upgraded>Check for completeness</h2>
-        <p>
-          At this point, let&#39;s see what we have. Run the following command:
-        </p>
-        <pre><code>sudo ls -al /etc/icinga2/conf.d/
+<h2 is-upgraded>Check for completeness</h2>
+<p>At this point, let&#39;s see what we have. Run the following command:</p>
+<pre><code>sudo ls -al /etc/icinga2/conf.d/
 </code></pre>
-        <p>The output must look like this:</p>
-        <pre><code>total 24
+<p>The output must look like this:</p>
+<pre><code>total 24
 drwxr-x--- 2 root   root   4096 Dec  7 14:15 .
 drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
 -rw-r--r-- 1 root   root   5297 Dec  7 14:15 commands.conf
 -rw-r--r-- 1 root   root   2060 Dec  7 14:15 templates.conf
 </code></pre>
-        <p>
-          If the output does not show the two files
-          <code>commands.conf</code> and <code>templates.conf</code> or if the
-          file size is very different, then delete everything in this directory
-          and start over.
-        </p>
-      </google-codelab-step>
+<p>If the output does not show the two files <code>commands.conf</code> and <code>templates.conf</code> or if the file size is very different, then delete everything in this directory and start over.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Create hosts file" duration="0">
-        <p>
-          Usually, the <code>hosts.conf</code> file defines the configuration
-          for all hosts to be monitored. However, managing all hosts in a single
-          file leads to very confusing and costly maintenance. To keep it
-          simple, we create a new folder where we define several hosts files
-          according to their intended use.
-        </p>
-        <p>For this codelab, we will create the following host files:</p>
-        <ul>
-          <li>localhost.conf - the GuestOS</li>
-          <li>host_os.conf - the HostOS</li>
-        </ul>
-        <p>
-          Note that we do not install monitoring agents on the HostOS system
-          (e.g. your PC or Laptop). In this codelab, we instead use a simple
-          approach to monitoring the target system, also known as agentless
-          monitoring. This approach is used when installing agents is not
-          possible.
-        </p>
-        <h2 is-upgraded>localhost.conf</h2>
-        <p>
-          We will start with the monitoring of our GuestOS system called
-          <code>localhost</code>.
-        </p>
-        <pre><code>sudo mkdir /etc/icinga2/conf.d/hosts/
+        <p>Usually, the <code>hosts.conf</code> file defines the configuration for all hosts to be monitored. However, managing all hosts in a single file leads to very confusing and costly maintenance. To keep it simple, we create a new folder where we define several hosts files according to their intended use.</p>
+<p>For this codelab, we will create the following host files:</p>
+<ul>
+<li>localhost.conf - the GuestOS</li>
+<li>host_os.conf - the HostOS</li>
+</ul>
+<p>Note that we do not install monitoring agents on the HostOS system (e.g. your PC or Laptop). In this codelab, we instead use a simple approach to monitoring the target system, also known as agentless monitoring. This approach is used when installing agents is not possible.</p>
+<h2 is-upgraded>localhost.conf</h2>
+<p>We will start with the monitoring of our GuestOS system called <code>localhost</code>.</p>
+<pre><code>sudo mkdir /etc/icinga2/conf.d/hosts/
 </code></pre>
-        <p>
-          To check the Icinga2 host we name the file
-          <code>localhost.conf</code>.
-        </p>
-        <pre><code>sudo touch /etc/icinga2/conf.d/hosts/localhost.conf
+<p>To check the Icinga2 host we name the file <code>localhost.conf</code>.</p>
+<pre><code>sudo touch /etc/icinga2/conf.d/hosts/localhost.conf
 </code></pre>
-        <p>Next, open the file with an editor:</p>
-        <pre><code>sudo nano /etc/icinga2/conf.d/hosts/localhost.conf
+<p>Next, open the file with an editor:</p>
+<pre><code>sudo nano /etc/icinga2/conf.d/hosts/localhost.conf
 </code></pre>
-        <p>
-          Next, copy the following content in to the
-          <code>localhost.conf</code> file:
-        </p>
-        <pre><code>object Host &#34;localhost&#34;{
+<p>Next, copy the following content in to the <code>localhost.conf</code> file:</p>
+<pre><code>object Host &#34;localhost&#34;{
   import  &#34;generic-host&#34;
   address = &#34;127.0.0.1&#34;
   check_command = &#34;hostalive&#34;
@@ -412,56 +254,24 @@ object Service &#34;ssh&#34;{
   check_command = &#34;ssh&#34;
 }
 </code></pre>
-        <p>
-          In this example, we create an <code>object</code> named
-          <code>localhost</code> for the Icinga2 host. In this object we import
-          the template <code>generic-host</code> which we created previously.
-          Next, we specify the IP address of the host we want to monitor. Since
-          we monitor the local host, we use the ip address of the loopback
-          device (127.0.0.1). Finally, we create the first check directly for
-          the host (here: hostalive).
-        </p>
-        <aside class="special">
-          <p>
-            The hostalive command is one of several built-in check commands. It
-            sends ICMP echo requests to the IP address specified in the address
-            attribute to determine whether a host is online.
-          </p>
-        </aside>
-        <p>
-          The example above also creates four (4) services: ping4, swap, load
-          and ssh. All services belong to the host <code>localhost</code> as
-          defined in the first line. Each service also specifies the
-          corresponding check_commands such as &#34;ssh&#34; or &#34;load&#34;
-          which is triggered by Icinga2.
-        </p>
-        <p>
-          Finally, do not forget to quit the editor with <code>CTRL-X</code>.
-          Confirm with <code>y</code> to save all changes.
-        </p>
-        <h2 is-upgraded>host_os.conf</h2>
-        <p>
-          This section shows you how to monitor your HostOS system without using
-          monitoring agents.
-        </p>
-        <p>
-          We use the same directory structure as in the Localhost section. We
-          assume that all the directories exist. If not, you will need to create
-          the Host directory.
-        </p>
-        <pre><code>sudo mkdir /etc/icinga2/conf.d/hosts/
+<p>In this example, we create an <code>object</code> named <code>localhost</code> for the Icinga2 host. In this object we import the template <code>generic-host</code> which we created previously. Next, we specify the IP address of the host we want to monitor. Since we monitor the local host, we use the ip address of the loopback device (127.0.0.1). Finally, we create the first check directly for the host (here: hostalive).</p>
+<aside class="special"><p> The hostalive command is one of several built-in check commands. It sends ICMP echo requests to the IP address specified in the address attribute to determine whether a host is online. </p>
+</aside>
+<p>The example above also creates four (4) services: ping4, swap, load and ssh. All services belong to the host <code>localhost</code> as defined in the first line. Each service also specifies the corresponding check_commands such as &#34;ssh&#34; or &#34;load&#34; which is triggered by Icinga2.</p>
+<p>Finally, do not forget to quit the editor with <code>CTRL-X</code>. Confirm with <code>y</code> to save all changes.</p>
+<h2 is-upgraded>host_os.conf</h2>
+<p>This section shows you how to monitor your HostOS system without using monitoring agents.</p>
+<p>We use the same directory structure as in the Localhost section. We assume that all the directories exist. If not, you will need to create the Host directory.</p>
+<pre><code>sudo mkdir /etc/icinga2/conf.d/hosts/
 </code></pre>
-        <p>To check the HostOs we name the file <code>host_os.conf</code>.</p>
-        <pre><code>sudo touch /etc/icinga2/conf.d/hosts/host_os.conf
+<p>To check the HostOs we name the file <code>host_os.conf</code>.</p>
+<pre><code>sudo touch /etc/icinga2/conf.d/hosts/host_os.conf
 </code></pre>
-        <p>Next, open the file with an editor:</p>
-        <pre><code>sudo nano /etc/icinga2/conf.d/hosts/host_os.conf
+<p>Next, open the file with an editor:</p>
+<pre><code>sudo nano /etc/icinga2/conf.d/hosts/host_os.conf
 </code></pre>
-        <p>
-          Next, copy the following content in to the
-          <code>host_os.conf</code> file:
-        </p>
-        <pre><code>object Host &#34;host_os&#34;{
+<p>Next, copy the following content in to the <code>host_os.conf</code> file:</p>
+<pre><code>object Host &#34;host_os&#34;{
   import  &#34;generic-host&#34;
   address &#34;&lt;ip-address of the hostos&gt;&#34;
   check_command = &#34;hostalive&#34;
@@ -473,50 +283,30 @@ object Service &#34;ping4&#34; {
 }
 
 </code></pre>
-        <p>
-          In this example, we must first specify the IP address of the HostOS we
-          want to monitor. Find out the IP address of the HostOS and enter it in
-          the appropriate field. Further we implement one (1) service named
-          <code>ping4</code> to check if the HostOs is reachable or not.
-        </p>
-        <p>
-          Finally, do not forget to quit the editor with <code>CTRL-X</code>.
-          Confirm with <code>y</code> to save all changes.
-        </p>
-        <h2 is-upgraded>Check for completeness</h2>
-        <p>
-          Again, at this point, let&#39;s see what we have. Run the following
-          command:
-        </p>
-        <pre><code>sudo ls -al /etc/icinga2/conf.d/hosts/
+<p>In this example, we must first specify the IP address of the HostOS we want to monitor. Find out the IP address of the HostOS and enter it in the appropriate field. Further we implement one (1) service named <code>ping4</code> to check if the HostOs is reachable or not.</p>
+<p>Finally, do not forget to quit the editor with <code>CTRL-X</code>. Confirm with <code>y</code> to save all changes.</p>
+<h2 is-upgraded>Check for completeness</h2>
+<p>Again, at this point, let&#39;s see what we have. Run the following command:</p>
+<pre><code>sudo ls -al /etc/icinga2/conf.d/hosts/
 </code></pre>
-        <p>The output must look like this:</p>
-        <pre><code>drwxr-xr-x 2 root   root   4096 Dec  8 20:59 .
+<p>The output must look like this:</p>
+<pre><code>drwxr-xr-x 2 root   root   4096 Dec  8 20:59 .
 drwxr-x--- 3 nagios nagios 4096 Dec  8 20:59 ..
 -rw-r--r-- 1 root   root    196 Dec  8 20:59 host_os.conf
 -rw-r--r-- 1 root   root    440 Dec  8 20:58 localhost.conf
 </code></pre>
-        <p>
-          If the output does not show the two files
-          <code>host_os.conf</code> and <code>localhost.conf</code> or if the
-          file size is very different, then delete everything in this directory
-          and start over.
-        </p>
-      </google-codelab-step>
+<p>If the output does not show the two files <code>host_os.conf</code> and <code>localhost.conf</code> or if the file size is very different, then delete everything in this directory and start over.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Test and restart" duration="0">
         <h2 is-upgraded>Test the configuration</h2>
-        <p>
-          Before restarting the Icinga2 service, it is a good idea to validate
-          the configuration files. We can do this with the following command:
-        </p>
-        <pre><code>sudo icinga2 daemon -C
+<p>Before restarting the Icinga2 service, it is a good idea to validate the configuration files. We can do this with the following command:</p>
+<pre><code>sudo icinga2 daemon -C
 </code></pre>
-        <p>
-          In case of invalid entries, the command will output an error message
-          like this:
-        </p>
-        <pre><code>[2021-12-03 15:49:12 +0100] information/cli: Icinga application loader (version: r2.12.3-1)
+<p>In case of invalid entries, the command will output an error message like this:</p>
+<pre><code>[2021-12-03 15:49:12 +0100] information/cli: Icinga application loader (version: r2.12.3-1)
 [2021-12-03 15:49:12 +0100] information/cli: Loading configuration file(s).
 [2021-12-03 15:49:12 +0100] critical/config: Error: syntax error, unexpected T_STRING
 Location: in /etc/icinga2/conf.d/hosts/hostos.conf: 3:11-3:25
@@ -529,21 +319,11 @@ Location: in /etc/icinga2/conf.d/hosts/hostos.conf: 3:11-3:25
 
 [2021-12-03 15:49:12 +0100] critical/cli: Config validation failed. Re-run with &#39;icinga2 daemon -C&#39; after fixing the config.
 </code></pre>
-        <p>
-          The output shows that there is a syntax error in the file
-          <strong>host_os.conf</strong>. The line 3 is marked with wavy line,
-          indicating that something is wrong here. Experts like you immediately
-          recognize that the equal sign (=) between the string
-          <strong>address</strong> and <strong>192.168.0.188</strong> is
-          missing. After fixing this typo, lets run the command again:
-        </p>
-        <pre><code>sudo icinga2 daemon -C
+<p>The output shows that there is a syntax error in the file <strong>host_os.conf</strong>. The line 3 is marked with wavy line, indicating that something is wrong here. Experts like you immediately recognize that the equal sign (=) between the string <strong>address</strong> and <strong>192.168.0.188</strong> is missing. After fixing this typo, lets run the command again:</p>
+<pre><code>sudo icinga2 daemon -C
 </code></pre>
-        <p>
-          The output now lists an overview of all configuration files and
-          instantiated configuration items, indicating that we are fine here.
-        </p>
-        <pre><code>[2021-12-03 15:48:00 +0100] information/cli: Icinga application loader (version: r2.12.3-1)
+<p>The output now lists an overview of all configuration files and instantiated configuration items, indicating that we are fine here.</p>
+<pre><code>[2021-12-03 15:48:00 +0100] information/cli: Icinga application loader (version: r2.12.3-1)
 [2021-12-03 15:48:00 +0100] information/cli: Loading configuration file(s).
 [2021-12-03 15:48:00 +0100] information/ConfigItem: Committing config item(s).
 [2021-12-03 15:48:01 +0100] information/ConfigItem: Instantiated 1 NotificationComponent.
@@ -560,18 +340,15 @@ Location: in /etc/icinga2/conf.d/hosts/hostos.conf: 3:11-3:25
 [2021-12-03 15:48:01 +0100] information/ScriptGlobal: Dumping variables to file &#39;/var/cache/icinga2/icinga2.vars&#39;
 [2021-12-03 15:48:01 +0100] information/cli: Finished validating the configuration file(s).
 </code></pre>
-        <h2 is-upgraded>Start Icinga2 service</h2>
-        <p>
-          After reconfiguring the configuration files, we can start the service
-          with the following command:
-        </p>
-        <pre><code>sudo systemctl start icinga2
+<h2 is-upgraded>Start Icinga2 service</h2>
+<p>After reconfiguring the configuration files, we can start the service with the following command:</p>
+<pre><code>sudo systemctl start icinga2
 </code></pre>
-        <p>Check the service status with the following command:</p>
-        <pre><code>sudo systemctl status icinga2
+<p>Check the service status with the following command:</p>
+<pre><code>sudo systemctl status icinga2
 </code></pre>
-        <p>The output should look as this:</p>
-        <pre><code>  icinga2.service - Icinga host/service/network monitoring system
+<p>The output should look as this:</p>
+<pre><code>  icinga2.service - Icinga host/service/network monitoring system
      Loaded: loaded (/lib/systemd/system/icinga2.service; enabled; vendor preset: enabled)
      Active: active (running) since Wed 2021-12-03 16:07:57 CET; 3min 9s ago
        Docs: https://icinga.com/docs/icinga2/latest/
@@ -596,57 +373,37 @@ Dec 03 16:07:57 server icinga2[5654]: [2021-12-03 16:07:57 +0100] information/Id
 Dec 03 16:08:07 server icinga2[5654]: [2021-12-03 16:08:07 +0100] information/IdoMysqlConnection: Pending queries: 9 (Input: 3/s; Output: 2/s)
 Dec 03 16:09:27 server icinga2[5654]: [2021-12-03 16:09:27 +0100] information/IdoMysqlConnection: Pending queries: 10 (Input: 3/s; Output: 2/s)
 </code></pre>
-        <p>
-          Note that the status <code>Active</code> must be
-          <code>active (running) since XXXXXX</code>, indicating that the
-          service is up and running.
-        </p>
-      </google-codelab-step>
+<p>Note that the status <code>Active</code> must be <code>active (running) since XXXXXX</code>, indicating that the service is up and running.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Icinga Web 2" duration="0">
-        <p>
-          If the restart of the icinga2 service was successful, we will see the
-          host with the checks we just created in the web frontend of Icinga2.
-        </p>
-        <p>
-          Do not worry if the checks are in pending state. Icinga2 needs some
-          time to process the results of the checks. Meanwhile, note the layout
-          of the dashboard: (1) Service problems, (2) Host problems and (3)
-          Recently Recovered Services. Depending on the status, noticifations
-          show up in one of the three layout cards.
-        </p>
-        <p class="image-container">
-          <img alt="Icinga Web 2" src="img/9c67f14ba159a630.png" />
-        </p>
-        <p>
-          As you can see, more and more checks will move to the card
-          <code>Recently Recovered Services</code>
-        </p>
-        <p class="image-container">
-          <img alt="Icinga Web 2" src="img/6354afcf8368794e.png" />
-        </p>
-        <p>
-          Finally, all checks should operate in normal state. No service or host
-          problems occur.
-        </p>
-        <p class="image-container">
-          <img alt="Icinga Web 2" src="img/cc9d3c968f7ad429.png" />
-        </p>
-      </google-codelab-step>
+        <p>If the restart of the icinga2 service was successful, we will see the host with the checks we just created in the web frontend of Icinga2.</p>
+<p>Do not worry if the checks are in pending state. Icinga2 needs some time to process the results of the checks. Meanwhile, note the layout of the dashboard: (1) Service problems, (2) Host problems and (3) Recently Recovered Services. Depending on the status, noticifations show up in one of the three layout cards.</p>
+<p class="image-container"><img alt="Icinga Web 2" src="img/9c67f14ba159a630.png"></p>
+<p>As you can see, more and more checks will move to the card <code>Recently Recovered Services</code></p>
+<p class="image-container"><img alt="Icinga Web 2" src="img/6354afcf8368794e.png"></p>
+<p>Finally, all checks should operate in normal state. No service or host problems occur.</p>
+<p class="image-container"><img alt="Icinga Web 2" src="img/cc9d3c968f7ad429.png"></p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Cleanup" duration="0">
         <p>Congratulations !</p>
-        <p>
-          You have successfully set up your first host for agentless monitoring
-          with standard CheckCommands.
-        </p>
-      </google-codelab-step>
-    </google-codelab>
+<p>You have successfully set up your first host for agentless monitoring with standard CheckCommands.</p>
 
-    <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
-    <script src="//support.google.com/inapp/api.js"></script>
-  </body>
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
 </html>

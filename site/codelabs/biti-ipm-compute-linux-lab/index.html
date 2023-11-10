@@ -1,73 +1,51 @@
-<!DOCTYPE html>
+
+<!doctype html>
 
 <html>
-  <head>
-    <meta
-      name="viewport"
-      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
-    />
-    <meta name="theme-color" content="#4F7DC9" />
-    <meta charset="UTF-8" />
-    <title>BITI IPM Lab - Compute</title>
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono"
-    />
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://storage.googleapis.com/claat-public/codelab-elements.css"
-    />
-    <style>
-      .success {
-        color: #1e8e3e;
-      }
-      .error {
-        color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-    <google-codelab
-      codelab-gaid=""
-      id="biti-ipm-compute-linux-lab"
-      title="BITI IPM Lab - Compute"
-      environment="web"
-      feedback-link=""
-    >
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>BITI IPM Lab - Compute</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="biti-ipm-compute-linux-lab"
+                  title="BITI IPM Lab - Compute"
+                  environment="web"
+                  feedback-link="">
+    
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-        <p>In this codelab you will learn</p>
-        <ul>
-          <li>
-            how to get information about the CPU (Central Processing Unit)
-          </li>
-          <li>how to monitor CPU with Linux tools</li>
-          <li>how to perform a test run</li>
-        </ul>
-        <h2 is-upgraded>Where You Can Look Up</h2>
-        <p>
-          The <strong>man</strong> is a short term for manual page and acts as
-          an interface to view the reference manual of a command.
-        </p>
-        <p>Syntax of man:</p>
-        <pre><code>man [option(s)] keyword(s)
+<p>In this codelab you will learn</p>
+<ul>
+<li>how to get information about the CPU (Central Processing Unit)</li>
+<li>how to monitor CPU with Linux tools</li>
+<li>how to perform a test run</li>
+</ul>
+<h2 is-upgraded>Where You Can Look Up</h2>
+<p>The <strong>man</strong> is a short term for manual page and acts as an interface to view the reference manual of a command.</p>
+<p>Syntax of man:</p>
+<pre><code>man [option(s)] keyword(s)
 </code></pre>
-        <p>
-          For example, if you want top find out more about the command
-          <strong>ps</strong> and how to use it, just open a shell and type:
-        </p>
-        <pre><code>man ps
+<p>For example, if you want top find out more about the command <strong>ps</strong> and how to use it, just open a shell and type:</p>
+<pre><code>man ps
 </code></pre>
-        <p>
-          This command will display all the information about
-          <strong>ps</strong>.
-        </p>
-        <pre><code>PS(1)                            User Commands                           PS(1)
+<p>This command will display all the information about <strong>ps</strong>.</p>
+<pre><code>PS(1)                            User Commands                           PS(1)
 
 NAME
        ps - report a snapshot of the current processes.
@@ -81,82 +59,63 @@ DESCRIPTION
        information, use top(1) instead.
 --More--
 </code></pre>
-        <h2 is-upgraded>What You&#39;ll need</h2>
-        <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-        <p>This is the OS of the virtual machine. This will be Debian .</p>
-        <h3 is-upgraded>Administators privileges</h3>
-        <p>
-          By default, administrator privileges are required on the Host OS to
-          install additional software. Make sure that you have the required
-          permissions.
-        </p>
-        <p>
-          For the Guest OS, you will create and manage your own users. These
-          users will therefore be different from the Host&#39;s user
-          administration.
-        </p>
-      </google-codelab-step>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="CPU Information" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
-        <p>
-          You can use one of the following commands to find detailed information
-          about the physical CPUs (pCPU) including all cores on Linux:
-        </p>
-        <ul>
-          <li>nproc command</li>
-          <li>lscpu command</li>
-          <li>cat /proc/cpuinfo</li>
-          <li>hwinfo command</li>
-          <li>dmidecode command</li>
-          <li>getconf command</li>
-          <li>cpuid command</li>
-        </ul>
-      </google-codelab-step>
+<p>You can use one of the following commands to find detailed information about the physical CPUs (pCPU) including all cores on Linux:</p>
+<ul>
+<li>nproc command</li>
+<li>lscpu command</li>
+<li>cat /proc/cpuinfo</li>
+<li>hwinfo command</li>
+<li>dmidecode command</li>
+<li>getconf command</li>
+<li>cpuid command</li>
+</ul>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="nproc" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          The <strong>nproc</strong> command displays the number of available
-          processing units. The command is a built-in command in a Linux system.
-        </p>
-        <h2 is-upgraded>Sample code</h2>
-        <p>
-          Open a shell and run <strong>nproc</strong> with the following option:
-        </p>
-        <pre><code>echo &#34;Threads/core: $(nproc --all)&#34;
+<p>The <strong>nproc</strong> command displays the number of available processing units. The command is a built-in command in a Linux system.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Open a shell and run <strong>nproc</strong> with the following option:</p>
+<pre><code>echo &#34;Threads/core: $(nproc --all)&#34;
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>The output may look like this:</p>
-        <pre><code>Threads/core: 4
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
+<pre><code>Threads/core: 4
 </code></pre>
-        <aside class="special">
-          <p>
-            Without the --all flag, nproc will display the number of processing
-            units available to the current process.<br />
-            Use the --help flag for more information.
-          </p>
-        </aside>
-        <h2 is-upgraded>References</h2>
-        <p>Need help or list of parameters? Use this:</p>
-        <pre><code>man nproc
+<aside class="special"><p> Without the --all flag, nproc will display the number of processing units available to the current process.<br> Use the --help flag for more information. </p>
+</aside>
+<h2 is-upgraded>References</h2>
+<p>Need help or list of parameters? Use this:</p>
+<pre><code>man nproc
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="lscpu" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          On most Linux distributions, you can also use the
-          <strong>lscpu</strong> command. It displays not only the number of
-          processors but also the architecture, model name, speed, much more.
-        </p>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Open a shell and run the following command:</p>
-        <pre><code>lscpu
+<p>On most Linux distributions, you can also use the <strong>lscpu</strong> command. It displays not only the number of processors but also the architecture, model name, speed, much more.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Open a shell and run the following command:</p>
+<pre><code>lscpu
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>The output may look like this:</p>
-        <pre><code>Architecture:                    x86_64
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
+<pre><code>Architecture:                    x86_64
 CPU op-mode(s):                  32-bit, 64-bit
 Byte Order:                      Little Endian
 Address sizes:                   39 bits physical, 48 bits virtual
@@ -197,7 +156,7 @@ Vulnerability Tsx async abort:   Mitigation; Clear CPU buffers; SMT vulnerable
 Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
                                  r pge mca cmov pat pse36 clflush dts acpi mmx f
                                  xsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rd
-                                 tscp lm constant_tsc art arch_perfmon pebs bts 
+                                 tscp lm constant_tsc art arch_perfmon pebs bts
                                  rep_good nopl xtopology nonstop_tsc cpuid aperf
                                  mperf pni pclmulqdq dtes64 monitor ds_cpl vmx s
                                  mx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid s
@@ -208,16 +167,16 @@ Flags:                           fpu vme de pse tsc msr pae mce cx8 apic sep mtr
                                   ept vpid ept_ad fsgsbase tsc_adjust bmi1 hle a
                                  vx2 smep bmi2 erms invpcid rtm mpx rdseed adx s
                                  map clflushopt intel_pt xsaveopt xsavec xgetbv1
-                                  xsaves dtherm ida arat pln pts hwp hwp_notify 
+                                  xsaves dtherm ida arat pln pts hwp hwp_notify
                                  hwp_act_window hwp_epp md_clear flush_l1d
 </code></pre>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Open a shell and run the following command:</p>
-        <pre><code>lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
+<h2 is-upgraded>Sample code</h2>
+<p>Open a shell and run the following command:</p>
+<pre><code>lscpu | egrep &#39;Model name|Socket|Thread|NUMA|CPU\(s\)&#39;
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>The command above provides the following result:</p>
-        <pre><code>--More--
+<h2 is-upgraded>Sample output</h2>
+<p>The command above provides the following result:</p>
+<pre><code>--More--
 CPU(s):                          4
 On-line CPU(s) list:             0-3
 Thread(s) per core:              2
@@ -226,39 +185,32 @@ NUMA node(s):                    1
 Model name:                      Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
 NUMA node0 CPU(s):               0-3
 </code></pre>
-        <p>The output shows the CPU information:</p>
-        <ul>
-          <li>CPU model: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz</li>
-          <li>Socket: 1</li>
-          <li>CPU Cores: 2</li>
-          <li>Thread per core: 2</li>
-          <li>Total threads: 4</li>
-        </ul>
-        <h2 is-upgraded>References</h2>
-        <p>Need help? Use this:</p>
-        <pre><code>man lscpu
+<p>The output shows the CPU information:</p>
+<ul>
+<li>CPU model: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz</li>
+<li>Socket: 1</li>
+<li>CPU Cores: 2</li>
+<li>Thread per core: 2</li>
+<li>Total threads: 4</li>
+</ul>
+<h2 is-upgraded>References</h2>
+<p>Need help? Use this:</p>
+<pre><code>man lscpu
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="cpuinfo" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          All Linux distributions allows you to run
-          <strong>cat /proc/cpuinfo</strong>. This file contains details about
-          the processors installed. Note that /proc is a pseudo-filesystem, it
-          is used as an interface to kernel data structures.
-        </p>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Open a shell and run the following command:</p>
-        <pre><code>cat /proc/cpuinfo | more
+<p>All Linux distributions allows you to run <strong>cat /proc/cpuinfo</strong>. This file contains details about the processors installed. Note that /proc is a pseudo-filesystem, it is used as an interface to kernel data structures.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Open a shell and run the following command:</p>
+<pre><code>cat /proc/cpuinfo | more
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>
-          Information is grouped per logical processor. That means that every
-          processor is listed separately and various details about the CPU are
-          included in the description.
-        </p>
-        <pre><code>processor	: 0
+<h2 is-upgraded>Sample output</h2>
+<p>Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description.</p>
+<pre><code>processor	: 0
 vendor_id	: GenuineIntel
 cpu family	: 6
 model		: 78
@@ -310,57 +262,47 @@ fpu_exception	: yes
 cpuid level	: 22
 --More--
 </code></pre>
-        <h2 is-upgraded>Sample code</h2>
-        <p>To count the number of processing units use grep command.</p>
-        <pre><code>cat /proc/cpuinfo | grep processor
+<h2 is-upgraded>Sample code</h2>
+<p>To count the number of processing units use grep command.</p>
+<pre><code>cat /proc/cpuinfo | grep processor
 </code></pre>
-        <p>Let us print cpu thread count:</p>
-        <pre><code>echo &#34;CPU threads: $(grep -c processor /proc/cpuinfo)&#34;
+<p>Let us print cpu thread count:</p>
+<pre><code>echo &#34;CPU threads: $(grep -c processor /proc/cpuinfo)&#34;
 grep &#39;cpu cores&#39; /proc/cpuinfo | uniq
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>The first output may look like this:</p>
-        <pre><code>processor	: 0
+<h2 is-upgraded>Sample output</h2>
+<p>The first output may look like this:</p>
+<pre><code>processor	: 0
 processor	: 1
 processor	: 2
 processor	: 3
 </code></pre>
-        <p>The second output may look like this:</p>
-        <pre><code>CPU threads : 4
+<p>The second output may look like this:</p>
+<pre><code>cpu threads : 4
 cpu cores   : 2
 </code></pre>
-        <aside class="special">
-          <p>
-            The number of processors shown by /proc/cpuinfo might be different
-            from the actual number of cores on the processor. For example a
-            processor with 4 cores and hyperthreading would be reported as a
-            processor with 8 cores.
-          </p>
-        </aside>
-        <h2 is-upgraded>References</h2>
-        <p>Need help? Use this:</p>
-        <pre><code>[cpuinfo](https://linuxwiki.de/proc/cpuinfo)
+<aside class="special"><p> The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores. </p>
+</aside>
+<h2 is-upgraded>References</h2>
+<p>Need help? Use this:</p>
+<pre><code>[cpuinfo](https://linuxwiki.de/proc/cpuinfo)
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="hwinfo" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          Hwinfo checks details of the hardware present in a Linux system and
-          displays the extensive details of each hardware device. It reports
-          information about most hardware units including CPU, HDD controllers,
-          network card, graphics cards, and more.
-        </p>
-        <aside class="special">
-          <p>The command hwinfo requires root privileges.</p>
-        </aside>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Run the following command:</p>
-        <pre><code>hwinfo | more
+<p>Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.</p>
+<aside class="special"><p> The command hwinfo requires root privileges. </p>
+</aside>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the following command:</p>
+<pre><code>hwinfo | more
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>The output may look like this:</p>
-        <pre><code>============ start debug info ============
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
+<pre><code>============ start debug info ============
 libhd version 21.72 (x86-64) [7688]
 using /var/lib/hardware
 kernel version is 5.10
@@ -412,67 +354,42 @@ shm: attached segment 26 at 0x7f2ea7189000
   8be5d060  02 05 06 4d 69 63 72 6f 73 6f 66 74 20 43 6f 72  &#34;...Microsoft Cor&#34;
 --More--
 </code></pre>
-        <p>
-          The &#34;–short&#34; option will display brief information about the
-          hardware and not the details. With the &#34;–cpu&#34; option, hwinfo
-          would display only cpu information.
-        </p>
-        <pre><code>hwinfo --short --cpu
+<p>The &#34;–short&#34; option will display brief information about the hardware and not the details. With the &#34;–cpu&#34; option, hwinfo would display only cpu information.</p>
+<pre><code>hwinfo --short --cpu
 </code></pre>
-        <p>Sample output:</p>
-        <pre><code>cpu:                                                            
+<p>Sample output:</p>
+<pre><code>cpu:
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2550 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1075 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1841 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2463 MHz
 </code></pre>
-        <p>
-          Finally, the hwinfo has an option to log all data to a file. The
-          following command will log detailed information about all hardware
-          units to a text file.
-        </p>
-        <pre><code>hwinfo --all --log hardware_info.txt
+<p>Finally, the hwinfo has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.</p>
+<pre><code>hwinfo --all --log hardware_info.txt
 </code></pre>
-        <h2 is-upgraded>References</h2>
-        <p>Need help? Use this:</p>
-        <pre><code>man hwinfo
+<h2 is-upgraded>References</h2>
+<p>Need help? Use this:</p>
+<pre><code>man hwinfo
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="dmidecode" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          The Linux command <strong>dmidecode</strong> reads the data from DMI
-          (Desktop Management Interface) table which holds information for
-          system&#39;s hardware components like BIOS Revision, Serial Number,
-          CPU, RAM, etc.
-        </p>
-        <p>
-          The tools is useful when users run into situations where they need to
-          find out maximum RAM supported by the BIOS and motherboard, a serial
-          number or a key piece of hardware information during troubleshooting.
-        </p>
-        <aside class="special">
-          <p>The command dmidecode requires root privileges.</p>
-        </aside>
-        <aside class="warning">
-          <p>
-            Important note: Depending on VirtualBox and Debian version, the
-            dmidecode command may not work properly. If the command does not
-            return the expected result (for example: dmidecode -t processor),
-            please ignore this code-lab.
-          </p>
-        </aside>
-        <h2 is-upgraded>Sample code</h2>
-        <p>
-          To get information about the CPU, run dmidecode with -t option as
-          shown below:
-        </p>
-        <pre><code>dmidecode -t processor | more
+<p>The Linux command <strong>dmidecode</strong> reads the data from DMI (Desktop Management Interface) table which holds information for system&#39;s hardware components like BIOS Revision, Serial Number, CPU, RAM, etc.</p>
+<p>The tools is useful when users run into situations where they need to find out maximum RAM supported by the BIOS and motherboard, a serial number or a key piece of hardware information during troubleshooting.</p>
+<aside class="special"><p> The command dmidecode requires root privileges. </p>
+</aside>
+<aside class="warning"><p> Important note: Depending on VirtualBox and Debian version, the dmidecode command may not work properly. If the command does not return the expected result (for example: dmidecode -t processor), please ignore this code-lab.  </p>
+</aside>
+<h2 is-upgraded>Sample code</h2>
+<p>To get information about the CPU, run dmidecode with -t option as shown below:</p>
+<pre><code>dmidecode -t processor | more
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>The output may look like this:</p>
-        <pre><code># dmidecode 3.3
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
+<pre><code># dmidecode 3.3
 Getting SMBIOS data from sysfs.
 SMBIOS 3.2.0 present.
 
@@ -524,14 +441,11 @@ Processor Information
 	L2 Cache Handle: 0x000B
 --More--
 </code></pre>
-        <p>
-          You can further filter details with egrep command to filter only the
-          required details.
-        </p>
-        <pre><code>dmidecode -t processor | egrep &#34;Family|Manufacturer|Version|Max Speed|Core Count|Thread Count&#34; 
+<p>You can further filter details with egrep command to filter only the required details.</p>
+<pre><code>dmidecode -t processor | egrep &#34;Family|Manufacturer|Version|Max Speed|Core Count|Thread Count&#34;
 </code></pre>
-        <p>Sample output:</p>
-        <pre><code>	Family: Core i7
+<p>Sample output:</p>
+<pre><code>	Family: Core i7
 	Manufacturer: Intel(R) Corporation
 	Signature: Type 0, Family 6, Model 78, Stepping 3
 	Version: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
@@ -539,33 +453,25 @@ Processor Information
 	Core Count: 2
 	Thread Count: 4
 </code></pre>
-        <h2 is-upgraded>References</h2>
-        <p>Need help? Use this:</p>
-        <pre><code>man dmidecode
+<h2 is-upgraded>References</h2>
+<p>Need help? Use this:</p>
+<pre><code>man dmidecode
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="getconf" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          The Linux command <strong>getconf</strong> displays the value of a
-          specified configuration variable on the standard output. The
-          <strong>getconf</strong> command is most portable solution as it runs
-          on Linux and Mac OS X as well.
-        </p>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Run the following code:</p>
-        <pre><code>getconf -a
+<p>The Linux command <strong>getconf</strong> displays the value of a specified configuration variable on the standard output. The <strong>getconf</strong> command is most portable solution as it runs on Linux and Mac OS X as well.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the following code:</p>
+<pre><code>getconf -a
 </code></pre>
-        <p>
-          The option <code>-a</code> displays all configuration variables for
-          the current system and their values, on standard output. To get a list
-          of all configuration variables for the current system, run the
-          following command
-        </p>
-        <h2 is-upgraded>Sample output</h2>
-        <p>The output may look like this:</p>
-        <pre><code>getconf -a | more
+<p>The option <code>-a</code> displays all configuration variables for the current system and their values, on standard output. To get a list of all configuration variables for the current system, run the following command</p>
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
+<pre><code>getconf -a | more
 LINK_MAX                           65000
 _POSIX_LINK_MAX                    65000
 MAX_CANON                          255
@@ -573,32 +479,30 @@ _POSIX_MAX_CANON                   255
 MAX_INPUT                          255
 --More--
 </code></pre>
-        <p>To get the number of CPU/Cores, run the following command:</p>
-        <pre><code>echo &#34;Number of CPU/cores online at $HOSTNAME: $(getconf _NPROCESSORS_ONLN)&#34;
+<p>To get the number of CPU/Cores, run the following command:</p>
+<pre><code>echo &#34;Number of CPU/cores online at $HOSTNAME: $(getconf _NPROCESSORS_ONLN)&#34;
 </code></pre>
-        <p>Sample output:</p>
-        <pre><code>Number of CPU/cores online at server: 4
+<p>Sample output:</p>
+<pre><code>Number of CPU/cores online at server: 4
 </code></pre>
-        <h2 is-upgraded>References</h2>
-        <p>Need help? Use this:</p>
-        <pre><code>man getconf
+<h2 is-upgraded>References</h2>
+<p>Need help? Use this:</p>
+<pre><code>man getconf
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="cpuid" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          The Linux command <strong>cpuid</strong> dumps detailed information
-          about the CPU(s) gathered from the CPUID instruction, and also
-          determines the exact model of CPU(s) from that information.
-        </p>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Run the following code:</p>
-        <pre><code>cpuid
+<p>The Linux command <strong>cpuid</strong> dumps detailed information about the CPU(s) gathered from the CPUID instruction, and also determines the exact model of CPU(s) from that information.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the following code:</p>
+<pre><code>cpuid
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>Here is a sample output:</p>
-        <pre><code>CPU 0:
+<h2 is-upgraded>Sample output</h2>
+<p>Here is a sample output:</p>
+<pre><code>CPU 0:
    vendor_id = &#34;GenuineIntel&#34;
    version information (1/eax):
       processor type  = primary processor (0)
@@ -608,187 +512,129 @@ MAX_INPUT                          255
       extended family = 0x0 (0)
 --More--
 </code></pre>
-        <p>
-          Note that the command provides additional information about CPU
-          caches, number of cores, brand strings, etc.
-        </p>
-        <h2 is-upgraded>References</h2>
-        <p>Need help or more information about parameters? Use this:</p>
-        <pre><code>man cpuid
+<p>Note that the command provides additional information about CPU caches, number of cores, brand strings, etc.</p>
+<h2 is-upgraded>References</h2>
+<p>Need help or more information about parameters? Use this:</p>
+<pre><code>man cpuid
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="CPU Monitoring" duration="0">
         <h2 is-upgraded>What you will learn:</h2>
-        <p>
-          You can use one of the following commands to monitor the physical CPU
-          cores:
-        </p>
-        <ul>
-          <li>uptime command</li>
-          <li>top program</li>
-          <li>htop program</li>
-          <li>mpstat command</li>
-        </ul>
-      </google-codelab-step>
+<p>You can use one of the following commands to monitor the physical CPU cores:</p>
+<ul>
+<li>uptime command</li>
+<li>top program</li>
+<li>htop program</li>
+<li>mpstat command</li>
+</ul>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="uptime" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          The command <strong>uptime</strong> shows the basic information. The
-          Linux tool requires few system resources only and can be helpful when
-          a system is responding slow.
-        </p>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Open a shell and run the command as follows:</p>
-        <pre><code>uptime
+<p>The command <strong>uptime</strong> shows the basic information. The Linux tool requires few system resources only and can be helpful when a system is responding slow.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Open a shell and run the command as follows:</p>
+<pre><code>uptime
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>The output may look like this:</p>
-        <pre><code>17:58:21 up 1 day, 22:38,  1 user,  load average: 0.54, 0.51, 0.69
+<h2 is-upgraded>Sample output</h2>
+<p>The output may look like this:</p>
+<pre><code>17:58:21 up 1 day, 22:38,  1 user,  load average: 0.54, 0.51, 0.69
 </code></pre>
-        <p>The command shows :</p>
-        <ul>
-          <li>
-            the system time at the moment the command was run (here: 5.58pm)
-          </li>
-          <li>how long the server had been running (here: 1 day)</li>
-          <li>how many connections users had to the machine (here: 1 user)</li>
-          <li>
-            the CPU load average for the past one, five, and fifteen minutes
-            (here: 0.54, 0.51, 0.69)
-          </li>
-        </ul>
-        <p>
-          To see load changes on screen, run the <code>watch</code> command as
-          follows:
-        </p>
-        <pre><code>watch uptime
+<p>The command shows :</p>
+<ul>
+<li>the system time at the moment the command was run (here: 5.58pm)</li>
+<li>how long the server had been running (here: 1 day)</li>
+<li>how many connections users had to the machine (here: 1 user)</li>
+<li>the CPU load average for the past one, five, and fifteen minutes (here: 0.54, 0.51, 0.69)</li>
+</ul>
+<p>To see load changes on screen, run the <code>watch</code> command as follows:</p>
+<pre><code>watch uptime
 </code></pre>
-        <aside class="special">
-          <p>
-            Consult the documentation about the CPU load average, its meaning
-            and how to interpret the numbers.
-          </p>
-        </aside>
-        <h2 is-upgraded>References</h2>
-        <p>How many pages has this manual? Find it out:</p>
-        <pre><code>man uptime
+<aside class="special"><p> Consult the documentation about the CPU load average, its meaning and how to interpret the numbers. </p>
+</aside>
+<h2 is-upgraded>References</h2>
+<p>How many pages has this manual? Find it out:</p>
+<pre><code>man uptime
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="top" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          One of the most common Linux tools for checking the CPU utilization is
-          <strong>top</strong>. <br /><br />
-          Like <strong>uptime</strong>, the command
-          <strong>top</strong> displays the CPU load averages. In addition, the
-          command provides real-time CPU usage information as well as other
-          performance metrics. Furthermore, top stays in the foreground and
-          refreshes at regular intervals.
-        </p>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Run the <strong>top</strong> command as follows:</p>
-        <pre><code>top
+<p>One of the most common Linux tools for checking the CPU utilization is <strong>top</strong>. <br><br> Like <strong>uptime</strong>, the command <strong>top</strong> displays the CPU load averages. In addition, the command provides real-time CPU usage information as well as other performance metrics. Furthermore, top stays in the foreground and refreshes at regular intervals.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the <strong>top</strong> command as follows:</p>
+<pre><code>top
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>
-          The output will probably be different from yours:
-          <img alt="top" src="img/58d98ef842e325a3.png" />
-        </p>
-        <p>
-          The first five lines (also called the Header Block) provide a summary
-          about the processes on the server. The Header Block is followed by a
-          table (the Process Table) with information about each individual
-          process.
-        </p>
-        <aside class="special">
-          <p>
-            Consult the man-pages for more details about top, about the Header
-            Block and the Process Table. Run your own research about the output
-            and how to interpret it.
-          </p>
-        </aside>
-        <h2 is-upgraded>References</h2>
-        <p>Need more help or unsure? Use this:</p>
-        <pre><code>man top
+<h2 is-upgraded>Sample output</h2>
+<p>The output will probably be different from yours: <img alt="top" src="img/58d98ef842e325a3.png"></p>
+<p>The first five lines (also called the Header Block) provide a summary about the processes on the server. The Header Block is followed by a table (the Process Table) with information about each individual process.</p>
+<aside class="special"><p> Consult the man-pages for more details about top, about the Header Block and the Process Table. Run your own research about the output and how to interpret it. </p>
+</aside>
+<h2 is-upgraded>References</h2>
+<p>Need more help or unsure? Use this:</p>
+<pre><code>man top
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="htop" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          This tool is another interactive real-time process monitoring
-          application for Linux. It has numerous nice user-friendly features
-          which are not availble under the <strong>top</strong> command.
-        </p>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Run the command as follows:</p>
-        <pre><code>htop
+<p>This tool is another interactive real-time process monitoring application for Linux. It has numerous nice user-friendly features which are not availble under the <strong>top</strong> command.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the command as follows:</p>
+<pre><code>htop
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>
-          The output below will differ from yours:
-          <img alt="htop" src="img/545cd098a8dc4d86.png" />
-        </p>
-        <p>
-          The top section is more easier to read and the bottom section is
-          better organized.
-        </p>
-        <aside class="special">
-          <p>
-            Consult the man-pages for more details about htop. Run your own
-            research about the output and how to interpret it.
-          </p>
-        </aside>
-        <h2 is-upgraded>References</h2>
-        <p>The Hitchhiker&#39;s manual:</p>
-        <pre><code>man htop
+<h2 is-upgraded>Sample output</h2>
+<p>The output below will differ from yours: <img alt="htop" src="img/545cd098a8dc4d86.png"></p>
+<p>The top section is more easier to read and the bottom section is better organized.</p>
+<aside class="special"><p> Consult the man-pages for more details about htop. Run your own research about the output and how to interpret it. </p>
+</aside>
+<h2 is-upgraded>References</h2>
+<p>The Hitchhiker&#39;s manual:</p>
+<pre><code>man htop
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="mpstat" duration="0">
         <h2 is-upgraded>Description</h2>
-        <p>
-          The tool <strong>mpstat</strong> is a Linux command that is used to
-          report processor related statistics. It displays the statistics of the
-          CPU usage of the system and information about CPU utilization. It
-          initializes the first processor with CPU 0, the second one with CPU 1,
-          and so on.
-        </p>
-        <h2 is-upgraded>Sample code</h2>
-        <p>Run the <strong>mpstat</strong> command as follows:</p>
-        <pre><code>mpstat
+<p>The tool <strong>mpstat</strong> is a Linux command that is used to report processor related statistics. It displays the statistics of the CPU usage of the system and information about CPU utilization. It initializes the first processor with CPU 0, the second one with CPU 1, and so on.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Run the <strong>mpstat</strong> command as follows:</p>
+<pre><code>mpstat
 </code></pre>
-        <h2 is-upgraded>Sample output</h2>
-        <p>The sample output:</p>
-        <pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
+<h2 is-upgraded>Sample output</h2>
+<p>The sample output:</p>
+<pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
 10:13:59 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
 10:13:59 AM  all    7.67    0.06    1.82    0.46    0.00    0.21    0.00    0.00    0.00   89.77
 </code></pre>
-        <p>
-          Next, to display processor numbers to all CPUs, run the command with
-          the following flags:
-        </p>
-        <pre><code>mpstat -P ALL
+<p>Next, to display processor numbers to all CPUs, run the command with the following flags:</p>
+<pre><code>mpstat -P ALL
 </code></pre>
-        <p>Again, the output will probably be very different from yours:</p>
-        <pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
+<p>Again, the output will probably be very different from yours:</p>
+<pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
 10:15:43 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
 10:15:43 AM  all    7.14    0.05    1.64    0.40    0.00    0.18    0.00    0.00    0.00   90.59
 10:15:43 AM    0    6.96    0.04    1.70    0.38    0.00    0.21    0.00    0.00    0.00   90.70
 10:15:43 AM    1    7.33    0.06    1.57    0.41    0.00    0.16    0.00    0.00    0.00   90.47
 </code></pre>
-        <p>
-          Next, to get all information, run the command with the following flag:
-        </p>
-        <pre><code>mpstat -A
+<p>Next, to get all information, run the command with the following flag:</p>
+<pre><code>mpstat -A
 </code></pre>
-        <p>This will display each and every detail of CPU usage.:</p>
-        <pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
+<p>This will display each and every detail of CPU usage.:</p>
+<pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
 10:18:41 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
 10:18:41 AM  all    6.45    0.04    1.39    0.32    0.00    0.16    0.00    0.00    0.00   91.65
@@ -812,165 +658,110 @@ MAX_INPUT                          255
 10:18:41 AM    0       0.00      14.51       0.00       0.06      13.04       0.00       0.04      26.58       0.00      31.18
 10:18:41 AM    1       0.00     247.50       0.20       0.93      12.66       0.00       0.60     233.72       0.00      36.96
 </code></pre>
-        <p>
-          Finally, to display CPU utilization by a specific processor, run the
-          command with the following flags:
-        </p>
-        <p>
-          Next, to get all information, run the command with the following flag:
-        </p>
-        <pre><code>mpstat -P 1
+<p>Finally, to display CPU utilization by a specific processor, run the command with the following flags:</p>
+<p>Next, to get all information, run the command with the following flag:</p>
+<pre><code>mpstat -P 1
 </code></pre>
-        <p>This will display CPU usage of the 1st processor:</p>
-        <pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
+<p>This will display CPU usage of the 1st processor:</p>
+<pre><code>Linux 5.10.0-8-amd64 (debian)   07/21/2021      _x86_64_        (2 CPU)
 
 10:25:23 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
 10:25:23 AM    1    5.89    0.03   a 1.03    0.24    0.00    0.13    0.00    0.00    0.00   92.68
 
 </code></pre>
-        <aside class="special">
-          <p>
-            Consult the man-pages for more details about mpstat. Do your own
-            research about the output and how to interpret the results.
-          </p>
-        </aside>
-        <h2 is-upgraded>References</h2>
-        <p>Need any help? Use this anyway:</p>
-        <pre><code>man mpstat
+<aside class="special"><p> Consult the man-pages for more details about mpstat. Do your own research about the output and how to interpret the results. </p>
+</aside>
+<h2 is-upgraded>References</h2>
+<p>Need any help? Use this anyway:</p>
+<pre><code>man mpstat
 </code></pre>
-      </google-codelab-step>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Hands-On" duration="0">
         <h2 is-upgraded>What you will learn:</h2>
-        <p>In this codelab, you will learn</p>
-        <ul>
-          <li>how to use the htop programm</li>
-          <li>how to generate workload</li>
-          <li>how to limit CPU time that the workload generator may consume</li>
-        </ul>
-        <h2 is-upgraded>What you will need:</h2>
-        <p>In this codelab, you will need the following tools:</p>
-        <ul>
-          <li>Stress</li>
-          <li>htop</li>
-          <li>uptime</li>
-          <li>cpulimit</li>
-        </ul>
-        <p>
-          Details of these two (2) tools can be found in the corresponding
-          Codelab named <code>Stress</code>. Create workloads with Yes and/or
-          Stress to see how the CPU responds.
-        </p>
-        <p>
-          For example, run the following command to create a CPU workload for 2
-          cores for the next two (2) minutes:
-        </p>
-        <pre><code>stress -c 2 -t 120s
+<p>In this codelab, you will learn</p>
+<ul>
+<li>how to use the htop programm</li>
+<li>how to generate workload</li>
+<li>how to limit CPU time that the workload generator may consume</li>
+</ul>
+<h2 is-upgraded>What you will need:</h2>
+<p>In this codelab, you will need the following tools:</p>
+<ul>
+<li>Stress</li>
+<li>htop</li>
+<li>uptime</li>
+<li>cpulimit</li>
+</ul>
+<p>Details of these two (2) tools can be found in the corresponding Codelab named <code>Stress</code>. Create workloads with Yes and/or Stress to see how the CPU responds.</p>
+<p>For example, run the following command to create a CPU workload for 2 cores for the next two (2) minutes:</p>
+<pre><code>stress -c 2 -t 120s
 </code></pre>
-        <p>
-          This gives you time to run commands like htop or uptime to observe CPU
-          usage. Remember that you can also start multiple workload generators
-          simultaneously or delayed. This allows you to try multiple scenarios.
-        </p>
-        <h2 is-upgraded>Scenario</h2>
-        <p>
-          In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and
-          4 GB RAM. The GuestOS is based on Debian with Linux kernel version
-          5.10.0-8-amd64. The VM is installed and running on the Linux-based
-          Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS
-          is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host
-          hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T
-          CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
-        </p>
-        <h2 is-upgraded>Test Run</h2>
-        <ul>
-          <li>Open a shell terminal and execute the following command:</li>
-        </ul>
-        <pre><code>htop
+<p>This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.</p>
+<h2 is-upgraded>Scenario</h2>
+<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<h2 is-upgraded>Test Run</h2>
+<ul>
+<li>Open a shell terminal and execute the following command:</li>
+</ul>
+<pre><code>htop
 </code></pre>
-        <ul>
-          <li>
-            Open another shell terminal and execute the following command:
-          </li>
-        </ul>
-        <pre><code>watch uptime
+<ul>
+<li>Open another shell terminal and execute the following command:</li>
+</ul>
+<pre><code>watch uptime
 </code></pre>
-        <ul>
-          <li>
-            Open another shell terminal and start the workload generator with
-            the following option.
-          </li>
-        </ul>
-        <pre><code>stress -c 2
+<ul>
+<li>Open another shell terminal and start the workload generator with the following option.</li>
+</ul>
+<pre><code>stress -c 2
 </code></pre>
-        <p>Notice that the workload generator runs without a time limit.</p>
-        <ul>
-          <li>Observe how the CPU utilization changes in the uptime window.</li>
-          <li>
-            Sample output for <strong>uptime</strong>:
-            <img alt="Exercise" src="img/b056ed6b6953f089.png" />
-          </li>
-          <li>
-            Sample output for <strong>htop</strong
-            ><img alt="Exercise" src="img/d4637113fc40e757.png" />
-          </li>
-        </ul>
-        <p>
-          As you can see, the CPU Load rises above 3.0, indicating that the CPU
-          is overloaded. At this point, we will try to limit the stress
-          processes to 10% each.
-        </p>
-        <ul>
-          <li>
-            Get the identifiers of all stress processes. In this example the
-            PID&#39;s are: 31210, 31211, and 31212
-          </li>
-          <li>Open a shell and execute the following command.</li>
-        </ul>
-        <pre><code>cpulimit -p 31210 --limit 10 &amp;
+<p>Notice that the workload generator runs without a time limit.</p>
+<ul>
+<li>Observe how the CPU utilization changes in the uptime window.</li>
+<li>Sample output for <strong>uptime</strong>: <img alt="Exercise" src="img/b056ed6b6953f089.png"></li>
+<li>Sample output for <strong>htop</strong><img alt="Exercise" src="img/d4637113fc40e757.png"></li>
+</ul>
+<p>As you can see, the CPU Load rises above 3.0, indicating that the CPU is overloaded. At this point, we will try to limit the stress processes to 10% each.</p>
+<ul>
+<li>Get the identifiers of all stress processes. In this example the PID&#39;s are: 31210, 31211, and 31212</li>
+<li>Open a shell and execute the following command.</li>
+</ul>
+<pre><code>cpulimit -p 31210 --limit 10 &amp;
 </code></pre>
-        <p>Sample output</p>
-        <pre><code>root@server&#39; Process 31210 detected
+<p>Sample output</p>
+<pre><code>root@server&#39; Process 31210 detected
 </code></pre>
-        <ul>
-          <li>Repeat the command above for the PID 31211 and 31212.</li>
-          <li>
-            Observe how the CPU utilization changes in the two tools
-            <strong>htop</strong> and <strong>uptime</strong>.
-          </li>
-          <li>
-            Sample output for <strong>htop</strong>:
-            <img alt="Exercise" src="img/296937596c255a0a.png" />
-          </li>
-          <li>
-            Sample output for <strong>uptime</strong>:
-            <img alt="Exercise" src="img/5bdf0301f0fae783.png" />
-          </li>
-          <li>
-            As assumed, the CPU Load drops below 1.0, which means that the CPU
-            is now able to handle all of the work scheduled in time.
-          </li>
-        </ul>
-        <h2 is-upgraded>Clean Up</h2>
-        <ul>
-          <li>
-            To clean up, stop all running stress processes with the following
-            command:
-          </li>
-        </ul>
-        <pre><code>killall stress
+<ul>
+<li>Repeat the command above for the PID 31211 and 31212.</li>
+<li>Observe how the CPU utilization changes in the two tools <strong>htop</strong> and <strong>uptime</strong>.</li>
+<li>Sample output for <strong>htop</strong>: <img alt="Exercise" src="img/296937596c255a0a.png"></li>
+<li>Sample output for <strong>uptime</strong>: <img alt="Exercise" src="img/5bdf0301f0fae783.png"></li>
+<li>As assumed, the CPU Load drops below 1.0, which means that the CPU is now able to handle all of the work scheduled in time.</li>
+</ul>
+<h2 is-upgraded>Clean Up</h2>
+<ul>
+<li>To clean up, stop all running stress processes with the following command:</li>
+</ul>
+<pre><code>killall stress
 </code></pre>
-        <ul>
-          <li>Finally, you can close all open terminals.</li>
-        </ul>
-        <p>This is the end of the hands-on.</p>
-      </google-codelab-step>
-    </google-codelab>
+<ul>
+<li>Finally, you can close all open terminals.</li>
+</ul>
+<p>This is the end of the hands-on.</p>
 
-    <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
-    <script src="//support.google.com/inapp/api.js"></script>
-  </body>
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
 </html>

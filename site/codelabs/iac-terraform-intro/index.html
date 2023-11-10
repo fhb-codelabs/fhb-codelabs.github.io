@@ -20,15 +20,16 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
   <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
                   id="iac-terraform-intro"
                   title="Infrastructure-as-Code - Lab 1 - Terraform Introduction"
                   environment="web"
                   feedback-link="">
     
       <google-codelab-step label="What You&#39;ll Learn" duration="0">
-        <p class="image-container"><img alt="Big Picture" src="img/8efcc1afc9579f2c.png"></p>
+        <p class="image-container"><img alt="Big Picture" src="img/fbbc7e7bdec55117.png"></p>
 <p>In this lab, you will:</p>
 <ul>
 <li>Install Terraform</li>
@@ -78,7 +79,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Task 1: Creating a Virtual Machine in Exoscale" duration="0">
+      <google-codelab-step label="Creating a Virtual Machine in Exoscale" duration="0">
         <h2 is-upgraded>Goal:</h2>
 <ul>
 <li>You should be able to provision a Virtual Machine using the Exoscale UI</li>
@@ -97,7 +98,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Solution 1: Provisioning a Virtual Machine and access it via SSH" duration="0">
+      <google-codelab-step label="Provisioning a Virtual Machine and access it via SSH" duration="0">
         <p>We will deploy the Virtual Machine via the Exoscale UI. Therefore, open the <a href="https://portal.exoscale.com/login" target="_blank">Exoscale Console</a> and Log In with your credentials.</p>
 <h2 is-upgraded>Create an SSH Key</h2>
 <p>You might want to be able to access your Virtual Machine after it is provisioned. Therefore, we need to precreate an SSH Key which can be used to access this machine.</p>
@@ -108,7 +109,7 @@
 <li>Use a passphrase</li>
 </ul>
 </li>
-<li>Open the private part of the key (exoscale.pub) and copy it.</li>
+<li>Open the public part of the key (exoscale.pub) and copy it.</li>
 </ul>
 <p>The public part of the SSH Keypair has to be stored in Exoscale to make it usable in Virtual Machines. Therefore, select &#34;Compute&#34; -&gt; &#34;SSH-Keys&#34; -&gt; &#34;Add&#34;, assign a name you remember to the key and paste the public part.</p>
 <h2 is-upgraded>Provision the Virtual Machine</h2>
@@ -116,7 +117,7 @@
 <ul>
 <li>Select &#34;Compute&#34; -&gt; &#34;Instances&#34; and click on &#34;Add&#34; <ul>
 <li>Assign a meaningful Hostname to your Instance</li>
-<li>Use &#34;Linux Debian  64-bit&#34; as Template</li>
+<li>Use &#34;Linux Debian 64-bit&#34; as Template</li>
 <li>Select the zone of your choice</li>
 <li>Choose the Instance Type &#34;tiny&#34;</li>
 <li>10GB Storage will fit our needs</li>
@@ -134,7 +135,7 @@
 <h2 is-upgraded>Access the Virtual Machine via SSH</h2>
 <p>In our lab, we might want to try out a tool and therefore it is beneficial to have shell access. Now it&#39;s time to remember where you stored the private ssh key. When you found it, open up your shell and execute:</p>
 <ul>
-<li><code>ssh -i <path-to-your-private-key> debian@<ip-address-of-your-instance></code> (you can find the ip address on the instance screen)</li>
+<li><code>ssh -i &#123;&#123;path-to-your-private-key}} debian@&#123;&#123;ip-address-of-your-instance}}</code> (you can find the ip address on the instance screen)</li>
 </ul>
 <p>You will find out that you are not able to connect to the machine. This is due to a missing security group.</p>
 <aside class="warning"><p>You can imagine security groups as host-firewalls on cloud-based virtual instances. To access a virtual instance from the public internet, you need a security-group rule to access it</p>
@@ -161,7 +162,7 @@
 </ul>
 </li>
 </ul>
-<aside class="special"><p>Congrats! You provisioned your first Virtual Machine and are able to access it!</p>
+<aside class="special"><p>Congrats! You provisioned your first Virtual Machine and are able to access it! You may delete your VM via the console now</p>
 </aside>
 
 
@@ -217,7 +218,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Task 2: Provisioning an Instance on Exoscale with Terraform" duration="0">
+      <google-codelab-step label="Provisioning an Instance on Exoscale with Terraform" duration="0">
         <h2 is-upgraded>Goal:</h2>
 <ul>
 <li>You will be able to provision a very simple virtual machine using terraform</li>
@@ -310,7 +311,7 @@ commands will detect it and remind you to do so if necessary.
 
       </google-codelab-step>
     
-      <google-codelab-step label="Running a Virtual Instance" duration="0">
+      <google-codelab-step label="Deploy a virtual instance with Terraform" duration="0">
         <p>To do so, we&#39;ll create a second file called <code>main.tf</code>. Furthermore, we copy the following configuration in this file. Replace the ssh_key with the name of the one you created before:</p>
 <pre><code language="language-terraform" class="language-terraform">data &#34;exoscale_compute_template&#34; &#34;my_template&#34; {
   zone = &#34;at-vie-1&#34;

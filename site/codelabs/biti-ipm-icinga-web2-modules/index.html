@@ -1,141 +1,86 @@
-<!DOCTYPE html>
+
+<!doctype html>
 
 <html>
-  <head>
-    <meta
-      name="viewport"
-      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
-    />
-    <meta name="theme-color" content="#4F7DC9" />
-    <meta charset="UTF-8" />
-    <title>BITI IPM Lab - Icinga Addons</title>
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono"
-    />
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://storage.googleapis.com/claat-public/codelab-elements.css"
-    />
-    <style>
-      .success {
-        color: #1e8e3e;
-      }
-      .error {
-        color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-    <google-codelab
-      codelab-gaid=""
-      id="biti-ipm-icinga-web2-modules"
-      title="BITI IPM Lab - Icinga Addons"
-      environment="web"
-      feedback-link=""
-    >
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>BITI IPM Lab - Icinga Addons</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="biti-ipm-icinga-web2-modules"
+                  title="BITI IPM Lab - Icinga Addons"
+                  environment="web"
+                  feedback-link="">
+    
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-        <p>
-          Icingaweb2 is a very modular web interface for Icinga2. Icinga is
-          compatible with all plug-ins and the majority of add-ons written for
-          Nagios.
-        </p>
-        <p>Therefore, in this codelab you will learn</p>
-        <ul>
-          <li>how to install useful addons</li>
-        </ul>
-        <p>Have fun!</p>
-        <h2 is-upgraded>Where You Can Look Up</h2>
-        <p>
-          The best source of documentation is the homepage of Icinga2. The
-          latest documentation can be found
-          <a
-            href="https://icinga.com/docs/icinga-2/latest/doc/13-addons/"
-            target="_blank"
-            >here</a
-          >.
-        </p>
-        <h2 is-upgraded>What You&#39;ll need</h2>
-        <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-        <p>This is the OS of the virtual machine. This will be Debian .</p>
-        <h3 is-upgraded>Administators privileges</h3>
-        <p>
-          By default, administrator privileges are required on the Host OS to
-          install additional software. Make sure that you have the required
-          permissions.
-        </p>
-        <p>
-          For the Guest OS, you will create and manage your own users. These
-          users will therefore be different from the Host&#39;s user
-          administration.
-        </p>
-        <h2 is-upgraded>Root privileges via sudo</h2>
-        <p>
-          In this codelab you have to work with root privileges. Therefore, a
-          few words of caution: double check whatever you type and make backups
-          whenever necessary.
-        </p>
-        <p>
-          Working with root privileges is quite easy. Open a terminal (a shell)
-          and enter the following commmand:
-        </p>
-        <pre><code>sudo -s
+<p>Icingaweb2 is a very modular web interface for Icinga2. Icinga is compatible with all plug-ins and the majority of add-ons written for Nagios.</p>
+<p>Therefore, in this codelab you will learn</p>
+<ul>
+<li>how to install useful addons</li>
+</ul>
+<p>Have fun!</p>
+<h2 is-upgraded>Where You Can Look Up</h2>
+<p>The best source of documentation is the homepage of Icinga2. The latest documentation can be found <a href="https://icinga.com/docs/icinga-2/latest/doc/13-addons/" target="_blank">here</a>.</p>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+<h2 is-upgraded>Root privileges via sudo</h2>
+<p>In this codelab you have to work with root privileges. Therefore, a few words of caution: double check whatever you type and make backups whenever necessary.</p>
+<p>Working with root privileges is quite easy. Open a terminal (a shell) and enter the following commmand:</p>
+<pre><code>sudo -s
 </code></pre>
-        <p>Enter the password of the icinga user and voila:</p>
-        <pre><code>root@server:/home/icinga#
+<p>Enter the password of the icinga user and voila:</p>
+<pre><code>root@server:/home/icinga#
 </code></pre>
-        <p>
-          Once you are root via sudo, it is no longer necessary to prepend the
-          sudo command. Instead of <code>sudo ls -lisa /root/</code> you can
-          also type <code>ls -lisa /root/</code> because you have root
-          privileges already. However, all commands in this codelab will always
-          start with <code>sudo</code> to remind you that you are working with
-          root privileges.
-        </p>
-      </google-codelab-step>
+<p>Once you are root via sudo, it is no longer necessary to prepend the sudo command. Instead of <code>sudo ls -lisa /root/</code> you can also type <code>ls -lisa /root/</code> because you have root privileges already. However, all commands in this codelab will always start with <code>sudo</code> to remind you that you are working with root privileges.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Map" duration="0">
-        <p>
-          This community-based module displays host objects as markers on
-          Openstreet Map.
-        </p>
-        <h2 is-upgraded>Installation</h2>
-        <pre><code>sudo apt install icingaweb2-module-map
+        <p>This community-based module displays host objects as markers on Openstreet Map.</p>
+<h2 is-upgraded>Installation</h2>
+<pre><code>sudo apt install icingaweb2-module-map
 </code></pre>
-        <h2 is-upgraded>Fix missing character set</h2>
-        <p>
-          The module requires the character set <code>latin1</code> otherwise it
-          will pop up an error.
-        </p>
-        <p>
-          To add the character set, open the resource file of Icingaweb2 with
-          the following command:
-        </p>
-        <pre><code>sudo nano /etc/icingaweb2/resources.ini
+<h2 is-upgraded>Fix missing character set</h2>
+<p>The module requires the character set <code>latin1</code> otherwise it will pop up an error.</p>
+<p>To add the character set, open the resource file of Icingaweb2 with the following command:</p>
+<pre><code>sudo nano /etc/icingaweb2/resources.ini
 </code></pre>
-        <p>Now update (or add) the following line:</p>
-        <pre><code>[icinga_ido]
+<p>Now update (or add) the following line:</p>
+<pre><code>[icinga_ido]
 charset = &#34;latin1&#34; &lt;== ADD THIS
 </code></pre>
-        <p>That&#39;s all here.</p>
-        <h2 is-upgraded>Set Marker</h2>
-        <p>
-          Finally, we have to add coordinates to a host object in Icinga 2. The
-          coordinate values are defined in the following format:
-        </p>
-        <pre><code>vars.geolocation = &#34;&lt;latitude&gt;,&lt;longitude&gt;&#34;
+<p>That&#39;s all here.</p>
+<h2 is-upgraded>Set Marker</h2>
+<p>Finally, we have to add coordinates to a host object in Icinga 2. The coordinate values are defined in the following format:</p>
+<pre><code>vars.geolocation = &#34;&lt;latitude&gt;,&lt;longitude&gt;&#34;
 </code></pre>
-        <p>Next, open the file with an editor:</p>
-        <pre><code>sudo nano /etc/icinga2/conf.d/hosts/localhost.conf
+<p>Next, open the file with an editor:</p>
+<pre><code>sudo nano /etc/icinga2/conf.d/hosts/localhost.conf
 </code></pre>
-        <p>Add the following variables to the host object</p>
-        <pre><code>object Host &#34;localhost&#34; {
+<p>Add the following variables to the host object</p>
+<pre><code>object Host &#34;localhost&#34; {
     import &#34;generic-host&#34;
     address = &#34;127.0.0.1&#34;
     check_command = &#34;hostalive&#34;
@@ -143,67 +88,54 @@ charset = &#34;latin1&#34; &lt;== ADD THIS
     vars.map_icon = &#34;host&#34;                      &lt;== ADD THIS (Optional)
 }
 </code></pre>
-        <p>
-          As shown, you can add a custom attribute called
-          <code>map_icon</code> to an object which is displayed on the marker.
-        </p>
-        <p>Popular marker icons are:</p>
-        <ul>
-          <li>host (default)</li>
-          <li>flapping</li>
-          <li>wifi</li>
-          <li>service</li>
-          <li>tux</li>
-          <li>win</li>
-          <li>user</li>
-          <li>dashboard</li>
-          <li>configuration</li>
-        </ul>
-        <h2 is-upgraded>Restart Icinga2</h2>
-        <p>
-          After installing and configuring the map module, it is necessary to
-          restart the Icinga2 service again and to check its status.
-        </p>
-        <pre><code>sudo systemctl restart icinga2
+<p>As shown, you can add a custom attribute called <code>map_icon</code> to an object which is displayed on the marker.</p>
+<p>Popular marker icons are:</p>
+<ul>
+<li>host (default)</li>
+<li>flapping</li>
+<li>wifi</li>
+<li>service</li>
+<li>tux</li>
+<li>win</li>
+<li>user</li>
+<li>dashboard</li>
+<li>configuration</li>
+</ul>
+<h2 is-upgraded>Restart Icinga2</h2>
+<p>After installing and configuring the map module, it is necessary to restart the Icinga2 service again and to check its status.</p>
+<pre><code>sudo systemctl restart icinga2
 sudo systemctl status icinga2
 </code></pre>
-        <p>Any problems? Try to fix them with appropriate tools.</p>
-        <h2 is-upgraded>The result</h2>
-        <p>
-          That&#39;s it, Map is now ready for use. Once you enable the Host Map
-          module, it will pop up in your menu in the Maps section.
-        </p>
-        <p>
-          Based on the coordinates and the marker icons, hosts will be displayed
-          on the map. If you want to know more details about a host just click
-          on the host marker. If you want to show the host in the detail view of
-          the monitoring module just click on the eye icon.
-        </p>
-        <p class="image-container">
-          <img alt="Icinga Web 2 Director" src="img/eece75c1ef74432.png" />
-        </p>
-        <p>The module provides more features:</p>
-        <ul>
-          <li>Control elements in the upper left corner of the map</li>
-          <li>Filtering host objects via the Icingaweb2 filter system</li>
-          <li>Dashboard integration</li>
-          <li>
-            Markers are grouped into clusters, depending on their location and
-            the zoom level.
-          </li>
-        </ul>
-      </google-codelab-step>
+<p>Any problems? Try to fix them with appropriate tools.</p>
+<h2 is-upgraded>The result</h2>
+<p>That&#39;s it, Map is now ready for use. Once you enable the Host Map module, it will pop up in your menu in the Maps section.</p>
+<p>Based on the coordinates and the marker icons, hosts will be displayed on the map. If you want to know more details about a host just click on the host marker. If you want to show the host in the detail view of the monitoring module just click on the eye icon.</p>
+<p class="image-container"><img alt="Icinga Web 2 Director" src="img/eece75c1ef74432.png"></p>
+<p>The module provides more features:</p>
+<ul>
+<li>Control elements in the upper left corner of the map</li>
+<li>Filtering host objects via the Icingaweb2 filter system</li>
+<li>Dashboard integration</li>
+<li>Markers are grouped into clusters, depending on their location and the zoom level.</li>
+</ul>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Cleanup" duration="0">
         <p>Congratulations !</p>
-        <p>You have successfully set up your first Icinga2 module.</p>
-      </google-codelab-step>
-    </google-codelab>
+<p>You have successfully set up your first Icinga2 module.</p>
 
-    <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
-    <script src="//support.google.com/inapp/api.js"></script>
-  </body>
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
 </html>

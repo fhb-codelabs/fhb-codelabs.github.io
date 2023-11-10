@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-11-10T18:13:40+01:00",
+  "id": "k8s-security-intro",
+  "duration": 0,
+  "title": "Kubernetes - Security Lab",
+  "authors": "Thomas Schuetz",
+  "summary": "Kubernetes Security Intro",
+  "source": "codelabs/kubernetes-security-intro.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "containers"
+  ],
+  "tags": [
+    "containers",
+    "introduction"
+  ],
+  "url": "k8s-security-intro"
+}

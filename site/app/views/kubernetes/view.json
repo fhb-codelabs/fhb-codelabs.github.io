@@ -1,0 +1,9 @@
+{
+  "title": "Kubernetes",
+  "description": "Come and learn about Kubernetes",
+  "tags": ["kubernetes"],
+  "exclude": [
+    ".*-about$",
+    "^lang-.*"
+  ]
+}
