@@ -1,168 +1,87 @@
-<!DOCTYPE html>
+
+<!doctype html>
 
 <html>
-  <head>
-    <meta
-      name="viewport"
-      content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"
-    />
-    <meta name="theme-color" content="#4F7DC9" />
-    <meta charset="UTF-8" />
-    <title>BITI IPM Lab - Icinga Template Library</title>
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono"
-    />
-    <link
-      rel="stylesheet"
-      href="//fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://storage.googleapis.com/claat-public/codelab-elements.css"
-    />
-    <style>
-      .success {
-        color: #1e8e3e;
-      }
-      .error {
-        color: red;
-      }
-    </style>
-  </head>
-  <body>
-    <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-    <google-codelab
-      codelab-gaid=""
-      id="biti-ipm-icinga-itl-lab"
-      title="BITI IPM Lab - Icinga Template Library"
-      environment="web"
-      feedback-link=""
-    >
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>BITI IPM Lab - Icinga Template Library</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="biti-ipm-icinga-itl-lab"
+                  title="BITI IPM Lab - Icinga Template Library"
+                  environment="web"
+                  feedback-link="">
+    
       <google-codelab-step label="Before You Begin" duration="0">
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
-        <p>
-          The ITL is a collection of templates and check commands. Check
-          commands control the invocation of plugins in Icinga 2.
-        </p>
-        <p>
-          A plugin is a program that uses its own logic to determine the status
-          of a service or host.
-        </p>
-        <p>
-          The check command to apply is specified in a service definition. This
-          determines which plugin will be executed to perform a check on that
-          service.
-        </p>
-        <p>In this codelab you will learn</p>
-        <ul>
-          <li>how to use check commands</li>
-        </ul>
-        <h2 is-upgraded>Where You Can Look Up</h2>
-        <p>
-          The best source of documentation is the homepage of Icinga2. The
-          latest documentation can be found
-          <a
-            href="https://icinga.com/docs/icinga-2/latest/doc/01-about/"
-            target="_blank"
-            >here</a
-          >.
-        </p>
-        <h2 is-upgraded>What You&#39;ll need</h2>
-        <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-        <p>This is the OS of the virtual machine. This will be Debian .</p>
-        <h3 is-upgraded>Administators privileges</h3>
-        <p>
-          By default, administrator privileges are required on the Host OS to
-          install additional software. Make sure that you have the required
-          permissions.
-        </p>
-        <p>
-          For the Guest OS, you will create and manage your own users. These
-          users will therefore be different from the Host&#39;s user
-          administration.
-        </p>
-        <h2 is-upgraded>Root privileges via sudo</h2>
-        <p>
-          In this codelab you have to work with root privileges. Therefore, a
-          few words of caution: double check whatever you type and make backups
-          whenever necessary.
-        </p>
-        <p>
-          Working with root privileges is quite easy. Open a terminal (a shell)
-          and enter the following commmand:
-        </p>
-        <pre><code>sudo -s
+<p>The ITL is a collection of templates and check commands. Check commands control the invocation of plugins in Icinga 2.</p>
+<p>A plugin is a program that uses its own logic to determine the status of a service or host.</p>
+<p>The check command to apply is specified in a service definition. This determines which plugin will be executed to perform a check on that service.</p>
+<p>In this codelab you will learn</p>
+<ul>
+<li>how to use check commands</li>
+</ul>
+<h2 is-upgraded>Where You Can Look Up</h2>
+<p>The best source of documentation is the homepage of Icinga2. The latest documentation can be found <a href="https://icinga.com/docs/icinga-2/latest/doc/01-about/" target="_blank">here</a>.</p>
+<h2 is-upgraded>What You&#39;ll need</h2>
+<h3 is-upgraded>Guest operation system (Guest OS)</h3>
+<p>This is the OS of the virtual machine. This will be Debian .</p>
+<h3 is-upgraded>Administators privileges</h3>
+<p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
+<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+<h2 is-upgraded>Root privileges via sudo</h2>
+<p>In this codelab you have to work with root privileges. Therefore, a few words of caution: double check whatever you type and make backups whenever necessary.</p>
+<p>Working with root privileges is quite easy. Open a terminal (a shell) and enter the following commmand:</p>
+<pre><code>sudo -s
 </code></pre>
-        <p>Enter the password of the icinga user and voila:</p>
-        <pre><code>root@server:/home/icinga#
+<p>Enter the password of the icinga user and voila:</p>
+<pre><code>root@server:/home/icinga#
 </code></pre>
-        <p>
-          Once you are root via sudo, it is no longer necessary to prepend the
-          sudo command. Instead of <code>sudo ls -lisa /root/</code> you can
-          also type <code>ls -lisa /root/</code> because you have root
-          privileges already. However, all commands in this codelab will always
-          start with <code>sudo</code> to remind you that you are working with
-          root privileges.
-        </p>
-      </google-codelab-step>
+<p>Once you are root via sudo, it is no longer necessary to prepend the sudo command. Instead of <code>sudo ls -lisa /root/</code> you can also type <code>ls -lisa /root/</code> because you have root privileges already. However, all commands in this codelab will always start with <code>sudo</code> to remind you that you are working with root privileges.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Icinga Template Library" duration="0">
         <h2 is-upgraded>Introduction</h2>
-        <p>
-          The documentation of the ITL can be found
-          <a
-            href="https://icinga.com/docs/icinga-2/latest/doc/10-icinga-template-library"
-            target="_blank"
-            >here</a
-          >.
-        </p>
-        <p>
-          The documentation provides an overview of subsets of templates and
-          object definitions.
-        </p>
-        <p class="image-container">
-          <img alt="Icinga Web 2 Director" src="img/de23461ed813a9ab.png" />
-        </p>
-        <p>As an example, scroll down to the <code>check_user</code> plugin.</p>
-        <p class="image-container">
-          <img alt="Icinga Web 2 Director" src="img/8d2d58c605b9c79c.png" />
-        </p>
-        <p>
-          This section gives you a short description of the
-          <code>check_users</code> plugin. Here, the
-          <code>check_users</code> plugin checks the number of users currently
-          logged in on the local system and generates an error if the number
-          exceeds the thresholds specified. The plugin therefore accepts
-          parameters which can be accessed as runtime macros by the executed
-          command.
-        </p>
-        <p>The check_users plugin provides the following parameters:</p>
-        <ul>
-          <li>
-            users_wgreater - Optional. The user count warning threshold.
-            Defaults to 20.
-          </li>
-          <li>
-            users_cgreater - Optional. The user count critical threshold.
-            Defaults to 50.
-          </li>
-        </ul>
-      </google-codelab-step>
+<p>The documentation of the ITL can be found <a href="https://icinga.com/docs/icinga-2/latest/doc/10-icinga-template-library" target="_blank">here</a>.</p>
+<p>The documentation provides an overview of subsets of templates and object definitions.</p>
+<p class="image-container"><img alt="Icinga Web 2 Director" src="img/de23461ed813a9ab.png"></p>
+<p>As an example, scroll down to the <code>check_user</code> plugin.</p>
+<p class="image-container"><img alt="Icinga Web 2 Director" src="img/8d2d58c605b9c79c.png"></p>
+<p>This section gives you a short description of the <code>check_users</code> plugin. Here, the <code>check_users</code> plugin checks the number of users currently logged in on the local system and generates an error if the number exceeds the thresholds specified. The plugin therefore accepts parameters which can be accessed as runtime macros by the executed command.</p>
+<p>The check_users plugin provides the following parameters:</p>
+<ul>
+<li>users_wgreater - Optional. The user count warning threshold. Defaults to 20.</li>
+<li>users_cgreater - Optional. The user count critical threshold. Defaults to 50.</li>
+</ul>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Command-Line" duration="0">
-        <p>
-          When you install Icinga2 on your computer, all check commands can be
-          found in <code>/usr/lib/nagios/plugins/</code>.
-        </p>
-        <p>
-          Please run the following command to get an overview of the
-          <code>check_users</code> plugin and its parameters:
-        </p>
-        <pre><code>sudo /usr/lib/nagios/plugins/check_users -h
+        <p>When you install Icinga2 on your computer, all check commands can be found in <code>/usr/lib/nagios/plugins/</code>.</p>
+<p>Please run the following command to get an overview of the <code>check_users</code> plugin and its parameters:</p>
+<pre><code>sudo /usr/lib/nagios/plugins/check_users -h
 </code></pre>
-        <p>The plugin provides a detailed help screen.</p>
-        <pre><code>check_users v2.3.1 (monitoring-plugins 2.3.1)
+<p>The plugin provides a detailed help screen.</p>
+<pre><code>check_users v2.3.1 (monitoring-plugins 2.3.1)
 Copyright (c) 1999 Ethan Galstad
 Copyright (c) 2000-2007 Monitoring Plugins Development Team
 	&lt;devel@monitoring-plugins.org&gt;
@@ -192,175 +111,97 @@ Send email to help@monitoring-plugins.org if you have questions regarding
 use of this software. To submit patches or suggest improvements, send email
 to devel@monitoring-plugins.org
 </code></pre>
-        <p>Run the following command to check the number of users logged-in.</p>
-        <pre><code>sudo /usr/lib/nagios/plugins/check_users -w 0 -c 0
+<p>Run the following command to check the number of users logged-in.</p>
+<pre><code>sudo /usr/lib/nagios/plugins/check_users -w 0 -c 0
 </code></pre>
-        <p>
-          Note that you must pass all parameters here. All thresholds are set to
-          zero, which means that the command will definitely print an error
-          message if one or more users are logged in. The output of the command
-          looks like this:
-        </p>
-        <pre><code>USERS CRITICAL - 1 users currently logged in | users=1;0;0;0
+<p>Note that you must pass all parameters here. All thresholds are set to zero, which means that the command will definitely print an error message if one or more users are logged in. The output of the command looks like this:</p>
+<pre><code>USERS CRITICAL - 1 users currently logged in | users=1;0;0;0
 </code></pre>
-        <p>
-          As expected, the plugin generates a critical message because the
-          number of logged-in users exceeds the threshold of zero (0). Use
-          different thresholds to generate CRITICAL, WARNING and OK messages.
-        </p>
-        <aside class="special">
-          <p>
-            It is a good practice to test check_commands on the command line
-            first. This helps the Icinga2 administrators to understand how the
-            check_commands have to be used and how they are applied in
-            configuration files.
-          </p>
-        </aside>
-      </google-codelab-step>
+<p>As expected, the plugin generates a critical message because the number of logged-in users exceeds the threshold of zero (0). Use different thresholds to generate CRITICAL, WARNING and OK messages.</p>
+<aside class="special"><p> It is a good practice to test check_commands on the command line first. This helps the Icinga2 administrators to understand how the check_commands have to be used and how they are applied in configuration files. </p>
+</aside>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Service Configuration" duration="0">
-        <p>
-          In a next step, we will extend the <code>check_user</code> plugin in
-          our service definition. Open the <code>services.config</code> file
-          with an editor of your choice (here nano).
-        </p>
-        <pre><code>sudo nano /etc/icinga2/zones.d/master/services.conf
+        <p>In a next step, we will extend the <code>check_user</code> plugin in our service definition. Open the <code>services.config</code> file with an editor of your choice (here nano).</p>
+<pre><code>sudo nano /etc/icinga2/zones.d/master/services.conf
 </code></pre>
-        <p>
-          Scroll down to the <code>Users</code> Service (or add it if the
-          section does not exist) and add the following line:
-        </p>
-        <pre><code>apply Service &#34;Users&#34; {
+<p>Scroll down to the <code>Users</code> Service (or add it if the section does not exist) and add the following line:</p>
+<pre><code>apply Service &#34;Users&#34; {
   check_command = &#34;users&#34;
   command_endpoint = host.vars.client_endpoint
   vars.users_wgreater = 0  &lt;=== ADD THIS
   assign where host.vars.client_endpoint
 }
 </code></pre>
-        <p>Now restart the Icinga2 service to apply the changes:</p>
-        <pre><code>sudo systemctl restart icinga2
+<p>Now restart the Icinga2 service to apply the changes:</p>
+<pre><code>sudo systemctl restart icinga2
 </code></pre>
-        <aside class="warning">
-          <p>
-            Do you encounter any problems here? First try to fix the problem
-            yourself! Use an appropriate tool to verify if the configuration
-            syntax is error-free.
-          </p>
-        </aside>
-        <p>
-          Now go back to the Icinga2 Web Interface and check if User problems
-          occur:
-          <img alt="Icinga Web 2 Director" src="img/9b86e9283d9a48db.png" />
-        </p>
-        <p>
-          If not, log in to Icinga node client via Console or via SSH. After a
-          couple of minutes, the following service problem shows up on the
-          screen.
-        </p>
-        <p class="image-container">
-          <img alt="Icinga Web 2 Director" src="img/3bc091a17bc0cfc9.png" />
-        </p>
-        <p>
-          In this case, the agent on the node client has identified the two
-          users currently logged in and generated a WARNING status. The message
-          disappears after a few minutes, once all users have logged out again.
-        </p>
-        <p class="image-container">
-          <img alt="Icinga Web 2 Director" src="img/193feedc5e42e058.png" />
-        </p>
-        <p>
-          Even if past incidents disappear, however, they are stored in Icinga2
-          and can be retrieved at any time. Simply click on
-          <code>Users</code> in the &#34;Recently Restored Services&#34; section
-          and then select the <code>History</code> tab.
-        </p>
-        <p class="image-container">
-          <img alt="Icinga Web 2 Director" src="img/1a690aed1e56b259.png" />
-        </p>
-        <p>
-          The History tab shows details of all past incidents related to the
-          Check User command. Similary, you can check the history of other
-          incidents as well.
-        </p>
-      </google-codelab-step>
+<aside class="warning"><p> Do you encounter any problems here? First try to fix the problem yourself! Use an appropriate tool to verify if the configuration syntax is error-free. </p>
+</aside>
+<p>Now go back to the Icinga2 Web Interface and check if User problems occur: <img alt="Icinga Web 2 Director" src="img/9b86e9283d9a48db.png"></p>
+<p>If not, log in to Icinga node client via Console or via SSH. After a couple of minutes, the following service problem shows up on the screen.</p>
+<p class="image-container"><img alt="Icinga Web 2 Director" src="img/3bc091a17bc0cfc9.png"></p>
+<p>In this case, the agent on the node client has identified the two users currently logged in and generated a WARNING status. The message disappears after a few minutes, once all users have logged out again.</p>
+<p class="image-container"><img alt="Icinga Web 2 Director" src="img/193feedc5e42e058.png"></p>
+<p>Even if past incidents disappear, however, they are stored in Icinga2 and can be retrieved at any time. Simply click on <code>Users</code> in the &#34;Recently Restored Services&#34; section and then select the <code>History</code> tab.</p>
+<p class="image-container"><img alt="Icinga Web 2 Director" src="img/1a690aed1e56b259.png"></p>
+<p>The History tab shows details of all past incidents related to the Check User command. Similary, you can check the history of other incidents as well.</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Hands-on" duration="0">
         <h2 is-upgraded>What you will learn:</h2>
-        <p>
-          This hands-on differs from other lessons. This hands-on wants you to
-          explore some of the check_commands which are provided by Icinga2 by
-          default.
-        </p>
-        <p>In this codelab, you will learn</p>
-        <ul>
-          <li>how to use more check commands on the command line</li>
-          <li>how to use them as services</li>
-          <li>how useful backups are!</li>
-        </ul>
-        <p>
-          The objective of this hands-on is to get some practice when working
-          with Icinga2 and its configuration files.
-        </p>
-        <h2 is-upgraded>What you will need:</h2>
-        <p>In this codelab, you will need a running Icinga2 server.</p>
-        <h2 is-upgraded>The assignment</h2>
-        <ul>
-          <li>
-            Go to <code>/usr/lib/nagios/plugins/</code> and pick some random
-            check_commands.
-          </li>
-          <li>
-            Run them on the commandline first to get an idea how they work and
-            what parameters they provide.
-          </li>
-          <li>
-            Edit the files
-            <code>/etc/icinga2/zones.d/master/services.conf</code> (agendbased)
-            and
-            <code>/etc/icinga2/conf.d/hosts/localhost.conf</code> (agentless)
-            and add some of the check_commands. Use the online
-            <a
-              href="https://icinga.com/docs/icinga-2/latest/doc/01-about/"
-              target="_blank"
-              >documentation</a
-            >
-            to get information and more details about the check_commands.
-            Finally, update some parameters of existing commands.
-          </li>
-          <li>
-            Watch how Icinga2 reacts on the changes you made and play around
-            with different settings.
-          </li>
-        </ul>
-        <h2 is-upgraded>Useful check_commands</h2>
-        <p>Here is a list of some checks you might test:</p>
-        <ul>
-          <li>
-            check_mysql (localhost only because the database is installed on
-            your Icinga2 server)
-          </li>
-          <li>check_apt (can be installed on both, localhost and node)</li>
-          <li>check_http (let&#39;s go and check some external websites)</li>
-          <li>check_procs (can be installed on both, localhost and node)</li>
-          <li>
-            check_tcp (hmmm, which service is waiting for incoming tcp traffic?)
-          </li>
-          <li>check_swap (already installed so use different parameters)</li>
-          <li>check_disk (already installed so use different parameters)</li>
-        </ul>
-        <p>And much much more. Have fun!</p>
-      </google-codelab-step>
+<p>This hands-on differs from other lessons. This hands-on wants you to explore some of the check_commands which are provided by Icinga2 by default.</p>
+<p>In this codelab, you will learn</p>
+<ul>
+<li>how to use more check commands on the command line</li>
+<li>how to use them as services</li>
+<li>how useful backups are!</li>
+</ul>
+<p>The objective of this hands-on is to get some practice when working with Icinga2 and its configuration files.</p>
+<h2 is-upgraded>What you will need:</h2>
+<p>In this codelab, you will need a running Icinga2 server.</p>
+<h2 is-upgraded>The assignment</h2>
+<ul>
+<li>Go to <code>/usr/lib/nagios/plugins/</code> and pick some random check_commands.</li>
+<li>Run them on the commandline first to get an idea how they work and what parameters they provide.</li>
+<li>Edit the files <code>/etc/icinga2/zones.d/master/services.conf</code> (agendbased) and <code>/etc/icinga2/conf.d/hosts/localhost.conf</code> (agentless) and add some of the check_commands. Use the online <a href="https://icinga.com/docs/icinga-2/latest/doc/01-about/" target="_blank">documentation</a> to get information and more details about the check_commands. Finally, update some parameters of existing commands.</li>
+<li>Watch how Icinga2 reacts on the changes you made and play around with different settings.</li>
+</ul>
+<h2 is-upgraded>Useful check_commands</h2>
+<p>Here is a list of some checks you might test:</p>
+<ul>
+<li>check_mysql (localhost only because the database is installed on your Icinga2 server)</li>
+<li>check_apt (can be installed on both, localhost and node)</li>
+<li>check_http (let&#39;s go and check some external websites)</li>
+<li>check_procs (can be installed on both, localhost and node)</li>
+<li>check_tcp (hmmm, which service is waiting for incoming tcp traffic?)</li>
+<li>check_swap (already installed so use different parameters)</li>
+<li>check_disk (already installed so use different parameters)</li>
+</ul>
+<p>And much much more. Have fun!</p>
 
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Cleanup" duration="0">
         <p>Congratulations !</p>
-        <p>You have successfully implemented some ITL plugins.</p>
-      </google-codelab-step>
-    </google-codelab>
+<p>You have successfully implemented some ITL plugins.</p>
 
-    <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
-    <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
-    <script src="//support.google.com/inapp/api.js"></script>
-  </body>
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
 </html>

@@ -1,0 +1,300 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Container Technologies - Lab 1 - Introduction (GitHub Edition)</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="iac-container-github-intro"
+                  title="Container Technologies - Lab 1 - Introduction (GitHub Edition)"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="What You&#39;ll Learn" duration="0">
+        <p>In this lab, you will:</p>
+<ul>
+<li>Create your first Dockerfile</li>
+<li>Build and push this Container locally</li>
+<li>Run the Container locally</li>
+<li>Build and push the Container in CI</li>
+<li>Run the Container</li>
+</ul>
+<h2 is-upgraded>Prerequisites</h2>
+<ul>
+<li>Container Engine (Docker Desktop, Podman Desktop or Rancher Desktop) is installed</li>
+<li>Git is installed</li>
+<li>You have a GitHub Account</li>
+<li>You installed an IDE (VSCode, IntelliJ, ...)</li>
+<li>Your repository is already created</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create your Dockerfile" duration="0">
+        <p>In this step, you will check out the repository, open it in your IDE and create a very simple Dockerfile.</p>
+<h2 is-upgraded>Clone the Repository</h2>
+<ul>
+<li>Clone the repository to your local machine: <code>git clone <repository-url></code></li>
+<li>Open the repository in your IDE</li>
+</ul>
+<h2 is-upgraded>Create a Dockerfile</h2>
+<p>Before we start creating Dockerfiles, we should be familiar with the syntax. Therefore, we will create a very simple Dockerfile, which will just print &#34;Hello World&#34; when run and simply run it</p>
+<ul>
+<li>Create a new file called <code>Dockerfile</code> in the root of your repository</li>
+<li>Add the following content to the file:</li>
+</ul>
+<pre><code language="language-dockerfile" class="language-dockerfile">FROM docker.io/library/debian:bookworm-slim
+
+RUN apt-get update &amp;&amp; apt-get install -y curl
+
+CMD [&#34;curl&#34;, &#34;https://www.fh-burgenland.at&#34;]
+</code></pre>
+<p>This Dockerfile will use the official Debian Bookworm image, install curl and run curl against the website of the University of Applied Sciences Burgenland.</p>
+<h2 is-upgraded>Build and run the Dockerfile</h2>
+<p>Now it&#39;s time to build and run the Dockerfile. This can be done with the following commands:</p>
+<ul>
+<li><code>docker build -t hello-world:latest .</code></li>
+</ul>
+<p>This will build the Dockerfile and tag it with the name <code>hello-world</code> and the tag <code>latest</code>. The <code>.</code> at the end of the command tells Docker to use the current directory as build context.</p>
+<p>Note that this command won&#39;t push the image to a registry. It will just build it locally.</p>
+<p>Nevertheless, as docker stores the images in a local cache, you can run the image with the following command:</p>
+<ul>
+<li><code>docker run hello-world:latest</code></li>
+</ul>
+<aside class="special"><p> Your image should now be running and you should see the output of the curl command. Note that it stops after the command is finished. With this, you learned that it&#39;s necessary to run a process in the foreground to keep the container running. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a simple application" duration="0">
+        <p>The last example was very easy, but it didn&#39;t really show the power of Docker. Therefore, we will create a simple application in Go, which will run in a container.</p>
+<ul>
+<li>Create a new directory called <code>src</code> in your repository</li>
+<li>Create a new file called <code>main.go</code> in this directory</li>
+<li>Add the following content to the file:</li>
+</ul>
+<pre><code language="language-go" class="language-go">package main
+
+import (
+    &#34;fmt&#34;
+    &#34;net/http&#34;
+)
+
+func main() {
+    http.HandleFunc(&#34;/&#34;, func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, &#34;Hello, %q&#34;, r.URL.Path)
+    })
+    http.ListenAndServe(&#34;:8080&#34;, nil)
+}
+</code></pre>
+<p>This application is a very simple webserver, which will return the URL path of the request.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a Dockerfile to build the application" duration="0">
+        <p>Probably, you are not a Go Developer and you don&#39;t have a Go environment installed. Therefore, we will use a Dockerfile to build the application.</p>
+<ul>
+<li>Create a new file called <code>Dockerfile.build</code> in the root of your repository</li>
+<li>Add the following content to the file:</li>
+</ul>
+<pre><code language="language-dockerfile" class="language-dockerfile">FROM docker.io/library/golang:1.21.3-alpine3.18
+
+COPY src /src
+WORKDIR /src
+
+RUN go mod init hello-world \
+    &amp;&amp; go build -o /app .
+
+CMD /app
+</code></pre>
+<p>This Dockerfile will use the official Go image, copy the source code to the image, build the application and run it.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Build and run the Dockerfile" duration="0">
+        <p>Now it&#39;s time to build and run the Dockerfile. This can be done with the following commands:</p>
+<ul>
+<li><code>docker build -t hello-fhb:latest -f Dockerfile.build .</code></li>
+</ul>
+<p>This will build the Dockerfile and tag it with the name <code>hello-world</code> and the tag <code>latest</code>. The <code>.</code> at the end of the command tells Docker to use the current directory as build context.</p>
+<p>Now we can simply run the image with the following command:</p>
+<ul>
+<li><code>docker run -p 8080:8080 hello-fhb:latest</code></li>
+<li>Open your browser and navigate to <code>http://localhost:8080/hello-fhb</code></li>
+</ul>
+<p>By using <code>-p 8080:8080</code> you tell Docker to map the port 8080 of the container to the port 8080 of your local machine, therefore you should be able to access the application via localhost:8080 when it&#39;s running.</p>
+<aside class="special"><p> Your image should now be running and when browsing to the URL, you should see the URL path in the browser. Note that you need to CTRL-C to stop the container now </p>
+</aside>
+<h2 is-upgraded>Automating the build</h2>
+<p>As you can see, the build process is quite simple, but it might only work on your machine. To make this reproducible and running on every push, we will automate the build process with GitHub Actions.</p>
+<h2 is-upgraded>Push the current state to GitHub</h2>
+<p>To have the code available on GitHub, please push the current state to GitHub:</p>
+<ul>
+<li><code>git add .</code></li>
+<li><code>git commit -m "Added Dockerfile and simple Go application"</code></li>
+<li><code>git push</code></li>
+</ul>
+<p>When you now open your repository on GitHub, you should see the new files, but nothing is happening yet.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Run the build in pull-requests when pushing" duration="0">
+        <p>To start developing your new feature now, check out a new branch:</p>
+<ul>
+<li><code>git checkout -b feature/add_ci_build</code></li>
+</ul>
+<p>Now, we will create a new GitHub Action, which will build the application and push it to the GitHub Container Registry. To do this, we will create a new file called <code>.github/workflows/build.yml</code> with the following content:</p>
+<pre><code language="language-yaml" class="language-yaml">name: Build
+
+on:
+  pull_request:
+    branches:
+      - &#39;main&#39;
+
+jobs:
+  build_image:
+    name: Build Container Image
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5
+        with:
+          context: .
+          platforms: linux/amd64
+          file: ./Dockerfile.build
+          tags:
+            hello-fhb:dev
+          push: false
+</code></pre>
+<p>You can temporarily change the trigger to on push to your branch to test it.</p>
+<p>This GitHub Action will run on every pull-request to the main branch and will build the Dockerfile. It will also tag the image with <code>hello-fhb:dev</code>, but don&#39;t push it to the registry.</p>
+<p>Finally, push the changes to GitHub.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Push the image to the registry when merging" duration="0">
+        <p>Now, we will create a new GitHub Action, which will build the application and push it to the GitHub Container Registry. To do this, we will create a new file called <code>.github/workflows/push.yml</code> with the following content:</p>
+<pre><code language="language-yaml" class="language-yaml">name: Build
+
+on:
+  push:
+    branches:
+      - &#39;main&#39;
+
+jobs:
+  build_image:
+    name: Build Container Image
+    runs-on: ubuntu-22.04
+
+    permissions: 
+      contents: read
+      packages: write
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+
+    
+    - name: &#39;Login to GitHub Container Registry&#39;
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: $&#123;&#123;github.actor}}
+        password: $&#123;&#123;secrets.GITHUB_TOKEN}}
+    
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3
+    
+    - name: Build Docker Image
+      uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5
+      with:
+        context: .
+        platforms: linux/amd64
+        file: ./Dockerfile.build
+        tags: 
+          ghcr.io/$&#123;&#123;github.repository}}/hello-fhb:$&#123;&#123; github.sha }}
+        push: true
+</code></pre>
+<p>This GitHub Action will run on every push to the main branch and will build the Dockerfile. It will also tag the image with <code>ghcr.io/$&#123;&#123;github.repository}}/hello-fhb:$&#123;&#123; github.sha }}</code> and push it to the registry.</p>
+<p>Also push the changes to GitHub, try to make some changes, create a pull-request and merge it. You should now see the image in the GitHub Container Registry.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a GitHub Token and log in with docker (if you want)" duration="0">
+        <ul>
+<li>Navigate to your personal account settings https://github.com/settings/profile</li>
+<li>Settings -&gt; Developer Settings<ul>
+<li>Personal Access Token</li>
+<li>Click &#34;Generate new token&#34;</li>
+<li>Choose a name: <code>ghcr-token</code></li>
+<li>Choose Permissions: <ul>
+<li><code>read:packages</code></li>
+</ul>
+</li>
+<li>Generate Token</li>
+<li>Copy the Token to your clipboard</li>
+</ul>
+</li>
+<li>Log in to the GitHub Container Registry<ul>
+<li><code>docker login ghcr.io -u &#123;&#123;your-github-username}} -p &#123;&#123;your-github-token}}</code></li>
+</ul>
+</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Run the container on your machine" duration="0">
+        <p>Finally, we will run the container on your machine. To do this, we will use the following command:</p>
+<ul>
+<li><code>docker run -p 8080:8080 ghcr.io/&#123;&#123;your-github-username}}/hello-fhb:&#123;&#123;your-github-sha}}</code></li>
+</ul>
+<p>If you can access the application via <code>http://localhost:8080/hello-fhb</code>, you have successfully completed the workshop. Congratulations!</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
