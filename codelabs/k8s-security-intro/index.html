@@ -1,0 +1,283 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Kubernetes - Security Lab</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="k8s-security-intro"
+                  title="Kubernetes - Security Lab"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="What You&#39;ll Learn" duration="0">
+        <p>Today, it&#39;s your job to deploy a simple application to Kubernetes and secure it as good as possible.</p>
+<p><img alt="BigPicture" src="img/1490c7b89e2fb62e.png"> In this lab, you will:</p>
+<ul>
+<li>Deploy a simple application to Kubernetes</li>
+<li>Expose the application via a service</li>
+<li>Add recommended labels to the deployment</li>
+<li>Make the containers read-only</li>
+<li>Add Kubernetes Secrets to the application</li>
+<li>Configure Sealed Secrets</li>
+<li>Install Kyverno and add a policy to avoid containers without tags</li>
+<li>Install the Trivy Operator and scan your cluster for misconfigurations</li>
+</ul>
+<h2 is-upgraded>Prerequisites</h2>
+<ul>
+<li>Kubernetes Cluster (Rancher Desktop, Exoscale, AWS, ...)</li>
+<li>kubectl</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a simple manifest for the application - Task" duration="0">
+        <p>In this task, you will create a simple manifest for the application. Create and apply a manifest for the application with the following content:</p>
+<ul>
+<li>Resources: Service, Deployment</li>
+<li>image: ghcr.io/thschue/podtato-head-uas</li>
+<li>name: docker.io/thschue/podtato-head-fh</li>
+<li>port: 8080</li>
+<li>replicas: 3</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create a simple manifest for the application - Solution" duration="0">
+        <p>This manifest will create a service and a deployment for the application. The deployment will create 3 replicas of the application.</p>
+<p>deployment.yaml</p>
+<pre><code language="language-yaml" class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podtato-head
+  labels:
+    app: podtato-head
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: podtato-head
+  template:
+    metadata:
+      labels:
+        app: podtato-head
+    spec:
+      containers:
+        - name: podtato-head
+          image: ghcr.io/thschue/podtato-head-uas
+          ports:
+            - containerPort: 8080
+</code></pre>
+<p>service.yaml</p>
+<pre><code language="language-yaml" class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  name: podtato-head
+spec:
+    selector:
+        app: podtato-head
+    ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+</code></pre>
+<p>When you apply the manifest, you should be able to port-forward to the application and see the application. The port-forwarding command is:</p>
+<ul>
+<li><code>kubectl port-forward service/podtato-head 8080:8080</code></li>
+</ul>
+<aside class="special"><p> You have successfully deployed the application to Kubernetes and exposed it via a service. You can now access the application via `localhost:8080` </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="(Advanced) Create a simple manifest for the application - Task" duration="0">
+        <p>Add Kubernetes Recommended Labels to the manifests. These labels might be used by third party software and should help them to get object data in a common manner (https://kubernetes.io/docs/concepts/overview/working-with-objects/common-labels/).</p>
+<p>In your deployment.yaml, add:</p>
+<pre><code language="language-yaml" class="language-yaml">metadata:
+  labels:
+    app.kubernetes.io/name: podtato-head
+    app.kubernetes.io/version: latest
+    app.kubernetes.io/component: application
+</code></pre>
+<p>When applying these labels, nothing noticeable will happen, but this might help other tools getting more information about your application.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add a secret to the application - Task" duration="0">
+        <p>Add a secret to the application and provide it as environment variable. The secret should contain the following information:</p>
+<ul>
+<li>Key: PODTATO_SECRET_MESSAGE, Value: &#34;Hello Kubernetes Gurus!&#34;</li>
+<li>Apply this to the cluster and verify that the application is working</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add a secret to the application - Solution" duration="0">
+        <p>This command will create a secret with the name <code>podtato-secret</code> and the key <code>PODTATO_SECRET_MESSAGE</code> with the value <code>Hello Kubernetes Gurus!</code>:</p>
+<ul>
+<li><code>kubectl create secret generic podtato-secret --from-literal=PODTATO_SECRET_MESSAGE="Hello Kubernetes Gurus!"</code></li>
+</ul>
+<p>To provide the secret to the application, you have to add the following environment variable to the deployment manifest:</p>
+<pre><code language="language-yaml" class="language-yaml">spec:
+  containers:
+    - name: {container-name}
+      image: ghcr.io/thschue/podtato-head-uas
+      env:
+      - name: PODTATO_SECRET_MESSAGE
+        valueFrom:
+          secretKeyRef:
+            name: podtato-secret
+            key: PODTATO_SECRET_MESSAGE
+</code></pre>
+<p>After you applied the manifest and reopened the application, you should see the secret message (somewhere on mouseover).</p>
+<aside class="special"><p> You have successfully added a secret to the application and provided it as environment variable. You can now access the application via `localhost:8080` and see the secret message. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="(Advanced) Create a Sealed Secret" duration="0">
+        <p>When you are working with Kubernetes Secrets and use them in manifests, you can provide them as plain text or base64 encoded. When using version control systems, this might be a security risk, as the secrets are stored in plain text in the repository. Therefore, you can use mechanisms like Sealed Secrets or various key management systems to encrypt the secrets. In this task, you will create a Sealed Secret and use it in the application.</p>
+<h2 is-upgraded>Install Sealed Secrets</h2>
+<p>Sealed Secrets is implemented as a Kubernetes Controller. Therefore, you have to install it to your cluster. This can be done with the following command:</p>
+<ul>
+<li><code>kubectl apply -f https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.24.3/controller.yaml</code></li>
+</ul>
+<p>You can verify that the controller is running with the following command:</p>
+<ul>
+<li><code>kubectl get pods -n kube-system | grep sealed-secrets</code></li>
+<li>You should see a pod called <code>sealed-secrets-controller-...</code> and the status should be <code>Running</code></li>
+</ul>
+<h2 is-upgraded>Delete the old secret</h2>
+<p>As we will create a new secret, we have to delete the old one. This can be done with the following command:</p>
+<ul>
+<li><code>kubectl delete secret podtato-secret</code></li>
+</ul>
+<h2 is-upgraded>Install the Sealed Secrets CLI</h2>
+<p>To create a Sealed Secret, you have to install the Sealed Secrets CLI. This can be done with the following command:</p>
+<ul>
+<li><code>brew install kubeseal</code> or from the GitHub <a href="https://github.com/bitnami-labs/sealed-secrets/releases/tag/v0.24.3" target="_blank">Releases</a></li>
+</ul>
+<h2 is-upgraded>Create a Sealed Secret</h2>
+<p>Now it&#39;s time to create a Sealed Secret. This can be done with the following command: <code>kubectl create secret generic podtato-secret --from-literal=PODTATO_SECRET_MESSAGE="Hello Kubernetes Gurus!" | kubeseal --format yaml > podtato-secret.yaml</code></p>
+<p>After applying the manifest, you should see a Sealed Secret in your cluster:</p>
+<ul>
+<li><code>kubectl get sealedsecret podtato-secret</code></li>
+<li>and a secret: <code>kubectl get secret podtato-secret</code></li>
+</ul>
+<aside class="special"><p> This is the end of the advanced task. You have successfully created a Sealed Secret and used it in the application. You can now access the application via `localhost:8080` and see the secret message. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Policy Enforcement with Kyverno - Task" duration="0">
+        <p>Using Kyverno, you can enforce policies on your cluster. In this task, you will create a policy, which will enforce that containers must not be tagged with <code>latest</code>.</p>
+<p>Your Task:</p>
+<ul>
+<li>Install Kyverno to your cluster</li>
+<li>Create a policy, which will enforce that containers must not be tagged with <code>latest</code></li>
+<li>Apply the policy to your cluster</li>
+<li>Try to deploy a container with the tag <code>latest</code> and verify that it is not working</li>
+<li>Deploy the application with the image: <code>ghcr.io/podtato-head/podtato-server:0.3.2</code>  and verify that it is working</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Policy Enforcement with Kyverno - Solution" duration="0">
+        <p>The next steps will guide you through the process of installing Kyverno and creating a policy, which will enforce that containers must not be tagged with <code>latest</code>.</p>
+<h2 is-upgraded>Install Kyverno to your cluster</h2>
+<p>To install Kyverno to your cluster, you have to apply the following manifest:</p>
+<ul>
+<li><code>kubectl create -f https://github.com/kyverno/kyverno/releases/download/v1.10.0/install.yaml</code></li>
+<li>You can verify that Kyverno is running with the following command: <code>kubectl get pods -n kyverno</code></li>
+</ul>
+<h2 is-upgraded>Create a policy, which will enforce that containers must not be tagged with <code>latest</code></h2>
+<ul>
+<li>Navigate to https://kyverno.io/policies/best-practices/disallow-latest-tag/disallow-latest-tag/ and copy the policy</li>
+<li>Copy the policy to a file called <code>disallow-latest-tag.yaml</code></li>
+<li>Set the validationFailureAction to <code>enforce</code> in your manifest</li>
+<li>Apply the policy to your cluster: <code>kubectl apply -f disallow-latest-tag.yaml</code></li>
+<li>Try to apply the initial manifest and verify that it is not working: <code>kubectl apply -f podtato-head.yaml</code></li>
+<li>Change the image tag to <code>latest</code> and verify that it is not working: <code>kubectl apply -f podtato-head.yaml</code></li>
+<li>Change the image to <code>ghcr.io/podtato-head/podtato-server:0.3.2</code> and verify that it is working: <code>kubectl apply -f podtato-head.yaml</code></li>
+</ul>
+<aside class="special"><p> Your policy should be working now. You have successfully created a policy, which will enforce that containers must not be tagged with `latest`. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Container Vulnerability Scanning with Trivy - Task" duration="0">
+        <p>Using Trivy, you can scan your container images for vulnerabilities. In this task, you will scan the container image of the application and verify that it is vulnerable.</p>
+<p>Your Task:</p>
+<ul>
+<li>Install Trivy to your cluster</li>
+<li>Deploy a container that might be vulnerable to your cluster (e.g. <code>nginx:1.19.0</code>)</li>
+<li>Verify that the container is vulnerable</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Container Vulnerability Scanning with Trivy - Solution" duration="0">
+        <p>The next steps will guide you through the process of installing Trivy and scanning a container image for vulnerabilities.</p>
+<h2 is-upgraded>Install Trivy to your cluster</h2>
+<p>To install Trivy to your cluster, you have to apply the following manifest:</p>
+<ul>
+<li><code>kubectl apply -f https://raw.githubusercontent.com/aquasecurity/trivy-operator/v0.16.4/deploy/static/trivy-operator.yaml</code></li>
+<li>Validate that Trivy is running: <code>kubectl get pods -n trivy-system</code></li>
+</ul>
+<h2 is-upgraded>Deploy a container that might be vulnerable to your cluster</h2>
+<ul>
+<li>Deploy a container that might be vulnerable to your cluster (e.g. <code>nginx:1.19.0</code>): <code>kubectl apply -f nginx.yaml</code></li>
+<li>Validate that the container is running: <code>kubectl get pods</code></li>
+<li>Take a look at the vulnerabilities: <code>kubectl get vulnerabilityreports.trivy.aquasecurity.github.io -A</code></li>
+<li>Describe the vulnerability: <code>kubectl describe vulnerabilityreports.trivy.aquasecurity.github.io [name] -n [namespace]</code></li>
+</ul>
+<aside class="special"><p> You have successfully installed Trivy and scanned a container image for vulnerabilities. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Congratulations" duration="0">
+        <p>Congrats! You have successfully deployed an application to Kubernetes and used various tools to improve the security of your cluster. You can now access the application via <code>localhost:8080</code> and see the secret message.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

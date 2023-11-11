@@ -4,23 +4,23 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2023-11-11T10:49:37Z",
-  "id": "biti-ipm-vbox-lab",
+  "id": "k8s-security-intro",
   "duration": 0,
-  "title": "BITI IPM Lab - VirtualBox",
-  "authors": "Roland Pellegrini",
-  "summary": "BITI IPM Lab - VirtualBox",
-  "source": "biti-ipm-vbox-lab.md",
+  "title": "Kubernetes - Security Lab",
+  "authors": "Thomas Schuetz",
+  "summary": "Kubernetes Security Intro",
+  "source": "kubernetes-security-intro.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "codelab"
+    "kubernetes"
   ],
   "tags": [
-    "biti",
+    "containers",
     "introduction",
-    "ipm"
+    "kubernetes"
   ],
-  "url": "biti-ipm-vbox-lab"
+  "url": "k8s-security-intro"
 }
