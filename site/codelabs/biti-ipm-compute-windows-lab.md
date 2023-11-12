@@ -25,7 +25,7 @@ In this codelab you will learn
 This is the OS of the virtual machine. This will be Microsoft Windows.
 
 <aside class="negative">
-Important note: All codelabs for Microsoft Windows are tested on Windows 10. 
+Important note: All codelabs for Microsoft Windows are tested on Windows 10 but should also work on Windows 11. 
 </aside>
 
 #### Administators privileges
@@ -76,7 +76,7 @@ systeminfo
 - The Windows PowerShell window displays some information about the processor on this computer.
 
 ```
---MOre--
+--More--
 Processor(s):              1 Processor(s) Installed.
                            [01]: Intel64 Family 6 Model 60 Stepping 3 GenuineIntel ~3093 Mhz
 --More--

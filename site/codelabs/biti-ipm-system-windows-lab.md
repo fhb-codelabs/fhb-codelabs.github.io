@@ -39,7 +39,7 @@ For the Guest OS, you will create and manage your own users. These users will th
 
 ### Description
 
-The command-line tools **systeminfo** displays detailed configuration information about a computer and its operating system, including system configuration, security information, product details, and hardware properties.
+The command-line tool **systeminfo** displays detailed configuration information about a computer and its operating system, including system configuration, security information, product details, and hardware properties.
 
 ### Sample code
 
