@@ -143,6 +143,12 @@ To use Taskmon, open Start, do a search for **taskman**, and confirm the result.
 
 ![Windows Task Manager (advanced view)](./img/biti-ipm-compute-windows-taskman.png)
 
+Microsoft improves the Task Manager between each version of Windows. Currently, Taskmon under Windows 11 has a redesigned look and some new features.
+
+![Windows Task Manager (advanced view)](./img/biti-ipm-compute-windows-taskman-w11.png)
+
+Learn more about the Task Manager from [Microsoft Learn](https://learn.microsoft.com/en-us/shows/inside/task-manager) or from [LifeWire](https://www.lifewire.com/task-manager-2626025#toc-task-manager-walkthrough).
+
 ## Windows Resource Monitor
 
 ### Description
@@ -242,7 +248,7 @@ The data set (i.e. Task Set) should now appear in the right hand pane.
 This will list all Processor performance counters. You will see something like the following in the Added Counters window:
 ![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-5.png)
 
-- Click OK to return to the "DataCollector01" Properties screen.
+- Click "OK" to return to the "DataCollector01" Properties screen.
 - Leave the other values at default settings - Log Format set to "Binary" and Sample Interval set to "15" Seconds and Click "OK"
 
 This creates the basic dataset.
@@ -250,14 +256,14 @@ This creates the basic dataset.
 - The data set (ie Task Set) should now appear in the left hand pane. Right click and select "Properties"
 - The DataSet Properties includes a number of tabs.  
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-6.png)
-  _ Use the General tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM)
-  _ Use the Directory tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:\) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.
-  _ Use the schedule tab to Set the days to run and the time to commence collection. This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am
-  _ Use the Stop Condition to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).
-- Click OK when all required parameters are configured.
-- You can start data collection by clicking on the DataSet (ie Task Set) right click and press start.
+  - Use the *General* tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM)
+  - Use the *Directory* tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:\) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.
+  - Use the *Schedule* tab to Set the days to run and the time to commence collection. This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am
+  - Use the *Stop Condition* to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).
+- Click "OK" when all required parameters are configured.
+- You can start data collection by clicking on the DataSet (ie Task Set) right click and press "Start".
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-7.png)
-- You can stop data collection by clicking on the DataSet (ie Task Set) right click and press stop.
+- You can stop data collection by clicking on the DataSet (ie Task Set) right click and press "Stop".
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-8.png)
 - Navigate to Performance -> Reports -> User Defined --> Data set (ie Task Set)
 - Open the last recent report
@@ -267,7 +273,7 @@ This creates the basic dataset.
 
 ### Clean Up
 
-- Finally, delete the data collector set aby clicking on the DataSet (ie Task Set) right click and press Delete.
+- Finally, delete the data collector set aby clicking on the DataSet (ie Task Set) right click and press "Delete".
   ![Windows Performance Monitor](./img/biti-ipm-compute-windows-perfmon-11.png)
 - Repeat the step above for the Reports as well.
 

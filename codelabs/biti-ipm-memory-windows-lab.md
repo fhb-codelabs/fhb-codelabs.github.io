@@ -103,8 +103,14 @@ To use Taskmon, open Start, do a search for **taskman**, and confirm the result.
 
 ![Windows Task Manager (advanced view)](./img/biti-ipm-memory-windows-taskman-1.png)
 
-To see applicameory used by applications, go to tab Processes and click on column Memory.
+To see application memory used by applications, go to tab Processes and click on column Memory.
 ![Windows Task Manager (advanced view)](./img/biti-ipm-memory-windows-taskman-2.png)
+
+Microsoft improves the Task Manager between each version of Windows. Currently, Taskmon under Windows 11 has a redesigned look and some new features.
+
+![Windows Task Manager (advanced view)](./img/biti-ipm-memory-windows-taskman-w11.png)
+
+Learn more about the Task Manager from [Microsoft Learn](https://learn.microsoft.com/en-us/shows/inside/task-manager) or from [LifeWire](https://www.lifewire.com/task-manager-2626025#toc-task-manager-walkthrough).
 
 
 ## Windows Resource Monitor

@@ -145,6 +145,9 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
 <h2 is-upgraded>Sample code</h2>
 <p>To use Taskmon, open Start, do a search for <strong>taskman</strong>, and confirm the result. Or do a right-click on the Windows Taskbar and select <code>Task Manager</code> from the menu.</p>
 <p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/2cb687c06bd49267.png"></p>
+<p>Microsoft improves the Task Manager between each version of Windows. Currently, Taskmon under Windows 11 has a redesigned look and some new features.</p>
+<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/6b0a1b62a5565545.png"></p>
+<p>Learn more about the Task Manager from <a href="https://learn.microsoft.com/en-us/shows/inside/task-manager" target="_blank">Microsoft Learn</a> or from <a href="https://www.lifewire.com/task-manager-2626025#toc-task-manager-walkthrough" target="_blank">LifeWire</a>.</p>
 
 
       </google-codelab-step>
@@ -225,23 +228,29 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
 </ul>
 <p>This will list all Processor performance counters. You will see something like the following in the Added Counters window: <img alt="Windows Performance Monitor" src="img/e16848ca1d73d0dd.png"></p>
 <ul>
-<li>Click OK to return to the &#34;DataCollector01&#34; Properties screen.</li>
+<li>Click &#34;OK&#34; to return to the &#34;DataCollector01&#34; Properties screen.</li>
 <li>Leave the other values at default settings - Log Format set to &#34;Binary&#34; and Sample Interval set to &#34;15&#34; Seconds and Click &#34;OK&#34;</li>
 </ul>
 <p>This creates the basic dataset.</p>
 <ul>
 <li>The data set (ie Task Set) should now appear in the left hand pane. Right click and select &#34;Properties&#34;</li>
-<li>The DataSet Properties includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png"> _ Use the General tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM) _ Use the Directory tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics. _ Use the schedule tab to Set the days to run and the time to commence collection. This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am _ Use the Stop Condition to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).</li>
-<li>Click OK when all required parameters are configured.</li>
-<li>You can start data collection by clicking on the DataSet (ie Task Set) right click and press start. <img alt="Windows Performance Monitor" src="img/9201675bd5a98527.png"></li>
-<li>You can stop data collection by clicking on the DataSet (ie Task Set) right click and press stop. <img alt="Windows Performance Monitor" src="img/306d8712ff2262c4.png"></li>
+<li>The DataSet Properties includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png"><ul>
+<li>Use the <em>General</em> tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM)</li>
+<li>Use the <em>Directory</em> tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.</li>
+<li>Use the <em>Schedule</em> tab to Set the days to run and the time to commence collection. This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am</li>
+<li>Use the <em>Stop Condition</em> to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).</li>
+</ul>
+</li>
+<li>Click &#34;OK&#34; when all required parameters are configured.</li>
+<li>You can start data collection by clicking on the DataSet (ie Task Set) right click and press &#34;Start&#34;. <img alt="Windows Performance Monitor" src="img/9201675bd5a98527.png"></li>
+<li>You can stop data collection by clicking on the DataSet (ie Task Set) right click and press &#34;Stop&#34;. <img alt="Windows Performance Monitor" src="img/306d8712ff2262c4.png"></li>
 <li>Navigate to Performance -&gt; Reports -&gt; User Defined –&gt; Data set (ie Task Set)</li>
 <li>Open the last recent report <img alt="Windows Performance Monitor" src="img/6e45a689f9e7f4c6.png"></li>
 <li>You can change the graph type from line to report if you are a fan of numbers. <img alt="Windows Performance Monitor" src="img/226410321605aa59.png"></li>
 </ul>
 <h2 is-upgraded>Clean Up</h2>
 <ul>
-<li>Finally, delete the data collector set aby clicking on the DataSet (ie Task Set) right click and press Delete. <img alt="Windows Performance Monitor" src="img/a85661b2129ddb0f.png"></li>
+<li>Finally, delete the data collector set aby clicking on the DataSet (ie Task Set) right click and press &#34;Delete&#34;. <img alt="Windows Performance Monitor" src="img/a85661b2129ddb0f.png"></li>
 <li>Repeat the step above for the Reports as well.</li>
 </ul>
 <p>This is the end of the hands-on.</p>
