@@ -23,7 +23,7 @@ In this codelab you will learn
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian .
+This is the OS of the virtual machine. This will be Debian.
 
 #### Administators privileges
 
@@ -37,10 +37,10 @@ For the Guest OS, you will create and manage your own users. These users will th
 
 ### Description
 
-Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.
+The tool **hwinfo** checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.
 
 <aside class="positive">
-Hwinfo requires root privileges.
+The tool requires root privileges.
 </aside>
 
 ### Sample code

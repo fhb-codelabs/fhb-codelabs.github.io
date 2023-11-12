@@ -21,7 +21,7 @@ In this codelab you will learn
 
 ### Where You Can Look Up
 
-The **man** is a short term for manual page and acts as an interface to view the reference manual of a command.
+The command **man** is a short term for manual page and acts as an interface to view the reference manual of a command.
 
 Syntax of man:
 
@@ -57,7 +57,7 @@ DESCRIPTION
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian .
+This is the OS of the virtual machine. This will be Debian.
 
 #### Administators privileges
 
@@ -350,10 +350,6 @@ Need help? Use this:
 ### Description
 
 Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.
-
-<aside class="positive">
-The command hwinfo requires root privileges.
-</aside>
 
 ### Sample code
 
