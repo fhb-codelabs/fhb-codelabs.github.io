@@ -21,6 +21,10 @@ In this codelab you will learn
 
 This is the OS of the virtual machine. This will be Microsoft Windows.
 
+<aside class="negative">
+Important note: All codelabs for Microsoft Windows are tested on Windows 10 but should also work on Windows 11. 
+</aside>
+
 #### Administators privileges
 
 By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.
