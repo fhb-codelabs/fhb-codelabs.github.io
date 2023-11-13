@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2023-11-10T15:21:43+01:00",
+  "updated": "2023-11-13T14:13:00+01:00",
   "id": "biti-ipm-compute-linux-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Compute",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - Compute",
-  "source": "codelabs/biti-ipm-compute-linux-lab.md",
+  "source": "biti-ipm-compute-linux-lab.md",
   "theme": "",
   "status": [
     "published"

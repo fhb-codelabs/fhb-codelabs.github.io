@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2023-05-19T19:38:14+02:00",
+  "updated": "2023-11-13T11:45:31+01:00",
   "id": "iac-terraform-exo-cloudinit",
   "duration": 0,
   "title": "Infrastructure-as-Code - Lab 2 - Installing a Microservice Application with Terraform (Exoscale Edition)",
   "authors": "Thomas Schuetz",
   "summary": "Lab 2 - Installing a Microservice Application with Terraform (Exoscale Edition)",
-  "source": "codelabs/iac-terraform-exo-cloudinit.md",
+  "source": "iac-terraform-exo-cloudinit.md",
   "theme": "",
   "status": [
     "published"

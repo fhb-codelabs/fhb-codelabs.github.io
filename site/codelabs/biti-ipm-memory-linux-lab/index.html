@@ -20,9 +20,8 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  codelab-ga4id=""
                   id="biti-ipm-memory-linux-lab"
                   title="BITI IPM Lab - Memory"
                   environment="web"
@@ -88,7 +87,7 @@ DESCRIPTION
 <pre><code>cat /proc/meminfo | more
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
-<p>Check the values of MemTotal, MemFree, Buffers, Cached, SwapTotal, SwapFree. They indicate same values of memory usage as the <strong>free</strong> command (see next paragraph).</p>
+<p>Check the values of MemTotal, MemFree, Buffers, Cached, SwapTotal, SwapFree. They provide same interesting details about memory usage.</p>
 <pre><code>MemTotal:        4025712 kB
 MemFree:         2697848 kB
 MemAvailable:    3154120 kB
@@ -118,7 +117,8 @@ Slab:              80840 kB
 </aside>
 <h2 is-upgraded>References</h2>
 <p>Documentation, examples, etc. can be found here:</p>
-<pre><code>[meminfo](https://linuxwiki.de/proc/meminfo)
+<pre><code>[Linuxwiki](https://linuxwiki.de/proc/meminfo)
+[The /proc/meminfo File in Linux](https://www.baeldung.com/linux/proc-meminfo)
 </code></pre>
 
 
@@ -181,7 +181,7 @@ Memory Device
 --More--
 </code></pre>
 <h2 is-upgraded>References</h2>
-<p>May the manual with you:</p>
+<p>May the manual be with you:</p>
 <pre><code>man demidecode
 </code></pre>
 
@@ -214,20 +214,20 @@ Swap:          974Mi          0B       974Mi
 </code></pre>
 <p>Where</p>
 <ul>
-<li>total - This number represents the total amount of memory that can be used by the applications.</li>
-<li>used - Used memory. It is calculated as: used = total - free - buffers - cache</li>
-<li>free - Free / Unused memory.</li>
-<li>shared - This column can be ignored as it has no meaning. It is here only for backward compatibility.</li>
-<li>buff/cache - The combined memory used by the kernel buffers and page cache. This memory can be reclaimed at any time if needed by the applications. If you want buffers and cache to be displayed in two separate columns, use the -w option.</li>
-<li>available - An estimate of the amount of memory that is available for starting new applications, without swapping.</li>
+<li><strong>total</strong> - This number represents the total amount of memory that can be used by the applications.</li>
+<li><strong>used</strong> - Used memory. It is calculated as: used = total - free - buffers - cache</li>
+<li><strong>free</strong> - Free / Unused memory.</li>
+<li><strong>shared</strong> - This column can be ignored as it has no meaning. It is here only for backward compatibility.</li>
+<li><strong>buff/cache</strong> - The combined memory used by the kernel buffers and page cache. This memory can be reclaimed at any time if needed by the applications. If you want buffers and cache to be displayed in two separate columns, use the -w option.</li>
+<li><strong>available</strong> - An estimate of the amount of memory that is available for starting new applications, without swapping.</li>
 </ul>
 <p>The free command also allows you to specify the unit in which the memory is measured. Some of the options are:</p>
 <ul>
-<li>-b, –bytes - Display output in bytes.</li>
-<li>–kilo - Display output in kilobytes (1KB = 1000bytes).</li>
-<li>–mega - Display output in megabytes.</li>
-<li>–giga - Display output in gigabytes.</li>
-<li>–tera - Display output in terabytes.</li>
+<li><strong>-b, –bytes</strong> - Display output in bytes.</li>
+<li><strong>–kilo</strong> - Display output in kilobytes (1KB = 1000bytes).</li>
+<li><strong>–mega</strong> - Display output in megabytes.</li>
+<li><strong>–giga</strong> - Display output in gigabytes.</li>
+<li><strong>–tera</strong> - Display output in terabytes.</li>
 </ul>
 <aside class="special"><p> Consult the documentation and man-pages for more details. Try to identify keywords and details of the memory.  </p>
 </aside>
@@ -259,24 +259,24 @@ watch free
 <p>As shown, the <strong>vmstat</strong> command provides information about Processes, Memory, I/O, system and CPU. In this lab we will only focus on Memory, Swap and CPU (optional):</p>
 <ul>
 <li>Memory <ul>
-<li>swpd: the amount of virtual memory used.</li>
-<li>free: the amount of idle memory.</li>
-<li>buff: the amount of memory used as buffers.</li>
-<li>cache: the amount of memory used as cache.</li>
+<li><strong>swpd</strong>: the amount of virtual memory used.</li>
+<li><strong>free</strong>: the amount of idle memory.</li>
+<li><strong>buff</strong>: the amount of memory used as buffers.</li>
+<li><strong>cache</strong>: the amount of memory used as cache.</li>
 </ul>
 </li>
 <li>Swap <ul>
-<li>si: Amount of memory swapped in from disk (/s).</li>
-<li>so: Amount of memory swapped to disk (/s).</li>
+<li><strong>si</strong>: Amount of memory swapped in from disk (/s).</li>
+<li><strong>so</strong>: Amount of memory swapped to disk (/s).</li>
 </ul>
 </li>
 <li>CPU <ul>
 <li>These are percentages of total CPU time.</li>
-<li>us: Time spent running non-kernel code. (user time, including nice time)</li>
-<li>sy: Time spent running kernel code. (system time)</li>
-<li>id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.</li>
-<li>wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.</li>
-<li>st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.</li>
+<li><strong>us</strong>: Time spent running non-kernel code. (user time, including nice time)</li>
+<li><strong>sy</strong>: Time spent running kernel code. (system time)</li>
+<li><strong>id</strong>: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.</li>
+<li><strong>wa</strong>: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.</li>
+<li><strong>st</strong>: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.</li>
 </ul>
 </li>
 </ul>
@@ -294,17 +294,17 @@ watch free
         <h2 is-upgraded>What you will learn:</h2>
 <p>In this codelab, you will learn</p>
 <ul>
-<li>how to use the free programm</li>
-<li>how to generate workload</li>
+<li>how to use the free programm.</li>
+<li>how to generate workload.</li>
 </ul>
 <h2 is-upgraded>What you will need:</h2>
 <p>In this codelab, you will need the following tools:</p>
 <ul>
 <li>free</li>
-<li>Stress</li>
+<li>stress</li>
 <li>htop</li>
 </ul>
-<p>Details of the <strong>Stress</strong> tool can be found in the corresponding Codelab named <code>Stress</code>, details of the <strong>htop</strong> command can be found in the Codelab <code>Compute</code></p>
+<p>Details of the <strong>stress</strong> tool can be found in the corresponding Codelab named <code>BITI IPM Lab - Stress</code>, details of the <strong>htop</strong> command can be found in the Codelab <code>BITI IPM Lab - Compute</code>.</p>
 <h2 is-upgraded>Scenario</h2>
 <p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>

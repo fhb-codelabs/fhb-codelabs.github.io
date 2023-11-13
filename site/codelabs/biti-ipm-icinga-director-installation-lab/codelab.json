@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2023-11-10T15:21:43+01:00",
+  "updated": "2023-11-13T11:45:31+01:00",
   "id": "biti-ipm-icinga-director-installation-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Icinga Director Installation",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - Icinga Director Installation",
-  "source": "codelabs/biti-ipm-icinga-director-installation.md",
+  "source": "biti-ipm-icinga-director-installation.md",
   "theme": "",
   "status": [
     "draft"

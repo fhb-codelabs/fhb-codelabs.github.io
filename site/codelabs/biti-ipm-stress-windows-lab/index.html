@@ -20,9 +20,8 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  codelab-ga4id=""
                   id="biti-ipm-stress-windows-lab"
                   title="BITI IPM Lab - Stress"
                   environment="web"
@@ -32,8 +31,8 @@
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>In this codelab you will learn</p>
 <ul>
-<li>how to perform stress the CPU using the CPU Stress application</li>
-<li>how to perform stress the RAM using the Testlimit application</li>
+<li>how to perform stress the CPU using the CPU Stress application.</li>
+<li>how to perform stress the RAM using the Testlimit application.</li>
 </ul>
 <aside class="warning"><p> Warning: Running the tools with Administrator privileges stress your system, so use them judiciously. </p>
 </aside>
@@ -49,20 +48,20 @@
     
       <google-codelab-step label="CPUStres" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>Microsoft offers a set of tools under the name of <strong>Sysinternals Suite</strong> which a useful for IT-Administrators. One of those tools is called &#34;CPU Stress&#34;. It is a portable application and it can be used to simulate high CPU usage by running up to 64 threads (!).</p>
+<p>Microsoft offers a set of tools under the name of <strong>Sysinternals Suite</strong> which a useful for IT-Administrators. One of those tools is called &#34;CPUStres&#34; (yes, its written with one <em>s</em>). It is a portable application and it can be used to simulate high CPU usage by running up to 64(!) threads.</p>
 <p>You can download CPU Stress from <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/cpustres" target="_blank">here</a>. After downloading, unzip the package and launch the 64-bit version of CPU Stress.</p>
-<p class="image-container"><img alt="CPU Stress" src="img/845b1b0bcd825ea9.png"></p>
+<p class="image-container"><img alt="CPUStres" src="img/845b1b0bcd825ea9.png"></p>
 <p>After lauch, the application sets a separate thread for each of the available CPU cores (here 4). You can activate threads with a right-click.</p>
-<p class="image-container"><img alt="CPU Stress" src="img/5d681b691d9316f0.png"></p>
+<p class="image-container"><img alt="CPUStres" src="img/5d681b691d9316f0.png"></p>
 <p>You can change the thread priority between idle and time critical. Other possible values are low, below normal, normal, above normal, and highest. Additionally, you can change the activity level and set it to low, medium, busy, or maximum.</p>
-<p class="image-container"><img alt="CPU Stress" src="img/ede33b74608a45c6.png"></p>
+<p class="image-container"><img alt="CPUStres" src="img/ede33b74608a45c6.png"></p>
 <h2 is-upgraded>Watch the results</h2>
 <p>A higher activity level will load the CPU core with constantly running threads as shown in the Task Manager. Open TaskMon and see the result:</p>
-<p class="image-container"><img alt="CPU Stress" src="img/9d7240c5764cd066.png"></p>
+<p class="image-container"><img alt="CPUStres" src="img/9d7240c5764cd066.png"></p>
 <h2 is-upgraded>References</h2>
 <p>Download the tool:</p>
 <ul>
-<li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/cpustres" target="_blank">CPU Stress</a></li>
+<li><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/cpustres" target="_blank">CPUStres</a></li>
 </ul>
 
 

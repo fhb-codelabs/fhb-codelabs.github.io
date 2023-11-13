@@ -20,9 +20,8 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  codelab-ga4id=""
                   id="biti-ipm-compute-linux-lab"
                   title="BITI IPM Lab - Compute"
                   environment="web"
@@ -32,12 +31,12 @@
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>In this codelab you will learn</p>
 <ul>
-<li>how to get information about the CPU (Central Processing Unit)</li>
-<li>how to monitor CPU with Linux tools</li>
-<li>how to perform a test run</li>
+<li>how to get information about the CPU (Central Processing Unit).</li>
+<li>how to monitor CPU with Linux tools.</li>
+<li>how to perform a test run.</li>
 </ul>
 <h2 is-upgraded>Where You Can Look Up</h2>
-<p>The <strong>man</strong> is a short term for manual page and acts as an interface to view the reference manual of a command.</p>
+<p>The command <strong>man</strong> is a short term for manual page and acts as an interface to view the reference manual of a command.</p>
 <p>Syntax of man:</p>
 <pre><code>man [option(s)] keyword(s)
 </code></pre>
@@ -61,7 +60,7 @@ DESCRIPTION
 </code></pre>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian .</p>
+<p>This is the OS of the virtual machine. This will be Debian.</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -108,7 +107,7 @@ DESCRIPTION
     
       <google-codelab-step label="lscpu" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>On most Linux distributions, you can also use the <strong>lscpu</strong> command. It displays not only the number of processors but also the architecture, model name, speed, much more.</p>
+<p>On most Linux distributions, you can also use the <strong>lscpu</strong> command. It displays not only the number of processors but also the architecture, model name, speed, and much more.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>Open a shell and run the following command:</p>
 <pre><code>lscpu
@@ -185,7 +184,7 @@ NUMA node(s):                    1
 Model name:                      Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
 NUMA node0 CPU(s):               0-3
 </code></pre>
-<p>The output shows the CPU information:</p>
+<p>The output details are:</p>
 <ul>
 <li>CPU model: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz</li>
 <li>Socket: 1</li>
@@ -203,13 +202,13 @@ NUMA node0 CPU(s):               0-3
     
       <google-codelab-step label="cpuinfo" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>All Linux distributions allows you to run <strong>cat /proc/cpuinfo</strong>. This file contains details about the processors installed. Note that /proc is a pseudo-filesystem, it is used as an interface to kernel data structures.</p>
+<p>All Linux distributions allows you to run <strong>cat /proc/cpuinfo</strong>. The file <strong>/proc/cpuinfo</strong> contains details about the processors installed. Note that <strong>/proc</strong> is a pseudo-filesystem, it is used as an interface to kernel data structures.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>Open a shell and run the following command:</p>
 <pre><code>cat /proc/cpuinfo | more
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
-<p>Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description.</p>
+<p>Information is grouped per logical processor. That means that every processor is listed separately and various details about the processor are included in the description.</p>
 <pre><code>processor	: 0
 vendor_id	: GenuineIntel
 cpu family	: 6
@@ -281,11 +280,12 @@ processor	: 3
 <pre><code>cpu threads : 4
 cpu cores   : 2
 </code></pre>
-<aside class="special"><p> The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores. </p>
+<aside class="special"><p> The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and activated hyperthreading would be reported as a processor with 8 cores. </p>
 </aside>
 <h2 is-upgraded>References</h2>
-<p>Need help? Use this:</p>
-<pre><code>[cpuinfo](https://linuxwiki.de/proc/cpuinfo)
+<p>Need help? Use these links:</p>
+<pre><code>https://www.thegeekdiary.com/proccpuinfo-file-explained/
+https://linuxwiki.de/proc/cpuinfo
 </code></pre>
 
 
@@ -294,8 +294,6 @@ cpu cores   : 2
       <google-codelab-step label="hwinfo" duration="0">
         <h2 is-upgraded>Description</h2>
 <p>Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.</p>
-<aside class="special"><p> The command hwinfo requires root privileges. </p>
-</aside>
 <h2 is-upgraded>Sample code</h2>
 <p>Run the following command:</p>
 <pre><code>hwinfo | more

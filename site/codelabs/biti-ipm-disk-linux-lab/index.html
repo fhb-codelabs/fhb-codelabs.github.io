@@ -20,9 +20,8 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  codelab-ga4id=""
                   id="biti-ipm-disk-linux-lab"
                   title="BITI IPM Lab - Disk"
                   environment="web"
@@ -32,9 +31,9 @@
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>In this codelab you will learn</p>
 <ul>
-<li>how to get information about the internal disk</li>
-<li>how to monitor the disk with Linux tools</li>
-<li>how to perform a test run</li>
+<li>how to get information about the internal disk.</li>
+<li>how to monitor the disk with Linux tools.</li>
+<li>how to perform a test run.</li>
 </ul>
 <h2 is-upgraded>Where You Can Look Up</h2>
 <p>The <strong>man</strong> is a short term for manual page and acts as an interface to view the reference manual of a command.</p>
@@ -118,7 +117,7 @@ DESCRIPTION
        capabilities: partitioned partitioned:dos
        configuration: ansiversion=5 logicalsectorsize=512 sectorsize=512 signature=826474aa
 </code></pre>
-<aside class="special"><p> The lshw tool provides also information about Memory, CPU, and more in a very user-friendly format. Consult the documentation and man-pages for more details. Try to identify keywords and details of the disk and other components.  </p>
+<aside class="special"><p> The lshw tool provides also some information about memory or cpu in a very user-friendly format. Consult the documentation and man-pages for more details. However, try to identify keywords and details of the disk and other components in this lab.  </p>
 </aside>
 <p>To display only the name of the disks, run:</p>
 <pre><code>root@server:~# lshw -short -class disk
@@ -164,7 +163,7 @@ Drives:    Local Storage: total: 24 GiB used: 13.57 GiB (56.5%)
 <aside class="special"><p> Be aware that all commands are executed within a virtual machine. Running the tool on physical hardware provides more information.  </p>
 </aside>
 <h2 is-upgraded>References</h2>
-<p>More when you read the manual:</p>
+<p>Read the manual to find out more:</p>
 <pre><code>man inxi
 </code></pre>
 
@@ -273,14 +272,18 @@ Selective Self-tests/Logging not supported
 </code></pre>
 <p>Here is a short list of SMART attributes:</p>
 <ul>
-<li>Read Error Rate - Non-correctable errors when reading from the hard disk, leads to re-reading.</li>
-<li>Throughput Performance - data throughput or efficiency of the hard disk drive</li>
-<li>Power On Hours - Uptime in hours or seconds (including standby)</li>
-<li>Temperature - Temperature of the drive in °C</li>
-<li>Power Cycle Count - Indicates how many times the drive has been turned on and off</li>
-<li>Hardware ECC Recovered - corrected bit errors during reading</li>
-<li>Total LBAs Written - The total number of sectors written by the host system</li>
+<li><strong>Read Error Rate</strong> - Non-correctable errors when reading from the hard disk, leads to re-reading.</li>
+<li><strong>Throughput Performance</strong> - data throughput or efficiency of the hard disk drive.</li>
+<li><strong>Power On Hours</strong> - Uptime in hours or seconds (including standby).</li>
+<li><strong>Temperature</strong> - Temperature of the drive in °C.</li>
+<li><strong>Power Cycle Count</strong> - Indicates how many times the drive has been turned on and off.</li>
+<li><strong>Hardware ECC Recovered</strong> - corrected bit errors during reading.</li>
+<li><strong>Total LBAs Written</strong> - The total number of sectors written by the host system.</li>
 </ul>
+<h2 is-upgraded>References</h2>
+<p>Reading the manual pages may answer open questions:</p>
+<pre><code>man smartctl
+</code></pre>
 
 
       </google-codelab-step>
@@ -319,6 +322,10 @@ tmpfs                          394M  112K  394G   1% /run/user/1000
 <p>As can be seen in the output, the device <code>/dev/sda1</code> uses 12G of 31G of space.</p>
 <aside class="special"><p> Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more.  </p>
 </aside>
+<h2 is-upgraded>References</h2>
+<p>Reading the manual pages may answer open questions:</p>
+<pre><code>man df
+</code></pre>
 
 
       </google-codelab-step>
@@ -340,7 +347,7 @@ tmpfs                          394M  112K  394G   1% /run/user/1000
 <p>There are few operations you can perform with the gdu command. Press <code>?</code> to access help. <img alt="gdu-help" src="img/144a8f5e1388b2ed.png"></p>
 <h2 is-upgraded>References</h2>
 <p>Reading the manual pages may answer open questions:</p>
-<pre><code>man smartctl
+<pre><code>man gdu
 </code></pre>
 
 
@@ -438,7 +445,13 @@ usr sys idl wai stl| read  writ| recv  send|  in   out | int   csw
 <p>The program may have a bug in the Python3 CSV library. This causes the following error:</p>
 <pre><code>NameError: name &#39;types&#39; is not defined
 </code></pre>
-<p>To fix this error, you have to change the type-checking on lines 547 &amp; 552 from</p>
+<p>To fix this error, you have to change the type-checking function on lines 547 &amp; 552.</p>
+<ul>
+<li>Open a terminal as root.</li>
+<li>Edit the file /usr/bin/dstat with an editor of your choice.</li>
+<li>Go to line 547 and 552.</li>
+<li>The code before:</li>
+</ul>
 <pre><code>if isinstance(self.val[name], types.ListType) or isinstance(self.val[name], types.TupleType):
     for j, val in enumerate(self.val[name]):
         line = line + printcsv(val)
@@ -446,7 +459,9 @@ usr sys idl wai stl| read  writ| recv  send|  in   out | int   csw
             line = line + char[&#39;sep&#39;]
 elif isinstance(self.val[name], types.StringType):
 </code></pre>
-<p>to</p>
+<ul>
+<li>The code afterwards:</li>
+</ul>
 <pre><code>if isinstance(self.val[name], (tuple, list)):
     for j, val in enumerate(self.val[name]):
         line = line + printcsv(val)
@@ -454,11 +469,14 @@ elif isinstance(self.val[name], types.StringType):
             line = line + char[&#39;sep&#39;]
 elif isinstance(self.val[name], str):
 </code></pre>
+<ul>
+<li>Save the file and run the <strong>dstat</strong> command again. Fixed.</li>
+</ul>
 <h2 is-upgraded>References</h2>
-<p>Manual Page:</p>
+<p>Not enought? Read the manual:</p>
 <pre><code>man dstat
 </code></pre>
-<p>Bug fix: Click <a href="https://icinga.com/docs/icinga-2/latest/doc/01-about/" target="_blank">here</a> to get to the original story.</p>
+<p>Bug fix: Click <a href="https://serverfault.com/questions/996996/dstat-fails-to-start-trying-to-load-python3s-csv" target="_blank">here</a> to read the story.</p>
 
 
       </google-codelab-step>
@@ -475,9 +493,9 @@ elif isinstance(self.val[name], str):
 <p>In this codelab, you will need the following tools:</p>
 <ul>
 <li>dstat</li>
-<li>Stress</li>
+<li>stress</li>
 </ul>
-<p>Details of the <strong>Stress</strong> tool can be found in the corresponding Codelab named <code>Stress</code>.</p>
+<p>Details of the <strong>stress</strong> tool can be found in the corresponding Codelab named <code>BITI IPM Lab - Stress (Linux)</code>.</p>
 <h2 is-upgraded>Scenario</h2>
 <p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>
@@ -487,16 +505,16 @@ elif isinstance(self.val[name], str):
 <pre><code>dstat --time --cpu --mem disk --load --output report.csv 1 5
 </code></pre>
 <ul>
-<li>Open the second shell terminal and start the workload generator with the following option.</li>
+<li>Open the second shell terminal and start the workload generator with the following options.</li>
 </ul>
 <pre><code>stress --hdd 2 --io 4 --vm 6 --cpu 8 --timeout 30s
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>–hdd 2 - This will start a 2-thread test, which will write data to the storage and delete it.</li>
-<li>–io 4 - This will start a 4-thread test, which will stress the system&#39; storage read and write buffers</li>
-<li>–vm 6 - This will start a 6-thread test, running malloc() and free() functions</li>
-<li>–cpu 4 - This will start a 8-thread test, running sqrt()) functions</li>
+<li><strong>–hdd 2</strong> - This will start a 2-thread test, which will write data to the storage and delete it.</li>
+<li><strong>–io 4</strong> - This will start a 4-thread test, which will stress the system&#39; storage read and write buffers.</li>
+<li><strong>–vm 6</strong> - This will start a 6-thread test, running malloc() and free() functions.</li>
+<li><strong>–cpu 4</strong> - This will start a 8-thread test, running sqrt()) functions.</li>
 </ul>
 <p>Notice that the workload generator runs with a time limit of 30 seconds. Afterwards, open the report.csv file and analyse the results within your team.</p>
 <p>Sample output:</p>

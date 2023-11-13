@@ -15,9 +15,9 @@ authors: Roland Pellegrini
 
 In this codelab you will learn
 
-- how to get information about the internal disk
-- how to monitor the disk with Linux tools
-- how to perform a test run
+- how to get information about the internal disk.
+- how to monitor the disk with Linux tools.
+- how to perform a test run.
 
 ### Where You Can Look Up
 
@@ -122,7 +122,7 @@ root@server:~# lshw -class disk
 ```
 
 <aside class="positive">
-The lshw tool provides also information about Memory, CPU, and more in a very user-friendly format. Consult the documentation and man-pages for more details. Try to identify keywords and details of the disk and other components. 
+The lshw tool provides also some information about memory or cpu in a very user-friendly format. Consult the documentation and man-pages for more details. However, try to identify keywords and details of the disk and other components in this lab. 
 </aside>
 
 To display only the name of the disks, run:
@@ -198,7 +198,7 @@ Be aware that all commands are executed within a virtual machine. Running the to
 
 ### References
 
-More when you read the manual:
+Read the manual to find out more:
 
 ```
 man inxi
@@ -318,13 +318,21 @@ Selective Self-tests/Logging not supported
 
 Here is a short list of SMART attributes:
 
-- Read Error Rate - Non-correctable errors when reading from the hard disk, leads to re-reading.
-- Throughput Performance - data throughput or efficiency of the hard disk drive
-- Power On Hours - Uptime in hours or seconds (including standby)
-- Temperature - Temperature of the drive in °C
-- Power Cycle Count - Indicates how many times the drive has been turned on and off
-- Hardware ECC Recovered - corrected bit errors during reading
-- Total LBAs Written - The total number of sectors written by the host system
+- **Read Error Rate** - Non-correctable errors when reading from the hard disk, leads to re-reading.
+- **Throughput Performance** - data throughput or efficiency of the hard disk drive.
+- **Power On Hours** - Uptime in hours or seconds (including standby).
+- **Temperature** - Temperature of the drive in °C.
+- **Power Cycle Count** - Indicates how many times the drive has been turned on and off.
+- **Hardware ECC Recovered** - corrected bit errors during reading.
+- **Total LBAs Written** - The total number of sectors written by the host system.
+
+### References
+
+Reading the manual pages may answer open questions:
+
+```
+man smartctl
+```
 
 ## Disk Space
 
@@ -375,6 +383,14 @@ As can be seen in the output, the device `/dev/sda1` uses 12G of 31G of space.
 Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more. 
 </aside>
 
+### References
+
+Reading the manual pages may answer open questions:
+
+```
+man df
+```
+
 ## gdu
 
 ### Description
@@ -411,7 +427,7 @@ There are few operations you can perform with the gdu command. Press `?` to acce
 Reading the manual pages may answer open questions:
 
 ```
-man smartctl
+man gdu
 ```
 
 ## Disk monitoring
@@ -541,8 +557,11 @@ The program may have a bug in the Python3 CSV library. This causes the following
 NameError: name 'types' is not defined
 ```
 
-To fix this error, you have to change the type-checking on lines 547 & 552 from
-
+To fix this error, you have to change the type-checking function on lines 547 & 552. 
+- Open a terminal as root.
+- Edit the file /usr/bin/dstat with an editor of your choice.
+- Go to line 547 and 552.
+- The code before:
 ```
 if isinstance(self.val[name], types.ListType) or isinstance(self.val[name], types.TupleType):
     for j, val in enumerate(self.val[name]):
@@ -551,9 +570,7 @@ if isinstance(self.val[name], types.ListType) or isinstance(self.val[name], type
             line = line + char['sep']
 elif isinstance(self.val[name], types.StringType):
 ```
-
-to
-
+- The code afterwards:
 ```
 if isinstance(self.val[name], (tuple, list)):
     for j, val in enumerate(self.val[name]):
@@ -562,17 +579,18 @@ if isinstance(self.val[name], (tuple, list)):
             line = line + char['sep']
 elif isinstance(self.val[name], str):
 ```
+- Save the file and run the **dstat** command again. Fixed.
 
 ### References
 
-Manual Page:
+Not enought? Read the manual:
 
 ```
 man dstat
 ```
 
 Bug fix:
-Click [here](https://icinga.com/docs/icinga-2/latest/doc/01-about/) to get to the original story.
+Click [here](https://serverfault.com/questions/996996/dstat-fails-to-start-trying-to-load-python3s-csv) to read the story.
 
 ## Hands-on
 
@@ -589,9 +607,9 @@ In this codelab, you will learn
 In this codelab, you will need the following tools:
 
 - dstat
-- Stress
+- stress
 
-Details of the **Stress** tool can be found in the corresponding Codelab named `Stress`.
+Details of the **stress** tool can be found in the corresponding Codelab named `BITI IPM Lab - Stress (Linux)`.
 
 ### Scenario
 
@@ -605,7 +623,7 @@ In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM.
 dstat --time --cpu --mem disk --load --output report.csv 1 5
 ```
 
-- Open the second shell terminal and start the workload generator with the following option.
+- Open the second shell terminal and start the workload generator with the following options.
 
 ```
 stress --hdd 2 --io 4 --vm 6 --cpu 8 --timeout 30s
@@ -613,10 +631,10 @@ stress --hdd 2 --io 4 --vm 6 --cpu 8 --timeout 30s
 
 Where,
 
-- --hdd 2 - This will start a 2-thread test, which will write data to the storage and delete it.
-- --io 4 - This will start a 4-thread test, which will stress the system' storage read and write buffers
-- --vm 6 - This will start a 6-thread test, running malloc() and free() functions
-- --cpu 4 - This will start a 8-thread test, running sqrt()) functions
+- **--hdd 2** - This will start a 2-thread test, which will write data to the storage and delete it.
+- **--io 4** - This will start a 4-thread test, which will stress the system' storage read and write buffers.
+- **--vm 6** - This will start a 6-thread test, running malloc() and free() functions.
+- **--cpu 4** - This will start a 8-thread test, running sqrt()) functions.
 
 Notice that the workload generator runs with a time limit of 30 seconds. Afterwards, open the report.csv file and analyse the results within your team.
 

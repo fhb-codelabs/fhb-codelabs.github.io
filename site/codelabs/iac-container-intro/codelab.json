@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2023-11-10T15:21:43+01:00",
+  "updated": "2023-11-13T11:45:31+01:00",
   "id": "iac-container-intro",
   "duration": 0,
   "title": "Container Technologies - Lab 1 - Introduction / Setup",
   "authors": "Thomas Schuetz",
   "summary": "Lab 1 - Container Intro (Exoscale Edition)",
-  "source": "codelabs/containers-exo-intro.md",
+  "source": "containers-exo-intro.md",
   "theme": "",
   "status": [
     "published"

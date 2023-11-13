@@ -17,8 +17,8 @@ There are many reasons why you might want to stress test your Linux system. Syst
 
 In this codelab you will learn
 
-- How to perform stress the CPU with an one-liner (Linux)
-- How to perform stress the CPU using the stress application (Linux)
+- How to perform stress the CPU with an one-liner (Linux).
+- How to perform stress the CPU using the stress application (Linux).
 
 <aside class="negative">
 Warning: Running the following tools with root privileges stress your system, so use them judiciously.

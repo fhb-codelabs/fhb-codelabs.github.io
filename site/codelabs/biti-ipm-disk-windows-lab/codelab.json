@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2023-11-10T15:21:43+01:00",
+  "updated": "2023-11-13T14:13:07+01:00",
   "id": "biti-ipm-disk-windows-lab",
   "duration": 0,
   "title": "BITI IPM Lab - Disk",
   "authors": "Roland Pellegrini",
   "summary": "BITI IPM Lab - Disk",
-  "source": "codelabs/biti-ipm-disk-windows-lab.md",
+  "source": "biti-ipm-disk-windows-lab.md",
   "theme": "",
   "status": [
     "published"

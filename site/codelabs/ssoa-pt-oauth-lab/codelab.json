@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2023-05-14T14:32:31+02:00",
+  "updated": "2023-11-13T11:45:31+01:00",
   "id": "ssoa-pt-oauth-lab",
   "duration": 38,
   "title": "SSOA Lab 1 - Enable a legacy application to use OIDC",
   "authors": "Thomas Schuetz",
   "summary": "Lab 1 - Enable a legacy application to use OIDC",
-  "source": "codelabs/ssoa-pt-oauth-lab.md",
+  "source": "ssoa-pt-oauth-lab.md",
   "theme": "",
   "status": [
     "published"

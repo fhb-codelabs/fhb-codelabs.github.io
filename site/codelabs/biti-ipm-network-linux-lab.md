@@ -15,9 +15,9 @@ authors: Roland Pellegrini
 
 In this codelab you will learn
 
-- how to get information about local network devices
-- how to monitor networks using Linux tools
-- how to check network performance
+- how to get information about local network devices.
+- how to monitor networks using Linux tools.
+- how to check network performance.
 
 ### Where You Can Look Up
 

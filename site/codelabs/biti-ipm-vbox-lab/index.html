@@ -20,9 +20,8 @@
   </style>
 </head>
 <body>
-  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
-                  codelab-ga4id=""
                   id="biti-ipm-vbox-lab"
                   title="BITI IPM Lab - VirtualBox"
                   environment="web"
@@ -33,8 +32,8 @@
 <p>Oracle VM VirtualBox is a free and open-source hosted hypervisor for x86 hardware, which allows the user to install additional operating systems (guests) under a running system (host).</p>
 <p>This codelab shows you</p>
 <ul>
-<li>how to install VirtualBox on your HostOS</li>
-<li>how to install a GuestOS based on Debian</li>
+<li>how to install VirtualBox on your HostOS.</li>
+<li>how to install a GuestOS based on Debian.</li>
 <li>how to install software required for the lectures.</li>
 </ul>
 
@@ -71,9 +70,9 @@
       </google-codelab-step>
     
       <google-codelab-step label="Get and set up Debian" duration="0">
-        <h2 is-upgraded>Debian Bullseye</h2>
+        <h2 is-upgraded>Debian</h2>
 <ul>
-<li>Download Debian Bullseye from from the <a href="https://www.debian.org/" target="_blank">official web site</a>.</li>
+<li>Download Debian from from the <a href="https://www.debian.org/" target="_blank">official web site</a>.</li>
 <li>Ask your instructur for details about root and non-privileged user and password to ensure smooth administration.</li>
 <li>Start the virtual Machine and install Debian.</li>
 <li>Keep the installation simple.</li>
@@ -91,8 +90,8 @@ adduser icinga sudo
 <li>su - : switch to root user</li>
 <li>adduser : add icinga user to the /etc/sudoers file</li>
 </ul>
-<p>Now logoff from Gnome and and login again to activate <code>sudo</code> for icinga user.</p>
-<p>Second, from time to time, your debian installation requires an update and an upgrade due to security issues. To keep your installation up-to-date, run the following commands with root privileges:</p>
+<p>Now logoff from Gnome and login again to test the <code>sudo</code> command for icinga user.</p>
+<p>Second, from time to time, your debian installation requires some updates due to security issues. Run the following commands with root privileges to keep your installation up-to-date:</p>
 <pre><code>sudo apt update
 sudo apt upgrade
 </code></pre>
@@ -107,28 +106,28 @@ sudo apt upgrade
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>mc - Midnight commander (tool ala Total Commander), a very handy tool</li>
-<li>cpulimit - Tool to interrupt execution of a process</li>
-<li>stress, stress-ng, stressant - Workload generators</li>
-<li>hdparm - Test performance tool for ATA HDDs</li>
-<li>smartmontools - Utility programs to control and monitor computer storage systems</li>
-<li>inxi - Tool to find Linux sytem details (CPU, Kernel, Memory, etc.)</li>
-<li>dstat - Linux server performance tool, replacement for the vmstat, iostat, and ifstat</li>
-<li>speedtest-cli - Internet bandwidth tester using speedtest.net</li>
-<li>iftop - Realtime network bandwidth monitoring tool</li>
-<li>etherape - A packet sniffer/network traffic monitoring tool</li>
-<li>monitorix - A lightweight system monitoring tool</li>
-<li>cockpit - Administration of linux servers via a web browser.</li>
-<li>bonnie++ - Test hard drives and file systems for performance</li>
-<li>fio - Flexible io tester</li>
-<li>gdu - Disk usage analyzer, primarly for SSD</li>
-<li>hwinfo - Probe for hardware</li>
-<li>sysstat - All-in-One system performance tool</li>
-<li>cpuid - Show CPU details</li>
+<li><strong>mc</strong> - Midnight commander (tool ala Total Commander), a very handy tool.</li>
+<li><strong>cpulimit</strong> - Tool to interrupt execution of a process.</li>
+<li><strong>stress, stress-ng and stressant</strong> - Workload generators.</li>
+<li><strong>hdparm</strong> - Test performance tool for ATA HDDs.</li>
+<li><strong>smartmontools</strong> - Utility programs to control and monitor computer storage systems.</li>
+<li><strong>inxi</strong> - Tool to find Linux sytem details (CPU, Kernel, Memory, etc.).</li>
+<li><strong>dstat</strong> - Linux server performance tool, replacement for the vmstat, iostat, and ifstat.</li>
+<li><strong>speedtest-cli</strong> - Internet bandwidth tester.</li>
+<li><strong>iftop</strong> - Realtime network bandwidth monitoring tool.</li>
+<li><strong>etherape</strong> - A packet sniffer/network traffic monitoring tool.</li>
+<li><strong>monitorix</strong> - A lightweight system monitoring tool.</li>
+<li><strong>cockpit</strong> - Administration of linux servers via a web browser.</li>
+<li><strong>bonnie++</strong> - Test hard drives and file systems for performance.</li>
+<li><strong>fio</strong> - Flexible io-tester.</li>
+<li><strong>gdu</strong> - Disk usage analyzer, primarly for SSD.</li>
+<li>**hwinfo - Probe for hardware.</li>
+<li><strong>sysstat</strong> - All-in-One system performance tool.</li>
+<li><strong>cpuid</strong> - Show CPU details.</li>
 </ul>
 <h2 is-upgraded>From an external repository</h2>
 <p>The <strong>Phoronix Test Suite</strong> is a comprehensive testing and benchmarking platform available for the Windows and Linux operating system. The software is not part of the Debian Repository but can be installed very easily.</p>
-<p>The installation is documented in the codelab <code>BITI IPM - Benchmark</code>.</p>
+<p>The installation is documented in the codelab <code>BITI IPM Lab - Benchmark</code>.</p>
 
 
       </google-codelab-step>
@@ -157,7 +156,7 @@ sudo mount /dev/sr0 /media/cdrom0
 <pre><code>sudo cd /media/cdrom0
 sudo ls
 </code></pre>
-<p>Here is the output:</p>
+<p>Here is a sample output:</p>
 <pre><code>AUTORUN.INF  runasroot.sh			VBoxSolarisAdditions.pkg
 autorun.sh   TRANS.TBL				VBoxWindowsAdditions-amd64.exe
 cert	     VBoxDarwinAdditions.pkg		VBoxWindowsAdditions.exe
