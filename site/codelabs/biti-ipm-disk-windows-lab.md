@@ -140,7 +140,7 @@ The following section describes the Microsoft tool Diskspd.exe for evaluating th
 
 In this codelab, you will learn
 
-- how to generate workload with the diskspd.exe tool
+- how to generate workload with the diskspd.exe tool.
 
 ### What you will need:
 
