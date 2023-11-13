@@ -90,7 +90,7 @@ cat /proc/meminfo | more
 
 ### Sample output
 
-Check the values of MemTotal, MemFree, Buffers, Cached, SwapTotal, SwapFree. They indicate same values of memory usage as the **free** command (see next paragraph).
+Check the values of MemTotal, MemFree, Buffers, Cached, SwapTotal, SwapFree. They provide same interesting details about memory usage.
 
 ```
 MemTotal:        4025712 kB
@@ -128,7 +128,8 @@ Consult the documentation and man-pages for more details. Try to identify keywor
 Documentation, examples, etc. can be found here:
 
 ```
-[meminfo](https://linuxwiki.de/proc/meminfo)
+[Linuxwiki](https://linuxwiki.de/proc/meminfo)
+[The /proc/meminfo File in Linux](https://www.baeldung.com/linux/proc-meminfo)
 ```
 
 ## demidecode
@@ -205,7 +206,7 @@ Memory Device
 
 ### References
 
-May the manual with you:
+May the manual be with you:
 
 ```
 man demidecode
@@ -246,20 +247,20 @@ Swap:          974Mi          0B       974Mi
 
 Where
 
-- total - This number represents the total amount of memory that can be used by the applications.
-- used - Used memory. It is calculated as: used = total - free - buffers - cache
-- free - Free / Unused memory.
-- shared - This column can be ignored as it has no meaning. It is here only for backward compatibility.
-- buff/cache - The combined memory used by the kernel buffers and page cache. This memory can be reclaimed at any time if needed by the applications. If you want buffers and cache to be displayed in two separate columns, use the -w option.
-- available - An estimate of the amount of memory that is available for starting new applications, without swapping.
+- **total** - This number represents the total amount of memory that can be used by the applications.
+- **used** - Used memory. It is calculated as: used = total - free - buffers - cache
+- **free** - Free / Unused memory.
+- **shared** - This column can be ignored as it has no meaning. It is here only for backward compatibility.
+- **buff/cache** - The combined memory used by the kernel buffers and page cache. This memory can be reclaimed at any time if needed by the applications. If you want buffers and cache to be displayed in two separate columns, use the -w option.
+- **available** - An estimate of the amount of memory that is available for starting new applications, without swapping.
 
 The free command also allows you to specify the unit in which the memory is measured. Some of the options are:
 
-- -b, --bytes - Display output in bytes.
-- --kilo - Display output in kilobytes (1KB = 1000bytes).
-- --mega - Display output in megabytes.
-- --giga - Display output in gigabytes.
-- --tera - Display output in terabytes.
+- **-b, --bytes** - Display output in bytes.
+- **--kilo** - Display output in kilobytes (1KB = 1000bytes).
+- **--mega** - Display output in megabytes.
+- **--giga** - Display output in gigabytes.
+- **--tera** - Display output in terabytes.
 
 <aside class="positive">
 Consult the documentation and man-pages for more details. Try to identify keywords and details of the memory. 
@@ -307,20 +308,20 @@ procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
 As shown, the **vmstat** command provides information about Processes, Memory, I/O, system and CPU. In this lab we will only focus on Memory, Swap and CPU (optional):
 
 - Memory
-  - swpd: the amount of virtual memory used.
-  - free: the amount of idle memory.
-  - buff: the amount of memory used as buffers.
-  - cache: the amount of memory used as cache.
+  - **swpd**: the amount of virtual memory used.
+  - **free**: the amount of idle memory.
+  - **buff**: the amount of memory used as buffers.
+  - **cache**: the amount of memory used as cache.
 - Swap
-  - si: Amount of memory swapped in from disk (/s).
-  - so: Amount of memory swapped to disk (/s).
+  - **si**: Amount of memory swapped in from disk (/s).
+  - **so**: Amount of memory swapped to disk (/s).
 - CPU
   - These are percentages of total CPU time.
-  - us: Time spent running non-kernel code. (user time, including nice time)
-  - sy: Time spent running kernel code. (system time)
-  - id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.
-  - wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.
-  - st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.
+  - **us**: Time spent running non-kernel code. (user time, including nice time)
+  - **sy**: Time spent running kernel code. (system time)
+  - **id**: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.
+  - **wa**: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.
+  - **st**: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.
 
 <aside class="positive">
 Consult the documentation and man pages for more details. Try to identify keywords and details not only of the memory, but also the details about processes, I/O and more. 
@@ -340,18 +341,18 @@ man vmstat
 
 In this codelab, you will learn
 
-- how to use the free programm
-- how to generate workload
+- how to use the free programm.
+- how to generate workload.
 
 ### What you will need:
 
 In this codelab, you will need the following tools:
 
 - free
-- Stress
+- stress
 - htop
 
-Details of the **Stress** tool can be found in the corresponding Codelab named `Stress`, details of the **htop** command can be found in the Codelab `Compute`
+Details of the **stress** tool can be found in the corresponding Codelab named `BITI IPM Lab - Stress`, details of the **htop** command can be found in the Codelab `BITI IPM Lab - Compute`.
 
 ### Scenario
 

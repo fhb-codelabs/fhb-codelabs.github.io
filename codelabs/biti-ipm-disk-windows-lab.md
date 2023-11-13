@@ -15,9 +15,9 @@ authors: Roland Pellegrini
 
 In this codelab you will learn
 
-- how to get information about the internal disk
-- how to monitor the disk with Windows Tools
-- how to perform a test run
+- how to get information about the internal disk.
+- how to monitor the disk with Windows Tools.
+- how to perform a test run.
 
 ### What You'll need
 
@@ -73,56 +73,58 @@ On Microsoft Windows, IT Administrators can use **Windows Performance Monitor** 
 
 ### Sample code
 
-To add Perfmon counters to monitor Disk IO (Input\Output) Activity please execute the following steps.
+To add **perfmon** counters to monitor Disk IO (Input\Output) Activity please execute the following steps.
 
-- Run Performance Monitor (Perfmon.exe) this is part of the Windows Administrative tools.
-- Navigate to Performance -> Data Collector Sets -> User Defined
-- In the Right hand Pane right click and Select New - > Data Collector Set
+- Run Performance Monitor (Perfmon.exe) as part of the Windows Administrative tools.
+- Navigate to `Performance -> Data Collector Sets -> User Defined`.
+- In the right hand pane, do a right click and Select `New - > Data Collector Set`.
 - Provide a Friendly name (i.e. Task Set)
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-1.png)
-- Click on "Create Manually (Advanced)"
-- Click "Next"
-- Under "Create Data Logs" select Performance Counter
+- Click on **Create Manually (Advanced)**.
+- Click **Next**.
+- Under **Create Data Logs** select `Performance Counter`.
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-2.png)
-- Click Finish
+- Click on **Finish**.
 
 The data set (i.e. Task Set) should now appear in the right hand pane.
 
 - Double click on the data set (ie Task Set)
-- "DataCollector01" should appear in the right hand pane.
+- `DataCollector01` will appear in the right hand pane.
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-3.png)
-- Double click on the "DataCollector01"
-- In the "Performance Counters" tab click Add.  
+- Double click on the **DataCollector01**.
+- In the `Performance Counters` tab click on **Add**.  
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-4.png)
-- A list of the available counters appears on the screen, Navigate to "LogicalDisk" and click to highlight (do NOT expand the list). Under instances of Selected objects select the specific volume (drive) where the journal files are located (ie C:) and click "Add".
+- A list of the available counters appears on the screen. Navigate to "LogicalDisk" and mark it (do NOT expand the list). Under `Instances of selected objects`, select the specific volume (drive) where the journal files are located (ie C:) and click on "Add>>".
 
-This will list all LogicalDisk performance counters associated with activity on the specified volume (drive). You will see something like the following in the Added Counters window:
+Next, you will see something like the following in the `Added counters` window:
 ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-5.png)
 
-- Click OK to return to the "DataCollector01" Properties screen.
-- Leave the other values at default settings - Log Format set to "Binary" and Sample Interval set to "15" Seconds and Click "OK"
+- Click on **OK** to return to the `DataCollector01` properties screen.
+- Leave the other values at default settings - e.g. Log Format set to `Binary` and Sample Interval set to `15` seconds. Just the the right thing and click on `OK`.
 
-This creates the basic dataset.
+You have sucessfully created the basic dataset. Congrats.
 
-- The data set (ie Task Set) should now appear in the left hand pane. Right click and select "Properties"
-- The DataSet Properties includes a number of tabs.  
+But we are not done yet, sorry. The next steps are:
+
+- The data set (ie Task Set) should now appear in the left hand pane. Do a **right click** and select `Properties`.
+- The `DataSet Properties` includes a number of tabs.  
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-6.png)
-  _ Use the General tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM)
-  _ Use the Directory tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:\) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.
-  _ Use the schedule tab to Set the days to run and the time to commence collection. This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am
-  _ Use the Stop Condition to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).
-- Click OK when all required parameters are configured.
-- You can start data collection by clicking on the DataSet (ie Task Set) right click and press start.
+  - Use the *General* tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM).
+  - Use the *Directory* tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:\) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.
+  - Use the *Schedule* tab to Set the days to run and the time to commence collection. This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am.
+  - Use the *Stop Condition* to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).
+- Click on **OK** when all required parameters are configured.
+- You can start data collection by selecting the DataSet (ie Task Set) with a right click to open the context menu. Click on **Start**.
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-7.png)
-- You can stop data collection by clicking on the DataSet (ie Task Set) right click and press stop.
+- You can stop data collection by selecting the DataSet (ie Task Set) with a right click again. Click on **Stop** inside the context menu.
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-8.png)
-- Navigate to Performance -> Reports -> User Defined --> Data set (ie Task Set)
+- Navigate to `Performance -> Reports -> User Defined --> Data set` (ie Task Set).
 - Open the last recent report
   ![Windows Performance Monitor](./img/biti-ipm-disk-windows-perfmon-9.png)
 
 ### Metrics
 
-All "LogicalDisk" perfmon metrics are useful for analysis but the following are particularly interesting.
+All `LogicalDisk`` metrics are useful for analysis, but you should really gtake a look at the following in detail.
 
 - **Current disk queue length**: Current Disk Queue Length is the number of requests outstanding on the disk at the time the performance data is collected. This means that the disk is not able to honor I/O requests as fast as they are being made. If the disk has a consistently high value for the Current Queue Length counter over multiple consecutive samples this suggests I/O requests latency is on the increase.
 - **Disk Averages (Idle\Read\Write)**: This will give us a snapshot of the IO Trends over the period of the sample
@@ -174,18 +176,18 @@ diskspd.exe -b8K -d180 -h -L -o32 -t3 -r -w75 -c5G sqldata.dat > result.csv
 
 Where,
 
-- -b - Block size of the input/output, specified as (K/M/G). For example, -b8K means a block size of 8 KB, which is relevant for SQL Server.
-- -d - Test duration in seconds. Tests of 30-60 seconds are usually long enough to get valid results. Here, test duration is defined with 180 seconds.
-- -h - Disables operating system-level software caching and hardware write caching. Here it is disabled becauseSQL Server works this way.
-- -L - Captures latency information during the test
-- -o - Pending I/Os (i.e. queue depth) per target, per worker thread.
-- -t - worker threads per test file target. Here it is defined with 3 workers.
-- -r - If the -r option is used, random tests are performed, otherwise sequential tests are performed. Here, SQL Server accesses data files randomly.
-- -w - Specifies the percentage. For example, -w75 means that 75% write and 25% read operations are performed. Here, value is set to 75 because OLTP workloads involves more writung activities than reading.
-- sqldata.at - the sample sql file name that will be used in the test.
-- -c - Creates workload file(s) of the specified size, specified as (K/M/G).
-- - sqldata.dat - the workload file (see option -c)
-- - result.csv - the output file of the test results
+- **-b** - Block size of the input/output, specified as (K/M/G). For example, -b8K means a block size of 8 KB, which is relevant for SQL Server.
+- **-d** - Test duration in seconds. Tests of 30-60 seconds are usually long enough to get valid results. Here, test duration is defined with 180 seconds.
+- **-h** - Disables operating system-level software caching and hardware write caching. Here it is disabled becauseSQL Server works this way.
+- **-L** - Captures latency information during the test
+- **-o** - Pending I/Os (i.e. queue depth) per target, per worker thread.
+- **-t** - worker threads per test file target. Here it is defined with 3 workers.
+- **-r** - If the -r option is used, random tests are performed, otherwise sequential tests are performed. Here, SQL Server accesses data files randomly.
+- **-w** - Specifies the percentage. For example, -w75 means that 75% write and 25% read operations are performed. Here, value is set to 75 because OLTP workloads involves more writung activities than reading.
+- **sqldata.at** - the sample sql file name that will be used in the test.
+- **-c** - Creates workload file(s) of the specified size, specified as (K/M/G).
+- - **sqldata.dat** - the workload file (see option -c)
+- - **result.csv** - the output file of the test results
 
 After the execution of the test, the results are written to the file named **result.csv**. The results of the test are divided into 5 sections. The first section of the test result shows us the input parameters and all other settings.
 

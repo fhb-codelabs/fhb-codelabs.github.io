@@ -17,8 +17,8 @@ Oracle VM VirtualBox is a free and open-source hosted hypervisor for x86 hardwar
 
 This codelab shows you
 
-- how to install VirtualBox on your HostOS
-- how to install a GuestOS based on Debian
+- how to install VirtualBox on your HostOS.
+- how to install a GuestOS based on Debian.
 - how to install software required for the lectures.
 
 ## What You'll need
@@ -57,9 +57,9 @@ If UEFI is enabled on your Host, compilation of VirtualBox kernel modules will f
 
 ## Get and set up Debian
 
-### Debian Bullseye
+### Debian
 
-- Download Debian Bullseye from from the [official web site](https://www.debian.org/).
+- Download Debian from from the [official web site](https://www.debian.org/).
 - Ask your instructur for details about root and non-privileged user and password to ensure smooth administration.
 - Start the virtual Machine and install Debian.
 - Keep the installation simple.
@@ -81,9 +81,9 @@ Where,
 - su - : switch to root user
 - adduser : add icinga user to the /etc/sudoers file
 
-Now logoff from Gnome and and login again to activate `sudo` for icinga user.
+Now logoff from Gnome and login again to test the `sudo` command for icinga user.
 
-Second, from time to time, your debian installation requires an update and an upgrade due to security issues. To keep your installation up-to-date, run the following commands with root privileges:
+Second, from time to time, your debian installation requires some updates due to security issues. Run the following commands with root privileges to keep your installation up-to-date:
 
 ```
 sudo apt update
@@ -102,30 +102,30 @@ sudo apt install mc htop cpulimit stress stress-ng stressant hdparm smartmontool
 
 Where,
 
-- mc - Midnight commander (tool ala Total Commander), a very handy tool
-- cpulimit - Tool to interrupt execution of a process
-- stress, stress-ng, stressant - Workload generators
-- hdparm - Test performance tool for ATA HDDs
-- smartmontools - Utility programs to control and monitor computer storage systems
-- inxi - Tool to find Linux sytem details (CPU, Kernel, Memory, etc.)
-- dstat - Linux server performance tool, replacement for the vmstat, iostat, and ifstat
-- speedtest-cli - Internet bandwidth tester using speedtest.net
-- iftop - Realtime network bandwidth monitoring tool
-- etherape - A packet sniffer/network traffic monitoring tool
-- monitorix - A lightweight system monitoring tool
-- cockpit - Administration of linux servers via a web browser.
-- bonnie++ - Test hard drives and file systems for performance
-- fio - Flexible io tester
-- gdu - Disk usage analyzer, primarly for SSD
-- hwinfo - Probe for hardware
-- sysstat - All-in-One system performance tool
-- cpuid - Show CPU details
+- **mc** - Midnight commander (tool ala Total Commander), a very handy tool.
+- **cpulimit** - Tool to interrupt execution of a process.
+- **stress, stress-ng and stressant** - Workload generators.
+- **hdparm** - Test performance tool for ATA HDDs.
+- **smartmontools** - Utility programs to control and monitor computer storage systems.
+- **inxi** - Tool to find Linux sytem details (CPU, Kernel, Memory, etc.).
+- **dstat** - Linux server performance tool, replacement for the vmstat, iostat, and ifstat.
+- **speedtest-cli** - Internet bandwidth tester.
+- **iftop** - Realtime network bandwidth monitoring tool.
+- **etherape** - A packet sniffer/network traffic monitoring tool.
+- **monitorix** - A lightweight system monitoring tool.
+- **cockpit** - Administration of linux servers via a web browser.
+- **bonnie++** - Test hard drives and file systems for performance.
+- **fio** - Flexible io-tester.
+- **gdu** - Disk usage analyzer, primarly for SSD.
+- **hwinfo - Probe for hardware.
+- **sysstat** - All-in-One system performance tool.
+- **cpuid** - Show CPU details.
 
 ### From an external repository
 
 The **Phoronix Test Suite** is a comprehensive testing and benchmarking platform available for the Windows and Linux operating system. The software is not part of the Debian Repository but can be installed very easily.
 
-The installation is documented in the codelab `BITI IPM - Benchmark`.
+The installation is documented in the codelab `BITI IPM Lab - Benchmark`.
 
 ## Guest Additions
 
@@ -172,7 +172,7 @@ sudo cd /media/cdrom0
 sudo ls
 ```
 
-Here is the output:
+Here is a sample output:
 
 ```
 AUTORUN.INF  runasroot.sh			VBoxSolarisAdditions.pkg

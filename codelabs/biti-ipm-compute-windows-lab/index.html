@@ -32,8 +32,8 @@
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>In this codelab you will learn</p>
 <ul>
-<li>how to get information about the CPU</li>
-<li>how to monitor CPU with Windows Tools</li>
+<li>how to get information about the CPU.</li>
+<li>how to monitor CPU with Windows Tools.</li>
 </ul>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
@@ -64,7 +64,7 @@
         <h2 is-upgraded>Description</h2>
 <p>The tool <strong>msinfo32</strong> is a built-in system profiler for Microsoft Windows which collects and displays system information about the the Operating systems, hard- and software.</p>
 <h2 is-upgraded>Sample code</h2>
-<p>To launch <strong>msinfo32</strong>, simple press the <strong>Win+R</strong> keys, type <strong>msinfo32</strong> and click the <strong>OK</strong>-button.</p>
+<p>To launch <strong>msinfo32</strong>, simple press the <strong>Win+R</strong> keys, type <code>msinfo32</code> and click the <strong>OK</strong>-button.</p>
 <p class="image-container"><img alt="Windows Registry" src="img/b42a4dcf2e5cd841.png"></p>
 <p>Details about the CPU can be found in the System Summary section at the Processor value in the right pane.</p>
 
@@ -76,7 +76,7 @@
 <p>The command-line tools <strong>systeminfo</strong> displays detailed configuration information about a computer and its operating system, including system configuration, security information, product details, and hardware properties.</p>
 <h2 is-upgraded>Sample code</h2>
 <ul>
-<li>Launch Windows PowerShell as an administrator, enter the command:</li>
+<li>Launch Windows PowerShell as an administrator and enter the following command:</li>
 </ul>
 <pre><code>systeminfo
 </code></pre>
@@ -98,12 +98,14 @@ Processor(s):              1 Processor(s) Installed.
 <p>WMIC stands for WMI Command.</p>
 <h2 is-upgraded>Sample code</h2>
 <ul>
-<li>Open a command prompt</li>
-<li>Type and execute the following command:</li>
+<li>Open a command prompt.</li>
+<li>Execute the following command:</li>
 </ul>
 <pre><code>wmic cpu get caption,deviceid,name,numberofcores,maxclockspeed,status
 </code></pre>
-<h2 is-upgraded>Sample output</h2>
+<aside class="warning"><p> Note: don&#39;t insert spaces between semicolon and field name. </p>
+</aside>
+<p> ### Sample output </p>
 <ul>
 <li>The command produces the following output:</li>
 </ul>
@@ -116,11 +118,11 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
     
       <google-codelab-step label="Windows Registry" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>The <strong>Windows registry</strong> is a database of information, settings, options and other values for software and hardware. The registry is installed on all versions of Microsoft Windows operating systems. The Windows Registry helps the operating system to manage the computer, it helps programs to use the resources, and it provides a location for keeping custom settings you make in both Windows and your programs.</p>
+<p>The <strong>Windows Registry</strong> is a database of information, settings, options and other values for software and hardware. The registry is installed on all versions of Microsoft Windows operating systems. The Windows Registry helps the operating system to manage the computer, it helps programs to use the resources, and it provides a location for keeping custom settings you make in both Windows and your programs.</p>
 <h2 is-upgraded>Sample code</h2>
 <ul>
-<li>Open the Windows Registry Editor</li>
-<li>Browse to the Windows Registry Key named <strong>Computer\HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor</strong></li>
+<li>To launch <strong>Windows Registry</strong>, simple press the <strong>Win+R</strong> keys, type <code>regedit</code> and click the <strong>OK</strong>-button. This will lauch the Windows Registry Editor. Allow <code>User Account Control</code> with <strong>Yes</strong> when prompted.</li>
+<li>Browse to the Windows Registry Key named <strong>Computer\HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\CentralProcessor</strong>.</li>
 <li>Click on one of the subkeys to get information about the CPU (here 0). <img alt="Windows Registry" src="img/dcb8ec573359a290.png"></li>
 </ul>
 
@@ -143,10 +145,10 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
         <h2 is-upgraded>Description</h2>
 <p>The <strong>Windows Task Manager (Taskmon)</strong> is a system tool found in all versions of Microsoft Windows platform&#39;s. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.</p>
 <h2 is-upgraded>Sample code</h2>
-<p>To use Taskmon, open Start, do a search for <strong>taskman</strong>, and confirm the result. Or do a right-click on the Windows Taskbar and select <code>Task Manager</code> from the menu.</p>
+<p>To use <strong>Taskmon</strong>, open &#34;Start&#34;, do a search for <code>taskman</code>, and confirm the result. Or do a right-click on the Windows Taskbar and select <code>Task Manager</code> from the menu.</p>
 <p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/2cb687c06bd49267.png"></p>
-<p>Microsoft improves the Task Manager between each version of Windows. Currently, Taskmon under Windows 11 has a redesigned look and some new features.</p>
-<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/6b0a1b62a5565545.png"></p>
+<p>Microsoft improves the Task Manager between each version of Windows. Currently, Taskmon under Windows 11 has a redesigned look and some new features.Here is a list of running processes. <img alt="Windows Task Manager (advanced view)" src="img/6518f6bebde0f5ef.png"></p>
+<p>And here is a smart overview of the current performance. <img alt="Windows Task Manager (advanced view)" src="img/6b0a1b62a5565545.png"></p>
 <p>Learn more about the Task Manager from <a href="https://learn.microsoft.com/en-us/shows/inside/task-manager" target="_blank">Microsoft Learn</a> or from <a href="https://www.lifewire.com/task-manager-2626025#toc-task-manager-walkthrough" target="_blank">LifeWire</a>.</p>
 
 
@@ -155,7 +157,7 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
       <google-codelab-step label="Windows Resource Monitor" duration="0">
         <h2 is-upgraded>Description</h2>
 <p>The <strong>Windows Resource Monitor (Resmon)</strong> is a system application included in Windows Vista and later versions of Windows that allows users to look at the presence and allocation of resources on a computer.</p>
-<p>The Windows Task Manager can best be described as a tool that runs <strong>on</strong> the surface. It lists processes and services, and general resource usage. In contrast, the Resource Monitor gives you the option to look <strong>under</strong> the surface to get more information that the Task Manager does not provide.</p>
+<p>The <strong>Windows Task Manager</strong> can best be described as a tool that runs <code>on</code> the surface. It lists processes and services, and general resource usage. In contrast, the <strong>Resource Monitor</strong> gives you the option to look <code>under</code> the surface to get more information that the Task Manager does not provide.</p>
 <p>The Windows Resource Monitor can be used to determine extensive and detailed information about the current performance and resource consumption in real time. The program is therefore also suitable for error analysis. The view is divided into the following sections:</p>
 <ul>
 <li>Overview (CPU, disk, network, memory)</li>
@@ -165,7 +167,7 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
 <li>Network</li>
 </ul>
 <h2 is-upgraded>Sample code</h2>
-<p>To use Resmon, open Start, do a search for <strong>resmon</strong>, and confirm the result.</p>
+<p>To use <strong>Resmon</strong>, open Start, do a search for <code>resmon</code>, and confirm the result.</p>
 <p class="image-container"><img alt="htop" src="img/e756b299991a3ba.png"></p>
 
 
@@ -175,17 +177,17 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
         <h2 is-upgraded>Description</h2>
 <p>On Microsoft Windows, IT Administrators can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
 <h2 is-upgraded>Sample code</h2>
-<p>To use Perfmon, open Start, do a search for <strong>perfmon</strong>, and confirm the result.</p>
+<p>To use <strong>Perfmon</strong>, open Start, do a search for <code>perfmon</code>, and confirm the result.</p>
 <p class="image-container"><img alt="Windows Performance Monitor" src="img/93f6bbdc98a86e54.png"></p>
 <p>When you open the tool, the main page will show up with a brief overview, a system summary with real-time data about Memory, Network Interface, Physical Disk, and Processor Information. On the keft side, you will find the navigation pane with access to Monitoring Tools, Data Collector Sets, and Reports.<br><br> When you switch to the Performance Monitor, you will see a screen with a single counter. This is typically the <strong>Processor Time</strong> counter, which displays the processor load. <br></p>
 <p class="image-container"><img alt="Windows Performance Monitor" src="img/2bc94c09c5f2d32f.png"></p>
 <p>However, you can add a lot of other counters to monitor virtually anything on your computer. To add new counters to monitor applications and hardware performance on your computer, do the following steps:</p>
 <ul>
 <li>Click on the green <strong>Plus</strong> button above the Performance Monitor graph.</li>
-<li>Select Local computer (or the name of your computer) from the drop-down menu.</li>
+<li>Select <strong>Local computer</strong> (or the name of your computer) from the drop-down menu.</li>
 <li>Select and expand the category of the item you want to monitor.</li>
-<li>If applicable, select the instances you want to monitor. Click the <strong>Add</strong> button to add the new counters. <img alt="Windows Performance Monitor" src="img/455c7aa5937d1043.png"></li>
-<li>Finally, click on the <strong>OK</strong> button to confirm. Here you are ! <img alt="Windows Performance Monitor" src="img/540af69b98642658.png"></li>
+<li>If applicable, select the instances you want to monitor (here: Processor). Click the <strong>Add</strong> button to add the new counters. <img alt="Windows Performance Monitor" src="img/455c7aa5937d1043.png"></li>
+<li>Finally, click on the <strong>OK</strong> button to confirm. There you are ! <img alt="Windows Performance Monitor" src="img/540af69b98642658.png"></li>
 </ul>
 
 
@@ -209,49 +211,51 @@ Intel64 Family 6 Model 60 Stepping 3  CPU0      3093           Intel(R) Core(TM)
 <h2 is-upgraded>Test Run</h2>
 <p>To add Perfmon counters to monitor CPU Utilization please execute the following steps.</p>
 <ul>
-<li>Run Performance Monitor (Perfmon.exe) this is part of the Windows Administrative tools.</li>
-<li>Navigate to Performance -&gt; Data Collector Sets -&gt; User Defined</li>
-<li>In the Right hand Pane right click and Select New - &gt; Data Collector Set</li>
-<li>Provide a Friendly name (i.e. Task Set) <img alt="Windows Performance Monitor" src="img/48fa2f151878de40.png"></li>
-<li>Click on &#34;Create Manually (Advanced)&#34;</li>
-<li>Click &#34;Next&#34;</li>
-<li>Under &#34;Create Data Logs&#34; select Performance Counter <img alt="Windows Performance Monitor" src="img/f12c306eae9f5e13.png"></li>
-<li>Click Finish</li>
+<li>Run Performance Monitor (<strong>perfmon.exe</strong>) as part of the Windows Administrative tools.</li>
+<li>Navigate to <code>Performance -> Data Collector Sets -> User Defined</code>.</li>
+<li>In the right hand pane, do a right click and Select <code>New - > Data Collector Set</code>.</li>
+<li>Provide a friendly name (i.e. Task Set). <img alt="Windows Performance Monitor" src="img/48fa2f151878de40.png"></li>
+<li>Click on <strong>Create Manually (Advanced)</strong>.</li>
+<li>Click <strong>Next</strong>.</li>
+<li>Under <strong>Create Data Logs</strong> select <code>Performance Counter</code>. <img alt="Windows Performance Monitor" src="img/f12c306eae9f5e13.png"></li>
+<li>Click on <strong>Finish</strong>.</li>
 </ul>
 <p>The data set (i.e. Task Set) should now appear in the right hand pane.</p>
 <ul>
-<li>Double click on the data set (ie Task Set)</li>
-<li>&#34;DataCollector01&#34; should appear in the right hand pane. <img alt="Windows Performance Monitor" src="img/66fe8378005afbf8.png"></li>
-<li>Double click on the &#34;DataCollector01&#34;</li>
-<li>In the &#34;Performance Counters&#34; tab click Add.<br><img alt="Windows Performance Monitor" src="img/beb9ebdab5356c1b.png"></li>
-<li>A list of the available counters appears on the screen, Navigate to &#34;LogicalDisk&#34; and click to highlight (do NOT expand the list). Under instances of Selected objects select the specific volume (drive) where the journal files are located (ie C:) and click &#34;Add&#34;.</li>
+<li>Double click on the data set (ie Task Set).</li>
+<li><code>DataCollector01</code> should appear in the right hand pane. <img alt="Windows Performance Monitor" src="img/66fe8378005afbf8.png"></li>
+<li>Double click on the <strong>DataCollector01</strong>.</li>
+<li>In the <code>Performance Counters</code> tab, click on <strong>Add</strong>.<br><img alt="Windows Performance Monitor" src="img/beb9ebdab5356c1b.png"></li>
+<li>A list of the available counters appears on the screen, Navigate to <code>Processor</code> and mark it (do NOT expand the list). Under <code>Instances of selected objects</code>, select <code>0</code> (this is the first processor) and click on <strong>Add»</strong>.</li>
 </ul>
-<p>This will list all Processor performance counters. You will see something like the following in the Added Counters window: <img alt="Windows Performance Monitor" src="img/e16848ca1d73d0dd.png"></p>
+<p>Next, you will see something like the following in the <code>Added counters</code> window: <img alt="Windows Performance Monitor" src="img/e16848ca1d73d0dd.png"></p>
 <ul>
-<li>Click &#34;OK&#34; to return to the &#34;DataCollector01&#34; Properties screen.</li>
-<li>Leave the other values at default settings - Log Format set to &#34;Binary&#34; and Sample Interval set to &#34;15&#34; Seconds and Click &#34;OK&#34;</li>
+<li>Click on <strong>OK</strong> to return to the <code>DataCollector01</code> Properties screen.</li>
+<li>Leave the other values at default settings - e.g. Log Format set to <code>Binary</code> and Sample Interval set to <code>15</code> seconds. Just go ahead and click on <strong>OK</strong>.</li>
 </ul>
-<p>This creates the basic dataset.</p>
+<p>Congrats, you have created the basic dataset. But we&#39;re not done yet.</p>
+<p>The next steps are:</p>
 <ul>
-<li>The data set (ie Task Set) should now appear in the left hand pane. Right click and select &#34;Properties&#34;</li>
-<li>The DataSet Properties includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png"><ul>
+<li>The data set (ie Task Set) is displayed in the left hand pane. Do a <strong>right click</strong> and select <code>Properties</code>.</li>
+<li>The <code>DataSet Properties</code> includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png"><ul>
 <li>Use the <em>General</em> tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM)</li>
 <li>Use the <em>Directory</em> tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.</li>
 <li>Use the <em>Schedule</em> tab to Set the days to run and the time to commence collection. This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am</li>
 <li>Use the <em>Stop Condition</em> to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).</li>
 </ul>
 </li>
-<li>Click &#34;OK&#34; when all required parameters are configured.</li>
-<li>You can start data collection by clicking on the DataSet (ie Task Set) right click and press &#34;Start&#34;. <img alt="Windows Performance Monitor" src="img/9201675bd5a98527.png"></li>
-<li>You can stop data collection by clicking on the DataSet (ie Task Set) right click and press &#34;Stop&#34;. <img alt="Windows Performance Monitor" src="img/306d8712ff2262c4.png"></li>
-<li>Navigate to Performance -&gt; Reports -&gt; User Defined –&gt; Data set (ie Task Set)</li>
-<li>Open the last recent report <img alt="Windows Performance Monitor" src="img/6e45a689f9e7f4c6.png"></li>
-<li>You can change the graph type from line to report if you are a fan of numbers. <img alt="Windows Performance Monitor" src="img/226410321605aa59.png"></li>
+<li>Click on <strong>OK</strong> when all required parameters are configured.</li>
+<li>You can start data collection by selecting the DataSet (ie Task Set) with a right click to open the context menu.</li>
+<li>Click on <strong>Start</strong> inside the context menu. <img alt="Windows Performance Monitor" src="img/9201675bd5a98527.png"></li>
+<li>You can stop data collection by selecting the DataSet (ie Task Set) with a right click again. Click on <strong>Stop</strong> inside the context menu. <img alt="Windows Performance Monitor" src="img/306d8712ff2262c4.png"></li>
+<li>Navigate to <code>Performance -> Reports -> User Defined --> Data set</code> (ie Task Set).</li>
+<li>Open the last recent report. <img alt="Windows Performance Monitor" src="img/6e45a689f9e7f4c6.png"></li>
+<li>You can change the graph type from <code>Line</code> to <code>Report</code> if you are a big fan of numbers. <img alt="Windows Performance Monitor" src="img/226410321605aa59.png"></li>
 </ul>
 <h2 is-upgraded>Clean Up</h2>
 <ul>
-<li>Finally, delete the data collector set aby clicking on the DataSet (ie Task Set) right click and press &#34;Delete&#34;. <img alt="Windows Performance Monitor" src="img/a85661b2129ddb0f.png"></li>
-<li>Repeat the step above for the Reports as well.</li>
+<li>Finally, delete the data collector set by clicking on the DataSet (ie Task Set) with a right click to open the context menu. Click on <strong>Delete</strong>. <img alt="Windows Performance Monitor" src="img/a85661b2129ddb0f.png"></li>
+<li>Repeat the step above for all the other reports as well.</li>
 </ul>
 <p>This is the end of the hands-on.</p>
 

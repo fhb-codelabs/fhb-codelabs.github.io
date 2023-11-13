@@ -15,7 +15,7 @@ authors: Roland Pellegrini
 
 In this codelab you will learn
 
-- how to get system information with hwinfo
+- how to get system information with the **hwinfo** command.
 
 ### Where You Can Look Up
 

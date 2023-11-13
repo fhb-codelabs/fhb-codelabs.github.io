@@ -32,9 +32,9 @@
         <h2 class="checklist" is-upgraded>What You&#39;ll Learn</h2>
 <p>In this codelab you will learn</p>
 <ul>
-<li>how to get information about the internal disk</li>
-<li>how to monitor the disk with Windows Tools</li>
-<li>how to perform a test run</li>
+<li>how to get information about the internal disk.</li>
+<li>how to monitor the disk with Windows Tools.</li>
+<li>how to perform a test run.</li>
 </ul>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
@@ -83,42 +83,49 @@
         <h2 is-upgraded>Description</h2>
 <p>On Microsoft Windows, IT Administrators can use <strong>Windows Performance Monitor</strong> to analyze data, such as processor, hard drive, memory, and network usage.</p>
 <h2 is-upgraded>Sample code</h2>
-<p>To add Perfmon counters to monitor Disk IO (Input\Output) Activity please execute the following steps.</p>
+<p>To add <strong>perfmon</strong> counters to monitor Disk IO (Input\Output) Activity please execute the following steps.</p>
 <ul>
-<li>Run Performance Monitor (Perfmon.exe) this is part of the Windows Administrative tools.</li>
-<li>Navigate to Performance -&gt; Data Collector Sets -&gt; User Defined</li>
-<li>In the Right hand Pane right click and Select New - &gt; Data Collector Set</li>
+<li>Run Performance Monitor (Perfmon.exe) as part of the Windows Administrative tools.</li>
+<li>Navigate to <code>Performance -> Data Collector Sets -> User Defined</code>.</li>
+<li>In the right hand pane, do a right click and Select <code>New - > Data Collector Set</code>.</li>
 <li>Provide a Friendly name (i.e. Task Set) <img alt="Windows Performance Monitor" src="img/48fa2f151878de40.png"></li>
-<li>Click on &#34;Create Manually (Advanced)&#34;</li>
-<li>Click &#34;Next&#34;</li>
-<li>Under &#34;Create Data Logs&#34; select Performance Counter <img alt="Windows Performance Monitor" src="img/f12c306eae9f5e13.png"></li>
-<li>Click Finish</li>
+<li>Click on <strong>Create Manually (Advanced)</strong>.</li>
+<li>Click <strong>Next</strong>.</li>
+<li>Under <strong>Create Data Logs</strong> select <code>Performance Counter</code>. <img alt="Windows Performance Monitor" src="img/f12c306eae9f5e13.png"></li>
+<li>Click on <strong>Finish</strong>.</li>
 </ul>
 <p>The data set (i.e. Task Set) should now appear in the right hand pane.</p>
 <ul>
 <li>Double click on the data set (ie Task Set)</li>
-<li>&#34;DataCollector01&#34; should appear in the right hand pane. <img alt="Windows Performance Monitor" src="img/66fe8378005afbf8.png"></li>
-<li>Double click on the &#34;DataCollector01&#34;</li>
-<li>In the &#34;Performance Counters&#34; tab click Add.<br><img alt="Windows Performance Monitor" src="img/beb9ebdab5356c1b.png"></li>
-<li>A list of the available counters appears on the screen, Navigate to &#34;LogicalDisk&#34; and click to highlight (do NOT expand the list). Under instances of Selected objects select the specific volume (drive) where the journal files are located (ie C:) and click &#34;Add&#34;.</li>
+<li><code>DataCollector01</code> will appear in the right hand pane. <img alt="Windows Performance Monitor" src="img/66fe8378005afbf8.png"></li>
+<li>Double click on the <strong>DataCollector01</strong>.</li>
+<li>In the <code>Performance Counters</code> tab click on <strong>Add</strong>.<br><img alt="Windows Performance Monitor" src="img/beb9ebdab5356c1b.png"></li>
+<li>A list of the available counters appears on the screen. Navigate to &#34;LogicalDisk&#34; and mark it (do NOT expand the list). Under <code>Instances of selected objects</code>, select the specific volume (drive) where the journal files are located (ie C:) and click on &#34;Add»&#34;.</li>
 </ul>
-<p>This will list all LogicalDisk performance counters associated with activity on the specified volume (drive). You will see something like the following in the Added Counters window: <img alt="Windows Performance Monitor" src="img/75faf4714a8af01c.png"></p>
+<p>Next, you will see something like the following in the <code>Added counters</code> window: <img alt="Windows Performance Monitor" src="img/75faf4714a8af01c.png"></p>
 <ul>
-<li>Click OK to return to the &#34;DataCollector01&#34; Properties screen.</li>
-<li>Leave the other values at default settings - Log Format set to &#34;Binary&#34; and Sample Interval set to &#34;15&#34; Seconds and Click &#34;OK&#34;</li>
+<li>Click on <strong>OK</strong> to return to the <code>DataCollector01</code> properties screen.</li>
+<li>Leave the other values at default settings - e.g. Log Format set to <code>Binary</code> and Sample Interval set to <code>15</code> seconds. Just the the right thing and click on <code>OK</code>.</li>
 </ul>
-<p>This creates the basic dataset.</p>
+<p>You have sucessfully created the basic dataset. Congrats.</p>
+<p>But we are not done yet, sorry. The next steps are:</p>
 <ul>
-<li>The data set (ie Task Set) should now appear in the left hand pane. Right click and select &#34;Properties&#34;</li>
-<li>The DataSet Properties includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png"> _ Use the General tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM) _ Use the Directory tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics. _ Use the schedule tab to Set the days to run and the time to commence collection. This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am _ Use the Stop Condition to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).</li>
-<li>Click OK when all required parameters are configured.</li>
-<li>You can start data collection by clicking on the DataSet (ie Task Set) right click and press start. <img alt="Windows Performance Monitor" src="img/9201675bd5a98527.png"></li>
-<li>You can stop data collection by clicking on the DataSet (ie Task Set) right click and press stop. <img alt="Windows Performance Monitor" src="img/306d8712ff2262c4.png"></li>
-<li>Navigate to Performance -&gt; Reports -&gt; User Defined –&gt; Data set (ie Task Set)</li>
+<li>The data set (ie Task Set) should now appear in the left hand pane. Do a <strong>right click</strong> and select <code>Properties</code>.</li>
+<li>The <code>DataSet Properties</code> includes a number of tabs.<br><img alt="Windows Performance Monitor" src="img/2564bed10b2435b9.png"><ul>
+<li>Use the <em>General</em> tab to set user credentials with the relevant privileges to run the perfmon (By default this is set to SYSTEM).</li>
+<li>Use the <em>Directory</em> tab to set the data path of where you would like to store the logs files (by default this is set to the %systemdrive% - ie C:) we would recoomend that the log files are stored on a drive which is not being monitored as this will skew the statistics.</li>
+<li>Use the <em>Schedule</em> tab to Set the days to run and the time to commence collection. This would be specific to the customers working practices, for example if the issue under investigation is seen commonly at the start of normal office hours the schedule should be set for Monday - Friday commencing at 09:00am.</li>
+<li>Use the <em>Stop Condition</em> to set the parameters to stop (ie the Overall Duration of monitoring is 8 hours).</li>
+</ul>
+</li>
+<li>Click on <strong>OK</strong> when all required parameters are configured.</li>
+<li>You can start data collection by selecting the DataSet (ie Task Set) with a right click to open the context menu. Click on <strong>Start</strong>. <img alt="Windows Performance Monitor" src="img/9201675bd5a98527.png"></li>
+<li>You can stop data collection by selecting the DataSet (ie Task Set) with a right click again. Click on <strong>Stop</strong> inside the context menu. <img alt="Windows Performance Monitor" src="img/306d8712ff2262c4.png"></li>
+<li>Navigate to <code>Performance -> Reports -> User Defined --> Data set</code> (ie Task Set).</li>
 <li>Open the last recent report <img alt="Windows Performance Monitor" src="img/86fe8fd189261274.png"></li>
 </ul>
 <h2 is-upgraded>Metrics</h2>
-<p>All &#34;LogicalDisk&#34; perfmon metrics are useful for analysis but the following are particularly interesting.</p>
+<p>All `LogicalDisk`` metrics are useful for analysis, but you should really gtake a look at the following in detail.</p>
 <ul>
 <li><strong>Current disk queue length</strong>: Current Disk Queue Length is the number of requests outstanding on the disk at the time the performance data is collected. This means that the disk is not able to honor I/O requests as fast as they are being made. If the disk has a consistently high value for the Current Queue Length counter over multiple consecutive samples this suggests I/O requests latency is on the increase.</li>
 <li><strong>Disk Averages (Idle\Read\Write)</strong>: This will give us a snapshot of the IO Trends over the period of the sample</li>
@@ -156,22 +163,22 @@
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>-b - Block size of the input/output, specified as (K/M/G). For example, -b8K means a block size of 8 KB, which is relevant for SQL Server.</li>
-<li>-d - Test duration in seconds. Tests of 30-60 seconds are usually long enough to get valid results. Here, test duration is defined with 180 seconds.</li>
-<li>-h - Disables operating system-level software caching and hardware write caching. Here it is disabled becauseSQL Server works this way.</li>
-<li>-L - Captures latency information during the test</li>
-<li>-o - Pending I/Os (i.e. queue depth) per target, per worker thread.</li>
-<li>-t - worker threads per test file target. Here it is defined with 3 workers.</li>
-<li>-r - If the -r option is used, random tests are performed, otherwise sequential tests are performed. Here, SQL Server accesses data files randomly.</li>
-<li>-w - Specifies the percentage. For example, -w75 means that 75% write and 25% read operations are performed. Here, value is set to 75 because OLTP workloads involves more writung activities than reading.</li>
-<li>sqldata.at - the sample sql file name that will be used in the test.</li>
-<li>-c - Creates workload file(s) of the specified size, specified as (K/M/G).</li>
+<li><strong>-b</strong> - Block size of the input/output, specified as (K/M/G). For example, -b8K means a block size of 8 KB, which is relevant for SQL Server.</li>
+<li><strong>-d</strong> - Test duration in seconds. Tests of 30-60 seconds are usually long enough to get valid results. Here, test duration is defined with 180 seconds.</li>
+<li><strong>-h</strong> - Disables operating system-level software caching and hardware write caching. Here it is disabled becauseSQL Server works this way.</li>
+<li><strong>-L</strong> - Captures latency information during the test</li>
+<li><strong>-o</strong> - Pending I/Os (i.e. queue depth) per target, per worker thread.</li>
+<li><strong>-t</strong> - worker threads per test file target. Here it is defined with 3 workers.</li>
+<li><strong>-r</strong> - If the -r option is used, random tests are performed, otherwise sequential tests are performed. Here, SQL Server accesses data files randomly.</li>
+<li><strong>-w</strong> - Specifies the percentage. For example, -w75 means that 75% write and 25% read operations are performed. Here, value is set to 75 because OLTP workloads involves more writung activities than reading.</li>
+<li><strong>sqldata.at</strong> - the sample sql file name that will be used in the test.</li>
+<li><strong>-c</strong> - Creates workload file(s) of the specified size, specified as (K/M/G).</li>
 <li><ul>
-<li>sqldata.dat - the workload file (see option -c)</li>
+<li><strong>sqldata.dat</strong> - the workload file (see option -c)</li>
 </ul>
 </li>
 <li><ul>
-<li>result.csv - the output file of the test results</li>
+<li><strong>result.csv</strong> - the output file of the test results</li>
 </ul>
 </li>
 </ul>

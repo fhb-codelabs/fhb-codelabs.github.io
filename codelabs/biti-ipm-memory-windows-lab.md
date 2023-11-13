@@ -12,8 +12,8 @@ authors: Roland Pellegrini
 ### What You’ll Learn
 In this codelab you will learn
 
-* how to get information about the Memory
-* how to monitor Memory with Windows Tools
+* how to get information about the Memory.
+* how to monitor Memory with Windows Tools.
 
 ### What You'll need
 
@@ -110,9 +110,12 @@ To use Taskmon, open Start, do a search for **taskman**, and confirm the result.
 To see application memory used by applications, go to tab Processes and click on column Memory.
 ![Windows Task Manager (advanced view)](./img/biti-ipm-memory-windows-taskman-2.png)
 
-Microsoft improves the Task Manager between each version of Windows. Currently, Taskmon under Windows 11 has a redesigned look and some new features.
+Microsoft improves the Task Manager between each version of Windows. Currently, Taskmon under Windows 11 has a redesigned look and some new features. Here is a list of running processes.
+![Windows Task Manager (advanced view)](./img/biti-ipm-memory-windows-taskman-processes-w11.png)
 
-![Windows Task Manager (advanced view)](./img/biti-ipm-memory-windows-taskman-w11.png)
+And here is a smart overview of the current performance.
+![Windows Task Manager (advanced view)](./img/biti-ipm-memory-windows-taskman-performance-w11.png)
+
 
 Learn more about the Task Manager from [Microsoft Learn](https://learn.microsoft.com/en-us/shows/inside/task-manager) or from [LifeWire](https://www.lifewire.com/task-manager-2626025#toc-task-manager-walkthrough).
 
@@ -190,32 +193,32 @@ If you want to change the the size of the pagefile, then follow me:
 
 * Press the Windows key.
 
-* Type “SystemPropertiesAdvanced”. You’ll see this:
+* Type `SystemPropertiesAdvanced`. You’ll see this:
 ![Windows Registry](./img/biti-ipm-memory-windows-pagefile-1.png)
 
-* Click on “Run as administrator.” You’ll see the advanced properties page:
+* Click on **Run as administrator**. You’ll see the advanced properties page:
 
 ![Windows Registry](./img/biti-ipm-memory-windows-pagefile-2.png)
 
-* Click on “Settings..” You’ll see the performance options tab.
+* Click on **Settings...** You’ll see the performance options tab.
 
 ![Windows Registry](./img/biti-ipm-memory-windows-pagefile-3.png)
 
-* Select the “Advanced” tab. You’ll see the following panel.
+* Select the **Advanced** tab. You’ll see the following panel.
 
 ![Windows Registry](./img/biti-ipm-memory-windows-pagefile-4.png)
 
-* Select “Change…”. You’ll see the following panel.
+* Select **Change…**. You’ll see the following panel.
 
 ![Windows Registry](./img/biti-ipm-memory-windows-pagefile-5.png)
 
-* Make sure the checkbox “Automatically managing paging file size for all drives” is not checked, as shown above. Then select “Custom size:” and fill in an appropriate size (here: 16MB, 512MB)
+* Make sure the checkbox `Automatically managing paging file size for all drives` is not checked, as shown above. Then select `Custom size:` and fill in an appropriate size (here: 16MB, 512MB)
 
 ![Windows Registry](./img/biti-ipm-memory-windows-pagefile-6.png)
 
-* Press “Set”, press “Ok”, then exit from the Virtual Memory, Performance Options, and Systems Properties Dialog.
+* Click on **Set**, then click on **Ok**. Finally, exit from the Virtual Memory, Performance Options, and Systems Properties Dialog.
 
-* Reboot your system.
+* Reboot your system. Yes!
 
 ### Committed  Memory
  

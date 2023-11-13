@@ -15,9 +15,9 @@ authors: Roland Pellegrini
 
 In this codelab you will learn
 
-- how to get information about the CPU (Central Processing Unit)
-- how to monitor CPU with Linux tools
-- how to perform a test run
+- how to get information about the CPU (Central Processing Unit).
+- how to monitor CPU with Linux tools.
+- how to perform a test run.
 
 ### Where You Can Look Up
 
@@ -118,7 +118,7 @@ man nproc
 
 ### Description
 
-On most Linux distributions, you can also use the **lscpu** command. It displays not only the number of processors but also the architecture, model name, speed, much more.
+On most Linux distributions, you can also use the **lscpu** command. It displays not only the number of processors but also the architecture, model name, speed, and much more.
 
 ### Sample code
 
@@ -212,7 +212,7 @@ Model name:                      Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
 NUMA node0 CPU(s):               0-3
 ```
 
-The output shows the CPU information:
+The output details are:
 
 - CPU model: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
 - Socket: 1
@@ -232,7 +232,7 @@ man lscpu
 
 ### Description
 
-All Linux distributions allows you to run **cat /proc/cpuinfo**. This file contains details about the processors installed. Note that /proc is a pseudo-filesystem, it is used as an interface to kernel data structures.
+All Linux distributions allows you to run **cat /proc/cpuinfo**. The file **/proc/cpuinfo** contains details about the processors installed. Note that **/proc** is a pseudo-filesystem, it is used as an interface to kernel data structures.
 
 ### Sample code
 
@@ -244,7 +244,7 @@ cat /proc/cpuinfo | more
 
 ### Sample output
 
-Information is grouped per logical processor. That means that every processor is listed separately and various details about the CPU are included in the description.
+Information is grouped per logical processor. That means that every processor is listed separately and various details about the processor are included in the description.
 
 ```
 processor	: 0
@@ -334,15 +334,16 @@ cpu cores   : 2
 ```
 
 <aside class="positive">
-The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and hyperthreading would be reported as a processor with 8 cores.
+The number of processors shown by /proc/cpuinfo might be different from the actual number of cores on the processor. For example a processor with 4 cores and activated hyperthreading would be reported as a processor with 8 cores.
 </aside>
 
 ### References
 
-Need help? Use this:
+Need help? Use these links:
 
 ```
-[cpuinfo](https://linuxwiki.de/proc/cpuinfo)
+https://www.thegeekdiary.com/proccpuinfo-file-explained/
+https://linuxwiki.de/proc/cpuinfo
 ```
 
 ## hwinfo

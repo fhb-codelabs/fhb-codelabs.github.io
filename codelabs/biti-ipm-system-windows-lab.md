@@ -13,7 +13,7 @@ authors: Roland Pellegrini
 
 In this codelab you will learn
 
-* how to get system information with systeminfo
+* how to get system information with the **systeminfo** command.
 
 ###  Where You Can Look Up
 

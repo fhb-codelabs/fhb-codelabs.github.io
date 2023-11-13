@@ -13,8 +13,8 @@ authors: Roland Pellegrini
 
 In this codelab you will learn
 
-* how to perform stress the CPU using the CPU Stress application
-* how to perform stress the RAM using the Testlimit application
+* how to perform stress the CPU using the CPU Stress application.
+* how to perform stress the RAM using the Testlimit application.
 
 <aside class="negative">
 Warning: Running the tools with Administrator privileges stress your system, so use them judiciously.
@@ -36,31 +36,31 @@ For the Guest OS, you will create and manage your own users. These users will th
 
 ### Description
 
-Microsoft offers a set of tools under the name of **Sysinternals Suite** which a useful for IT-Administrators. One of those tools is called "CPU Stress". It is a portable application and it can be used to simulate high CPU usage by running up to 64 threads (!).
+Microsoft offers a set of tools under the name of **Sysinternals Suite** which a useful for IT-Administrators. One of those tools is called "CPUStres" (yes, its written with one *s*). It is a portable application and it can be used to simulate high CPU usage by running up to 64(!) threads.
 
 You can download CPU Stress from [here](https://docs.microsoft.com/en-us/sysinternals/downloads/cpustres). After downloading, unzip the package and launch the 64-bit version of CPU Stress.
 
-![CPU Stress](./img/biti-ipm-compute-windows-cpustress.png)
+![CPUStres](./img/biti-ipm-compute-windows-cpustress.png)
 
 After lauch, the application sets a separate thread for each of the available CPU cores (here 4). You can activate threads with a right-click.
 
-![CPU Stress](./img/biti-ipm-compute-windows-cpustress-activate.png)
+![CPUStres](./img/biti-ipm-compute-windows-cpustress-activate.png)
 
 You can change the thread priority between idle and time critical. Other possible values are low, below normal, normal, above normal, and highest. Additionally, you can change the activity level and set it to low, medium, busy, or maximum. 
 
-![CPU Stress](./img/biti-ipm-compute-windows-cpustress-maximum.png)
+![CPUStres](./img/biti-ipm-compute-windows-cpustress-maximum.png)
 
 ### Watch the results
 
 A higher activity level will load the CPU core with constantly running threads as shown in the Task Manager. Open TaskMon and see the result:
 
-![CPU Stress](./img/biti-ipm-compute-windows-cpustress-taskman.png)
+![CPUStres](./img/biti-ipm-compute-windows-cpustress-taskman.png)
 
 ### References
 
 Download the tool:
 
-* [CPU Stress](https://docs.microsoft.com/en-us/sysinternals/downloads/cpustres)
+* [CPUStres](https://docs.microsoft.com/en-us/sysinternals/downloads/cpustres)
 
 
 ## Testlimit
