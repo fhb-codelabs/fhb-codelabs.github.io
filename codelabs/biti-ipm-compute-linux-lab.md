@@ -884,9 +884,9 @@ man mpstat
 
 In this codelab, you will learn
 
-- how to use the htop programm
-- how to generate workload
-- how to limit CPU time that the workload generator may consume
+- how to use the htop programm.
+- how to generate workload.
+- how to limit CPU time that the workload generator may consume.
 
 ### What you will need:
 

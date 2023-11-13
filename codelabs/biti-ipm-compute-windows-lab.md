@@ -211,9 +211,9 @@ However, you can add a lot of other counters to monitor virtually anything on yo
 
 In this codelab, you will learn
 
-- how to use the dstat tool
-- how to generate workload
-- how to create a report file
+- how to use the dstat tool.
+- how to generate workload.
+- how to create a report file.
 
 ### What you will need:
 

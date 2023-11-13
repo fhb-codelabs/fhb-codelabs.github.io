@@ -598,9 +598,9 @@ Click [here](https://serverfault.com/questions/996996/dstat-fails-to-start-tryin
 
 In this codelab, you will learn
 
-- how to use the dstat tool
-- how to generate workload
-- how to create a report file
+- how to use the dstat tool.
+- how to generate workload.
+- how to create a report file.
 
 ### What you will need:
 
