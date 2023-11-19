@@ -70,7 +70,7 @@ DESCRIPTION
 
       </google-codelab-step>
     
-      <google-codelab-step label="Device information" duration="0">
+      <google-codelab-step label="Device iIformation" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
 <p>You can use one of the following commands to find detailed information about the physical or virtual network devices on Linux:</p>
 <ul>
@@ -103,7 +103,7 @@ DESCRIPTION
 00:0b.0 USB controller: Intel Corporation 82801FB/FBM/FR/FW/FRW (ICH6 Family) USB2 EHCI Controller
 00:0d.0 SATA controller: Intel Corporation 82801HM/HEM (ICH8M/ICH8M-E) SATA Controller [AHCI mode] (rev 02)
 </code></pre>
-<p>The list shows the model of the Ethernet controller, but not the network device interfaces. For this we need another tool.</p>
+<p>The list shows the model of the Ethernet controller, but not the network device interfaces. For network devices we need another tool. Go ahead.</p>
 <h2 is-upgraded>References</h2>
 <p>Need help? Use this:</p>
 <pre><code>man lspci
@@ -115,11 +115,11 @@ DESCRIPTION
       <google-codelab-step label="hwinfo" duration="0">
         <h2 is-upgraded>Description</h2>
 <p>The tool <strong>hwinfo</strong> checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including network controller and network cards.</p>
-<aside class="special"><p> Hwinfo requires root privileges. </p>
+<aside class="special"><p> Hwinfo requires root privileges. Use the sudo command to become root. </p>
 </aside>
 <h2 is-upgraded>Sample code</h2>
 <p>Run the following command:</p>
-<pre><code>hwinfo
+<pre><code>sudo hwinfo
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
 <p>The section &#34;Ethernet controller&#34; may look like this:</p>
@@ -189,9 +189,9 @@ DESCRIPTION
     
       <google-codelab-step label="ip" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>The <code>ip</code> command is one of the basic commands every administrator will need in daily work, from setting up new systems and assigning IPs to troubleshooting existing systems. The <code>ip</code> command can show address information, manipulate routing, plus display network various devices, interfaces, and tunnels.</p>
+<p>The <strong>ip</strong> command is an extreme powerful tool for configuring network interfaces that any Linux system administrator should know. The command offers several network administration tasks such as bringing up or down network interfaces, assigning and removing IP addresses and routes, managing ARP cache, and more. It&#39;s the skill every system engineer needs, including you.</p>
 <h2 is-upgraded>Sample code</h2>
-<p>To show the IP addresses assigned to an interface on your server:</p>
+<p>Run the following command to show the IP addresses assigned to an interface on your server:</p>
 <pre><code>ip address show
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
@@ -221,7 +221,9 @@ DESCRIPTION
     
       <google-codelab-step label="nmcli" duration="0">
         <h2 is-upgraded>Description</h2>
-<p><strong>nmcli</strong> is a command-line tool for controlling NetworkManager and reporting network status. The tool is used to create, display, edit, delete, activate, and deactivate network connections, as well as control and display network device status.</p>
+<p><strong>nmcli</strong> is a command-line tool for controlling <code>NetworkManager</code> and reporting network status. The tool is used to create, display, edit, delete, activate, and deactivate network connections, as well as control and display network device status.</p>
+<aside class="special"><p> Just for clarify: NetworkManager is a program for providing detection and configuration for systems to automatically connect to networks. In contrast, the command nmcli controlls the NetworkManager. </p>
+</aside>
 <h2 is-upgraded>Sample code</h2>
 <p>Open a shell and run the command twice but with different options each time:</p>
 <pre><code>nmcli device show
@@ -267,7 +269,7 @@ NAME                UUID                                  TYPE      DEVICE
 Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3
 </code></pre>
 <h2 is-upgraded>References</h2>
-<p>Read the manual:</p>
+<p>Need more information? Read the manual:</p>
 <pre><code>man nmcli
 </code></pre>
 
@@ -280,7 +282,7 @@ Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3
 <ul>
 <li>ping</li>
 <li>speedtest</li>
-<li>iperf3 (has been moved to the section <code>Hands-On</code>)</li>
+<li>iperf3 (has been moved to the last section named <code>Hands-On</code>)</li>
 </ul>
 
 
@@ -290,8 +292,8 @@ Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3
         <h2 is-upgraded>Description</h2>
 <p>The <strong>ping</strong> command is one of the most used tools for diagnosing network connectivity issues.</p>
 <p><strong>Ping</strong> works by sending ICMP (Internet Control Message Protocol) Echo Request packages to a specified destination IP on the network and waits for a reply. When the destination receives the package, it responds with an ICMP echo reply.</p>
-<p>With the <strong>ping</strong> command, IT Administrators can determine whether a remote destination IP is active or inactive. IT Administrators can also find the round-trip delay in communicating with the destination and check whether there is a packet loss.</p>
-<aside class="special"><p> Ping is not sufficient for determining service availability. Instead, check your UDP/TCP port directly, to see if the service is still available. </p>
+<p>IT Administrators can use the <strong>ping</strong> command to determine whether a remote destination IP is active or inactive. IT Administrators can also find the round-trip delay in communicating with the destination and check whether a packet loss has occured.</p>
+<aside class="special"><p> Ping is not sufficient for determining service availability. Instead, check the UDP/TCP port of the service directly to determine whether the service is available or not. </p>
 </aside>
 <h2 is-upgraded>Sample code</h2>
 <pre><code>ping -c 3 www.orf.at
@@ -320,7 +322,7 @@ rtt min/avg/max/mdev = 21.228/34.314/57.876/16.694 ms
 <li>The ping time, measured in milliseconds which is the round trip time for the packet to reach the host, and the response to return to the sender. - time=21.2 ms.</li>
 </ul>
 <h2 is-upgraded>References</h2>
-<p>Ping the man:</p>
+<p>Ping the manual for more details:</p>
 <pre><code>man ping
 </code></pre>
 
@@ -329,7 +331,7 @@ rtt min/avg/max/mdev = 21.228/34.314/57.876/16.694 ms
     
       <google-codelab-step label="speedtest-cli" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>One of the most famous online internet connection test apps is speedtest.net. The tool <strong>speedtest-cli</strong> is a command line interface for testing internet bandwidth using speedtest.net. The test is simple to use and provides multiple options. To view all of them, pass the <code>-h</code> flag to display the speedtest-cli help file.</p>
+<p>One of the most famous online internet connection test apps is <code>speedtest.net</code>. The tool <strong>speedtest-cli</strong> is a command line interface for testing internet bandwidth using speedtest.net. The test is simple to use and provides multiple options. To view all of them, pass the <code>-h</code> flag to display the speedtest-cli help file.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>To run the tool, simple execute the command without options.</p>
 <pre><code>speedtest-cli
@@ -346,7 +348,7 @@ Testing upload speed........................................
 Upload: 1.01 Mbit/s
 </code></pre>
 <h2 is-upgraded>References</h2>
-<p>What is faster than man?</p>
+<p>What is faster than an online search?</p>
 <pre><code>man speedtest-cli
 </code></pre>
 
@@ -375,18 +377,20 @@ Upload: 1.01 Mbit/s
 <p>To view the network bandwidth of a particular interface, use the following command.</p>
 <pre><code>iftop -i enp0s3
 </code></pre>
-<aside class="special"><p> Keep in mind the difference between eth0 and enp0s3.  </p>
+<aside class="special"><p> Keep in mind the difference between eth0 and enp0s3. </p>
 </aside>
 <h2 is-upgraded>Sample output</h2>
 <p class="image-container"><img alt="itop" src="img/940225b313b2f656.png"></p>
 <p>Where,</p>
 <ul>
-<li>At the very top of the screen is a scale that goes along with the bar graph iftop might display with each connection.</li>
-<li>The next rows of output correspond to each network connection between a pair of hosts. In between the two hosts are arrows that let you know the direction the traffic is flowing.</li>
-<li>The final three columns provide average bandwidth for each connection during the last 2, 10 and 40 seconds, respectively.</li>
+<li>At the very top of the screen is a scale that corresponds to the bar graph iftop might display for each connection.</li>
+<li>The next lines correspond to each network connection between a pair of hosts. Between the two hosts, arrows indicate the direction of traffic.</li>
+<li>The last three columns show the average bandwidth for each connection over the last two (2), ten (10) and forty (40) seconds respectively.</li>
 </ul>
+<aside class="special"><p> Press q to exit the program. </p>
+</aside>
 <h2 is-upgraded>References</h2>
-<p>Here is the link to the documentation:</p>
+<p>Use the manual to get more details:</p>
 <pre><code>man iftop
 </code></pre>
 
@@ -395,17 +399,17 @@ Upload: 1.01 Mbit/s
     
       <google-codelab-step label="etherape" duration="0">
         <h2 is-upgraded>Description</h2>
-<p><strong>Etherape</strong> is a graphical tool that provides a view of current network activity. Current connections are displayed thicker than passive connections depending on the volume transferred.</p>
-<p><strong>Etherape</strong> supports Ethernet, FDDI, Token Ring, ISDN, PPP, SLIP and WLAN devices. It can filter traffic to be shown, and can read packets from a file as well as live from the network. Node statistics can be exported.</p>
+<p><strong>Etherape</strong> is a graphical tool that provides a view of current network activity. <strong>Etherape</strong> supports Ethernet, FDDI, Token Ring, ISDN, PPP, SLIP and WLAN devices. It can filter traffic to be shown, and can read packets from a file as well as live from the network. Node statistics can be exported.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>To start Etherape, run the following command with root privileges:</p>
 <pre><code>sudo etherape
 </code></pre>
+<p>Next, start <strong>Firefox</strong> and do some online research. See how hosts and their connecting links grow an shrink in size while surfing the internet.</p>
 <h2 is-upgraded>Sample output</h2>
 <p class="image-container"><img alt="itop" src="img/62b1e931f448de4c.png"></p>
-<p>In contrast to other network monitors, Etherape visualizes the logged connections in a graphical representation. The approach of the open source program is intuitive: Each IP address is graphically represented as a node, connection lines trace the transmitted data. The thickness of the lines shows the data volume of the corresponding connection between the nodes and the color of the lines shows the protocol used in each case.</p>
+<p>Unlike other network monitors, Etherape visualizes the logged connections in a graphical representation. The approach of the open source program is intuitive: each IP address is graphically represented as a node, connection lines trace the transmitted data. The thickness of the lines shows the data volume of the corresponding connection between the nodes and the color of the lines represents the various types of traffic.</p>
 <h2 is-upgraded>References</h2>
-<p>Online documentation:</p>
+<p>Check out the online documentation for more details:</p>
 <p><a href="https://etherape.sourceforge.io/" target="_blank">Etherape on Sourceforge</a></p>
 
 
@@ -455,6 +459,8 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
 <ul>
 <li>ip-address - The server&#39;s IP address or it&#39;s hostname.</li>
 </ul>
+<aside class="special"><p> Consult the ip section if you don&#39;t know the ip address of your virtual machine.  </p>
+</aside>
 <p>Monitorix offers a wide range of performance counters. However, in this codelab we are interested in networking. Therefore select the Graph <code>enps03 Network traffic</code> from the Host <code>localhost</code>.</p>
 <p class="image-container"><img alt="itop" src="img/9b05fc01965cd856.png"></p>
 <p>After clicking on the OK button, monitorix will show up the <strong>Netstat statistic</strong>. By default, the page refreshes automatically every 150 seconds, displaying the network activity, packetes and errors.</p>
@@ -477,9 +483,9 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
 <ul>
 <li>ip-address - The server&#39;s IP address or it&#39;s hostname.</li>
 </ul>
-<aside class="warning"><p> Please note that Cockpit is installed on a virtual machine, which is only used within the course. Always make sure that you secure the http connection. </p>
+<aside class="warning"><p> Please note that Cockpit is installed on a virtual machine for demonstration purposes. Therefore, make sure that you secure the http connection in a production environment. </p>
 </aside>
-<p>Log in with a normal account. Hoyever, it might be a good idea for this account to have root privileges.</p>
+<p>Log in with a normal account.</p>
 <p class="image-container"><img alt="itop" src="img/b90068baaa2e9f88.png"></p>
 <p>The Dashboard view is clean and uncluttered. The image below shows a card layout. It graphs CPU, memory, network, and disk I/O. If this is your first run and you haven&#39;t yet connected any servers, you will see graphs for the local system only.</p>
 <p class="image-container"><img alt="itop" src="img/1191d1e98397ecf5.png"></p>
@@ -488,7 +494,8 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
 <aside class="special"><p> Please note that essential software components have not been installed on this virtual machine. Therefore, some important functionalities are missing in Cockpit, such as tools for a proper firewall configuration.  </p>
 </aside>
 <h2 is-upgraded>References</h2>
-<p>No manual, but still documented: <a href="https://cockpit-project.org/" target="_blank">cockpit</a></p>
+<p>No manual, but still documented:</p>
+<p><a href="https://cockpit-project.org/" target="_blank">cockpit</a></p>
 
 
       </google-codelab-step>
@@ -505,43 +512,52 @@ Oct 15 19:29:29 server systemd[1]: Started Monitorix.
 <ul>
 <li>iperf3</li>
 </ul>
+<p>You will need iperf3 on your <code>HostOS</code> (yes, that&#39;s your physical computer to complete this Hands-on. You can download the software from this <a href="https://iperf.fr/iperf-download.php" target="_blank">website</a>.</p>
 <h2 is-upgraded>Scenario</h2>
 <p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). The HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<p>Additional information:</p>
+<ul>
+<li>The <code>HostOS</code> has the IP address 192.168.0.201.</li>
+<li>The <code>GuestOS</code> has the IP address 192.168.0.205.</li>
+</ul>
 <h2 is-upgraded>Test Run</h2>
-<p>To start the server, run iperf3 on the HostOS with the following option:</p>
+<p>To start the <strong>server</strong>, run <strong>iperf3</strong> on the <code>HostOS</code> (=your physical computer) with the following option:</p>
 <pre><code>iperf3 -s
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>-s - Run iperf3 in server mode. iperf3 can handle multiple client requests.</li>
+<li><strong>-s</strong> - Run iperf3 in server mode. iperf3 can handle multiple client requests.</li>
 </ul>
-<p>To start the client, run iperf3 on the GuestOS with the following option by specifying the server&#39;s ip address</p>
-<pre><code>iperf3 -c 192.168.7.187
+<p>To start the <strong>client</strong>, run <strong>iperf3</strong> on the <code>GuestOS</code> (=thats the VM) with the following option by specifying the IP address of the <code>HostOS</code> (e.g. 192.168.0.201).</p>
+<pre><code>iperf3 -c 192.168.0.201
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>-s 192.168.7.11 - Run iperf3 in client mode, connecting to an iperf3 server running on host with IP 192.168.10.2.</li>
+<li><strong>-c 192.168.0.201</strong> - Run iperf3 in client mode, connecting to an iperf3 server running on <code>HostOS</code> with IP 192.168.0.201.</li>
 </ul>
 <h2 is-upgraded>Sample output</h2>
 <p>iperf3 server&#39;s output:</p>
 <pre><code>------------------------------------------------------------
-Server listening on TCP port 5001
-TCP window size: 128 KByte (default)
+Server listening on TCP port 5001 (test #1)
 ------------------------------------------------------------
-[  4] local 192.168.7.187 port 5001 connected with 192.168.7.10 port 33030
+Accepted connection from 192.168.0.205, port 58872
+[  4] local 192.168.0.201 port 5001 connected with 192.168.0.205 port 58876
 [ ID] Interval       Transfer     Bandwidth
 [  4]  0.0-10.0 sec  3.09 GBytes  2.65 Gbits/sec
-
+...
+...
 </code></pre>
 <p>iperf3 client&#39;s output:</p>
-<pre><code>Client connecting to 192.168.0.187, TCP port 5001
-TCP window size: 85.0 KByte (default)
+<pre><code>Connecting to 192.168.0.201, TCP port 5001
 ------------------------------------------------------------
-[  3] local 192.168.7.10 port 33030 connected with 192.168.7.187 port 5001
+[  3] local 192.168.0.205 port 5201 connected with 192.168.0.201 port 5001
 [ ID] Interval       Transfer     Bandwidth
 [  3]  0.0-10.0 sec  3.09 GBytes  2.65 Gbits/sec
-
+...
+...
 </code></pre>
+<aside class="warning"><p> Note the different connection ports used and ask yourself the reason for this. </p>
+</aside>
 <h2 is-upgraded>Clean Up</h2>
 <p>You can stop all programs and close all open terminals.</p>
 <p>This is the end of the hands-on.</p>

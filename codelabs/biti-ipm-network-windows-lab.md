@@ -136,14 +136,33 @@ The **Windows Task Manager (Taskmon)** is a system tool found in all versions of
 
 ### Sample code
 
-To use Taskmon, open Start, do a search for **taskman**, and confirm the result. Or do a right-click on the Windows Taskbar and select `Task Manager` from the menu.
+To use **Taskmon**, open "Start", do a search for `taskman`, and confirm the result. Or do a right-click on the Windows Taskbar and select `Task Manager` from the menu.
 
 ![Windows Task Manager (advanced view)](./img/biti-ipm-compute-windows-taskman.png)
+
+Microsoft improves the Task Manager between each version of Windows. Currently, Taskmon under Windows 11 has a redesigned look and some new features.
+
+![Windows Task Manager (advanced view)](./img/biti-ipm-compute-windows-taskman-processes-w11.png)
+
+Learn more about the Task Manager from [Microsoft Learn](https://learn.microsoft.com/en-us/shows/inside/task-manager) or from [LifeWire](https://www.lifewire.com/task-manager-2626025#toc-task-manager-walkthrough).
 
 ### Sample output
 To see the network activities, simply click on the tab 'Performance' and select the corresponding icon.
 
 ![itop](./img/biti-ipm-network-windows-taskman.png)
+
+Under Windows 11, select either the `Ethernet` ...
+
+![Windows Task Manager (advanced view)](./img/biti-ipm-network-windows-taskman-ether-w11.png)
+
+or the `Wi-Fi` icon to see some spikes up and down depending on some network activities.
+
+![Windows Task Manager (advanced view)](./img/biti-ipm-network-windows-taskman-wifi-w11.png)
+
+<aside class="positive">
+We do see network activity and some spikes up and down but if we want to know the reason, we need to use another tool. We have already learned the Windows Ressource Monitor tool in BITI IPM Lab - Compute. In the next section, we will learn another tool called Network Monitor.
+</aside>
+
 
 ## Network Monitor
 
@@ -159,7 +178,7 @@ At the time of reading this, Microsoft has archived the Network Monitor.
 
 ### Sample code
 
-After installation, start the application and select `View -> Select Network`. If this doesn't work, then you have to log out / log in again. Make sure that your Network is selected (see section **Select Networks**).
+After installation, start the application and select `View -> Select Network`. If this doesn't work, then you have to log out and log in again. Make sure that your Network is selected (check again by run `View -> Select Network` again).
 
 ![itop](./img/biti-ipm-network-windows-netmon-1.png)
 
@@ -167,9 +186,7 @@ Next, click on `New Capture -> Start` to start network capturing. Traffic will s
 
 ![itop](./img/biti-ipm-network-windows-netmon-2.png)
 
-If you need the data for a longer period of time, you can save it to a file. 
-
-### Sample output
+If you need the data for a longer period of time, you can save it to a file (select `File -> Save as ...`). 
 
 ## netstat
 
@@ -211,15 +228,16 @@ Active Connections
   --More--
 ```
 Where,
-* The first column (proto stands for protocol) lists all of the transmission control protocol (TCP) and user datagram protocol (UDP) connections on the machine. 
-* The second column is the machine’s local IP address and port number-
-* The third column is the remote or foreign address and port number.
-* The final column is called State, which is the state that the connection, or potential connection, is in.
+* The first column (proto stands for protocol) lists all TCP and UDP connections on the machine. 
+* The second column provides the local IP address and port number.
+* The third column provides the remote IP address and port number.
+* The final column provides the state of the connection.
 
 Furthermore,
-* `LISTENING` shows a classic open port listening for inbound connections. 
-* `ESTABLISHED` means there’s an actual connection between your machine and the remote IP and port that is able to exchange traffic. 
-* `CLOSE_WAIT` is a state TCP goes into while ending an established connection.
+* `LISTENING` - Listening for inbound connections. 
+* `ESTABLISHED` - Connection has been established. 
+* `CLOSE_WAIT` - Remote shutdown. Local is waiting for the socket to close.
+
 
 ## Network Performance
 
@@ -228,6 +246,11 @@ Furthermore,
 You can use the following application for Windows to check the network performance.
 
 * Network Speed Test
+
+<aside class="positive">
+This is a lab, not a hands-on exercise.
+</aside>
+
 
 ## Network Speed Test
 
@@ -238,7 +261,7 @@ The Microsoft tool **Network Speed Test** measures the network delay, download s
 <aside class="positive">
 WARNING:
 
-When you test your network using the Network Speed Test, certain characteristics of your device and the network connection will be sent to Microsoft. If you do not agree with this policy, do not use this program.
+When you test your network using the Network Speed Test, certain characteristics of your device and the network connection will be sent to Microsoft. Do not use this program if you do not agree with this policy.
 </aside>
 
 You can download **Network Speed Test** from the Microsoft Store.
@@ -255,3 +278,9 @@ After launching it, Network Speedtest is ready to go. Simply click on `Start`.
 After the Speedtest run, the tool shows you a summary of details including network delay, the download and upload speed. The gauge chart also shows you recommendations on what you can do with this network throughput.
 
 ![itop](./img/biti-ipm-network-windows-speedtest-3.png)
+
+### Clean Up
+
+You can exit the program and un-install it if desired.
+
+This is the end of the lab.
