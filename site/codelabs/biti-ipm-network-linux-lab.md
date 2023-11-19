@@ -66,7 +66,7 @@ By default, administrator privileges are required on the Host OS to install addi
 
 For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration.
 
-## Device information
+## Device iIformation
 
 ### What You will learn:
 
@@ -107,7 +107,7 @@ lspci
 00:0d.0 SATA controller: Intel Corporation 82801HM/HEM (ICH8M/ICH8M-E) SATA Controller [AHCI mode] (rev 02)
 ```
 
-The list shows the model of the Ethernet controller, but not the network device interfaces. For this we need another tool.
+The list shows the model of the Ethernet controller, but not the network device interfaces. For network devices we need another tool. Go ahead.
 
 ### References
 
@@ -124,7 +124,7 @@ man lspci
 The tool **hwinfo** checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including network controller and network cards.
 
 <aside class="positive">
-Hwinfo requires root privileges.
+Hwinfo requires root privileges. Use the sudo command to become root.
 </aside>
 
 ### Sample code
@@ -132,7 +132,7 @@ Hwinfo requires root privileges.
 Run the following command:
 
 ```
-hwinfo
+sudo hwinfo
 ```
 
 ### Sample output
@@ -212,11 +212,11 @@ man hwinfo
 
 ### Description
 
-The `ip` command is one of the basic commands every administrator will need in daily work, from setting up new systems and assigning IPs to troubleshooting existing systems. The `ip` command can show address information, manipulate routing, plus display network various devices, interfaces, and tunnels.
+The **ip** command is an extreme powerful tool for configuring network interfaces that any Linux system administrator should know. The command offers several network administration tasks such as bringing up or down network interfaces, assigning and removing IP addresses and routes, managing ARP cache, and more. It's the skill every system engineer needs, including you.
 
 ### Sample code
 
-To show the IP addresses assigned to an interface on your server:
+Run the following command to show the IP addresses assigned to an interface on your server:
 
 ```
 ip address show
@@ -257,7 +257,11 @@ man ip
 
 ### Description
 
-**nmcli** is a command-line tool for controlling NetworkManager and reporting network status. The tool is used to create, display, edit, delete, activate, and deactivate network connections, as well as control and display network device status.
+**nmcli** is a command-line tool for controlling `NetworkManager` and reporting network status. The tool is used to create, display, edit, delete, activate, and deactivate network connections, as well as control and display network device status.
+
+<aside class="positive">
+Just for clarify: NetworkManager is a program for providing detection and configuration for systems to automatically connect to networks. In contrast, the command nmcli controlls the NetworkManager.
+</aside>
 
 ### Sample code
 
@@ -313,7 +317,7 @@ Wired connection 1  3bf2b392-a620-4bab-9bd6-30da11211131  ethernet  enp0s3
 
 ### References
 
-Read the manual:
+Need more information? Read the manual:
 
 ```
 man nmcli
@@ -327,7 +331,7 @@ You can use one of the following commands to find detailed information about the
 
 - ping
 - speedtest
-- iperf3 (has been moved to the section `Hands-On`)
+- iperf3 (has been moved to the last section named `Hands-On`)
 
 ## ping
 
@@ -337,10 +341,10 @@ The **ping** command is one of the most used tools for diagnosing network connec
 
 **Ping** works by sending ICMP (Internet Control Message Protocol) Echo Request packages to a specified destination IP on the network and waits for a reply. When the destination receives the package, it responds with an ICMP echo reply.
 
-With the **ping** command, IT Administrators can determine whether a remote destination IP is active or inactive. IT Administrators can also find the round-trip delay in communicating with the destination and check whether there is a packet loss.
+IT Administrators can use the **ping** command to determine whether a remote destination IP is active or inactive. IT Administrators can also find the round-trip delay in communicating with the destination and check whether a packet loss has occured.
 
 <aside class="positive">
-Ping is not sufficient for determining service availability. Instead, check your UDP/TCP port directly, to see if the service is still available.
+Ping is not sufficient for determining service availability. Instead, check the UDP/TCP port of the service directly to determine whether the service is available or not.
 </aside>
 
 ### Sample code
@@ -377,7 +381,7 @@ Where,
 
 ### References
 
-Ping the man:
+Ping the manual for more details:
 
 ```
 man ping
@@ -387,7 +391,7 @@ man ping
 
 ### Description
 
-One of the most famous online internet connection test apps is speedtest.net. The tool **speedtest-cli** is a command line interface for testing internet bandwidth using speedtest.net. The test is simple to use and provides multiple options. To view all of them, pass the `-h` flag to display the speedtest-cli help file.
+One of the most famous online internet connection test apps is `speedtest.net`. The tool **speedtest-cli** is a command line interface for testing internet bandwidth using speedtest.net. The test is simple to use and provides multiple options. To view all of them, pass the `-h` flag to display the speedtest-cli help file.
 
 ### Sample code
 
@@ -413,7 +417,7 @@ Upload: 1.01 Mbit/s
 
 ### References
 
-What is faster than man?
+What is faster than an online search?
 
 ```
 man speedtest-cli
@@ -450,7 +454,7 @@ iftop -i enp0s3
 ```
 
 <aside class="positive">
-Keep in mind the difference between eth0 and enp0s3. 
+Keep in mind the difference between eth0 and enp0s3.
 </aside>
 
 ### Sample output
@@ -459,13 +463,17 @@ Keep in mind the difference between eth0 and enp0s3.
 
 Where,
 
-- At the very top of the screen is a scale that goes along with the bar graph iftop might display with each connection.
-- The next rows of output correspond to each network connection between a pair of hosts. In between the two hosts are arrows that let you know the direction the traffic is flowing.
-- The final three columns provide average bandwidth for each connection during the last 2, 10 and 40 seconds, respectively.
+- At the very top of the screen is a scale that corresponds to the bar graph iftop might display for each connection.
+- The next lines correspond to each network connection between a pair of hosts. Between the two hosts, arrows indicate the direction of traffic.
+- The last three columns show the average bandwidth for each connection over the last two (2), ten (10) and forty (40) seconds respectively.
+
+<aside class="positive">
+Press q to exit the program.
+</aside>
 
 ### References
 
-Here is the link to the documentation:
+Use the manual to get more details:
 
 ```
 man iftop
@@ -475,9 +483,7 @@ man iftop
 
 ### Description
 
-**Etherape** is a graphical tool that provides a view of current network activity. Current connections are displayed thicker than passive connections depending on the volume transferred.
-
-**Etherape** supports Ethernet, FDDI, Token Ring, ISDN, PPP, SLIP and WLAN devices. It can filter traffic to be shown, and can read packets from a file as well as live from the network. Node statistics can be exported.
+**Etherape** is a graphical tool that provides a view of current network activity. **Etherape** supports Ethernet, FDDI, Token Ring, ISDN, PPP, SLIP and WLAN devices. It can filter traffic to be shown, and can read packets from a file as well as live from the network. Node statistics can be exported.
 
 ### Sample code
 
@@ -487,15 +493,17 @@ To start Etherape, run the following command with root privileges:
 sudo etherape
 ```
 
+Next, start **Firefox** and do some online research. See how hosts and their connecting links grow an shrink in size while surfing the internet. 
+
 ### Sample output
 
 ![itop](./img/biti-ipm-network-linux-etherape.png)
 
-In contrast to other network monitors, Etherape visualizes the logged connections in a graphical representation. The approach of the open source program is intuitive: Each IP address is graphically represented as a node, connection lines trace the transmitted data. The thickness of the lines shows the data volume of the corresponding connection between the nodes and the color of the lines shows the protocol used in each case.
+Unlike other network monitors, Etherape visualizes the logged connections in a graphical representation. The approach of the open source program is intuitive: each IP address is graphically represented as a node, connection lines trace the transmitted data. The thickness of the lines shows the data volume of the corresponding connection between the nodes and the color of the lines represents the various types of traffic.
 
 ### References
 
-Online documentation:
+Check out the online documentation for more details:
 
 [Etherape on Sourceforge](https://etherape.sourceforge.io/)
 
@@ -558,6 +566,11 @@ Where
 
 - ip-address - The server's IP address or it's hostname.
 
+<aside class="positive">
+Consult the ip section if you don't know the ip address of your virtual machine. 
+</aside>
+
+
 Monitorix offers a wide range of performance counters. However, in this codelab we are interested in networking. Therefore select the Graph `enps03 Network traffic` from the Host `localhost`.
 
 ![itop](./img/biti-ipm-network-linux-monitorix-1.png)
@@ -592,10 +605,10 @@ Where
 - ip-address - The server's IP address or it's hostname.
 
 <aside class="negative">
-Please note that Cockpit is installed on a virtual machine, which is only used within the course. Always make sure that you secure the http connection.
+Please note that Cockpit is installed on a virtual machine for demonstration purposes. Therefore, make sure that you secure the http connection in a production environment.
 </aside>
 
-Log in with a normal account. Hoyever, it might be a good idea for this account to have root privileges.
+Log in with a normal account. 
 
 ![itop](./img/biti-ipm-network-linux-cockpit-1.png)
 
@@ -614,6 +627,7 @@ Please note that essential software components have not been installed on this v
 ### References
 
 No manual, but still documented:
+
 [cockpit](https://cockpit-project.org/)
 
 ## Hands-on
@@ -631,13 +645,21 @@ In this codelab, you will need the following tools:
 
 - iperf3
 
+You will need iperf3 on your `HostOS` (yes, that's your physical computer to complete this Hands-on.
+You can download the software from this [website](https://iperf.fr/iperf-download.php).
+
 ### Scenario
 
 In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). The HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
 
+Additional information:
+- The `HostOS` has the IP address 192.168.0.201.
+- The `GuestOS` has the IP address 192.168.0.205.
+
+
 ### Test Run
 
-To start the server, run iperf3 on the HostOS with the following option:
+To start the **server**, run **iperf3** on the `HostOS` (=your physical computer) with the following option:
 
 ```
 iperf3 -s
@@ -645,17 +667,17 @@ iperf3 -s
 
 Where,
 
-- -s - Run iperf3 in server mode. iperf3 can handle multiple client requests.
+- **-s** - Run iperf3 in server mode. iperf3 can handle multiple client requests.
 
-To start the client, run iperf3 on the GuestOS with the following option by specifying the server's ip address
+To start the **client**, run **iperf3** on the `GuestOS` (=thats the VM) with the following option by specifying the IP address of the `HostOS` (e.g. 192.168.0.201).
 
 ```
-iperf3 -c 192.168.7.187
+iperf3 -c 192.168.0.201
 ```
 
 Where,
 
-- -s 192.168.7.11 - Run iperf3 in client mode, connecting to an iperf3 server running on host with IP 192.168.10.2.
+- **-c 192.168.0.201** - Run iperf3 in client mode, connecting to an iperf3 server running on `HostOS` with IP 192.168.0.201.
 
 ### Sample output
 
@@ -663,26 +685,31 @@ iperf3 server's output:
 
 ```
 ------------------------------------------------------------
-Server listening on TCP port 5001
-TCP window size: 128 KByte (default)
+Server listening on TCP port 5001 (test #1)
 ------------------------------------------------------------
-[  4] local 192.168.7.187 port 5001 connected with 192.168.7.10 port 33030
+Accepted connection from 192.168.0.205, port 58872
+[  4] local 192.168.0.201 port 5001 connected with 192.168.0.205 port 58876
 [ ID] Interval       Transfer     Bandwidth
 [  4]  0.0-10.0 sec  3.09 GBytes  2.65 Gbits/sec
-
+...
+...
 ```
 
 iperf3 client's output:
 
 ```
-Client connecting to 192.168.0.187, TCP port 5001
-TCP window size: 85.0 KByte (default)
+Connecting to 192.168.0.201, TCP port 5001
 ------------------------------------------------------------
-[  3] local 192.168.7.10 port 33030 connected with 192.168.7.187 port 5001
+[  3] local 192.168.0.205 port 5201 connected with 192.168.0.201 port 5001
 [ ID] Interval       Transfer     Bandwidth
 [  3]  0.0-10.0 sec  3.09 GBytes  2.65 Gbits/sec
-
+...
+...
 ```
+
+<aside class="negative">
+Note the different connection ports used and ask yourself the reason for this.
+</aside>
 
 ### Clean Up
 

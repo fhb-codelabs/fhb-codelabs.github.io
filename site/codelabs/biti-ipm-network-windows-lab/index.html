@@ -131,11 +131,20 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
         <h2 is-upgraded>Description</h2>
 <p>The <strong>Windows Task Manager (Taskmon)</strong> is a system tool found in all versions of Microsoft Windows platform&#39;s. It provides information about running applications, processes, and services, as well as computer performance, network activity, and memory information. There are two views for the Task Manager: Simplified and Advanced.</p>
 <h2 is-upgraded>Sample code</h2>
-<p>To use Taskmon, open Start, do a search for <strong>taskman</strong>, and confirm the result. Or do a right-click on the Windows Taskbar and select <code>Task Manager</code> from the menu.</p>
+<p>To use <strong>Taskmon</strong>, open &#34;Start&#34;, do a search for <code>taskman</code>, and confirm the result. Or do a right-click on the Windows Taskbar and select <code>Task Manager</code> from the menu.</p>
 <p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/2cb687c06bd49267.png"></p>
+<p>Microsoft improves the Task Manager between each version of Windows. Currently, Taskmon under Windows 11 has a redesigned look and some new features.</p>
+<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/6518f6bebde0f5ef.png"></p>
+<p>Learn more about the Task Manager from <a href="https://learn.microsoft.com/en-us/shows/inside/task-manager" target="_blank">Microsoft Learn</a> or from <a href="https://www.lifewire.com/task-manager-2626025#toc-task-manager-walkthrough" target="_blank">LifeWire</a>.</p>
 <h2 is-upgraded>Sample output</h2>
 <p>To see the network activities, simply click on the tab ‘Performance&#39; and select the corresponding icon.</p>
 <p class="image-container"><img alt="itop" src="img/930f9b31aec37122.png"></p>
+<p>Under Windows 11, select either the <code>Ethernet</code> ...</p>
+<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/504beeebb7cd2b6b.png"></p>
+<p>or the <code>Wi-Fi</code> icon to see some spikes up and down depending on some network activities.</p>
+<p class="image-container"><img alt="Windows Task Manager (advanced view)" src="img/5d60772d11db9f96.png"></p>
+<aside class="special"><p> We do see network activity and some spikes up and down but if we want to know the reason, we need to use another tool. We have already learned the Windows Ressource Monitor tool in BITI IPM Lab - Compute. In the next section, we will learn another tool called Network Monitor. </p>
+</aside>
 
 
       </google-codelab-step>
@@ -147,12 +156,11 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
 <aside class="special"><p> At the time of reading this, Microsoft has archived the Network Monitor. </p>
 </aside>
 <h2 is-upgraded>Sample code</h2>
-<p>After installation, start the application and select <code>View -> Select Network</code>. If this doesn&#39;t work, then you have to log out / log in again. Make sure that your Network is selected (see section <strong>Select Networks</strong>).</p>
+<p>After installation, start the application and select <code>View -> Select Network</code>. If this doesn&#39;t work, then you have to log out and log in again. Make sure that your Network is selected (check again by run <code>View -> Select Network</code> again).</p>
 <p class="image-container"><img alt="itop" src="img/c8cf9b8685eef13.png"></p>
 <p>Next, click on <code>New Capture -> Start</code> to start network capturing. Traffic will show up in the left pane under <code>Network conversation</code>. Click on <code>Stop</code> whenever needed. Select one of the traffic conversations (here msedge.exe, the internet browser) and study the frames.</p>
 <p class="image-container"><img alt="itop" src="img/92855f72e515a3ad.png"></p>
-<p>If you need the data for a longer period of time, you can save it to a file.</p>
-<h2 is-upgraded>Sample output</h2>
+<p>If you need the data for a longer period of time, you can save it to a file (select <code>File -> Save as ...</code>).</p>
 
 
       </google-codelab-step>
@@ -188,16 +196,16 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>The first column (proto stands for protocol) lists all of the transmission control protocol (TCP) and user datagram protocol (UDP) connections on the machine.</li>
-<li>The second column is the machine&#39;s local IP address and port number-</li>
-<li>The third column is the remote or foreign address and port number.</li>
-<li>The final column is called State, which is the state that the connection, or potential connection, is in.</li>
+<li>The first column (proto stands for protocol) lists all TCP and UDP connections on the machine.</li>
+<li>The second column provides the local IP address and port number.</li>
+<li>The third column provides the remote IP address and port number.</li>
+<li>The final column provides the state of the connection.</li>
 </ul>
 <p>Furthermore,</p>
 <ul>
-<li><code>LISTENING</code> shows a classic open port listening for inbound connections.</li>
-<li><code>ESTABLISHED</code> means there&#39;s an actual connection between your machine and the remote IP and port that is able to exchange traffic.</li>
-<li><code>CLOSE_WAIT</code> is a state TCP goes into while ending an established connection.</li>
+<li><code>LISTENING</code> - Listening for inbound connections.</li>
+<li><code>ESTABLISHED</code> - Connection has been established.</li>
+<li><code>CLOSE_WAIT</code> - Remote shutdown. Local is waiting for the socket to close.</li>
 </ul>
 
 
@@ -209,6 +217,8 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
 <ul>
 <li>Network Speed Test</li>
 </ul>
+<aside class="special"><p> This is a lab, not a hands-on exercise. </p>
+</aside>
 
 
       </google-codelab-step>
@@ -217,7 +227,7 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
         <h2 is-upgraded>Description</h2>
 <p>The Microsoft tool <strong>Network Speed Test</strong> measures the network delay, download speed and upload speed by using servers around the world. Based on the connection&#39;s speed, Network Speed Test will tell you what activities you might be able to do, such as stream music or video calls.</p>
 <aside class="special"><p> WARNING: </p>
-<p>When you test your network using the Network Speed Test, certain characteristics of your device and the network connection will be sent to Microsoft. If you do not agree with this policy, do not use this program.</p>
+<p>When you test your network using the Network Speed Test, certain characteristics of your device and the network connection will be sent to Microsoft. Do not use this program if you do not agree with this policy.</p>
 </aside>
 <p>You can download <strong>Network Speed Test</strong> from the Microsoft Store.</p>
 <p class="image-container"><img alt="itop" src="img/7eb6e80365d7674e.png"></p>
@@ -226,6 +236,9 @@ Ethernet 802.3  WAN Miniport (Network Monitor)
 <h2 is-upgraded>Sample output</h2>
 <p>After the Speedtest run, the tool shows you a summary of details including network delay, the download and upload speed. The gauge chart also shows you recommendations on what you can do with this network throughput.</p>
 <p class="image-container"><img alt="itop" src="img/7043b02e30ef7cfb.png"></p>
+<h2 is-upgraded>Clean Up</h2>
+<p>You can exit the program and un-install it if desired.</p>
+<p>This is the end of the lab.</p>
 
 
       </google-codelab-step>
