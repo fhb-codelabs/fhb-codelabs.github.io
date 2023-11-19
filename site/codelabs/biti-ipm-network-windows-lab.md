@@ -155,7 +155,7 @@ Under Windows 11, select either the `Ethernet` ...
 
 ![Windows Task Manager (advanced view)](./img/biti-ipm-network-windows-taskman-ether-w11.png)
 
-or the `Wi-Fi` icon to see some spikes up and down depending on some network activities.
+... or the `Wi-Fi` icon to see some spikes up and down depending on network activities.
 
 ![Windows Task Manager (advanced view)](./img/biti-ipm-network-windows-taskman-wifi-w11.png)
 
