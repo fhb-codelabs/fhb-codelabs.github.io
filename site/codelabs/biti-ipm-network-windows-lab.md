@@ -34,7 +34,7 @@ For the Guest OS, you will create and manage your own users. These users will th
 
 <!-- ------------------------ -->
 
-## Device information
+## Device Information
 
 ### What You will learn:
 
