@@ -66,7 +66,7 @@ By default, administrator privileges are required on the Host OS to install addi
 
 For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration.
 
-## Device iIformation
+## Device Information
 
 ### What You will learn:
 
