@@ -42,22 +42,22 @@ For the Guest OS, you will create and manage your own users. These users will th
 
 ### Description
 
-First you need to acquire the installation package. One option is to go to the [Phoronix download page](http://www.phoronix-test-suite.com/?k=downloads), and pick a version. Then you can download it to the machine that will be running the tests.
+First you need to download and install the installation package. Go to the [Phoronix download page](http://www.phoronix-test-suite.com/?k=downloads) and download the `Ubuntu/Debian Package` to the machine that will be running the tests.
 
-After the download, run the install process:
+Next, run the install process by executing the following two (2) commands:
 
 ```
 sudo dpkg -i phoronix-test-suite_10.6.1_all.deb
 sudo apt-get install -f
 ```
 
-Once the software suite is installed, run it for the first time. It will ask you a couple of questions and then show you the User Agreement License (UAL):
+Once the software suite is installed, go ahead and start the program: 
 
 ```
 phoronix-test-suite
 ```
 
-Note, that you have to accept the terms, but do not enable anonymus usage.
+It will ask you a couple of questions. Finally, it will display the User Agreement License (UAL) onm Screen. Note, that you have to accept the terms, but do not enable anonymus usage.
 
 ```
 Do you agree to these terms and wish to proceed (y/n): Y
@@ -65,7 +65,7 @@ Enable anonymous usage / statistics reporting (y/n): N
 ```
 
 <aside class="negative">
-Do no enable anonymus usage.
+Again (and be warned): Do no enable anonymus usage.
 </aside>
 
 ### References
@@ -78,13 +78,12 @@ Need help? Use this link:
 
 ### Description
 
-The following command displays the installed system hardware and software information as detected by the Phoronix Test Suite.
-
+The following command displays detailed information about the installed system hardware and software as detected by the Phoronix Test Suite.
 ```
 phoronix-test-suite system-info
 ```
 
-The output of the command including the option `system-info` above may look like this:
+Example output:
 
 ```
 Phoronix Test Suite v10.6.1
@@ -131,13 +130,13 @@ CPU
 
 ### Description
 
-There are many different tests available to use. You can see what individual tests are available:
+There are many different tests that you can use. Execute the following command to see which (individual, single) tests are available:
 
 ```
 phoronix-test-suite list-available-tests
 ```
 
-The output of the command with the specific parameter `list-available-tests` above may look like this:
+Example output:
 
 ```
 Phoronix Test Suite v10.6.1
@@ -156,13 +155,13 @@ pts/ashes-escalation        Ashes of the Singulairty: Escalation              Gr
 --More--
 ```
 
-Or you can look for groups (suites) of tests:
+If you want to run a multiple tests in a row, run the following command to get a list of tests-suites (group of tests):
 
 ```
 phoronix-test-suite list-available-suites
 ```
 
-The command above will show you a list of available test suites:
+Example output:
 
 ```
 Phoronix Test Suite v10.6.1
@@ -185,27 +184,25 @@ Available Suites
 --More--
 ```
 
-You can get information on a particular test or suite:
+Run the following command to obtain detailed information on a specific test (or test-suite):
 
 ```
 phoronix-test-suite info [test]
 ```
 
-When you know what test or tests you want to run, you need to install the test dependencies before you can run them.
-
-You can run the install in a separate operation. The following command will install the `Java test suite`:
+If you know (or have been told) which test you want to run, you must first install the test dependencies before you can run it. The following example will install the Java test suite:
 
 ```
 phoronix-test-suite install pts/java
 ```
 
-Now can get information on `pts/java` suite:
+Again, if you want to know more on `pts/java`, run the following command:
 
 ```
 phoronix-test-suite info pts/java
 ```
 
-The command above will show you core information about the phoronix-test-suite package:
+The command above will show you core information about the `pts/java` suite. Section `Contained Tests` will list all tests that are included in this suite.
 
 ```
 Phoronix Test Suite v10.6.1
@@ -249,20 +246,14 @@ Contained Tests:
                     33 Tests / 7 Unique Tests
 ```
 
-To run the benchmark, execute the following command
+To run the benchmark, just execute the following command:
 
 ```
 phoronix-test-suite run pts/java
 ```
 
-Or you can invoke benchmark which will first install and then run the tests for you.
-
-```
-phoronix-test-suite benchmark pts/java
-```
-
 <aside class="positive">
-You can run each test individually, or several at a time. Whether you run one test or multiple, you can run them in interactive mode or batch mode. Batch mode is great if you want to run many tests without babysitting.
+You can perform each test individually or several at once. Regardless of whether you run one or more tests, you can run them in interactive mode or batch mode. Batch mode is ideal if you want to run many tests without babysitting.
 </aside>
 
 ## Hands-On
@@ -277,11 +268,17 @@ In this codelab, you will learn
 
 ### What you will need:
 
-In this codelab, you will need the following tools:
+In this codelab, you will need the following tool:
 
 - phoronix-test-suite
 
-Details of these two (2) tools can be found in the corresponding Codelab named `Benchmark`.
+### What you are not allowed to do:
+
+This practical exercise will use the test suite `pts/sysbench-1.0.0` for demonstration purposes. You will need to use a different test suite for your assignment, okay?
+
+<aside class="negative">
+Do not use this test suite for your work. You will have to choose your own test.
+</aside>
 
 ### Scenario
 
