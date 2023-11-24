@@ -357,7 +357,7 @@ Hwinfo checks details of the hardware present in a Linux system and displays the
 Run the following command:
 
 ```
-hwinfo | more
+sudo hwinfo | more
 ```
 
 ### Sample output
