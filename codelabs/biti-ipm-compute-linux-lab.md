@@ -418,8 +418,8 @@ shm: attached segment 26 at 0x7f2ea7189000
 --More--
 ```
 
-The "--short" option will display brief information about the hardware and not the details.
-With the "--cpu" option, hwinfo would display only cpu information.
+The "--short" option will display brief information about the hardware but not in details.
+With the "--cpu" option, hwinfo displays CPU information only.
 
 ```
 hwinfo --short --cpu
