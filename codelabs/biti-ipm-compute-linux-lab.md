@@ -909,7 +909,7 @@ This gives you time to run commands like htop or uptime to observe CPU usage. Re
 
 ### Scenario
 
-In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.
+In this Codelab, the GuestOS is a virtual machine with 2 CPU cores and 4 GB RAM. The guest operating system is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM runs on the Linux-based hypervisor VirtualBox, version 6.1.16 r140961 (QT 5.11.3). The HostOS is based on Debian with Linux kernel version 4.19.0-17-amd64. The host hardware is an HP Prodesk 400 G1 DN with an Intel Core i3-4160T CPU@3.10GHz, 16GB RAM and an Intenso SATA III Top 512GB.
 
 ### Test Run
 
