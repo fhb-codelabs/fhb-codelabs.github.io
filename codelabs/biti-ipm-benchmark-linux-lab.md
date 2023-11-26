@@ -277,7 +277,7 @@ In this codelab, you will need the following tool:
 This practical exercise will use the test suite `pts/sysbench-1.0.0` for demonstration purposes. You will need to use a different test suite for your assignment, okay?
 
 <aside class="negative">
-Do not use this test suite for your work. You will have to choose your own test.
+Do not use this test suite for your work. You have to choose your own test.
 </aside>
 
 ### Scenario
