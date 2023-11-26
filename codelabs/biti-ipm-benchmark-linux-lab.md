@@ -36,13 +36,13 @@ This is the OS of the virtual machine. This will be Debian .
 
 By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.
 
-For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host's user administration.
+For the Guest OS, you will create and manage your own users. These users are therefore be different from the Host's user administration.
 
 ## Installation
 
 ### Description
 
-First you need to download and install the installation package. Go to the [Phoronix download page](http://www.phoronix-test-suite.com/?k=downloads) and download the `Ubuntu/Debian Package` to the machine that will be running the tests.
+First, you need to download and install the installation package. Go to the [Phoronix download page](http://www.phoronix-test-suite.com/?k=downloads) and download the `Ubuntu/Debian Package` to the computer which you want to run the tests.
 
 Next, run the install process by executing the following two (2) commands:
 
@@ -57,7 +57,7 @@ Once the software suite is installed, go ahead and start the program:
 phoronix-test-suite
 ```
 
-It will ask you a couple of questions. Finally, it will display the User Agreement License (UAL) onm Screen. Note, that you have to accept the terms, but do not enable anonymus usage.
+You will be asked a couple of questions. Finally, the program will display the User Agreement License (UAL). Note, that you have to accept the terms, but do not enable anonymus usage.
 
 ```
 Do you agree to these terms and wish to proceed (y/n): Y
@@ -65,7 +65,7 @@ Enable anonymous usage / statistics reporting (y/n): N
 ```
 
 <aside class="negative">
-Again (and be warned): Do no enable anonymus usage.
+Again: Do not enable anonymus usage.
 </aside>
 
 ### References
@@ -78,7 +78,7 @@ Need help? Use this link:
 
 ### Description
 
-The following command displays detailed information about the installed system hardware and software as detected by the Phoronix Test Suite.
+The following command retrieves detailed information about the installed system hardware and software identified by the Phoronix Test Suite.
 ```
 phoronix-test-suite system-info
 ```
@@ -102,13 +102,13 @@ System Information
 --More--
 ```
 
-The following command displays various hardware/software system properties detected by the Phoronix Device Interface (Phodevi) library.
+The following command provides various hardware/software system properties detected by the Phoronix Device Interface (Phodevi) library.
 
 ```
 phoronix-test-suite system-properties
 ```
 
-The output of the command with the specific parameter `system-properties` above may look like this:
+Example output:
 
 ```
 AUDIO
@@ -130,7 +130,7 @@ CPU
 
 ### Description
 
-There are many different tests that you can use. Execute the following command to see which (individual, single) tests are available:
+There are many different tests that you can use. Execute the following command to see which ones are available:
 
 ```
 phoronix-test-suite list-available-tests
@@ -155,7 +155,7 @@ pts/ashes-escalation        Ashes of the Singulairty: Escalation              Gr
 --More--
 ```
 
-If you want to run a multiple tests in a row, run the following command to get a list of tests-suites (group of tests):
+If you want to run a multiple tests, run the following command to get a list of tests-suites:
 
 ```
 phoronix-test-suite list-available-suites
@@ -184,7 +184,7 @@ Available Suites
 --More--
 ```
 
-Run the following command to obtain detailed information on a specific test (or test-suite):
+Run the following command to obtain detailed information on a specific test:
 
 ```
 phoronix-test-suite info [test]
@@ -286,7 +286,7 @@ In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM.
 
 ### Test Run
 
-Open a shell terminal and execute the following command:
+Open a shell terminal and run the following command:
 
 ```
 phoronix-test-suite run pts/sysbench-1.0.0
@@ -416,7 +416,7 @@ System Information
                           + tsx_async_abort: Not affected
 ```
 
-Next, type `Y` to save the results. Enter a proper name for the result file. Press `Enter` to preceed without changes for test run / configuration and decription. Phoronix shows up a note that it will start the test run in 5 seconds. You can press `CTRL-C` if you wish to stop the test.
+Next, type `Y` to save the results. Enter a proper name for the result file. Press `Enter` to proceed without changes for the test run / configuration and decription. Phoronix shows up a note that the test run will be started in 5 seconds. Press `CTRL-C` if you wish to stop the test run.
 
 ```
     Would you like to save these test results (Y/n): y
@@ -424,7 +424,7 @@ Next, type `Y` to save the results. Enter a proper name for the result file. Pre
     Enter a unique name to describe this test run / configuration:
 
 If desired, enter a new description below to better describe this result set / system configuration under test.
-Press ENTER to proceed without changes.
+Press `ENTER` to proceed without changes.
 
 Current Description: Oracle VirtualBox testing on Debian via the Phoronix Test Suite.
 
@@ -451,7 +451,7 @@ New Description:
 
 ```
 
-Next, Phoronix will start the test run. As show, the test run should be completed after 9 minutes, depending on your hardware performance.
+Next, Phoronix will start the test run. As shown, the test run should be completed after 9 minutes, depending on your hardware performance.
 
 ```
 Sysbench 2018-07-28:

@@ -44,14 +44,14 @@
 <p>This is the OS of the virtual machine. This will be Debian .</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
-<p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
+<p>For the Guest OS, you will create and manage your own users. These users are therefore be different from the Host&#39;s user administration.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Installation" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>First you need to download and install the installation package. Go to the <a href="http://www.phoronix-test-suite.com/?k=downloads" target="_blank">Phoronix download page</a> and download the <code>Ubuntu/Debian Package</code> to the machine that will be running the tests.</p>
+<p>First, you need to download and install the installation package. Go to the <a href="http://www.phoronix-test-suite.com/?k=downloads" target="_blank">Phoronix download page</a> and download the <code>Ubuntu/Debian Package</code> to the computer which you want to run the tests.</p>
 <p>Next, run the install process by executing the following two (2) commands:</p>
 <pre><code>sudo dpkg -i phoronix-test-suite_10.6.1_all.deb
 sudo apt-get install -f
@@ -59,11 +59,11 @@ sudo apt-get install -f
 <p>Once the software suite is installed, go ahead and start the program:</p>
 <pre><code>phoronix-test-suite
 </code></pre>
-<p>It will ask you a couple of questions. Finally, it will display the User Agreement License (UAL) onm Screen. Note, that you have to accept the terms, but do not enable anonymus usage.</p>
+<p>You will be asked a couple of questions. Finally, the program will display the User Agreement License (UAL). Note, that you have to accept the terms, but do not enable anonymus usage.</p>
 <pre><code>Do you agree to these terms and wish to proceed (y/n): Y
 Enable anonymous usage / statistics reporting (y/n): N
 </code></pre>
-<aside class="warning"><p> Again (and be warned): Do no enable anonymus usage. </p>
+<aside class="warning"><p> Again: Do not enable anonymus usage. </p>
 </aside>
 <h2 is-upgraded>References</h2>
 <p>Need help? Use this link:</p>
@@ -74,7 +74,7 @@ Enable anonymous usage / statistics reporting (y/n): N
     
       <google-codelab-step label="Information" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>The following command displays detailed information about the installed system hardware and software as detected by the Phoronix Test Suite.</p>
+<p>The following command retrieves detailed information about the installed system hardware and software identified by the Phoronix Test Suite.</p>
 <pre><code>phoronix-test-suite system-info
 </code></pre>
 <p>Example output:</p>
@@ -93,10 +93,10 @@ System Information
     Screen:               1152x864
 --More--
 </code></pre>
-<p>The following command displays various hardware/software system properties detected by the Phoronix Device Interface (Phodevi) library.</p>
+<p>The following command provides various hardware/software system properties detected by the Phoronix Device Interface (Phodevi) library.</p>
 <pre><code>phoronix-test-suite system-properties
 </code></pre>
-<p>The output of the command with the specific parameter <code>system-properties</code> above may look like this:</p>
+<p>Example output:</p>
 <pre><code>AUDIO
      identifier = Intel 82801AA AC 97 Audio
 
@@ -117,7 +117,7 @@ CPU
     
       <google-codelab-step label="Available Test" duration="0">
         <h2 is-upgraded>Description</h2>
-<p>There are many different tests that you can use. Execute the following command to see which (individual, single) tests are available:</p>
+<p>There are many different tests that you can use. Execute the following command to see which ones are available:</p>
 <pre><code>phoronix-test-suite list-available-tests
 </code></pre>
 <p>Example output:</p>
@@ -136,7 +136,7 @@ pts/arrayfire               ArrayFire                                         Pr
 pts/ashes-escalation        Ashes of the Singulairty: Escalation              Graphics
 --More--
 </code></pre>
-<p>If you want to run a multiple tests in a row, run the following command to get a list of tests-suites (group of tests):</p>
+<p>If you want to run a multiple tests, run the following command to get a list of tests-suites:</p>
 <pre><code>phoronix-test-suite list-available-suites
 </code></pre>
 <p>Example output:</p>
@@ -159,7 +159,7 @@ Available Suites
   pts/nvidia-gpu-compute           - NVIDIA GPU Compute               Graphics
 --More--
 </code></pre>
-<p>Run the following command to obtain detailed information on a specific test (or test-suite):</p>
+<p>Run the following command to obtain detailed information on a specific test:</p>
 <pre><code>phoronix-test-suite info [test]
 </code></pre>
 <p>If you know (or have been told) which test you want to run, you must first install the test dependencies before you can run it. The following example will install the Java test suite:</p>
@@ -238,7 +238,7 @@ Contained Tests:
 <h2 is-upgraded>Scenario</h2>
 <p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>
-<p>Open a shell terminal and execute the following command:</p>
+<p>Open a shell terminal and run the following command:</p>
 <pre><code>phoronix-test-suite run pts/sysbench-1.0.0
 </code></pre>
 <p>First, phoronox will show you a list of new or updated tests. In most cases, you can simple ignore this output.</p>
@@ -350,13 +350,13 @@ git: 8 Distinct Tests, 10 Test Versions
                           + srbds: Unknown: Dependent on hypervisor status
                           + tsx_async_abort: Not affected
 </code></pre>
-<p>Next, type <code>Y</code> to save the results. Enter a proper name for the result file. Press <code>Enter</code> to preceed without changes for test run / configuration and decription. Phoronix shows up a note that it will start the test run in 5 seconds. You can press <code>CTRL-C</code> if you wish to stop the test.</p>
+<p>Next, type <code>Y</code> to save the results. Enter a proper name for the result file. Press <code>Enter</code> to proceed without changes for the test run / configuration and decription. Phoronix shows up a note that the test run will be started in 5 seconds. Press <code>CTRL-C</code> if you wish to stop the test run.</p>
 <pre><code>    Would you like to save these test results (Y/n): y
     Enter a name for the result file: 2021-10-28-cpu-mem.txt
     Enter a unique name to describe this test run / configuration:
 
 If desired, enter a new description below to better describe this result set / system configuration under test.
-Press ENTER to proceed without changes.
+Press `ENTER` to proceed without changes.
 
 Current Description: Oracle VirtualBox testing on Debian via the Phoronix Test Suite.
 
@@ -382,7 +382,7 @@ New Description:
         process.
 
 </code></pre>
-<p>Next, Phoronix will start the test run. As show, the test run should be completed after 9 minutes, depending on your hardware performance.</p>
+<p>Next, Phoronix will start the test run. As shown, the test run should be completed after 9 minutes, depending on your hardware performance.</p>
 <pre><code>Sysbench 2018-07-28:
     pts/sysbench-1.0.0 [Test: Memory]
     Test 1 of 2
