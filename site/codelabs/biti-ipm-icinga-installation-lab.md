@@ -473,7 +473,7 @@ Check the documentation of MariaDB/MySQL for the FLUSH statement.
 The Icinga Web 2 page can be opened either inside the GuestOS or outside the HostOS with network bridge enabled. It's recommended to open the Icinga Web 2 page from the HostOS.
 </aside>
 
-To access the setup wizard, use the address, http://<icinga-server-ip-address>/icingaweb2/setup:
+To access the setup wizard, use the address `http://<icinga-server-ip-address>/icingaweb2/setup`
 
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-1.png)
 
