@@ -335,7 +335,7 @@ The hostalive command is one of several built-in check commands. It sends ICMP e
 
 The example above also creates four (4) services: ping4, swap, load and ssh. All services refer to the target host `localhost`. Each service also specifies the corresponding check commands such as `ssh` or `load` which is triggered by Icinga2.
 
-So far, so good ???
+So far, so good ?
 
 Exit the editor with `CTRL-X`. Confirm with `y` to save all changes.
 
@@ -381,7 +381,7 @@ Remember: your HostOS is your hardware device.
 
 The example above also defines a `ping4` services which refers to the target host `host_os`. This service also specifies the corresponding check command which is triggered by Icinga2.
 
-So far, so good ???
+So far, so good ?
 
 Exit the editor with `CTRL-X`. Confirm with `y` to save all changes.
 
@@ -459,7 +459,7 @@ The output now lists an overview of all configuration files and instantiated con
 [2021-12-03 15:48:01 +0100] information/cli: Finished validating the configuration file(s).
 ```
 
-Perfect! Perfect! Now we want to test our configuration in practice.
+Perfect! Now we want to test our configuration in practice.
 
 ### Start Icinga2 service
 
@@ -504,7 +504,7 @@ Dec 03 16:08:07 server icinga2[5654]: [2021-12-03 16:08:07 +0100] information/Id
 Dec 03 16:09:27 server icinga2[5654]: [2021-12-03 16:09:27 +0100] information/IdoMysqlConnection: Pending queries: 10 (Input: 3/s; Output: 2/s)
 ```
 
-Note that the status `Active` must be `active (running) since XXXXXX`, indicating that the service is up and running.
+Note that the status must be `active (running)`, indicating that the service is up and running.
 
 ## Icinga Web 2
 
