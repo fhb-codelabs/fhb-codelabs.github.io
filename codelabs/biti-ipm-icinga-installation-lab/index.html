@@ -126,23 +126,11 @@ Oct 16 22:40:47 server icinga2[9851]: [2021-10-16 22:40:47 +0100] information/Id
     
       <google-codelab-step label="Icinga2 Backend" duration="0">
         <h2 is-upgraded>Database installation</h2>
-<p>Currently, the Debian repository contains MariaDB server 10.5, which causes problems during installation and IT operations.</p>
-<p>To resolve this issue, follow the next steps to install MariaDB 10.6 on your current Debian servers:</p>
-<pre><code>sudo apt install software-properties-common dirmngr
-</code></pre>
-<p>Execute the following commands to import the MariaDB signing key and add the MariaDB APT repository.</p>
-<pre><code>sudo apt-key adv --fetch-keys &#39;https://mariadb.org/mariadb_release_signing_key.asc&#39;
-sudo add-apt-repository &#39;deb [arch=amd64,arm64,ppc64el] https://mariadb.mirror.liquidtelecom.com/repo/10.6/debian bullseye main&#39;
-</code></pre>
-<p>Next, update package repositories and install both, the MariaDB server and the client. Proceed to install MariaDB packages and all its dependencies.</p>
+<p>Icinga 2 requires a database as backend. In this codelab, we will install and use MariaDB server. Let&#39;s begin:</p>
 <pre><code>sudo apt update
 sudo apt install mariadb-server mariadb-client
 </code></pre>
-<p>Finally, start MariaDB and enable the service.</p>
-<pre><code>sudo systemctl start mariadb
-sudo systemctl enable mariadb
-</code></pre>
-<p>You can always check the status of the MariaDB service with the following command:</p>
+<p>After installation, check the status of the MariaDB service with the following command:</p>
 <pre><code>sudo systemctl status mariadb
 
 </code></pre>
@@ -177,6 +165,19 @@ Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: sys.sys_config           
 Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: Phase 7/7: Running &#39;FLUSH PRIVILEGES&#39;
 Oct 16 22:43:29 server /etc/mysql/debian-start[25902]: OK
 Oct 16 22:43:29 server /etc/mysql/debian-start[26501]: Checking for insecure root accounts.
+</code></pre>
+<p>Please check the follwing lines:</p>
+<pre><code>Loaded: loaded (/lib/systemd/system/mariadb.service; enabled; vendor preset: enabled)
+...
+Active: active (running) since Sat 2021-10-16 21:43:23 CEST; 34s ago
+</code></pre>
+<p>If MariaDB is not up and running, start MariaDB manually and enable the service with the following commands:</p>
+<pre><code>sudo systemctl start mariadb
+sudo systemctl enable mariadb
+</code></pre>
+<p>Afterwards, check the status of the MariaDB service again:</p>
+<pre><code>sudo systemctl status mariadb
+
 </code></pre>
 <p>Contratulations, you have successfully installed MariaDB 10.5 on Debian. Great job!</p>
 <h2 is-upgraded>IDO modules for MariaDB/MySQL</h2>
@@ -213,8 +214,9 @@ Enabled features: checker mainlog notification
 
 Enabled features: checker ido-mysql mainlog notification
 </code></pre>
-<p>Great, everything done correctly. Now restart Icinga 2.</p>
+<p>Great, everything done correctly. Now restart Icinga 2 and check its status.</p>
 <pre><code>sudo systemctl restart icinga2
+sudo systemctl status icinga2
 </code></pre>
 
 
@@ -247,8 +249,9 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
     
       <google-codelab-step label="Icinga2 Restart" duration="0">
         <h2 is-upgraded>One-liner</h2>
-<p>If you modified the fole <code>/etc/icinga2/features-available/ido-mysql.conf</code>, restart the Icinga2 service:</p>
+<p>If you have modified the file <code>/etc/icinga2/features-available/ido-mysql.conf</code> in the previous section, restart the Icinga2 service and check its status again:</p>
 <pre><code>sudo systemctl restart icinga2
+sudo systemctl status icinga2
 </code></pre>
 <aside class="special"><p> It is quite common that you have to restart icinga2 several times. The reason for this is that Icinga2 ignores updated configs if the service is not restarted. </p>
 </aside>
@@ -284,6 +287,7 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
 <h2 is-upgraded>Restart Apache Web Server</h2>
 <p>Restart the web server to apply all changes:</p>
 <pre><code>sudo systemctl restart apache2
+sudo systemctl status apache2
 </code></pre>
 
 
@@ -291,11 +295,41 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
     
       <google-codelab-step label="Icinga Web2 Backend" duration="0">
         <h2 is-upgraded>Database installation</h2>
-<p>Sorry but true: you have to create another database and a db user for Icinga web 2 manually.</p>
+<p>Sorry but true: you have to create another database and a db user for Icinga web 2. But this time, you will do this manually.</p>
 <p>First, log in to MariaDB shell with the following command:</p>
 <pre><code>sudo mysql -u root -p
 </code></pre>
 <p>Provide your root password (or simple press enter) and create a database and a user for Icinga web 2 with the following command:</p>
+<p>Run the following command to get a list of databases installed.</p>
+<pre><code>show database;
+</code></pre>
+<p>Sample output:</p>
+<pre><code>Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 43
+Server version: 10.11.4-MariaDB-1~deb12u1 Debian 12
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+
+MariaDB [(none)]&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| icinga2            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [(none)]&gt;
+</code></pre>
+<p>Notice the database named <code>icinga2</code>. This is the database of the Icinga2 core system. Now, we need an additional database for the Icinga Web2 Frontend.</p>
+<aside class="special"><p> Icinga2 needs two different databases, one for the Core system and another one for the Web Frontend. </p>
+</aside>
+<p>Now, run the following command to create the new database for Icinga Web2:</p>
 <pre><code>create database icingaweb2;
 </code></pre>
 <p>MariaDB/MySQL answers with:</p>
@@ -311,12 +345,42 @@ object IdoMysqlConnection &#34;ido-mysql&#34; {
 </code></pre>
 <aside class="warning"><p> Warning:  <br> Under no circumstances do not use this password in other systems or environments, especially not in a production system. We use this password to ensure a smooth installation process during the lecture and to eliminate potential sources of error. </p>
 </aside>
-<p>Reload privileges tables with the following commands:</p>
+<p>Just be be sure: Execute the following command and check whether the new database exists:</p>
+<pre><code>show database;
+</code></pre>
+<p>Sample output:</p>
+<pre><code>+--------------------+
+| Database           |
++--------------------+
+| icinga2            |
+| icingaweb2         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+</code></pre>
+<p>Next, check if the newly created user exists:</p>
+<pre><code>select user from mysql.user;
+</code></pre>
+<p>Sample output:</p>
+<pre><code>+-------------+
+| User        |
++-------------+
+| icinga2     |
+| icingaweb2  |
+| mariadb.sys |
+| mysql       |
+| root        |
++-------------+
+</code></pre>
+<p>Everything okay? Good. Now reload privileges tables with the following commands:</p>
 <pre><code>flush privileges;
 quit
 </code></pre>
 <aside class="warning"><p> Check the documentation of MariaDB/MySQL for the FLUSH statement. </p>
 </aside>
+<p>That&#39;s it. Mission accomplished!</p>
 
 
       </google-codelab-step>
@@ -325,20 +389,22 @@ quit
         <h2 is-upgraded>Setup Wizard</h2>
 <aside class="special"><p> The Icinga Web 2 page can be opened either inside the GuestOS or outside the HostOS with network bridge enabled. It&#39;s recommended to open the Icinga Web 2 page from the HostOS. </p>
 </aside>
-<p>To access the setup wizard, use the address <code>http://<icinga-server-ip-address>/icingaweb2/setup</code></p>
+<p>To access the setup wizard, use the address <code>http://icinga-server-ip-address/icingaweb2/setup</code></p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/de213d41d70cf618.png"></p>
 <p>Enter your authentication token and click <code>Next</code> to proceed. If you do not know the authentication token, run the following command again:</p>
 <pre><code>sudo icingacli setup token show
 </code></pre>
 <p>On the next page, you can select the Icinga modules you want to activate.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/dcbce108c6b9646b.png"></p>
-<p>Ensure that Monitoring module is activated only.</p>
-<p>The next page verifies wether the required PHP extensions meet the requirements. In case of missing PHP extensions, install them and proceed with setup.</p>
+<p>Ensure that Monitoring module is activated only. If true, click on <code>Next</code>.</p>
+<p>The following page verifies wether the required PHP extensions meet the requirements. In case of missing PHP extensions, install them and proceed with setup.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/c5359b0c83970995.png"></p>
 <p>As you can see, only the PHP extensions for PostgreSQL are missing. This is fine, as we use MySQL/MariaDB. All otherPHP modules are available. Great!</p>
+<p>Click on <code>Next</code> to proceed.</p>
 <p>Next, you need to configure the Icinga Web 2 authentication method. Since this Codelab uses local authentication only, select <code>Database</code>.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/c43c2d4e015ca01f.png"></p>
-<p>Configure database authentication details. Click on <code>Validate</code> to test the db connectivity.</p>
+<p>Click on <code>Next</code> to proceed.</p>
+<p>Next, configure database authentication details as described below.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/c637f0d5bb1dce3e.png"></p>
 <p>Where</p>
 <ul>
@@ -346,13 +412,18 @@ quit
 <li>Usermame = icingaweb2</li>
 <li>Password = icingaweb2</li>
 </ul>
-<p>You should see a positive feedback (configuration bas been successfully validated). If errors occur, check on typos. <img alt="Icinga Web 2 Wizard" src="img/378077ac3f64f3f.png"></p>
-<p>Next, set up the Icinga web 2 authentication backend name and click <code>Next</code>.</p>
+<aside class="special"><p> Don&#39;t touch Resource Name, Database Type or Host. </p>
+</aside>
+<p>Click on <code>Validate Configuration</code> to test the db connectivity. You should get a positive feedback (configuration bas been successfully validated). If errors occur, check on typos.</p>
+<p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/378077ac3f64f3f.png"></p>
+<p>Click on <code>Next</code> when done.</p>
+<p>Next, set up the Icinga web 2 authentication backend name.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/a548632b44e888ed.png"></p>
 <p>Where</p>
 <ul>
 <li>Backend Name = icingaweb2</li>
 </ul>
+<p>Click on <code>Next</code> when backend name is correct.</p>
 <p>Next, set up the Icinga Web 2 administrative user.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/59a07a807e53467d.png"></p>
 <p>Where</p>
@@ -363,7 +434,8 @@ quit
 </ul>
 <aside class="warning"><p> Warning:  <br> Under no circumstances do not use this password in other systems or environments, especially not in a production system. We use this password to ensure a smooth installation process during the lecture and to eliminate potential sources of error. </p>
 </aside>
-<p>Next, configure application and logging related options and click <code>Next</code>.</p>
+<p>Click on <code>Next</code> when done.</p>
+<p>Next, configure application and logging related options.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/63f6f4db05f321ef.png"></p>
 <p>Where</p>
 <ul>
@@ -375,19 +447,13 @@ quit
 <li>Application Prefix = icingaweb2</li>
 <li>Facility = user</li>
 </ul>
+<p>Click on <code>Next</code> when done.</p>
 <p>Next, the Icinga Web 2 configuration summary shows up.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/4043a6d86f04f1de.png"></p>
-<p>On the next screen, click <code>Next</code> to configure Icinga Web 2 monitoring (IDO) backend.</p>
+<p>Double-check the summary. Click on <code>Next</code> when done.</p>
+<p>On the next screen, another configuration section for Icinga Web 2 monitoring module welcomes you.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/416d8d96c9f6190d.png"></p>
-<p>Next, configure how Icinga Web 2 shoudl retrieve monitoring information.</p>
-<p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/cf73507a84064f58.png"></p>
-<p>Where,</p>
-<ul>
-<li>Backend Name = icinga2</li>
-<li>Backend Type = IDO</li>
-</ul>
-<aside class="special"><p> If you get the following error message &#34;There is currently no icinga instance writing to the IDO. Make sure that a icinga instance is configured and able to write to the IDO&#34;, ido-mysql is not enabled. In this case, go back to Icinga2 Backend section, enable the module and restart Icinga 2. </p>
-</aside>
+<p>Click on <code>Next</code> when done.</p>
 <p>Next, fill out the connection details to access the IDO database of the monitoring environment.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/8423261f861b4b78.png"></p>
 <p>Where,</p>
@@ -399,6 +465,7 @@ quit
 <p>You should (hopefully) get a positive feedback.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/d4a4a495080dacae.png"></p>
 <p>If errors occur, check on typos.</p>
+<p>Click on <code>Next</code> when done.</p>
 <p>Next, define how you want to send commands to you monitoring environment. In this codelab, we are setting up <code>Local Command File</code> transport type.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/1aaafc31c7c7f8e0.png"></p>
 <p>Where,</p>
@@ -407,12 +474,14 @@ quit
 <li>Transport type = Local Command File</li>
 <li>Command File = /var/run/icinga2/cmd/icinga2.cmd</li>
 </ul>
+<p>Click on <code>Next</code> when done.</p>
 <p>Next, fill out the settings to protect your monitoring environment against prying eyes.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/2f8aabf12a69e1.png"></p>
 <p>Where,</p>
 <ul>
-<li>Protected Custom Variables = <em>pw</em>,<em>pass</em>,community</li>
+<li>Protected Custom Variables = *pw*,*pass*,community</li>
 </ul>
+<p>Click on <code>Next</code> when done.</p>
 <p>Finally, review the configuration summary and click <code>Finish</code> to complete the installation.</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/783083bc14a304e0.png"></p>
 <p>Congratulations, you have installed and set up Icinga2 successfully. Click on <code>Login to Icinga Web 2</code></p>
@@ -427,7 +496,9 @@ quit
 <p>If URL is unknown, try this:</p>
 <pre><code>http://&lt;icinga-server-IP&gt;/icingaweb2/
 </code></pre>
-<p>After logging in, Icinga2 will greet you with a critical message (at least in this screenshot)</p>
+<aside class="warning"><p> Forgot user and password? Go back to the Icinga Web2 Frontend section . </p>
+</aside>
+<p>After logging in, Icinga2 will greet you with one or more critical messages:</p>
 <p class="image-container"><img alt="Icinga Web 2 Wizard" src="img/563767a5fe82baea.png"></p>
 <p>Congratulations! You have successfully installed Icinga2 and Icingaweb2 on your GuestOS. You can now browse through the sidebar menu to discover the features of Icinga2. Familiarize yourself with the menu navigation.</p>
 
