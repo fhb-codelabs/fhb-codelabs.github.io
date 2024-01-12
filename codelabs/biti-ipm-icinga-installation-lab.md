@@ -617,9 +617,9 @@ Next, configure database authentication details as described below.
 
 Where
 
-- Database Name = icingaweb2
-- Usermame = icingaweb2
-- Password = icingaweb2
+- `Database Name` = icingaweb2
+- `Usermame` = icingaweb2
+- `Password` = icingaweb2
 
 <aside class="positive">
 Don't touch Resource Name, Database Type or Host.
@@ -637,7 +637,7 @@ Next, set up the Icinga web 2 authentication backend name.
 
 Where
 
-- Backend Name = icingaweb2
+- `Backend Name` = icingaweb2
 
 Click on `Next` when backend name is correct.
 
@@ -647,9 +647,9 @@ Next, set up the Icinga Web 2 administrative user.
 
 Where
 
-- Username = icinga2
-- Password = icinga2
-- Repeat Password = icinga2
+- `Username` = icinga2
+- `Password` = icinga2
+- `Repeat Password` = icinga2
 
 <aside class="negative">
 Warning: 
@@ -665,13 +665,13 @@ Next, configure application and logging related options.
 
 Where
 
-- Show Stacktraces = yes
-- Show Application State Messages = yes
-- User Preference Storage Type = Database
-- Logging Type = Syslog
-- Logging Level = Error
-- Application Prefix = icingaweb2
-- Facility = user
+- `Show Stacktraces` = yes
+- `Show Application State Messages` = yes
+- `User Preference Storage Type` = Database
+- `Logging Type` = Syslog
+- `Logging Level` = Error
+- `Application Prefix` = icingaweb2
+- `Facility` = user
 
 Click on `Next` when done.
 
@@ -680,7 +680,6 @@ Next, the Icinga Web 2 configuration summary shows up.
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-10.png)
 
 Double-check the summary. Click on `Next` when done.
-
 
 On the next screen, another configuration section for Icinga Web 2 monitoring module welcomes you.
 
@@ -708,9 +707,9 @@ Next, fill out the connection details to access the IDO database of the monitori
 
 Where,
 
-- Database Name = icinga2
-- Username = icinga2
-- Password = icinga2
+- `Database Name` = icinga2
+- `Username` = icinga2
+- `Password` = icinga2
 
 You should (hopefully) get a positive feedback.
 
@@ -726,9 +725,9 @@ Next, define how you want to send commands to you monitoring environment. In thi
 
 Where,
 
-- Transport name = icinga2
-- Transport type = Local Command File
-- Command File = /var/run/icinga2/cmd/icinga2.cmd
+- `Transport name` = icinga2
+- `Transport type` = Local Command File
+- `Command File` = /var/run/icinga2/cmd/icinga2.cmd
 
 Click on `Next` when done.
 
@@ -738,7 +737,7 @@ Next, fill out the settings to protect your monitoring environment against pryin
 
 Where,
 
-- Protected Custom Variables = \*pw\*,\*pass\*,community
+- `Protected Custom Variables` = \*pw\*,\*pass\*,community
 
 Click on `Next` when done.
 

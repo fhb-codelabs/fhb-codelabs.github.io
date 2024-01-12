@@ -258,7 +258,7 @@ object Service &#34;ssh&#34;{
 <aside class="special"><p> The hostalive command is one of several built-in check commands. It sends ICMP echo requests to the IP address specified in the address attribute to determine whether a host is online. </p>
 </aside>
 <p>The example above also creates four (4) services: ping4, swap, load and ssh. All services refer to the target host <code>localhost</code>. Each service also specifies the corresponding check commands such as <code>ssh</code> or <code>load</code> which is triggered by Icinga2.</p>
-<p>So far, so good ???</p>
+<p>So far, so good ?</p>
 <p>Exit the editor with <code>CTRL-X</code>. Confirm with <code>y</code> to save all changes.</p>
 <h2 is-upgraded>host_os.conf</h2>
 <p>This section shows you how to monitor your HostOS system without using monitoring agents.</p>
@@ -286,7 +286,7 @@ object Service &#34;ping4&#34; {
 <aside class="special"><p> Remember: your HostOS is your hardware device. </p>
 </aside>
 <p>The example above also defines a <code>ping4</code> services which refers to the target host <code>host_os</code>. This service also specifies the corresponding check command which is triggered by Icinga2.</p>
-<p>So far, so good ???</p>
+<p>So far, so good ?</p>
 <p>Exit the editor with <code>CTRL-X</code>. Confirm with <code>y</code> to save all changes.</p>
 <h2 is-upgraded>Check for completeness</h2>
 <p>Let&#39;s see what we have so far. Run the following list command:</p>
@@ -343,7 +343,7 @@ Location: in /etc/icinga2/conf.d/hosts/hostos.conf: 3:11-3:25
 [2021-12-03 15:48:01 +0100] information/ScriptGlobal: Dumping variables to file &#39;/var/cache/icinga2/icinga2.vars&#39;
 [2021-12-03 15:48:01 +0100] information/cli: Finished validating the configuration file(s).
 </code></pre>
-<p>Perfect! Perfect! Now we want to test our configuration in practice.</p>
+<p>Perfect! Now we want to test our configuration in practice.</p>
 <h2 is-upgraded>Start Icinga2 service</h2>
 <p>First, start Icinga2 service with the following command:</p>
 <pre><code>sudo systemctl start icinga2
@@ -377,7 +377,7 @@ Dec 03 16:07:57 server icinga2[5654]: [2021-12-03 16:07:57 +0100] information/Id
 Dec 03 16:08:07 server icinga2[5654]: [2021-12-03 16:08:07 +0100] information/IdoMysqlConnection: Pending queries: 9 (Input: 3/s; Output: 2/s)
 Dec 03 16:09:27 server icinga2[5654]: [2021-12-03 16:09:27 +0100] information/IdoMysqlConnection: Pending queries: 10 (Input: 3/s; Output: 2/s)
 </code></pre>
-<p>Note that the status <code>Active</code> must be <code>active (running) since XXXXXX</code>, indicating that the service is up and running.</p>
+<p>Note that the status must be <code>active (running)</code>, indicating that the service is up and running.</p>
 
 
       </google-codelab-step>
