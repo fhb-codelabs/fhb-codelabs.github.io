@@ -575,7 +575,7 @@ That's it. Mission accomplished!
 The Icinga Web 2 page can be opened either inside the GuestOS or outside the HostOS with network bridge enabled. It's recommended to open the Icinga Web 2 page from the HostOS.
 </aside>
 
-To access the setup wizard, use the address `http://icinga-server-ip-address/icingaweb2/setup`
+To access the setup wizard, use the address `http://<icinga-server-ip>/icingaweb2/setup`
 
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-1.png)
 
@@ -753,7 +753,7 @@ Enter the username and password from the previous section.
 If URL is unknown, try this:
 
 ```
-http://<icinga-server-IP>/icingaweb2/
+http://<icinga-server-ip>/icingaweb2/
 ```
 
 <aside class="negative">
