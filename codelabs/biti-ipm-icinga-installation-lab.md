@@ -581,6 +581,8 @@ To access the setup wizard, use the following address:
 http://<icinga-server-ip>/icingaweb2/
 ```
 
+The Welcome wizard shows up.
+
 ![Icinga Web 2 Wizard](./img/biti-ipm-icinga-installation-wizard-1.png)
 
 Enter your authentication token and click `Next` to proceed. If you do not know the authentication token, run the following command again:
