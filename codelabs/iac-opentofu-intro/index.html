@@ -1,0 +1,761 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Infrastructure-as-Code - Lab 1 - OpenTofu Introduction</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="iac-opentofu-intro"
+                  title="Infrastructure-as-Code - Lab 1 - OpenTofu Introduction"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="What You&#39;ll Learn" duration="0">
+        <p class="image-container"><img alt="Big Picture" src="img/fbbc7e7bdec55117.png"></p>
+<p>In this lab, you will:</p>
+<ul>
+<li>Install OpenTofu</li>
+<li>Provision a SKS Cluster</li>
+</ul>
+<h2 is-upgraded>Prerequisites</h2>
+<ul>
+<li><a href="https://opentofu.org/docs/intro/install/" target="_blank">OpenTofu CLI</a></li>
+<li>IDE (IntelliJ IDEA, Visual Studio Code) with Terraform Plugin installed</li>
+<li>SSH Client installed (OpenSSH, PuTTY)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Install OpenTofu" duration="0">
+        <p>In the future, it will be more comfortable if you&#39;re able to use terraform from your PC and IDE.</p>
+<p>To install OpenTofu, refer to the respective documentation here:</p>
+<ul>
+<li><a href="https://opentofu.org/docs/intro/install/" target="_blank">https://opentofu.org/docs/intro/install/</a></li>
+</ul>
+<p><strong>Please ensure, that the OpenTofu binary is in your path!</strong></p>
+<ul>
+<li><a href="https://www.wikihow.com/Change-the-PATH-Environment-Variable-on-Windows" target="_blank">https://www.wikihow.com/Change-the-PATH-Environment-Variable-on-Windows</a></li>
+<li>In Linux or MacOS, append the path you&#39;ve chosen to your path variable (if the package installer didn&#39;t take care about this).</li>
+</ul>
+<aside class="special"><p> OpenTofu is a single binary, therefore it is very handy to install and will not make any modifications on your system. As you might want to use your IDE, it is recommended to run OpenTofu directly on your machine instead of a virtual machine.  If you want to do so, please ensure that you have a proper IDE running in your virtual machine. </p>
+</aside>
+<h2 is-upgraded>Check if OpenTofu is installed properly</h2>
+<p>To check if terraform is installed and as accessible, open a shell and run: <code>tofu version</code>. This should return the version of OpenTofu. If not and you changed the PATH before, ensure that you restarted your terminal and the Terraform Binary is located in a directory which is accessible there.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exoscale Basics" duration="0">
+        <p>Exoscale is a European Cloud Provider, which provides services as:</p>
+<ul>
+<li>Compute (Virtual Machines)</li>
+<li>Kubernetes (SKS)</li>
+<li>Database-as-a-Service (DBaaS)</li>
+<li>Object Storage (S3 Compatible)</li>
+</ul>
+<p>During this lab, we will deal with virtual instances and object storage. In the first step, we will provision a virtual machine there.</p>
+<p>You can log in to the Exoscale Console <a href="https://portal.exoscale.com/login" target="_blank">here</a>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Infrastructure-as-Code" duration="0">
+        <p>There are many steps to get infrastructure working when doing this manually This would be fairly enough to try out some new things, but in the real world you might want to do this in a more reproducible and scalable way.</p>
+<p>This is where Infrastructure-as-Code comes into play. When you are provisioning 100s of instances, you might not want to click through the consoles for every one you are provisioning. Infrastructure-as-Code (IaC) gives you the possibility to configure your instances:</p>
+<ul>
+<li>As code</li>
+<li>In a declarative way</li>
+<li>Scalable</li>
+<li>With development best practices in mind.</li>
+</ul>
+<p>Let&#39;s take a closer look on all of this.</p>
+<p><em>&#34;Infrastructure-as-Code is an approach to infrastructure-automation based on practices from software development. It emphasizes consisten, repeatable routines for provisioning and changing systems and their configuration. You make changes to code, then use automation to tsest and apply those changes to your systems. (Kief Morris(2020), Infrastructure-as-Code, 2nd Edition)&#34;</em></p>
+<p>When we&#39;re talking about Infrastructure-as-Code, we are no more creating our Infrastructure via the UI (ClickOps). Instead, we are writing Code, mainly in a declarative way to describe the state, we want our Infrastructure to be in after it is applied.</p>
+<p>Declarative configuration means that you express your intention (desired state), and a tool takes care of transitioning the managed objects to this state. Using imperative language, you would tell the tooling what it should do. You can distinguish between these two styles using the following statements:</p>
+<ul>
+<li>Imperative: Dear Tool, execute command A, B and C</li>
+<li>Declarative: Dear Tool, please transition my infrastructure to exactly this state</li>
+</ul>
+<p>Please note, that each declarative tool, will have some kind of imperative logic in it to transition to the state.</p>
+<p>When we&#39;re provisioning Infrastructure-as-Code, we often have the possibility to modularize components, as well as having mechanisms in there, which help us creating multiple, similar objects. This are practices, we know from typical software development. As we are using practices from Software Development, we should also treat our Infrastructure as such. Therefore, the code should be versioned, there should be automatic tests in place and pull requests should be on the order of the day.</p>
+<p>There are many tools out there for Infrastructure-as-Code like:</p>
+<ul>
+<li>OpenTofu/Terraform</li>
+<li>Pulumi</li>
+<li>Crossplane</li>
+</ul>
+<p>Which tool you use, often depends on your own preferences and your use-cases. In this lab, we will take a closer look on OpenTofu.</p>
+<p>Further Information / Videos:</p>
+<ul>
+<li>DevOps with Nana: Infrastructure-as-Code <a href="https://www.youtube.com/watch?v=POPP2WTJ8es" target="_blank">https://www.youtube.com/watch?v=POPP2WTJ8es</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="OpenTofu" duration="0">
+        <p>Before we will start with our first configuration, we will put some light on OpenTofu.</p>
+<p>OpenTofu is an Infrastructure-as-Code tool forked from Terraform which was initially developed by Hashicorp. It uses a declarative language to describe infrastructure. The language used is the &#34;Hashicorp Configuration Language (HCL)&#34;. It is designed to work with many cloud providers. Nevertheless, it is not really cloud-agnostic as knowledge about the individual providers is needed when writing the code.</p>
+<p>To start using OpenTofu, we should be familiar with the following terms:</p>
+<ul>
+<li><strong>State:</strong> The current configuration of our managed resources. The state can be stored in the local filesystem (terraform.tfstate), or remote backends, as S3 Buckets or consul</li>
+<li><strong>Provider:</strong> Implements the commands needed to communicate with the cloud provider. e.g. an Exoscale provider knows how to talk to the Exoscale API and how to get from one state to another.</li>
+<li><strong>Resources:</strong> The Objects you are creating and managing with OpenTofu. As an example, a virtual machine is a resource.</li>
+<li><strong>Data Sources:</strong> Describe objects we can query (!= write) in OpenTofu. In amazon, the AMIs (Amazon Machine Images / Templates) are implemented as datasources you can query</li>
+<li><strong>Variables:</strong> Give us the possibility to parametrize terraform configurations.</li>
+</ul>
+<p>For this lab, we will use a local state, Exoscale as provider and a Compute resource to create our Virtual Machine.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Provisioning an SKS Cluster on Exoscale with OpenTofu" duration="0">
+        <h2 is-upgraded>Goal:</h2>
+<ul>
+<li>You will be able to provision a very simple Kubernetes Cluster using OpenTofu</li>
+</ul>
+<h2 is-upgraded>Task:</h2>
+<p>Your Boss heard about a new technique to provision Kubernetes Clusters and that Cloud Providers provide managed kubernetes Services. He tells you that you should get familiar with this and provision a SKS Cluster using OpenTofu</p>
+<h2 is-upgraded>Checklist:</h2>
+<ul>
+<li>[ ] SKS Cluster is provisioned</li>
+<li>[ ] You are able to connect to the SKS Cluster using kubectl</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Create your first OpenTofu configuration" duration="0">
+        <ul>
+<li>Create a directory, where you want to store your configuration</li>
+<li>Open an IDE of your choice and open this directory</li>
+</ul>
+<h2 is-upgraded>Creating an API Key and Secret for Exoscale</h2>
+<ul>
+<li>Open the Exoscale Console</li>
+<li>Click on &#34;IAM&#34; -&gt; &#34;API KEYS&#34;</li>
+<li>Add Key <ul>
+<li>Give the Key a meaningful name</li>
+<li>Restrict the Key to Compute</li>
+<li>Click &#34;Create&#34; and store the credentials at a secure place</li>
+</ul>
+</li>
+</ul>
+<h2 is-upgraded>Provider configuration</h2>
+<ul>
+<li>Create a file called <code>versions.tf</code> in your directory</li>
+<li>Copy the following block in the file, replace key and secret with your API secrets</li>
+<li><strong>Warning! When doing this on production environments (and in the next Labs), never store the secrets in this file, Instead, use mechanisms supported by the provider (e.g. Environment Variables)</strong></li>
+</ul>
+<pre><code language="language-terraform" class="language-terraform">terraform {
+  required_providers {
+    exoscale = {
+      source  = &#34;exoscale/exoscale&#34;
+      version = &#34;0.54.1&#34;
+    }
+  }
+}
+
+provider &#34;exoscale&#34; {
+  key = &#34;key&#34;
+  secret = &#34;secret&#34;
+}
+</code></pre>
+<ul>
+<li>This should be enough to run our first terraform command</li>
+</ul>
+<pre><code>tofu init
+</code></pre>
+<ul>
+<li>This leads to the following output</li>
+</ul>
+<pre><code>Initializing the backend...
+
+Initializing provider plugins...
+- Installing exoscale/exoscale v0.54.1...
+
+OpenTofu has been successfully initialized!
+
+You may now begin working with OpenTofu. Try running &#34;tofu plan&#34; to see
+any changes that are required for your infrastructure. All OpenTofu commands
+should now work.
+
+If you ever set or change modules or backend configuration for OpenTofu,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+</code></pre>
+<aside class="special"><p> - Using this step, OpenTofu initialized its (local) state and downloaded the provider from the OpenTofu registry </p>
+</aside>
+<p>In the second step, we will create security groups that will be needed to provision our SKS Cluster ...</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating Security Group and Rules" duration="0">
+        <p>To do so, we&#39;ll create a second file called <code>main.tf</code>. Furthermore, we copy the following configuration in this file:</p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;exoscale_security_group&#34; &#34;my_security_group&#34; {
+  name = &#34;my-sks-cluster-sg&#34;
+}
+
+resource &#34;exoscale_security_group_rule&#34; &#34;kubelet&#34; {
+  security_group_id = exoscale_security_group.my_security_group.id
+  description       = &#34;Kubelet&#34;
+  type              = &#34;INGRESS&#34;
+  protocol          = &#34;TCP&#34;
+  start_port        = 10250
+  end_port          = 10250
+  # (beetwen worker nodes only)
+  user_security_group_id = exoscale_security_group.my_security_group.id
+}
+
+resource &#34;exoscale_security_group_rule&#34; &#34;cilium_vxlan&#34; {
+  security_group_id = exoscale_security_group.my_security_group.id
+  description       = &#34;Cilium VXLAN&#34;
+  type              = &#34;INGRESS&#34;
+  protocol          = &#34;UDP&#34;
+  start_port        = 8472
+  end_port          = 8472
+  user_security_group_id = exoscale_security_group.my_security_group.id
+}
+
+resource &#34;exoscale_security_group_rule&#34; &#34;cilium_health&#34; {
+  security_group_id = exoscale_security_group.my_security_group.id
+  description       = &#34;Cilium Health Check&#34;
+  type              = &#34;INGRESS&#34;
+  protocol          = &#34;ICMP&#34;
+  icmp_code         = 0
+  icmp_type         = 8
+  user_security_group_id = exoscale_security_group.my_security_group.id
+}
+
+resource &#34;exoscale_security_group_rule&#34; &#34;cilium_health_tcp&#34; {
+  security_group_id = exoscale_security_group.my_security_group.id
+  description       = &#34;Cilium Health Check&#34;
+  type              = &#34;INGRESS&#34;
+  protocol          = &#34;TCP&#34;
+  start_port        = 4240
+  end_port          = 4240
+  user_security_group_id = exoscale_security_group.my_security_group.id
+}
+</code></pre>
+<p><a href="https://www.terraform.io/docs/language/data-sources/index.html" target="_blank"><strong>Data Sources</strong></a> are here to get configurations from your cloud provider, but will change nothing and are used for referencing in other objects</p>
+<p><a href="https://www.terraform.io/docs/language/resources/index.html" target="_blank"><strong>Resources</strong></a> are objects you are managing with terraform</p>
+<aside class="warning"><p> - As you see in above_s configuration, you might need some more detailed configuration. </p>
+</aside>
+<ul>
+<li>Now we could try to find out what this would lead to</li>
+<li>Change to your terraform directory in the shell and execute:</li>
+</ul>
+<pre><code>tofu plan
+</code></pre>
+<ul>
+<li>You get some output about the things which would happen now, most probably you&#39;ll see that the security group and the rules will be created</li>
+<li>If you are happy with that, apply this configuration</li>
+</ul>
+<pre><code>tofu apply
+</code></pre>
+<ul>
+<li>You see the same output as before and get prompted if you really want to do this, accept with &#34;yes&#34;</li>
+<li>After a short period of time, you&#39;ll see the following output</li>
+</ul>
+<pre><code>Plan: 5 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only &#39;yes&#39; will be accepted to approve.
+
+  Enter a value: yes
+
+exoscale_security_group.my_security_group: Creating...
+exoscale_security_group.my_security_group: Creation complete after 4s [id=336902ef-51f6-4982-a276-2ee474620f89]
+exoscale_security_group_rule.cilium_vxlan: Creating...
+exoscale_security_group_rule.kubelet: Creating...
+exoscale_security_group_rule.cilium_health_tcp: Creating...
+exoscale_security_group_rule.cilium_health: Creating...
+exoscale_security_group_rule.cilium_vxlan: Creation complete after 4s [id=c33483ae-b116-4096-9d4b-139168784f14]
+exoscale_security_group_rule.kubelet: Creation complete after 4s [id=67771f1d-fc2a-4caf-b9d1-9d6a6cd1b114]
+exoscale_security_group_rule.cilium_health_tcp: Creation complete after 4s [id=85755d96-6380-480f-bc91-9e5eb1326aa7]
+exoscale_security_group_rule.cilium_health: Creation complete after 4s [id=925b0167-411b-4fcf-a681-cf9feda1cf0f]
+
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+</code></pre>
+<aside class="special"><p> - You created your first Configuration with OpenTofu </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Deleting this configuration" duration="0">
+        <ul>
+<li>After some time you might want to spin down your infrastructure (thing of demos for courses)</li>
+<li>You can simply tear it down by typing</li>
+</ul>
+<pre><code>tofu destroy
+</code></pre>
+<ul>
+<li>The tool will ask you if you are sure that you want to remove your instance</li>
+<li>Type yes</li>
+<li>After some time you see the following output:</li>
+</ul>
+<pre><code>OpenTofu used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+OpenTofu will perform the following actions:
+
+  # exoscale_security_group.my_security_group will be destroyed
+  - resource &#34;exoscale_security_group&#34; &#34;my_security_group&#34; {
+      - id   = &#34;336902ef-51f6-4982-a276-2ee474620f89&#34; -&gt; null
+      - name = &#34;my-sks-cluster-sg&#34; -&gt; null
+    }
+
+  # exoscale_security_group_rule.cilium_health will be destroyed
+  - resource &#34;exoscale_security_group_rule&#34; &#34;cilium_health&#34; {
+      - description            = &#34;Cilium Health Check&#34; -&gt; null
+      - icmp_code              = 0 -&gt; null
+      - icmp_type              = 8 -&gt; null
+      - id                     = &#34;925b0167-411b-4fcf-a681-cf9feda1cf0f&#34; -&gt; null
+      - protocol               = &#34;ICMP&#34; -&gt; null
+      - security_group         = &#34;my-sks-cluster-sg&#34; -&gt; null
+      - security_group_id      = &#34;336902ef-51f6-4982-a276-2ee474620f89&#34; -&gt; null
+      - type                   = &#34;INGRESS&#34; -&gt; null
+      - user_security_group    = &#34;my-sks-cluster-sg&#34; -&gt; null
+      - user_security_group_id = &#34;336902ef-51f6-4982-a276-2ee474620f89&#34; -&gt; null
+    }
+
+  # exoscale_security_group_rule.cilium_health_tcp will be destroyed
+  - resource &#34;exoscale_security_group_rule&#34; &#34;cilium_health_tcp&#34; {
+      - description            = &#34;Cilium Health Check&#34; -&gt; null
+      - end_port               = 4240 -&gt; null
+      - id                     = &#34;85755d96-6380-480f-bc91-9e5eb1326aa7&#34; -&gt; null
+      - protocol               = &#34;TCP&#34; -&gt; null
+      - security_group         = &#34;my-sks-cluster-sg&#34; -&gt; null
+      - security_group_id      = &#34;336902ef-51f6-4982-a276-2ee474620f89&#34; -&gt; null
+      - start_port             = 4240 -&gt; null
+      - type                   = &#34;INGRESS&#34; -&gt; null
+      - user_security_group    = &#34;my-sks-cluster-sg&#34; -&gt; null
+      - user_security_group_id = &#34;336902ef-51f6-4982-a276-2ee474620f89&#34; -&gt; null
+    }
+
+  # exoscale_security_group_rule.cilium_vxlan will be destroyed
+  - resource &#34;exoscale_security_group_rule&#34; &#34;cilium_vxlan&#34; {
+      - description            = &#34;Cilium VXLAN&#34; -&gt; null
+      - end_port               = 8472 -&gt; null
+      - id                     = &#34;c33483ae-b116-4096-9d4b-139168784f14&#34; -&gt; null
+      - protocol               = &#34;UDP&#34; -&gt; null
+      - security_group         = &#34;my-sks-cluster-sg&#34; -&gt; null
+      - security_group_id      = &#34;336902ef-51f6-4982-a276-2ee474620f89&#34; -&gt; null
+      - start_port             = 8472 -&gt; null
+      - type                   = &#34;INGRESS&#34; -&gt; null
+      - user_security_group    = &#34;my-sks-cluster-sg&#34; -&gt; null
+      - user_security_group_id = &#34;336902ef-51f6-4982-a276-2ee474620f89&#34; -&gt; null
+    }
+
+  # exoscale_security_group_rule.kubelet will be destroyed
+  - resource &#34;exoscale_security_group_rule&#34; &#34;kubelet&#34; {
+      - description            = &#34;Kubelet&#34; -&gt; null
+      - end_port               = 10250 -&gt; null
+      - id                     = &#34;67771f1d-fc2a-4caf-b9d1-9d6a6cd1b114&#34; -&gt; null
+      - protocol               = &#34;TCP&#34; -&gt; null
+      - security_group         = &#34;my-sks-cluster-sg&#34; -&gt; null
+      - security_group_id      = &#34;336902ef-51f6-4982-a276-2ee474620f89&#34; -&gt; null
+      - start_port             = 10250 -&gt; null
+      - type                   = &#34;INGRESS&#34; -&gt; null
+      - user_security_group    = &#34;my-sks-cluster-sg&#34; -&gt; null
+      - user_security_group_id = &#34;336902ef-51f6-4982-a276-2ee474620f89&#34; -&gt; null
+    }
+
+Plan: 0 to add, 0 to change, 5 to destroy.
+</code></pre>
+<ul>
+<li>If you take a look on the AWS Console, the Instance should be terminated</li>
+</ul>
+<aside class="special"><p> - You deleted your configuration with OpenTofu, you made your first steps in Infrastructure-as-Code </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Creating an SKS Cluster" duration="0">
+        <p>Now we want to create an SKS Cluster with OpenTofu. To do so, we will create a new file called <code>sks.tf</code> and copy the following configuration in it:</p>
+<pre><code language="language-terraform" class="language-terraform">locals {
+  zone = &#34;at-vie-2&#34;
+}
+
+resource &#34;exoscale_sks_cluster&#34; &#34;my_sks_cluster&#34; {
+   zone = local.zone
+   name = &#34;my-sks-cluster&#34;
+   cni = &#34;cilium&#34;
+}
+</code></pre>
+<p>The <code>locals</code> block defines a local variable named <code>zone</code> with a value of <code>"at-vie-2"</code>. Local variables are convenient to avoid hardcoding values multiple times in the configuration.</p>
+<p>The <code>resource</code> block defines a resource of type <code>exoscale_sks_cluster</code> named <code>my_sks_cluster</code>. This resource represents an SKS (Simple Kubernetes Service) cluster on Exoscale, a cloud provider.</p>
+<p>The <code>zone</code> attribute of the <code>exoscale_sks_cluster</code> resource is set to the local variable <code>zone</code>, which means the SKS cluster will be created in the <code>"at-vie-2"</code> zone.</p>
+<p>The <code>name</code> attribute is set to <code>"my-sks-cluster"</code>, which will be the name of the SKS cluster.</p>
+<p>The <code>cni</code> attribute is set to <code>"cilium"</code>, which specifies that the Cilium CNI (Container Network Interface) plugin will be used for networking in the Kubernetes cluster.</p>
+<p>After saving the configuration, run <code>tofu init</code> to initialize the directory and download the Exoscale provider.</p>
+<p>Then run <code>tofu   plan</code> to see what changes will be applied to the infrastructure. You should see the following output:</p>
+<pre><code language="language-terraform" class="language-terraform">OpenTofu used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+OpenTofu will perform the following actions:
+
+  # exoscale_security_group.my_security_group will be created
+  + resource &#34;exoscale_security_group&#34; &#34;my_security_group&#34; {
+      + id   = (known after apply)
+      + name = &#34;my-sks-cluster-sg&#34;
+    }
+
+  # exoscale_security_group_rule.cilium_health will be created
+  + resource &#34;exoscale_security_group_rule&#34; &#34;cilium_health&#34; {
+      + description            = &#34;Cilium Health Check&#34;
+      + icmp_code              = 0
+      + icmp_type              = 8
+      + id                     = (known after apply)
+      + protocol               = &#34;ICMP&#34;
+      + public_security_group  = (known after apply)
+      + security_group         = (known after apply)
+      + security_group_id      = (known after apply)
+      + type                   = &#34;INGRESS&#34;
+      + user_security_group    = (known after apply)
+      + user_security_group_id = (known after apply)
+    }
+
+  # exoscale_security_group_rule.cilium_health_tcp will be created
+  + resource &#34;exoscale_security_group_rule&#34; &#34;cilium_health_tcp&#34; {
+      + description            = &#34;Cilium Health Check&#34;
+      + end_port               = 4240
+      + id                     = (known after apply)
+      + protocol               = &#34;TCP&#34;
+      + public_security_group  = (known after apply)
+      + security_group         = (known after apply)
+      + security_group_id      = (known after apply)
+      + start_port             = 4240
+      + type                   = &#34;INGRESS&#34;
+      + user_security_group    = (known after apply)
+      + user_security_group_id = (known after apply)
+    }
+
+  # exoscale_security_group_rule.cilium_vxlan will be created
+  + resource &#34;exoscale_security_group_rule&#34; &#34;cilium_vxlan&#34; {
+      + description            = &#34;Cilium VXLAN&#34;
+      + end_port               = 8472
+      + id                     = (known after apply)
+      + protocol               = &#34;UDP&#34;
+      + public_security_group  = (known after apply)
+      + security_group         = (known after apply)
+      + security_group_id      = (known after apply)
+      + start_port             = 8472
+      + type                   = &#34;INGRESS&#34;
+      + user_security_group    = (known after apply)
+      + user_security_group_id = (known after apply)
+    }
+
+  # exoscale_security_group_rule.kubelet will be created
+  + resource &#34;exoscale_security_group_rule&#34; &#34;kubelet&#34; {
+      + description            = &#34;Kubelet&#34;
+      + end_port               = 10250
+      + id                     = (known after apply)
+      + protocol               = &#34;TCP&#34;
+      + public_security_group  = (known after apply)
+      + security_group         = (known after apply)
+      + security_group_id      = (known after apply)
+      + start_port             = 10250
+      + type                   = &#34;INGRESS&#34;
+      + user_security_group    = (known after apply)
+      + user_security_group_id = (known after apply)
+    }
+
+  # exoscale_sks_cluster.my_sks_cluster will be created
+  + resource &#34;exoscale_sks_cluster&#34; &#34;my_sks_cluster&#34; {
+      + addons           = (known after apply)
+      + aggregation_ca   = (known after apply)
+      + cni              = &#34;cilium&#34;
+      + control_plane_ca = (known after apply)
+      + created_at       = (known after apply)
+      + endpoint         = (known after apply)
+      + exoscale_ccm     = true
+      + id               = (known after apply)
+      + kubelet_ca       = (known after apply)
+      + metrics_server   = true
+      + name             = &#34;my-sks-cluster&#34;
+      + nodepools        = (known after apply)
+      + service_level    = &#34;pro&#34;
+      + state            = (known after apply)
+      + version          = (known after apply)
+      + zone             = &#34;at-vie-2&#34;
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+</code></pre>
+<p>If you are happy with the changes, run <code>tofu apply</code> to apply them. You should see the following output:</p>
+<pre><code language="language-terraform" class="language-terraform">Plan: 6 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only &#39;yes&#39; will be accepted to approve.
+
+  Enter a value: yes
+
+exoscale_security_group.my_security_group: Creating...
+exoscale_sks_cluster.my_sks_cluster: Creating...
+exoscale_security_group.my_security_group: Creation complete after 3s [id=40097281-ed1c-46f0-b234-72a743317036]
+exoscale_security_group_rule.cilium_health: Creating...
+exoscale_security_group_rule.cilium_vxlan: Creating...
+exoscale_security_group_rule.kubelet: Creating...
+exoscale_security_group_rule.cilium_health_tcp: Creating...
+exoscale_security_group_rule.cilium_vxlan: Creation complete after 4s [id=8595985e-bcb4-410e-85dc-898248f42b69]
+exoscale_security_group_rule.kubelet: Creation complete after 4s [id=8be196cc-ea4a-4e99-b868-c1e47663afc9]
+exoscale_security_group_rule.cilium_health_tcp: Creation complete after 4s [id=0d4c2888-4b81-4ad7-8dfc-f41cd74f7575]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [10s elapsed]
+exoscale_security_group_rule.cilium_health: Creation complete after 7s [id=8138882b-30db-44ed-8dbd-b94e7736a559]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [20s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [30s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [40s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [50s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [1m0s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [1m10s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [1m20s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [1m30s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Creation complete after 1m40s [id=79972308-1962-4639-b926-6f931976cedc]
+
+Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
+</code></pre>
+<aside class="special"><p> You created your first SKS Cluster with OpenTofu and can now use it. What do you think is missing at this point?  </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Getting the Kubernetes Configuration" duration="0">
+        <p>Right, you need the Kubernetes Configuration to access your cluster. It would be possible to get it from the Exoscale Console, but we want to do it with OpenTofu.</p>
+<p>To do so, we will create a new file called <code>kubeconfig.tf</code> and copy the following configuration in it:</p>
+<pre><code language="language-terraform" class="language-terraform"># (administration credentials)
+resource &#34;exoscale_sks_kubeconfig&#34; &#34;my_sks_kubeconfig&#34; {
+  zone       = local.zone
+  cluster_id = exoscale_sks_cluster.my_sks_cluster.id
+  user   = &#34;kubernetes-admin&#34;
+  groups = [&#34;system:masters&#34;]
+  ttl_seconds           = 3600
+  early_renewal_seconds = 300
+}
+resource &#34;local_sensitive_file&#34; &#34;my_sks_kubeconfig_file&#34; {
+  filename        = &#34;kubeconfig&#34;
+  content         = exoscale_sks_kubeconfig.my_sks_kubeconfig.kubeconfig
+  file_permission = &#34;0600&#34;
+}
+</code></pre>
+<p>After saving the configuration, run <code>tofu apply</code> to apply them. You should see the following output:</p>
+<pre><code language="language-terraform" class="language-terraform">exoscale_security_group.my_security_group: Refreshing state... [id=40097281-ed1c-46f0-b234-72a743317036]
+exoscale_sks_cluster.my_sks_cluster: Refreshing state... [id=79972308-1962-4639-b926-6f931976cedc]
+exoscale_security_group_rule.cilium_health: Refreshing state... [id=8138882b-30db-44ed-8dbd-b94e7736a559]
+exoscale_security_group_rule.cilium_vxlan: Refreshing state... [id=8595985e-bcb4-410e-85dc-898248f42b69]
+exoscale_security_group_rule.cilium_health_tcp: Refreshing state... [id=0d4c2888-4b81-4ad7-8dfc-f41cd74f7575]
+exoscale_security_group_rule.kubelet: Refreshing state... [id=8be196cc-ea4a-4e99-b868-c1e47663afc9]
+
+OpenTofu used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+OpenTofu will perform the following actions:
+
+  # exoscale_sks_kubeconfig.my_sks_kubeconfig will be created
+  + resource &#34;exoscale_sks_kubeconfig&#34; &#34;my_sks_kubeconfig&#34; {
+      + cluster_id            = &#34;79972308-1962-4639-b926-6f931976cedc&#34;
+      + early_renewal_seconds = 300
+      + groups                = [
+          + &#34;system:masters&#34;,
+        ]
+      + id                    = (known after apply)
+      + kubeconfig            = (sensitive value)
+      + ready_for_renewal     = true
+      + ttl_seconds           = 3600
+      + user                  = &#34;kubernetes-admin&#34;
+      + zone                  = &#34;at-vie-2&#34;
+    }
+
+  # local_sensitive_file.my_sks_kubeconfig_file will be created
+  + resource &#34;local_sensitive_file&#34; &#34;my_sks_kubeconfig_file&#34; {
+      + content              = (sensitive value)
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = &#34;0700&#34;
+      + file_permission      = &#34;0600&#34;
+      + filename             = &#34;kubeconfig&#34;
+      + id                   = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only &#39;yes&#39; will be accepted to approve.
+
+  Enter a value: yes
+
+exoscale_sks_kubeconfig.my_sks_kubeconfig: Creating...
+exoscale_sks_kubeconfig.my_sks_kubeconfig: Creation complete after 2s [id=13042316252923993323610489193665580134618587333:64523864957247071817109318741407431096266427702]
+local_sensitive_file.my_sks_kubeconfig_file: Creating...
+local_sensitive_file.my_sks_kubeconfig_file: Creation complete after 0s [id=aa4e3480279d7ed36c9be1dc8f518a1ed0900916]
+</code></pre>
+<p>Now you can find the Kubernetes configuration in the file <code>kubeconfig</code> in your current directory. You can use this file to access your Kubernetes cluster with <code>kubectl</code>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Inspection of the Kubernetes Cluster" duration="0">
+        <p>Now you can use the Kubernetes configuration to inspect your cluster. To do so, run the following command:</p>
+<pre><code language="language-bash" class="language-bash">kubectl --kubeconfig kubeconfig get all -n kube-system
+</code></pre>
+<aside class="warning"><p> You will notice that the cluster is accessible, but there are no pods running. This is because we created the control plane, but no worker nodes yet. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adding Nodes to the Cluster" duration="0">
+        <p>To add nodes to the cluster, we will add the following configuration to the <code>sks.tf</code> file:</p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;exoscale_sks_nodepool&#34; &#34;my_sks_nodepool&#34; {
+  zone       = local.zone
+  cluster_id = exoscale_sks_cluster.my_sks_cluster.id
+  name       = &#34;my-sks-nodepool&#34;
+  instance_type = &#34;standard.medium&#34;
+  size          = 3
+  security_group_ids = [
+    exoscale_security_group.my_security_group.id,
+  ]
+}
+</code></pre>
+<p>In this codeblock, we define a resource of type <code>exoscale_sks_nodepool</code> named <code>my_sks_nodepool</code>. This resource represents a node pool in the SKS cluster. Furthermore, you might notice that we reference the security group we created earlier.</p>
+<p>After saving the configuration, run <code>tofu apply</code> to apply them. You should see the following output:</p>
+<pre><code language="language-terraform" class="language-terraform">OpenTofu will perform the following actions:
+
+  # exoscale_sks_nodepool.my_sks_nodepool will be created
+  + resource &#34;exoscale_sks_nodepool&#34; &#34;my_sks_nodepool&#34; {
+      + cluster_id         = &#34;79972308-1962-4639-b926-6f931976cedc&#34;
+      + created_at         = (known after apply)
+      + disk_size          = 50
+      + id                 = (known after apply)
+      + instance_pool_id   = (known after apply)
+      + instance_prefix    = &#34;pool&#34;
+      + instance_type      = &#34;standard.medium&#34;
+      + name               = &#34;my-sks-nodepool&#34;
+      + security_group_ids = [
+          + &#34;40097281-ed1c-46f0-b234-72a743317036&#34;,
+        ]
+      + size               = 3
+      + state              = (known after apply)
+      + storage_lvm        = false
+      + template_id        = (known after apply)
+      + version            = (known after apply)
+      + zone               = &#34;at-vie-2&#34;
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only &#39;yes&#39; will be accepted to approve.
+
+  Enter a value: yes
+
+exoscale_sks_nodepool.my_sks_nodepool: Creating...
+exoscale_sks_nodepool.my_sks_nodepool: Still creating... [10s elapsed]
+exoscale_sks_nodepool.my_sks_nodepool: Still creating... [20s elapsed]
+exoscale_sks_nodepool.my_sks_nodepool: Creation complete after 25s [id=07645dbb-260a-4a12-9e69-d6c1692a2f74]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+</code></pre>
+<p>After you have applied the changes, you can run the following command to see the nodes in your cluster:</p>
+<pre><code language="language-bash" class="language-bash">kubectl --kubeconfig kubeconfig get nodes
+</code></pre>
+<aside class="special"><p> You have successfully created a Kubernetes cluster with OpenTofu and added nodes to it. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adding Output to the Configuration" duration="0">
+        <p>To make it easier to access the Kubernetes cluster, we will add the following output to the <code>outputs.tf</code> file:</p>
+<pre><code language="language-terraform" class="language-terraform"># Outputs
+output &#34;my_sks_cluster_endpoint&#34; {
+  value = exoscale_sks_cluster.my_sks_cluster.endpoint
+}
+#
+output &#34;my_sks_kubeconfig&#34; {
+  value = local_sensitive_file.my_sks_kubeconfig_file.filename
+}
+
+output &#34;my_sks_connection&#34; {
+  value = format(
+    &#34;export KUBECONFIG=%s; kubectl cluster-info; kubectl get pods -A&#34;,
+    local_sensitive_file.my_sks_kubeconfig_file.filename,
+  )
+}
+</code></pre>
+<p>After saving the configuration, run <code>tofu apply</code> to apply them. You should see the following output:</p>
+<pre><code language="language-terraform" class="language-terraform">Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only &#39;yes&#39; will be accepted to approve.
+
+  Enter a value: yes
+
+
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+my_sks_cluster_endpoint = &#34;https://79972308-1962-4639-b926-6f931976cedc.sks-at-vie-2.exo.io&#34;
+my_sks_connection = &#34;export KUBECONFIG=kubeconfig; kubectl cluster-info; kubectl get pods -A&#34;
+my_sks_kubeconfig = &#34;kubeconfig&#34;
+</code></pre>
+<p>Then you can run the following command to see the output:</p>
+<pre><code language="language-bash" class="language-bash">tofu output &lt;output_name&gt;
+</code></pre>
+<aside class="special"><p> Congratulations! You have successfully created a Kubernetes cluster with OpenTofu and added nodes to it and you can now access it with the output. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Destroying the Cluster" duration="0">
+        <p>To destroy the cluster, run the following command:</p>
+<pre><code language="language-bash" class="language-bash">tofu destroy
+</code></pre>
+<aside class="special"><p> You have successfully destroyed the Kubernetes cluster with OpenTofu. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

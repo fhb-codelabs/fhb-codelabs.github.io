@@ -4,25 +4,24 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2024-01-13T07:57:58Z",
-  "id": "ssoa-pt-sops-kms",
+  "id": "iac-opentofu-intro",
   "duration": 0,
-  "title": "SSOA Extra Lab - Encrypting Secrets with SOPS and KMS",
+  "title": "Infrastructure-as-Code - Lab 1 - OpenTofu Introduction",
   "authors": "Thomas Schuetz",
-  "summary": "SSOA Extra Lab - Mozilla SOPS and Amazon KMS",
-  "source": "ssoa-pt-secrets-aws-sops.md",
+  "summary": "Lab 1 - OpenTofu Introduction (Exoscale SKS Edition)",
+  "source": "iac-exo-opentofu-intro.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "aws"
+    "terraform"
   ],
   "tags": [
-    "advanced",
     "aws",
-    "mcce",
-    "secrets",
-    "ssoa-pt"
+    "iac",
+    "introduction",
+    "mcce"
   ],
-  "url": "ssoa-pt-sops-kms"
+  "url": "iac-opentofu-intro"
 }
