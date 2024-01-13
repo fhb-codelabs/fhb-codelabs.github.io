@@ -667,7 +667,7 @@ Where
 
 - `Show Stacktraces` = yes
 - `Show Application State Messages` = yes
-- `User Preference Storage Type` = Database
+- `User Preference Storage Type` = Database (no longer required in newer versions)
 - `Logging Type` = Syslog
 - `Logging Level` = Error
 - `Application Prefix` = icingaweb2
