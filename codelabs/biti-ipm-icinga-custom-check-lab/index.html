@@ -33,15 +33,15 @@
 <p>Icinga2 comes with a bunch of pre-installed check_commands. However, there are situations where Icinga2 Administrators need to implement custom check_commands.</p>
 <p>In this codelab you will learn</p>
 <ul>
-<li>how to create and implement a custom check_command to monitor the memory usage of our GuestOS.</li>
+<li>how to create and implement a custom check_command to monitor the memory usage of the GuestOS.</li>
 </ul>
 <h2 is-upgraded>Where You Can Look Up</h2>
 <p>The best source of documentation is the homepage of Icinga2. The latest documentation can be found <a href="https://icinga.com/docs/icinga-2/latest/doc/01-about/" target="_blank">here</a>).</p>
 <h2 is-upgraded>What You&#39;ll need</h2>
 <h3 is-upgraded>Icinga2 instance</h3>
-<p>You need a working Icinga2 instance that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab <strong>BITI IPM Lab - Icinga Installation</strong> and <strong>BITI IPM Lab - Icinga Agentless Monitoring</strong>.</p>
+<p>You need a working Icinga2 instance that you can access via Icinga Web2 Frontend. If you don&#39;t have a running Icinga2 instance, please consult the Codelab <strong>BITI IPM Lab - Icinga Installation</strong> and <strong>BITI IPM Lab - Icinga Agentless Monitoring</strong> for more details.</p>
 <h3 is-upgraded>Guest operation system (Guest OS)</h3>
-<p>This is the OS of the virtual machine. This will be Debian .</p>
+<p>This is the OS of the virtual machine. This will be Debian.</p>
 <h3 is-upgraded>Administators privileges</h3>
 <p>By default, administrator privileges are required on the Host OS to install additional software. Make sure that you have the required permissions.</p>
 <p>For the Guest OS, you will create and manage your own users. These users will therefore be different from the Host&#39;s user administration.</p>
@@ -59,50 +59,54 @@
       </google-codelab-step>
     
       <google-codelab-step label="Get the plugin" duration="0">
-        <p>Indeed, there are many, many different check_mem plugins for Icinga2. However, we want to install and use a revised version of check_mem.pl which splits the memory detection into cache memory and application memory.</p>
-<p>First, we need to change to the plugin directory:</p>
+        <p>In fact, there are many different check_mem plugins for Icinga2. However, we want to install and use a revised version of check_mem.pl that splits memory detection into cache memory and application memory.</p>
+<p>First, change the working directory in which the plugins are located. Run the following command:</p>
 <pre><code>sudo cd /usr/lib/nagios/plugins
 </code></pre>
-<p>In this directory, you will find a set of check plugins, just run <code>sudo ls -al</code>. Unfortunately, you will not find a check_mem plugins here. Luckely, we can download a plugins named <code>check_mem.pl</code> by running the following command:</p>
+<p>In this directory you will find a number of check plug-ins, simply execute the command <code>sudo ls -al</code>. Unfortunately, you will not find a <code>check_mem</code> plugin here. Fortunately, we can download a revised version from the internet by running the following command:</p>
 <pre><code>sudo wget https://raw.githubusercontent.com/justintime/nagios-plugins/master/check_mem/check_mem.pl
 </code></pre>
-<p>The command <code>wget</code> is a command line utility from the GNU project for downloading files from the Internet. You should see the following output:</p>
+<p>The command <code>wget</code> is a small command-line utility from the GNU project for downloading files from the Internet.</p>
+<p>Sample output:</p>
 <pre><code>--2021-12-03 22:45:11--  https://raw.githubusercontent.com/justintime/nagios-plugins/master/check_mem/check_mem.pl
 Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.108.133, 185.199.111.133, ...
 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 15019 (15K) [text/plain]
-Saving to: ‘check_mem.pl.2&#39;
+Saving to: ‘check_mem.pl&#39;
 
-check_mem.pl.2                        100%[======================================================================&gt;]  14.67K  --.-KB/s    in 0s
+check_mem.pl                        100%[======================================================================&gt;]  14.67K  --.-KB/s    in 0s
 
-2021-12-03 22:45:12 (85.4 MB/s) - ‘check_mem.pl.2&#39; saved [15019/15019]
+2021-12-03 22:45:12 (85.4 MB/s) - ‘check_mem.pl&#39; saved [15019/15019]
 </code></pre>
-<p>Make sure that the plugins is executable:</p>
+<p>Next, make sure that the plugins is executable:</p>
 <pre><code>sudo chmod +x /usr/lib/nagios/plugins/check_mem.pl
 </code></pre>
-<p>You can test if the plugins works.</p>
+<p>Next, run the script with the following parameters:</p>
 <pre><code>sudo /usr/lib/nagios/plugins/check_mem.pl -f -w 20 -c 10
 </code></pre>
 <p>Where,</p>
 <ul>
-<li>-f - tell the plugin to check for free memory</li>
-<li>-w - specify the warning threshold as number interpreted as percent</li>
-<li>-c - specify the critical threshold as number interpreted as percent</li>
+<li><code>-f</code> - tell the plugin to check for free memory</li>
+<li><code>-w</code> - specify the warning threshold as number interpreted as percent</li>
+<li><code>-c</code> - specify the critical threshold as number interpreted as percent</li>
 </ul>
-<p>The output of this plugin can look like this:</p>
+<p>Sample output:</p>
 <pre><code>WARNING - 14.1% (286656 kB) free!|TOTAL=2030328KB;;;; USED=1743672KB;1624262;1827295;; FREE=286656KB;;;; CACHES=817248KB;;;;
 </code></pre>
+<aside class="special"><p> The standard nagios-plugins package doesn&#39;t include the check_mem.pl, it has to be loaded seperately. The reason is that the original script returns wrong values on special operating systems (like Windows).  </p>
+</aside>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Create the check" duration="0">
-        <p>In order for this new custom plugin to be widely used in Icinga 2, add a new command definition in Icinga 2 command&#39;s configuration file, as shown in the below example.</p>
+        <p>Now we need to make this new plugin generally available. To do this, we need to add a new command definition in the configuration file. Follwo me.</p>
+<p>First, change the working directory and open the file <code>comand.conf</code> with an editor of your choice (here: nano).</p>
 <pre><code>sudo cd /etc/icinga2/conf.d/
 sudo nano /etc/icinga2/conf.d/commands.conf
 </code></pre>
-<p>Now, go to the bottom of this file and add the command definition as follows:</p>
+<p>Next, go to the bottom of this file and add the command definition:</p>
 <pre><code>object CheckCommand &#34;my_mem&#34; {
   import &#34;plugin-check-command&#34;
 
@@ -141,11 +145,11 @@ sudo nano /etc/icinga2/conf.d/commands.conf
 </code></pre>
 <p>This CheckCommand is pretty well self-explanatory.</p>
 <ul>
-<li>First, each CheckCommand needs a name. We will simply call it <code>my_mem</code>.</li>
-<li>Next, the CheckCommand imports the <code>plugin-check-command</code> which simply tells Icinga2 how to execute commands.</li>
-<li>Next, the <code>command</code> tells Icinga2 where to find the <code>check_mem.pl</code> plugin (the PluginDir points to the <strong>/usr/lib/nagios/plugins</strong> directory, by the way).</li>
-<li>Next, the argument section describes all parameters that are accepted by the plugin. In addition, the plugin accepts a number of input variables like <strong>$mem_used$</strong> or <strong>$mem_critical$</strong>. We will use them soon.</li>
-<li>Finally, the defaults for mem_warning and mem_critical are set and defined.</li>
+<li>Each CheckCommand needs a name. We will simply call it <code>my_mem</code>.</li>
+<li>The CheckCommand imports the <code>plugin-check-command</code> which tells Icinga2 how to execute commands.</li>
+<li>The <code>command</code> variable refers to the <code>check_mem.pl</code> plugin (the PluginDir points to the <strong>/usr/lib/nagios/plugins</strong> directory).</li>
+<li>The <code>argument</code> section describes all parameters that are accepted by the plugin.</li>
+<li>The default settings for <code>mem_warning</code> and <code>mem_critical</code> are set and defined here.</li>
 </ul>
 <p>Do not forget to quit the editor with <code>CTRL-X</code>. Confirm with <code>y</code> to save all changes.</p>
 <aside class="special"><p> Hint: Check on open brackets. </p>
@@ -155,10 +159,10 @@ sudo nano /etc/icinga2/conf.d/commands.conf
       </google-codelab-step>
     
       <google-codelab-step label="Implement the check" duration="0">
-        <p>In order to use our new CheckCommand, we need to implement it for monitoring our GuestOS, as shown in the below example.</p>
+        <p>To use our new CheckCommand, we need to implement it on GuestOS. Follow me. First, open the file <code>localhost.conf</code> with an editor of your choice (here: nano):</p>
 <pre><code>sudo nano /etc/icinga2/conf.d/hosts/localhost.conf
 </code></pre>
-<p>Now, go to the bottom of this file and add the service definition as follows:</p>
+<p>Next, go to the bottom of this file and add the service definition:</p>
 <pre><code>object Service &#34;my_mem&#34; {
     host_name = &#34;localhost&#34;
     check_command = &#34;my_mem&#34;
@@ -168,8 +172,9 @@ sudo nano /etc/icinga2/conf.d/commands.conf
     vars.mem_free = &#34;true&#34;
 }
 </code></pre>
-<p>As you can see, we overwrite the thresholds for warning and critical.</p>
-<p>Finally, do not forget to quit the editor with <code>CTRL-X</code>. Confirm with <code>y</code> to save all changes.</p>
+<aside class="special"><p> Note: we overwrite the thresholds for both, warning and critical. </p>
+</aside>
+<p>Finally, don&#39;t forget to quit the editor with <code>CTRL-X</code>. Confirm with <code>y</code> to save all changes.</p>
 
 
       </google-codelab-step>
@@ -178,20 +183,21 @@ sudo nano /etc/icinga2/conf.d/commands.conf
         <p>Okay, time to test the configuration. Run the command:</p>
 <pre><code>sudo icinga2 daemon -C
 </code></pre>
-<p>Do you see errors? If yes, try to fix them. Otherwise, if not errors occur, restart and check the Icinga2 service with the following commands:</p>
+<p>Do you see errors? If yes, try to fix them. Otherwise, if not errors occur, restart and check the status of the Icinga2 service:</p>
 <pre><code>sudo systemctl start icinga2
 sudo systemctl status icinga2
 </code></pre>
-<p>Any errors? Try to fix them.</p>
+<p>Any errors occur? Try to fix them. Otherwise, continue.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="In action" duration="0">
-        <p>If the restart of the icinga2 service was successful, we will see our new CheckCommand named <code>my_mem</code>. Depending on the setup of your GuestOS, you may see different status messages. The screenshot below shows a warning message:</p>
+        <p>After restarting Icinga2, we will see our new CheckCommand called <code>my_mem</code>. Depending on the setup of your GuestOS, you may see different status messages. For example, the next screenshot shows a warning message:</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/f62577dd857ef7ac.png"></p>
-<p>By clicking on the warning box, you can see more details of the warning.</p>
+<p>Click on the warning box to get more details.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/aab2263308974b62.png"></p>
+<p>Great, everything works fine.</p>
 
 
       </google-codelab-step>
