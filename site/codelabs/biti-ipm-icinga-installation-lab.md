@@ -448,7 +448,7 @@ Provide your root password (or simple press enter) and create a database and a u
 
 Run the following command to get a list of databases installed.
 ```
-show database;
+show databases;
 ```
 
 Sample output:
@@ -518,7 +518,7 @@ Under no circumstances do not use this password in other systems or environments
 
 Just be be sure: Execute the following command and check whether the new database exists:
 ```
-show database;
+show databases;
 ```
 
 Sample output:
