@@ -143,26 +143,27 @@ The easiest way is to move the configuration files to another folder. Run the fo
 sudo cd /etc/icinga2
 sudo mv conf.d/ conf.d.backup/
 sudo mkdir conf.d/
+sudo chown -R nagios:nagios conf.d
 ```
 
-To summarize, the sequence simply renames the source directory (conf.d -> conf.d.backup) and creates a new directory (conf.d). This will be our working directory from now on. All sample files are now in the backup directory and can be restored if required. You can check this with the following command:
+To summarize, the sequence simply renames the source directory (conf.d -> conf.d.backup) and creates a new directory (conf.d). Finally, the ownership of the user `nagios` is completely transferred to the `config.d` directory. This will be our working directory from now on. All sample files are now in the backup directory and can be restored if required. You can check this with the following command:
 
 ```
 root@server:/etc/icinga2/conf.d# sudo ls -la /etc/icinga2/conf.d.backup/
 total 56
 drwxr-x--- 2 root   root   4096 Dec  7 14:15 .
 drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
--rw-r--r-- 1 root   root     35 Dec  7 14:15 app.conf
--rw-r--r-- 1 root   root    114 Dec  7 14:15 apt.conf
--rw-r--r-- 1 root   root   5297 Dec  7 14:15 commands.conf
--rw-r--r-- 1 root   root    542 Dec  7 14:15 downtimes.conf
--rw-r--r-- 1 root   root    638 Dec  7 14:15 groups.conf
--rw-r--r-- 1 root   root   1500 Dec  7 14:15 hosts.conf
--rw-r--r-- 1 root   root    793 Dec  7 14:15 notifications.conf
--rw-r--r-- 1 root   root   2131 Dec  7 14:15 services.conf
--rw-r--r-- 1 root   root   2060 Dec  7 14:15 templates.conf
--rw-r--r-- 1 root   root    732 Dec  7 14:15 timeperiods.conf
--rw-r--r-- 1 root   root    308 Dec  7 14:15 users.conf
+-rw-r--r-- 1 nagios nagios   35 Dec  7 14:15 app.conf
+-rw-r--r-- 1 nagios nagios  114 Dec  7 14:15 apt.conf
+-rw-r--r-- 1 nagios nagios 5297 Dec  7 14:15 commands.conf
+-rw-r--r-- 1 nagios nagios  542 Dec  7 14:15 downtimes.conf
+-rw-r--r-- 1 nagios nagios  638 Dec  7 14:15 groups.conf
+-rw-r--r-- 1 nagios nagios 1500 Dec  7 14:15 hosts.conf
+-rw-r--r-- 1 nagios nagios  793 Dec  7 14:15 notifications.conf
+-rw-r--r-- 1 nagios nagios 2131 Dec  7 14:15 services.conf
+-rw-r--r-- 1 nagios nagios 2060 Dec  7 14:15 templates.conf
+-rw-r--r-- 1 nagios nagios  732 Dec  7 14:15 timeperiods.conf
+-rw-r--r-- 1 nagios nagios  308 Dec  7 14:15 users.conf
 ```
 
 In the next section, we can now create our own configuration structure. Follow me.
@@ -179,10 +180,11 @@ First, we create two template files: a host and a service template. Template fil
 
 The `templates.conf` file contains basic settings for monitoring hosts (e.g. servers) and services (e.g. HTTP service, SSH service).
 
-First, create an empty file:
+First, create an empty file with the corresponding ownership:
 
 ```
 sudo touch /etc/icinga2/conf.d/templates.conf
+sudo chown nagios:nagios /etc/icinga2/conf.d/templates.conf
 ```
 
 Next, open the file with an editor:
@@ -232,6 +234,7 @@ The file `commands.conf` contains information on how check_commands are triggere
 
 ```
 sudo cp /etc/icinga2/conf.d.backup/commands.conf /etc/icinga2/conf.d/commands.conf
+sudo chown -R nagios:nagios /etc/icinga2/conf.d
 ```
 
 ### Check for completeness
@@ -248,8 +251,8 @@ The output must look like this:
 total 24
 drwxr-x--- 2 root   root   4096 Dec  7 14:15 .
 drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
--rw-r--r-- 1 root   root   5297 Dec  7 14:15 commands.conf
--rw-r--r-- 1 root   root   2060 Dec  7 14:15 templates.conf
+-rw-r--r-- 1 nagios nagios 5297 Dec  7 14:15 commands.conf
+-rw-r--r-- 1 nagios nagios 2060 Dec  7 14:15 templates.conf
 ```
 
 Check whether the files `commands.conf` and `templates.conf` exist. If not, delete everything in this directory and start again from the beginning.
@@ -385,6 +388,11 @@ So far, so good ?
 
 Exit the editor with `CTRL-X`. Confirm with `y` to save all changes.
 
+Finally, transfer the ownership to all files and subdirs:
+```
+sudo chown -R nagios:nagios /etc/icinga2/conf.d
+```
+
 ### Check for completeness
 
 Let's see what we have so far. Run the following list command:
@@ -398,11 +406,11 @@ The output must look like this:
 ```
 drwxr-xr-x 2 root   root   4096 Dec  8 20:59 .
 drwxr-x--- 3 nagios nagios 4096 Dec  8 20:59 ..
--rw-r--r-- 1 root   root    196 Dec  8 20:59 host_os.conf
--rw-r--r-- 1 root   root    440 Dec  8 20:58 localhost.conf
+-rw-r--r-- 1 nagios nagios  196 Dec  8 20:59 host_os.conf
+-rw-r--r-- 1 nagios nagios  440 Dec  8 20:58 localhost.conf
 ```
 
-Check whether the files `host_os.conf` and `localhost.conf` exist. If not, delete everything in this directory and start again from the beginning.
+Check whether the files `host_os.conf` and `localhost.conf` exist and all owwerships are set correctly. If not, delete everything in this directory and start again from the beginning.
 
 
 ## Test and restart
@@ -432,7 +440,7 @@ Location: in /etc/icinga2/conf.d/hosts/hostos.conf: 3:11-3:25
 [2021-12-03 15:49:12 +0100] critical/cli: Config validation failed. Re-run with 'icinga2 daemon -C' after fixing the config.
 ```
 
-The output shows that there is an error in the file **host_os.conf**. The line 3 is marked with wavy line, indicating that something is wrong here. Experts like you immediately recognize that the equal sign (=) between the string **address** and **192.168.0.188** is missing. After fixing this typo, lets run the command again:
+The output shows that there is an error in the file **host_os.conf**. The line 3 is marked with wavy line, indicating that something is wrong here. Experts like you immediately recognize that the equal sign (=) between the string **address** and **192.168.0.188** is missing. After fixing this typo (sorry for that), lets run the command again:
 
 ```
 sudo icinga2 daemon -C
