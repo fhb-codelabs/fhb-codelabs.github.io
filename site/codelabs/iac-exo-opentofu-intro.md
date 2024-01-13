@@ -1,11 +1,11 @@
-summary: Lab 1 - Terraform Introduction (Exoscale Edition)
-id: iac-terraform-intro
+summary: Lab 1 - OpenTofu Introduction (Exoscale SKS Edition)
+id: iac-opentofu-intro
 categories: terraform
 tags: aws, MCCE, introduction, iac
 status: Published
 authors: Thomas Schuetz
 
-# Infrastructure-as-Code - Lab 1 - Terraform Introduction
+# Infrastructure-as-Code - Lab 1 - OpenTofu Introduction
 
 <!-- ------------------------ -->
 
@@ -15,39 +15,38 @@ authors: Thomas Schuetz
 
 In this lab, you will:
 
-- Install Terraform
-- Spin up a Virtual machine in Exoscale using the UI
-- Provision a Virtual Machine in Exoscale using Terraform
+- Install OpenTofu
+- Provision a SKS Cluster
 
 ### Prerequisites
 
-- [Terraform CLI](https://developer.hashicorp.com/terraform/downloads)
+- [OpenTofu CLI](https://opentofu.org/docs/intro/install/)
 - IDE (IntelliJ IDEA, Visual Studio Code) with Terraform Plugin installed
 - SSH Client installed (OpenSSH, PuTTY)
 
-## Install Terraform
+## Install OpenTofu
 
 In the future, it will be more comfortable if you're able to use terraform from your PC and IDE.
 
-To install terraform, refer to the respective documentation here:
+To install OpenTofu, refer to the respective documentation here:
 
-- [https://developer.hashicorp.com/terraform/downloads](https://developer.hashicorp.com/terraform/downloads)
+- [https://opentofu.org/docs/intro/install/](https://opentofu.org/docs/intro/install/)
 
-**Please ensure, that the terraform binary is in your path!**
+**Please ensure, that the OpenTofu binary is in your path!**
 
 - [https://www.wikihow.com/Change-the-PATH-Environment-Variable-on-Windows](https://www.wikihow.com/Change-the-PATH-Environment-Variable-on-Windows)
 - In Linux or MacOS, append the path you've chosen to your path variable (if the package installer didn't take care about this).
 
 <aside class="positive">
-Terraform is a single binary, therefore it is very handy to install and will not make any modifications on your system.
-As you might want to use your IDE, it is recommended to run terraform directly on your machine instead of a virtual machine. 
+OpenTofu is a single binary, therefore it is very handy to install and will not make any modifications on your system.
+As you might want to use your IDE, it is recommended to run OpenTofu directly on your machine instead of a virtual machine. 
 If you want to do so, please ensure that you have a proper IDE running in your virtual machine.
 </aside>
 
-### Check if terraform is installed properly
+### Check if OpenTofu is installed properly
 
-To check if terraform is installed and as accessible, open a shell and run: `terraform version`. This should return the
-version of Terraform. If not and you changed the PATH before, ensure that you restarted your terminal and the Terraform
+To check if terraform is installed and as accessible, open a shell and run: `tofu version`. This should return the
+version of OpenTofu. If not and you changed the PATH before, ensure that you restarted your terminal and the Terraform
 Binary is located in a directory which is accessible there.
 
 ## Exoscale Basics
@@ -63,101 +62,9 @@ During this lab, we will deal with virtual instances and object storage. In the 
 
 You can log in to the Exoscale Console [here](https://portal.exoscale.com/login).
 
-## Creating a Virtual Machine in Exoscale
-
-### Goal:
-
-- You should be able to provision a Virtual Machine using the Exoscale UI
-- Furthermore, you should get familiar a bit with Virtual Instances and things you can configure
-
-### Task:
-
-As a Cloud Engineer, your want to test a new tool. As you don't have the possibility to run a virtual machine on your machine, you
-decide to run the machine in the cloud. After the machine is provisioned, you are running the tool you wanted to test and destroy
-the Virtual Instance again.
-
-### Checklist:
-
-- [ ] Virtual Machine is provisioned
-- [ ] You are able to connect to the virtual instance using SSH
-
-<aside class="positive">
-Try to solve the problem on your own / with your group. If you are experiencing problems, the following walkthrough will guide you.
-</aside>
-
-## Provisioning a Virtual Machine and access it via SSH
-
-We will deploy the Virtual Machine via the Exoscale UI. Therefore, open the [Exoscale Console](https://portal.exoscale.com/login)
-and Log In with your credentials.
-
-### Create an SSH Key
-
-You might want to be able to access your Virtual Machine after it is provisioned. Therefore, we need to precreate an SSH Key which can be used to access this machine.
-
-This SSH Key has to be created on your machine. On Linux, Mac or WSL machines, this should work as follows:
-
-- Open a shell (bash, zsh)
-- Run `ssh-keygen -t ed25519 -f exoscale` (and remember where you ran this!)
-  - Use a passphrase
-- Open the public part of the key (exoscale.pub) and copy it.
-
-The public part of the SSH Keypair has to be stored in Exoscale to make it usable in Virtual Machines. Therefore, select "Compute" -> "SSH-Keys" -> "Add",
-assign a name you remember to the key and paste the public part.
-
-### Provision the Virtual Machine
-
-With this, we should have everything we need to provision a virtual machine.
-
-- Select "Compute" -> "Instances" and click on "Add"
-  - Assign a meaningful Hostname to your Instance
-  - Use "Linux Debian 64-bit" as Template
-  - Select the zone of your choice
-  - Choose the Instance Type "tiny"
-  - 10GB Storage will fit our needs
-  - Select the Keypair you created before
-  - Leave the IPv6 Options unchecked and the User Data Field Empty
-  - Check your Configuration (as below and click on "Create")
-
-![img/virt-exo-terraform-intro-instance.png](img/virt-exo-terraform-intro-instance.png)
-
-- You will see a new screen, where your virtual instance is shown. After some times, it will get into a "running" state
-- Make your self familiar with the information and options on this screen
-
-### Access the Virtual Machine via SSH
-
-In our lab, we might want to try out a tool and therefore it is beneficial to have shell access. Now it's time to remember
-where you stored the private ssh key. When you found it, open up your shell and execute:
-
-- `ssh -i {{path-to-your-private-key}} debian@{{ip-address-of-your-instance}}` (you can find the ip address on the instance screen)
-
-You will find out that you are not able to connect to the machine. This is due to a missing security group.
-
-<aside class="negative">You can imagine security groups as host-firewalls on cloud-based virtual instances. To access a
-virtual instance from the public internet, you need a security-group rule to access it</aside>
-
-### Adding a Security Group
-
-To add the security group, select "Security Groups" in the "Compute" menu:
-
-- Add a new security group ("Add"):
-  - Name: `Public Access` and "Create Group"
-  - On the Security Groups Overview Page, click on the three dots on the right side of the instance row and "Details"
-  - Add a new Rule
-    - Select "SSH"
-  - Now you should see your new rule there
-  - **In a real world scenario you would make sure that only your IP address could access the SSH port**
-  - To assign the security group, open the instances screen, and select your instance
-    - Click on "Security Groups"
-    - Attach your Security Group
-  - Retry accessing your machine via SSH now
-  - This should work now
-
-<aside class="positive">Congrats! You provisioned your first Virtual Machine and are able to access it! You may delete your VM
-via the console now</aside>
-
 ## Infrastructure-as-Code
 
-There were many steps we had to take until we got our simple virtual machine working. The current setup is fairly enough
+There are many steps to get infrastructure working when doing this manually This would be fairly enough
 to try out some new things, but in the real world you might want to do this in a more reproducible and scalable way.
 
 This is where Infrastructure-as-Code comes into play. When you are provisioning 100s of instances, you might not want to
@@ -194,54 +101,54 @@ be versioned, there should be automatic tests in place and pull requests should 
 
 There are many tools out there for Infrastructure-as-Code like:
 
-- Terraform
+- OpenTofu/Terraform
 - Pulumi
 - Crossplane
 
-Which tool you use, often depends on your own preferences and your use-cases. In this lab, we will take a closer look on Terraform.
+Which tool you use, often depends on your own preferences and your use-cases. In this lab, we will take a closer look on OpenTofu.
 
 Further Information / Videos:
 
 - DevOps with Nana: Infrastructure-as-Code [https://www.youtube.com/watch?v=POPP2WTJ8es](https://www.youtube.com/watch?v=POPP2WTJ8es)
 
-## Terraform
+## OpenTofu
 
-Before we will start with our first configuration, we will put some light on Terraform.
+Before we will start with our first configuration, we will put some light on OpenTofu.
 
-Terraform is an Infrastructure-as-Code tool developed by Hashicorp. It uses a declarative language to describe infrastructure.
+OpenTofu is an Infrastructure-as-Code tool forked from Terraform which was initially developed by Hashicorp. It uses a declarative language to describe infrastructure.
 The language used is the "Hashicorp Configuration Language (HCL)". It is designed to work with many cloud providers. Nevertheless,
 it is not really cloud-agnostic as knowledge about the individual providers is needed when writing the code.
 
-To start using Terraform, we should be familiar with the following terms:
+To start using OpenTofu, we should be familiar with the following terms:
 
 - **State:** The current configuration of our managed resources. The state can be stored in the local filesystem (terraform.tfstate),
   or remote backends, as S3 Buckets or consul
 - **Provider:** Implements the commands needed to communicate with the cloud provider. e.g. an Exoscale provider knows how
   to talk to the Exoscale API and how to get from one state to another.
-- **Resources:** The Objects you are creating and managing with terraform. As an example, a virtual machine is a resource.
-- **Data Sources:** Describe objects we can query (!= write) in terraform. In amazon, the AMIs (Amazon Machine Images / Templates)
+- **Resources:** The Objects you are creating and managing with OpenTofu. As an example, a virtual machine is a resource.
+- **Data Sources:** Describe objects we can query (!= write) in OpenTofu. In amazon, the AMIs (Amazon Machine Images / Templates)
   are implemented as datasources you can query
 - **Variables:** Give us the possibility to parametrize terraform configurations.
 
 For this lab, we will use a local state, Exoscale as provider and a Compute resource to create our Virtual Machine.
 
-## Provisioning an Instance on Exoscale with Terraform
+## Provisioning an SKS Cluster on Exoscale with OpenTofu
 
 ### Goal:
 
-- You will be able to provision a very simple virtual machine using terraform
+- You will be able to provision a very simple Kubernetes Cluster using OpenTofu
 
 ### Task:
 
-Your Boss heard about a new technique to provision virtual instances. He tells you that you should get familiar with this
-and provision the same virtual machine as before using Terraform
+Your Boss heard about a new technique to provision Kubernetes Clusters and that Cloud Providers provide managed kubernetes
+Services. He tells you that you should get familiar with this and provision a SKS Cluster using OpenTofu
 
 ### Checklist:
 
-- [ ] Virtual Machine is provisioned
-- [ ] You are able to connect to the virtual instance using SSH
+- [ ] SKS Cluster is provisioned
+- [ ] You are able to connect to the SKS Cluster using kubectl
 
-## Create your first terraform configuration
+## Create your first OpenTofu configuration
 
 - Create a directory, where you want to store your configuration
 - Open an IDE of your choice and open this directory
@@ -257,7 +164,7 @@ and provision the same virtual machine as before using Terraform
 
 ### Provider configuration
 
-- Create a file called `terraform.tf` in your directory
+- Create a file called `versions.tf` in your directory
 - Copy the following block in the file, replace key and secret with your API secrets
 - **Warning! When doing this on production environments (and in the next Labs), never store the secrets in this file,
   Instead, use mechanisms supported by the provider (e.g. Environment Variables)**
@@ -267,7 +174,7 @@ terraform {
   required_providers {
     exoscale = {
       source  = "exoscale/exoscale"
-      version = "0.48.0"
+      version = "0.54.1"
     }
   }
 }
@@ -281,7 +188,7 @@ provider "exoscale" {
 - This should be enough to run our first terraform command
 
 ```
-terraform init
+tofu init
 ```
 
 - This leads to the following output
@@ -290,67 +197,74 @@ terraform init
 Initializing the backend...
 
 Initializing provider plugins...
-- Finding exoscale/exoscale versions matching "0.48.0"...
-- Installing exoscale/exoscale v0.48.0...
-- Installed exoscale/exoscale v0.48.0 (signed by a HashiCorp partner, key ID 81426F034A3D05F7)
+- Installing exoscale/exoscale v0.54.1...
 
-Partner and community providers are signed by their developers.
-If you'd like to know more about provider signing, you can read about it here:
-https://www.terraform.io/docs/cli/plugins/signing.html
+OpenTofu has been successfully initialized!
 
-Terraform has created a lock file .terraform.lock.hcl to record the provider
-selections it made above. Include this file in your version control repository
-so that Terraform can guarantee to make the same selections by default when
-you run "terraform init" in the future.
-
-Terraform has been successfully initialized!
-
-You may now begin working with Terraform. Try running "terraform plan" to see
-any changes that are required for your infrastructure. All Terraform commands
+You may now begin working with OpenTofu. Try running "tofu plan" to see
+any changes that are required for your infrastructure. All OpenTofu commands
 should now work.
 
-If you ever set or change modules or backend configuration for Terraform,
+If you ever set or change modules or backend configuration for OpenTofu,
 rerun this command to reinitialize your working directory. If you forget, other
 commands will detect it and remind you to do so if necessary.
 ```
 
 <aside class="positive">
-- Using this step, terraform initialized its (local) state and downloaded the provider from the terraform registry
+- Using this step, OpenTofu initialized its (local) state and downloaded the provider from the OpenTofu registry
 </aside>
 
-In the second step, we will try to create a virtual instance ...
+In the second step, we will create security groups that will be needed to provision our SKS Cluster ...
 
-## Deploy a virtual instance with Terraform
+## Creating Security Group and Rules
 
-To do so, we'll create a second file called `main.tf`. Furthermore, we copy the following configuration in this file. Replace
-the ssh_key with the name of the one you created before:
-
+To do so, we'll create a second file called `main.tf`. Furthermore, we copy the following configuration in this file:
 ```terraform
-data "exoscale_compute_template" "my_template" {
-  zone = "at-vie-1"
-  name = "Linux Ubuntu 22.04 LTS 64-bit"
+resource "exoscale_security_group" "my_security_group" {
+  name = "my-sks-cluster-sg"
 }
 
-data "exoscale_security_group" "public" {
-  name = "<your-security-group-name>"
+resource "exoscale_security_group_rule" "kubelet" {
+  security_group_id = exoscale_security_group.my_security_group.id
+  description       = "Kubelet"
+  type              = "INGRESS"
+  protocol          = "TCP"
+  start_port        = 10250
+  end_port          = 10250
+  # (beetwen worker nodes only)
+  user_security_group_id = exoscale_security_group.my_security_group.id
 }
 
-resource "exoscale_compute_instance" "my_instance" {
-  zone = "at-vie-1"
-  name = "my-instance"
+resource "exoscale_security_group_rule" "cilium_vxlan" {
+  security_group_id = exoscale_security_group.my_security_group.id
+  description       = "Cilium VXLAN"
+  type              = "INGRESS"
+  protocol          = "UDP"
+  start_port        = 8472
+  end_port          = 8472
+  user_security_group_id = exoscale_security_group.my_security_group.id
+}
 
-  template_id = data.exoscale_compute_template.my_template.id
-  type        = "standard.medium"
-  disk_size   = 10
-  ssh_key = "<your-ssh-key-name>"
-  security_group_ids = [ data.exoscale_security_group.public.id ]
+resource "exoscale_security_group_rule" "cilium_health" {
+  security_group_id = exoscale_security_group.my_security_group.id
+  description       = "Cilium Health Check"
+  type              = "INGRESS"
+  protocol          = "ICMP"
+  icmp_code         = 0
+  icmp_type         = 8
+  user_security_group_id = exoscale_security_group.my_security_group.id
+}
+
+resource "exoscale_security_group_rule" "cilium_health_tcp" {
+  security_group_id = exoscale_security_group.my_security_group.id
+  description       = "Cilium Health Check"
+  type              = "INGRESS"
+  protocol          = "TCP"
+  start_port        = 4240
+  end_port          = 4240
+  user_security_group_id = exoscale_security_group.my_security_group.id
 }
 ```
-
-**Notable Things:**
-
-- We imported our security group and used it for the new VM, we could already create the Security Group here
-- The Machine Image is also imported
 
 **[Data Sources](https://www.terraform.io/docs/language/data-sources/index.html)**
 are here to get configurations from your cloud provider, but will change nothing and are used for referencing in other objects
@@ -358,114 +272,524 @@ are here to get configurations from your cloud provider, but will change nothing
 **[Resources](https://www.terraform.io/docs/language/resources/index.html)**
 are objects you are managing with terraform
 
-- Now we could try to find out what this would lead to
-- Change to your terraform directory in the shell and execute:
+<aside class="negative">
+- As you see in above_s configuration, you might need some more detailed configuration.
+</aside>
 
+* Now we could try to find out what this would lead to
+* Change to your terraform directory in the shell and execute:
 ```
-terraform plan
-```
-
-- You get some output about the things which would happen now, most probably you'll see that one instance will be created
-- If you are happy with that, apply this configuration
-
-```
-terraform apply
+tofu plan
 ```
 
-- You see the same output as before and get prompted if you really want to do this, accept with "yes"
-- After a short period of time, you'll see the following output
+* You get some output about the things which would happen now, most probably you'll see that the security group and the rules will be created
+* If you are happy with that, apply this configuration
+```
+tofu apply
+```
+
+* You see the same output as before and get prompted if you really want to do this, accept with "yes"
+* After a short period of time, you'll see the following output
 
 ```
 
-❯ terraform apply
-data.exoscale_security_group.public: Reading...
-data.exoscale_compute_template.my_template: Reading...
-data.exoscale_security_group.public: Read complete after 1s [id=8b225a34-9e8e-4583-a604-a64f61e9c4b9]
-data.exoscale_compute_template.my_template: Read complete after 1s [id=5ef4024a-32bd-4ed4-8887-9bcb21290579]
+Plan: 5 to add, 0 to change, 0 to destroy.
 
-Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+exoscale_security_group.my_security_group: Creating...
+exoscale_security_group.my_security_group: Creation complete after 4s [id=336902ef-51f6-4982-a276-2ee474620f89]
+exoscale_security_group_rule.cilium_vxlan: Creating...
+exoscale_security_group_rule.kubelet: Creating...
+exoscale_security_group_rule.cilium_health_tcp: Creating...
+exoscale_security_group_rule.cilium_health: Creating...
+exoscale_security_group_rule.cilium_vxlan: Creation complete after 4s [id=c33483ae-b116-4096-9d4b-139168784f14]
+exoscale_security_group_rule.kubelet: Creation complete after 4s [id=67771f1d-fc2a-4caf-b9d1-9d6a6cd1b114]
+exoscale_security_group_rule.cilium_health_tcp: Creation complete after 4s [id=85755d96-6380-480f-bc91-9e5eb1326aa7]
+exoscale_security_group_rule.cilium_health: Creation complete after 4s [id=925b0167-411b-4fcf-a681-cf9feda1cf0f]
+
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+```
+
+<aside class="positive">
+- You created your first Configuration with OpenTofu
+</aside>
+
+## Deleting this configuration
+* After some time you might want to spin down your infrastructure (thing of demos for courses)
+* You can simply tear it down by typing
+```
+tofu destroy
+```
+* The tool will ask you if you are sure that you want to remove your instance
+* Type yes
+* After some time you see the following output:
+```
+OpenTofu used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+OpenTofu will perform the following actions:
+
+  # exoscale_security_group.my_security_group will be destroyed
+  - resource "exoscale_security_group" "my_security_group" {
+      - id   = "336902ef-51f6-4982-a276-2ee474620f89" -> null
+      - name = "my-sks-cluster-sg" -> null
+    }
+
+  # exoscale_security_group_rule.cilium_health will be destroyed
+  - resource "exoscale_security_group_rule" "cilium_health" {
+      - description            = "Cilium Health Check" -> null
+      - icmp_code              = 0 -> null
+      - icmp_type              = 8 -> null
+      - id                     = "925b0167-411b-4fcf-a681-cf9feda1cf0f" -> null
+      - protocol               = "ICMP" -> null
+      - security_group         = "my-sks-cluster-sg" -> null
+      - security_group_id      = "336902ef-51f6-4982-a276-2ee474620f89" -> null
+      - type                   = "INGRESS" -> null
+      - user_security_group    = "my-sks-cluster-sg" -> null
+      - user_security_group_id = "336902ef-51f6-4982-a276-2ee474620f89" -> null
+    }
+
+  # exoscale_security_group_rule.cilium_health_tcp will be destroyed
+  - resource "exoscale_security_group_rule" "cilium_health_tcp" {
+      - description            = "Cilium Health Check" -> null
+      - end_port               = 4240 -> null
+      - id                     = "85755d96-6380-480f-bc91-9e5eb1326aa7" -> null
+      - protocol               = "TCP" -> null
+      - security_group         = "my-sks-cluster-sg" -> null
+      - security_group_id      = "336902ef-51f6-4982-a276-2ee474620f89" -> null
+      - start_port             = 4240 -> null
+      - type                   = "INGRESS" -> null
+      - user_security_group    = "my-sks-cluster-sg" -> null
+      - user_security_group_id = "336902ef-51f6-4982-a276-2ee474620f89" -> null
+    }
+
+  # exoscale_security_group_rule.cilium_vxlan will be destroyed
+  - resource "exoscale_security_group_rule" "cilium_vxlan" {
+      - description            = "Cilium VXLAN" -> null
+      - end_port               = 8472 -> null
+      - id                     = "c33483ae-b116-4096-9d4b-139168784f14" -> null
+      - protocol               = "UDP" -> null
+      - security_group         = "my-sks-cluster-sg" -> null
+      - security_group_id      = "336902ef-51f6-4982-a276-2ee474620f89" -> null
+      - start_port             = 8472 -> null
+      - type                   = "INGRESS" -> null
+      - user_security_group    = "my-sks-cluster-sg" -> null
+      - user_security_group_id = "336902ef-51f6-4982-a276-2ee474620f89" -> null
+    }
+
+  # exoscale_security_group_rule.kubelet will be destroyed
+  - resource "exoscale_security_group_rule" "kubelet" {
+      - description            = "Kubelet" -> null
+      - end_port               = 10250 -> null
+      - id                     = "67771f1d-fc2a-4caf-b9d1-9d6a6cd1b114" -> null
+      - protocol               = "TCP" -> null
+      - security_group         = "my-sks-cluster-sg" -> null
+      - security_group_id      = "336902ef-51f6-4982-a276-2ee474620f89" -> null
+      - start_port             = 10250 -> null
+      - type                   = "INGRESS" -> null
+      - user_security_group    = "my-sks-cluster-sg" -> null
+      - user_security_group_id = "336902ef-51f6-4982-a276-2ee474620f89" -> null
+    }
+
+Plan: 0 to add, 0 to change, 5 to destroy.
+```
+* If you take a look on the AWS Console, the Instance should be terminated
+
+<aside class="positive">
+- You deleted your configuration with OpenTofu, you made your first steps in Infrastructure-as-Code
+</aside>
+
+## Creating an SKS Cluster
+Now we want to create an SKS Cluster with OpenTofu. To do so, we will create a new file called `sks.tf` and copy the following configuration in it:
+```terraform
+locals {
+  zone = "at-vie-2"
+}
+
+resource "exoscale_sks_cluster" "my_sks_cluster" {
+   zone = local.zone
+   name = "my-sks-cluster"
+   cni = "cilium"
+}
+```
+
+The `locals` block defines a local variable named `zone` with a value of `"at-vie-2"`. Local variables are convenient to avoid hardcoding values multiple times in the configuration.
+
+The `resource` block defines a resource of type `exoscale_sks_cluster` named `my_sks_cluster`. This resource represents an SKS (Simple Kubernetes Service) cluster on Exoscale, a cloud provider.
+
+The `zone` attribute of the `exoscale_sks_cluster` resource is set to the local variable `zone`, which means the SKS cluster will be created in the `"at-vie-2"` zone.
+
+The `name` attribute is set to `"my-sks-cluster"`, which will be the name of the SKS cluster.
+
+The `cni` attribute is set to `"cilium"`, which specifies that the Cilium CNI (Container Network Interface) plugin will be used for networking in the Kubernetes cluster.
+
+After saving the configuration, run `tofu init` to initialize the directory and download the Exoscale provider.
+
+Then run `tofu   plan` to see what changes will be applied to the infrastructure. You should see the following output:
+
+```terraform
+OpenTofu used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
 
-Terraform will perform the following actions:
+OpenTofu will perform the following actions:
 
-  # exoscale_compute_instance.my_instance will be created
-  + resource "exoscale_compute_instance" "my_instance" {
-      + created_at          = (known after apply)
-      + disk_size           = 10
-      + id                  = (known after apply)
-      + ipv6                = false
-      + ipv6_address        = (known after apply)
-      + name                = "my-instance"
-      + private             = false
-      + private_network_ids = (known after apply)
-      + public_ip_address   = (known after apply)
-      + security_group_ids  = [
-          + "8b225a34-9e8e-4583-a604-a64f61e9c4b9",
+  # exoscale_security_group.my_security_group will be created
+  + resource "exoscale_security_group" "my_security_group" {
+      + id   = (known after apply)
+      + name = "my-sks-cluster-sg"
+    }
+
+  # exoscale_security_group_rule.cilium_health will be created
+  + resource "exoscale_security_group_rule" "cilium_health" {
+      + description            = "Cilium Health Check"
+      + icmp_code              = 0
+      + icmp_type              = 8
+      + id                     = (known after apply)
+      + protocol               = "ICMP"
+      + public_security_group  = (known after apply)
+      + security_group         = (known after apply)
+      + security_group_id      = (known after apply)
+      + type                   = "INGRESS"
+      + user_security_group    = (known after apply)
+      + user_security_group_id = (known after apply)
+    }
+
+  # exoscale_security_group_rule.cilium_health_tcp will be created
+  + resource "exoscale_security_group_rule" "cilium_health_tcp" {
+      + description            = "Cilium Health Check"
+      + end_port               = 4240
+      + id                     = (known after apply)
+      + protocol               = "TCP"
+      + public_security_group  = (known after apply)
+      + security_group         = (known after apply)
+      + security_group_id      = (known after apply)
+      + start_port             = 4240
+      + type                   = "INGRESS"
+      + user_security_group    = (known after apply)
+      + user_security_group_id = (known after apply)
+    }
+
+  # exoscale_security_group_rule.cilium_vxlan will be created
+  + resource "exoscale_security_group_rule" "cilium_vxlan" {
+      + description            = "Cilium VXLAN"
+      + end_port               = 8472
+      + id                     = (known after apply)
+      + protocol               = "UDP"
+      + public_security_group  = (known after apply)
+      + security_group         = (known after apply)
+      + security_group_id      = (known after apply)
+      + start_port             = 8472
+      + type                   = "INGRESS"
+      + user_security_group    = (known after apply)
+      + user_security_group_id = (known after apply)
+    }
+
+  # exoscale_security_group_rule.kubelet will be created
+  + resource "exoscale_security_group_rule" "kubelet" {
+      + description            = "Kubelet"
+      + end_port               = 10250
+      + id                     = (known after apply)
+      + protocol               = "TCP"
+      + public_security_group  = (known after apply)
+      + security_group         = (known after apply)
+      + security_group_id      = (known after apply)
+      + start_port             = 10250
+      + type                   = "INGRESS"
+      + user_security_group    = (known after apply)
+      + user_security_group_id = (known after apply)
+    }
+
+  # exoscale_sks_cluster.my_sks_cluster will be created
+  + resource "exoscale_sks_cluster" "my_sks_cluster" {
+      + addons           = (known after apply)
+      + aggregation_ca   = (known after apply)
+      + cni              = "cilium"
+      + control_plane_ca = (known after apply)
+      + created_at       = (known after apply)
+      + endpoint         = (known after apply)
+      + exoscale_ccm     = true
+      + id               = (known after apply)
+      + kubelet_ca       = (known after apply)
+      + metrics_server   = true
+      + name             = "my-sks-cluster"
+      + nodepools        = (known after apply)
+      + service_level    = "pro"
+      + state            = (known after apply)
+      + version          = (known after apply)
+      + zone             = "at-vie-2"
+    }
+
+Plan: 6 to add, 0 to change, 0 to destroy.
+```
+
+If you are happy with the changes, run `tofu apply` to apply them. You should see the following output:
+
+```terraform
+Plan: 6 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+exoscale_security_group.my_security_group: Creating...
+exoscale_sks_cluster.my_sks_cluster: Creating...
+exoscale_security_group.my_security_group: Creation complete after 3s [id=40097281-ed1c-46f0-b234-72a743317036]
+exoscale_security_group_rule.cilium_health: Creating...
+exoscale_security_group_rule.cilium_vxlan: Creating...
+exoscale_security_group_rule.kubelet: Creating...
+exoscale_security_group_rule.cilium_health_tcp: Creating...
+exoscale_security_group_rule.cilium_vxlan: Creation complete after 4s [id=8595985e-bcb4-410e-85dc-898248f42b69]
+exoscale_security_group_rule.kubelet: Creation complete after 4s [id=8be196cc-ea4a-4e99-b868-c1e47663afc9]
+exoscale_security_group_rule.cilium_health_tcp: Creation complete after 4s [id=0d4c2888-4b81-4ad7-8dfc-f41cd74f7575]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [10s elapsed]
+exoscale_security_group_rule.cilium_health: Creation complete after 7s [id=8138882b-30db-44ed-8dbd-b94e7736a559]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [20s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [30s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [40s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [50s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [1m0s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [1m10s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [1m20s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Still creating... [1m30s elapsed]
+exoscale_sks_cluster.my_sks_cluster: Creation complete after 1m40s [id=79972308-1962-4639-b926-6f931976cedc]
+
+Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
+```
+
+<aside class="positive">
+You created your first SKS Cluster with OpenTofu and can now use it. What do you think is missing at this point? 
+</aside>
+
+## Getting the Kubernetes Configuration
+Right, you need the Kubernetes Configuration to access your cluster. It would be possible to get it from the Exoscale Console, but we want to do it with OpenTofu.
+
+To do so, we will create a new file called `kubeconfig.tf` and copy the following configuration in it:
+```terraform
+# (administration credentials)
+resource "exoscale_sks_kubeconfig" "my_sks_kubeconfig" {
+  zone       = local.zone
+  cluster_id = exoscale_sks_cluster.my_sks_cluster.id
+  user   = "kubernetes-admin"
+  groups = ["system:masters"]
+  ttl_seconds           = 3600
+  early_renewal_seconds = 300
+}
+resource "local_sensitive_file" "my_sks_kubeconfig_file" {
+  filename        = "kubeconfig"
+  content         = exoscale_sks_kubeconfig.my_sks_kubeconfig.kubeconfig
+  file_permission = "0600"
+}
+```
+
+After saving the configuration, run `tofu apply` to apply them. You should see the following output:
+
+```terraform
+exoscale_security_group.my_security_group: Refreshing state... [id=40097281-ed1c-46f0-b234-72a743317036]
+exoscale_sks_cluster.my_sks_cluster: Refreshing state... [id=79972308-1962-4639-b926-6f931976cedc]
+exoscale_security_group_rule.cilium_health: Refreshing state... [id=8138882b-30db-44ed-8dbd-b94e7736a559]
+exoscale_security_group_rule.cilium_vxlan: Refreshing state... [id=8595985e-bcb4-410e-85dc-898248f42b69]
+exoscale_security_group_rule.cilium_health_tcp: Refreshing state... [id=0d4c2888-4b81-4ad7-8dfc-f41cd74f7575]
+exoscale_security_group_rule.kubelet: Refreshing state... [id=8be196cc-ea4a-4e99-b868-c1e47663afc9]
+
+OpenTofu used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+OpenTofu will perform the following actions:
+
+  # exoscale_sks_kubeconfig.my_sks_kubeconfig will be created
+  + resource "exoscale_sks_kubeconfig" "my_sks_kubeconfig" {
+      + cluster_id            = "79972308-1962-4639-b926-6f931976cedc"
+      + early_renewal_seconds = 300
+      + groups                = [
+          + "system:masters",
         ]
-      + ssh_key             = "exoscale-thsc"
-      + state               = (known after apply)
-      + template_id         = "5ef4024a-32bd-4ed4-8887-9bcb21290579"
-      + type                = "standard.medium"
-      + zone                = "at-vie-1"
+      + id                    = (known after apply)
+      + kubeconfig            = (sensitive value)
+      + ready_for_renewal     = true
+      + ttl_seconds           = 3600
+      + user                  = "kubernetes-admin"
+      + zone                  = "at-vie-2"
+    }
+
+  # local_sensitive_file.my_sks_kubeconfig_file will be created
+  + resource "local_sensitive_file" "my_sks_kubeconfig_file" {
+      + content              = (sensitive value)
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0700"
+      + file_permission      = "0600"
+      + filename             = "kubeconfig"
+      + id                   = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+exoscale_sks_kubeconfig.my_sks_kubeconfig: Creating...
+exoscale_sks_kubeconfig.my_sks_kubeconfig: Creation complete after 2s [id=13042316252923993323610489193665580134618587333:64523864957247071817109318741407431096266427702]
+local_sensitive_file.my_sks_kubeconfig_file: Creating...
+local_sensitive_file.my_sks_kubeconfig_file: Creation complete after 0s [id=aa4e3480279d7ed36c9be1dc8f518a1ed0900916]
+```
+
+Now you can find the Kubernetes configuration in the file `kubeconfig` in your current directory. You can use this file to access your Kubernetes cluster with `kubectl`.
+
+## Inspection of the Kubernetes Cluster
+Now you can use the Kubernetes configuration to inspect your cluster. To do so, run the following command:
+
+```bash
+kubectl --kubeconfig kubeconfig get all -n kube-system
+```
+
+<aside class="negative">
+You will notice that the cluster is accessible, but there are no pods running. This is because we created the control plane, but no worker nodes yet.
+</aside>
+
+## Adding Nodes to the Cluster
+To add nodes to the cluster, we will add the following configuration to the `sks.tf` file:
+
+```terraform
+resource "exoscale_sks_nodepool" "my_sks_nodepool" {
+  zone       = local.zone
+  cluster_id = exoscale_sks_cluster.my_sks_cluster.id
+  name       = "my-sks-nodepool"
+  instance_type = "standard.medium"
+  size          = 3
+  security_group_ids = [
+    exoscale_security_group.my_security_group.id,
+  ]
+}
+```
+
+In this codeblock, we define a resource of type `exoscale_sks_nodepool` named `my_sks_nodepool`. This resource represents a node pool in the SKS cluster. Furthermore, you might notice that we reference the security group we created earlier.
+
+After saving the configuration, run `tofu apply` to apply them. You should see the following output:
+
+```terraform
+OpenTofu will perform the following actions:
+
+  # exoscale_sks_nodepool.my_sks_nodepool will be created
+  + resource "exoscale_sks_nodepool" "my_sks_nodepool" {
+      + cluster_id         = "79972308-1962-4639-b926-6f931976cedc"
+      + created_at         = (known after apply)
+      + disk_size          = 50
+      + id                 = (known after apply)
+      + instance_pool_id   = (known after apply)
+      + instance_prefix    = "pool"
+      + instance_type      = "standard.medium"
+      + name               = "my-sks-nodepool"
+      + security_group_ids = [
+          + "40097281-ed1c-46f0-b234-72a743317036",
+        ]
+      + size               = 3
+      + state              = (known after apply)
+      + storage_lvm        = false
+      + template_id        = (known after apply)
+      + version            = (known after apply)
+      + zone               = "at-vie-2"
     }
 
 Plan: 1 to add, 0 to change, 0 to destroy.
 
 Do you want to perform these actions?
-  Terraform will perform the actions described above.
+  OpenTofu will perform the actions described above.
   Only 'yes' will be accepted to approve.
 
   Enter a value: yes
 
-exoscale_compute_instance.my_instance: Creating...
-exoscale_compute_instance.my_instance: Still creating... [10s elapsed]
-exoscale_compute_instance.my_instance: Still creating... [20s elapsed]
-exoscale_compute_instance.my_instance: Creation complete after 21s [id=f4ce2306-ff14-4e8d-8a8a-65e97b872931]
+exoscale_sks_nodepool.my_sks_nodepool: Creating...
+exoscale_sks_nodepool.my_sks_nodepool: Still creating... [10s elapsed]
+exoscale_sks_nodepool.my_sks_nodepool: Still creating... [20s elapsed]
+exoscale_sks_nodepool.my_sks_nodepool: Creation complete after 25s [id=07645dbb-260a-4a12-9e69-d6c1692a2f74]
 
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 ```
 
-- You will see the new instance now in your Exoscale Console
+After you have applied the changes, you can run the following command to see the nodes in your cluster:
 
-![img/virt-exo-terraform-intro-terra-instance.png](img/virt-exo-terraform-intro-terra-instance.png)
-
-- You should now also be able to access the instance via SSH with your Key (please note that the username is `ubuntu` now.
+```bash
+kubectl --kubeconfig kubeconfig get nodes
+```
 
 <aside class="positive">
-- You created your first Exoscale Instance with Terraform
+You have successfully created a Kubernetes cluster with OpenTofu and added nodes to it.
 </aside>
 
-## Deleting this instance
+## Adding Output to the Configuration
+To make it easier to access the Kubernetes cluster, we will add the following output to the `outputs.tf` file:
 
-- After some time you might want to spin down your infrastructure (think of demos for courses)
-- You can simply tear it down by typing
+```terraform
+# Outputs
+output "my_sks_cluster_endpoint" {
+  value = exoscale_sks_cluster.my_sks_cluster.endpoint
+}
+#
+output "my_sks_kubeconfig" {
+  value = local_sensitive_file.my_sks_kubeconfig_file.filename
+}
 
+output "my_sks_connection" {
+  value = format(
+    "export KUBECONFIG=%s; kubectl cluster-info; kubectl get pods -A",
+    local_sensitive_file.my_sks_kubeconfig_file.filename,
+  )
+}
 ```
-terraform destroy
-```
 
-- The tool will ask you if you are sure that you want to remove your instance
-- Type yes
-- After some time you see the following output:
+After saving the configuration, run `tofu apply` to apply them. You should see the following output:
 
-```
-Plan: 0 to add, 0 to change, 1 to destroy.
-
-Do you really want to destroy all resources?
-  Terraform will destroy all your managed infrastructure, as shown above.
-  There is no undo. Only 'yes' will be accepted to confirm.
+```terraform
+Do you want to perform these actions?
+  OpenTofu will perform the actions described above.
+  Only 'yes' will be accepted to approve.
 
   Enter a value: yes
 
-exoscale_compute_instance.my_instance: Destroying... [id=f4ce2306-ff14-4e8d-8a8a-65e97b872931]
-exoscale_compute_instance.my_instance: Still destroying... [id=f4ce2306-ff14-4e8d-8a8a-65e97b872931, 10s elapsed]
-exoscale_compute_instance.my_instance: Destruction complete after 13s
 
-Destroy complete! Resources: 1 destroyed.
+Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+my_sks_cluster_endpoint = "https://79972308-1962-4639-b926-6f931976cedc.sks-at-vie-2.exo.io"
+my_sks_connection = "export KUBECONFIG=kubeconfig; kubectl cluster-info; kubectl get pods -A"
+my_sks_kubeconfig = "kubeconfig"
 ```
 
-- If you take a look on the Exoscale Console, the Instance should be terminated
+Then you can run the following command to see the output:
+
+```bash
+tofu output <output_name>
+```
 
 <aside class="positive">
-- You deleted your first Exoscale Instance with Terraform, you made your first steps in Infrastructure-as-Code
+Congratulations! You have successfully created a Kubernetes cluster with OpenTofu and added nodes to it and you can now access it with the output.
 </aside>
+
+## Destroying the Cluster
+To destroy the cluster, run the following command:
+
+```bash
+tofu destroy
+```
+
+<aside class="positive">
+You have successfully destroyed the Kubernetes cluster with OpenTofu.
+</aside>
+
+
+
