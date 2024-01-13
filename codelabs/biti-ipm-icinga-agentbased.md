@@ -15,13 +15,13 @@ authors: Roland Pellegrini
 
 Hosts and services can be monitored in two ways:
 
-- **Use of Simple Host Monitoring (Agentless):** This involves the use of services that are accessible across the local network or the Internet for example include HTTP, SSH, ICMP etc. This method is fit for monitoring hosts on which monitoring agents cannot be installed.
+- **Usage of Simple Host Monitoring (Agentless):** This method is used for monitoring hosts where monitoring agents cannot be installed.
 
-- **Use of Monitoring Agents (Agentbased):** In this method, an agent is required in order to monitor host and services like CPU load, disk space, memory and the running process. In this configuration, Icinga 2 acts as the master node and the remote host acts as the client node.
+- **Usage of Monitoring Agents (Agentbased):** This method is used where agents are required. In this use case, Icinga 2 acts as the master node while the remote host serves as the client node.
 
 In this codelab you will learn
 
-- how to monitor the availability (=state) of remote hosts and services with Icinga2 agents.
+- how to monitor the availability of remote hosts and services with Icinga2 agents.
 
 Hosts and services can be anything such as Network services (HTTP, SSH, etc.), printers, switches or routers, or any other local or network-accessible services. Icinga2 monitors the states of hosts and the services they offer. Each host can have the states UP and DOWN, each service can have the states OKAY, WARNING, CRITICAL and UKNOWN.
 
@@ -35,15 +35,15 @@ The best source of documentation is the homepage of Icinga2. The latest document
 
 In this codelab you will need two virtual machines:
 
-1. A working Icinga2 instance (called server,master) that you can access via IcingaWeb2 GUI. If you do not have a running Icinga2 instance, please consult the Codelab **BITI IPM Lab - Icinga Installation** how to install Icinga2 on your local computer.
+1. A working Icinga2 Core instance (called server) that you can access via IcingaWeb2 GUI.
 
-2. A working Debian instance (called node, client) where you will install Icinga2 Agent software for remote monitoring. Contact your instructor where to download it. Import the virtual machine by using the "Import Appliance" command of Virtual Box.
+2. A working Debian instance (called client) where Icinga2 Agent software ist installed for remote monitoring.
 
-Both virtual machines run on Debian but the specification of the node instance differs from the server instance. First, the node instance has no GUI, all commands have to be executed on the console. Second, the hardware is limited to 1 CPU core with 1 GB Ram to ensure that you HostOS (= your laptop) will not be overloaded.
+Both virtual machines run under Debian, but the specification of the node instance differs from the server instance. Firstly, the Node instance has no graphical user interface, all commands must be executed via the console. Secondly, the hardware is limited to 1 CPU core with 1 GB Ram to ensure that your HostOS (= your laptop) continues to function without any problems.
 
 #### Guest operation system (Guest OS)
 
-This is the OS of the virtual machine. This will be Debian .
+This is the OS of the virtual machine. This will be Debian.
 
 #### Administators privileges
 
@@ -67,7 +67,7 @@ Enter the password of the icinga user and voila:
 root@server:/home/icinga#
 ```
 
-Once you are root via sudo, it is no longer necessary to prepend the sudo command. Instead of `sudo ls -lisa /root/` you can also type `ls -lisa /root/` because you have root privileges already. However, all commands in this codelab will always start with `sudo` to remind you that you are working with root privileges.
+Once you are root via sudo, it is no longer necessary to use the `sudo` command. Instead of `sudo ls -lisa /root/` you can also type `ls -lisa /root/` because you have already root privileges. However, all commands will always start with `sudo` to remind you that you are working with root privileges.
 
 <!-- ------------------------ -->
 
@@ -75,7 +75,7 @@ Once you are root via sudo, it is no longer necessary to prepend the sudo comman
 
 ### Set up Icinga2 server node
 
-After the introduction, it is time to set up Icinga2 for agentbased remote monitoring. We will start to set up the Icinga2 server as a master node.
+First, we will start to set up the Icinga2 server as a master node.
 
 Run the following command on your server to setup a Icinga2 master node:
 
@@ -83,7 +83,7 @@ Run the following command on your server to setup a Icinga2 master node:
 sudo icinga2 node wizard
 ```
 
-This will prompt you if this is a Satellite or Client setup. Choose your inputs to select a master setup or press Enter to accept the defaults:
+This will prompt you the Setup Wizard and follow the instructions.
 
 ```
 Welcome to the Icinga 2 Setup Wizard!
@@ -116,14 +116,14 @@ Done.
 Now restart your Icinga 2 daemon to finish the installation!
 ```
 
-Once this setup is done, run the following command to restart the Icinga2 service. This will finalize the setup.
+When done, run the following command to restart the Icinga2 service. This will finalize the setup.
 
 ```
 sudo systemctl restart icinga2
 ```
 
 <aside class="negative">
-Yes, restart Icinga2 here otherwise you get into troubles later. 
+Yeap, restart Icinga2 here otherwise you get into troubles later. 
 </aside>
 
 ### Set up the firewall on Icinga2 server node
@@ -135,12 +135,12 @@ sudo ufw allow 5665
 ```
 
 <aside class="negative">
-If you get an error here, the ufw service and the local firewall are already disabled (or de-installed) on both virtual machines, server and node. However, disabling the firewall is not recommended on production systems.
+Disabling the firewall is not recommended on production systems.
 </aside>
 
 ### Generate a client ticket
 
-A client (=Icinga2 satellite) which sends a Certificate Signing Request (CSR) must authenticate itself in a trusted way. The master generates a client ticket which is included in this request. That way the master can verify that the request matches the previously trusted ticket and sign the request.
+A client (=Icinga2 satellite) that sends a Certificate Signing Request (CSR) must authenticate itself in a trustworthy manner. The master generates a client ticket that is part in this request. The master can use this ticket to check whether the request matches the previously trusted ticket and sign the request.
 
 Run the commands below on the master node to generate the ticket for your client node:
 
@@ -153,30 +153,35 @@ The command will print a ticket on screen:
 ```
 3bcb8a06466706f6a5d5f541c175004149e6dbb2
 ```
+<aside class="negative">
+Save this ticket key as you will need it later again.
+</aside>
 
-In this codelab, we will assume the key above. Save your key as you will require it later while setting up the client nodes.
-
-If a ticket is created without any errors, skip the next chapter, **scroll down** and continue with the chapter called **Listen on port 5665**.
+If no errors occur, skip the next chapter, **scroll down** and continue with the chapter called **Listen on port 5665**.
 
 ### Fix the salt problem
 
 <aside class="negative">
-Follow this chapter only if you encounter problems creating the PKI Ticket. If you have successfully created a ticket, please ignore this chapter. 
+Follow this chapter if you encounter problems creating the PKI Ticket. If you have successfully created a ticket previously, please ignore this chapter. 
 </aside>
 
-While generating the PKI ticket you may get the following error:
+When you create a PKI ticket you may get the following error:
 
 ```
 critical/cli: Ticket salt (--salt) must be specified
 ```
 
-The first thing you have to do is to restart the Icinga2 service.
+This is bad news, we need to fix this.
+
+First, restart the Icinga2 service.
 
 ```
 sudo systemctl restart icinga2
 ```
 
-Next, you have to check if icinga2 has generated a so-called **TicketSalt**. This is a constant and stored in /etc/icinga2/constants.conf. You can check this with the following command:
+Next, you have to check if icinga2 has generated a so-called **TicketSalt**. This is a global value  and stored in the directory `/etc/icinga2/constants.conf`. 
+
+You can check the content of this file with the following command:
 
 ```
 sudo cat /etc/icinga2/constants.conf
@@ -216,7 +221,7 @@ const TicketSalt = "aca0ab61458ee407a3e95da9cf9c90d3"
 ```
 
 <aside class="negative">
-In cryptography, a salt is a set of random bits that are used as one of the inputs to a key derivation function. The other input is usually a password or passphrase. The output of the key derivation function is stored as the encrypted version of the password. 
+In cryptography, a salt is a set of random bits that are used as one of the inputs for a key derivation function. The other input is usually a password or a passphrase. The output of the key derivation function is stored as an encrypted version of the password. 
 </aside>
 
 Now run the following command by using the TicketSalt as parameter:
@@ -226,23 +231,25 @@ icinga2 pki ticket --cn 'node' --salt 'aca0ab61458ee407a3e95da9cf9c90d3'
 3bcb8a06466706f6a5d5f541c175004149e6dbb2
 ```
 
-Now save this key as you will require it later while setting up the client nodes. However, if you get errors again, contact your instructor for help instead.
+Save this key now, as you will need it later when setting up the client nodes. However, if you get an error again, contact your instructor for help.
 
 ### Listen on port 5665
 
-Before you can set up the client nodes, Icinga 2 on the master node must be running and accepting connections on port 5665/tcp. Run the following command to check the status on port 5665/tcp:
+Before you can set up the client nodes, make sure that Icinga 2 is set up and running on the master node. Furthermore, make sure that the master node accepts incoming traffic on port 5665/tcp.
+
+Run the following command to check the status:
 
 ```
 ss -altnp | grep 5665
 ```
 
-The output of the **socket statistic** command should look like this:
+Sample output of the **socket statistic** command:
 
 ```
 LISTEN 0 4096 0.0.0.0:5665 0.0.0.0:* users:(("icinga2",pid=18872,fd=14))
 ```
 
-Typically, the process id (pid) and the file descriptor (fd) may differ from your output. However, if you can see this output then the Icinga2 server is up, running and listening on port 5665/tcp for incoming connection requests.
+Note, that the process id (pid) and the file descriptor (fd) may differ from your output.
 
 <!-- ------------------------ -->
 
@@ -251,10 +258,10 @@ Typically, the process id (pid) and the file descriptor (fd) may differ from you
 ### Installing Icinga2 on client node
 
 <aside class="positive">
-Note that you have to work on the node client. Don't mix up the virtual machines.
+Now we have to do a lot of work on the `node` client. Don't mix it up with the `server` node.
 </aside>
 
-Yes, you have to install Icinga2 on the client node. However, don't worry, the installation will be much shorter, I promise.
+Yes, you have to install Icinga2 on the client node again. However, don't worry, the installation will be much shorter, I promise.
 
 ### System update
 
@@ -273,13 +280,13 @@ When using the sudo command, you will be prompted for your password. In addition
 
 ### Icinga2 Core App
 
-Now that Icinga 2 repos are in place, you can install it by running the command below:
+Now that Icinga 2 repos are available, you can install Icinga core by running the command below:
 
 ```
 sudo apt install icinga2
 ```
 
-Durning the installation, the apt command will output the following information.
+During installation, the apt command displays the following information.
 
 ```
 --- more ---
@@ -294,13 +301,13 @@ Enabling feature mainlog. Make sure to restart Icinga 2 for these changes to tak
 Please do not restart any Icinga2 service here. We will do this later. 
 </aside>
 
-On Debian, Icinga2 is started and enabled upon installation. You can check this by running the command;
+On Debian, Icinga2 is started and activated during installation. You can check this by executing the command:
 
 ```
 systemctl status icinga2
 ```
 
-The output of the service status should look like the following:
+Sample output:
 
 ```
 ● icinga2.service - Icinga host/service/network monitoring system
@@ -333,7 +340,7 @@ Check if the status Active is in **running** mode which indicates that the servi
 
 ### Monitoring Plugins
 
-Icinga 2 requires additional monitoring plugins. Run the command below to install the plugins on the client node.
+Icinga 2 also requires additional monitoring plugins to check external services. Execute the command below to install the plugins:
 
 ```
 sudo apt install monitoring-plugins
@@ -345,7 +352,7 @@ The command above will install a lot of Nagios-plugins.
 
 ### Restart the service
 
-On Debian, Icinga2 is started and enabled upon installation. However, after installing the monitoring-plugins it is always good to restart the Icinga2 service again and to check its status.
+After installing additional monitoring-plugins, it is a always idea to restart the Icinga2 service and to check its status.
 
 ```
 systemctl restart icinga2
