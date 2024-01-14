@@ -220,7 +220,7 @@ sudo icinga2 daemon -C
 Do you see errors? If yes, try to fix them. Otherwise, if not errors occur, restart and check the status of the Icinga2 service:
 
 ```
-sudo systemctl start icinga2
+sudo systemctl restart icinga2
 sudo systemctl status icinga2
 ```
 
@@ -228,7 +228,7 @@ Any errors occur? Try to fix them. Otherwise, continue.
 
 ## In action
 
-After restarting Icinga2, we will see our new CheckCommand called `my_mem`. Depending on the setup of your GuestOS, you may see different status messages. For example, the next screenshot shows a warning message:
+After restarting Icinga2, we want to see our new CheckCommand `my_mem` in action. Depending on the setup of your GuestOS, you may see different status messages. For example, the next screenshot shows a warning message:
 
 ![Icinga Web 2](./img/biti-ipm-icinga-agentless-mem-1.png)
 
