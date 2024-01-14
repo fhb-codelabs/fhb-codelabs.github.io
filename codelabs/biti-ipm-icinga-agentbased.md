@@ -84,7 +84,7 @@ This lab requires a working network environment.
 Before you start this lab, first check the network connection between **ipm-server** and **ipm-client** with a simple `ping` (from both sides). If one of the two nodes cannot be reached from the other node, stop here and fix your environment before continuing this lab.
 
 ### Server and Node
-In this lab the following IP addresses are used:
+In this codelab, the following IP addresses are used:
 
 - 192.168.0.115 - server node (ipm-server or server)
 - 192.168.0.125 - cliend node (ipm-client or client)
