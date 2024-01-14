@@ -81,8 +81,15 @@ This lab requires a working network environment.
 </aside>
 
 
-Before you start this lab, first check the network connection between **ipm-server** and **ipm-client** with a simple 'ping' (from both sides). If one of the two nodes cannot be reached from the other node, stop here and fix your environment before continuing this lab.
+Before you start this lab, first check the network connection between **ipm-server** and **ipm-client** with a simple `ping` (from both sides). If one of the two nodes cannot be reached from the other node, stop here and fix your environment before continuing this lab.
 
+### Server and Node
+In this lab the following IP addresses are used:
+
+- 192.168.0.115 - server node (ipm-server or server)
+- 192.168.0.125 - cliend node (ipm-client or client)
+
+Please don't mix them up.
 
 ## Icinga2 server node
 
@@ -627,7 +634,7 @@ Quit the configuration file with `CTRL-X` and confirm with `y` to save all chang
 
 ## Test and restart
 
-Okay, time to validate the configuration. Run the command:
+Okay, time to validate our configuration. Run the command:
 
 ```
 sudo icinga2 daemon -C
