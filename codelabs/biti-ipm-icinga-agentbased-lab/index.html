@@ -72,7 +72,14 @@
         <h2 is-upgraded>Test your environment</h2>
 <aside class="warning"><p> This lab requires a working network environment. </p>
 </aside>
-<p>Before you start this lab, first check the network connection between <strong>ipm-server</strong> and <strong>ipm-client</strong> with a simple ‘ping&#39; (from both sides). If one of the two nodes cannot be reached from the other node, stop here and fix your environment before continuing this lab.</p>
+<p>Before you start this lab, first check the network connection between <strong>ipm-server</strong> and <strong>ipm-client</strong> with a simple <code>ping</code> (from both sides). If one of the two nodes cannot be reached from the other node, stop here and fix your environment before continuing this lab.</p>
+<h2 is-upgraded>Server and Node</h2>
+<p>In this lab the following IP addresses are used:</p>
+<ul>
+<li>192.168.0.115 - server node (ipm-server or server)</li>
+<li>192.168.0.125 - cliend node (ipm-client or client)</li>
+</ul>
+<p>Please don&#39;t mix them up.</p>
 
 
       </google-codelab-step>
@@ -468,7 +475,7 @@ apply Service &#34;Users&#34; {
       </google-codelab-step>
     
       <google-codelab-step label="Test and restart" duration="0">
-        <p>Okay, time to validate the configuration. Run the command:</p>
+        <p>Okay, time to validate our configuration. Run the command:</p>
 <pre><code>sudo icinga2 daemon -C
 </code></pre>
 <p>Do you see errors? If yes, try to fix them. Otherwise, if not errors occur, restart and check the Icinga2 service with the following commands:</p>
