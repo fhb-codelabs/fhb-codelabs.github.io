@@ -68,8 +68,19 @@
 
       </google-codelab-step>
     
+      <google-codelab-step label="Something really important" duration="0">
+        <h2 is-upgraded>Test your environment</h2>
+<aside class="warning"><p> This lab requires a working network environment. </p>
+</aside>
+<p>Before you start this lab, first check the network connection between <strong>ipm-server</strong> and <strong>ipm-client</strong> with a simple ‘ping&#39; (from both sides). If one of the two nodes cannot be reached from the other node, stop here and fix your environment before continuing this lab.</p>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Icinga2 server node" duration="0">
         <h2 is-upgraded>Set up Icinga2 server node</h2>
+<aside class="warning"><p> Warning: Please follow the next instructions very carefully. If you make a typo or a wrong selection, the setup will complete but the server node will not work properly. So please double-check your inputs. In case of typos or resulting errors, the best and most effective way to fix any issue is to delete / remove the virtual machine and start from scratch. Fixing the errors in configuration files is a more time-consuming task at weekends. </p>
+</aside>
 <p>First, we will start to set up the Icinga2 server as a master node.</p>
 <p>Run the following command on your server to setup a Icinga2 master node:</p>
 <pre><code>sudo icinga2 node wizard
@@ -83,9 +94,9 @@ Please specify if this is an agent/satellite setup (&#39;n&#39; installs a maste
 
 Starting the Master setup routine...
 
-Please specify the common name (CN) [server]: &lt;&lt;&lt;--- PRESS ENTER
+Please specify the common name (CN) [ipm-server]: &lt;&lt;&lt;--- PRESS ENTER
 Reconfiguring Icinga...
-Checking for existing certificates for common name &#39;server&#39;...
+Checking for existing certificates for common name &#39;ipm-server&#39;...
 Certificates not yet generated. Running &#39;api setup&#39; now.
 Generating master configuration for Icinga 2.
 Enabling feature api. Make sure to restart Icinga 2 for these changes to take effect.
@@ -112,15 +123,24 @@ Now restart your Icinga 2 daemon to finish the installation!
 <h2 is-upgraded>Set up the firewall on Icinga2 server node</h2>
 <p>If a firewall is running on your server node, you have to open the following port. This enables the communication between server and client nodes.</p>
 <pre><code>sudo ufw allow 5665
+sudo ufw reload
 </code></pre>
 <aside class="warning"><p> Disabling the firewall is not recommended on production systems. </p>
 </aside>
+<p>If you receive the error message &#34;ufw: command not found&#34;, install the missing package <code>ufw</code> on your system.</p>
+<pre><code>sudo apt update
+sudo apt install ufw
+</code></pre>
+<p>Next, allow incoming and outgoing traffic:</p>
+<pre><code>sudo ufw allow 5665
+sudo ufw reload
+</code></pre>
 <h2 is-upgraded>Generate a client ticket</h2>
 <p>A client (=Icinga2 satellite) that sends a Certificate Signing Request (CSR) must authenticate itself in a trustworthy manner. The master generates a client ticket that is part in this request. The master can use this ticket to check whether the request matches the previously trusted ticket and sign the request.</p>
 <p>Run the commands below on the master node to generate the ticket for your client node:</p>
-<pre><code>icinga2 pki ticket --cn &#39;node&#39;
+<pre><code>icinga2 pki ticket --cn &#39;ipm-client&#39;
 </code></pre>
-<p>The command will print a ticket on screen:</p>
+<p>Sample output of a ticket:</p>
 <pre><code>3bcb8a06466706f6a5d5f541c175004149e6dbb2
 </code></pre>
 <aside class="warning"><p> Save this ticket key as you will need it later again. </p>
@@ -200,8 +220,9 @@ const TicketSalt = &#34;aca0ab61458ee407a3e95da9cf9c90d3&#34;
 <pre><code>sudo apt update
 sudo apt upgrade
 </code></pre>
-<aside class="special"><p> When using the sudo command, you will be prompted for your password. In addition, upgrading the Linux kernel requires to reboot the virtual machine. </p>
+<aside class="special"><p> When using the sudo command, you will be prompted for your password. </p>
 </aside>
+<p>Depending on the package upgrades, it is useful to restart the system here.</p>
 <h2 is-upgraded>Icinga2 Core App</h2>
 <p>Now that Icinga 2 repos are available, you can install Icinga core by running the command below:</p>
 <pre><code>sudo apt install icinga2
@@ -250,7 +271,7 @@ Oct 16 12:44:07 node icinga2[2867]: [2021-10-16 12:44:07 +0100] information/Down
 <p>Icinga 2 also requires additional monitoring plugins to check external services. Execute the command below to install the plugins:</p>
 <pre><code>sudo apt install monitoring-plugins
 </code></pre>
-<aside class="special"><p> The command above will install a lot of Nagios-plugins.  </p>
+<aside class="special"><p> The command above will install a lot of Nagios-plugins. Remember the origin of Icinga. </p>
 </aside>
 <h2 is-upgraded>Restart the service</h2>
 <p>After installing additional monitoring-plugins, it is a always idea to restart the Icinga2 service and to check its status.</p>
@@ -258,18 +279,18 @@ Oct 16 12:44:07 node icinga2[2867]: [2021-10-16 12:44:07 +0100] information/Down
 systemctl status icinga2
 </code></pre>
 <h2 is-upgraded>Set up Icinga2 client node</h2>
-<p>In the last section, we set up the Icinga2 master node. In this section, we need to set up an Icinga2 agent which</p>
+<aside class="warning"><p> Warning: Please follow the next instructions very carefully. If you make a typo or a wrong selection, the setup will complete but the server node will not work properly. So please double-check your inputs. In case of typos or resulting errors, the best and most effective way to fix any issue is to delete / remove the virtual machine and start from scratch. Fixing the errors in configuration files is a more time-consuming task at weekends. </p>
+</aside>
+<p>In the last section, we set up the Icinga2 master node. In this section, we need to set up the Icinga2 agent node which</p>
 <ul>
-<li>receives and accepts configurations and CheckCommands from the master node</li>
-<li>executes CheckCommands from the master node</li>
-<li>monitors the host where the agent is installed</li>
+<li>receives and accepts configurations and CheckCommands from the master node,</li>
+<li>executes CheckCommands from the master node,</li>
+<li>monitors the host where the agent is installed,</li>
 <li>and which report the CheckCommand results back to the master node.</li>
 </ul>
 <p>Run the following command on your client to setup the Icinga2 agent node:</p>
 <pre><code>sudo icinga2 node wizard
 </code></pre>
-<aside class="warning"><p> Warning: Please follow the next instructions very carefully. If you make a typo or a wrong selection, the setup will complete but the agent monitoring will not work properly. So please double-check your inputs. In case of typos or resulting errors, the best and most effective way to fix any issue is to remove the virtual machine and start from scratch. Fixing the errors in configuration files is a more time-consuming task. </p>
-</aside>
 <p>This will prompt you if this is a Satellite or Client setup. Choose <strong>Y</strong> to select an agent setup:</p>
 <pre><code>Welcome to the Icinga 2 Setup Wizard!
 
@@ -279,10 +300,10 @@ Please specify if this is an agent/satellite setup (&#39;n&#39; installs a maste
 
 Starting the Agent/Satellite setup routine...
 
-Please specify the common name (CN) [node]: &lt;&lt;&lt;--- PRESS ENTER
+Please specify the common name (CN) [ipm-client]: &lt;&lt;&lt;--- PRESS ENTER
 
 Please specify the parent endpoint(s) (master or satellite) where this node should connect to:
-Master/Satellite Common Name (CN from your master/satellite node): server &lt;&lt;&lt;--- ENTER THIS
+Master/Satellite Common Name (CN from your master/satellite node): ipm-server &lt;&lt;&lt;--- ENTER THIS
 
 Do you want to establish a connection to the parent node from this node? [Y/n]: &lt;&lt;&lt;--- PRESS ENTER
 Please specify the master/satellite connection information:
@@ -293,20 +314,20 @@ Add more master/satellite endpoints? [y/N]: &lt;&lt;&lt;--- PRESS ENTER
 Parent certificate information:
 
  Version:             3
- Subject:             CN = server
+ Subject:             CN = ipm-server
  Issuer:              CN = Icinga CA
  Valid From:          Dec 15 22:32:54 2021 GMT
  Valid Until:         Dec 11 22:32:54 2036 GMT
  Serial:              ee:e1:e8:f4:89:72:54:78:33:7e:44:fe:2a:49:f2:2a:21:02:71:b8
 
  Signature Algorithm: sha256WithRSAEncryption
- Subject Alt Names:   server
+ Subject Alt Names:   ipm-server
  Fingerprint:         B6 53 F1 17 35 84 35 B3 B3 DE 36 82 4F F9 BC B5 13 75 50 44 E1 40 11 7C 3D F9 A1 78 7C 2A 03 48
 
 Is this information correct? [y/N]: y &lt;&lt;&lt;--- ENTER THIS
 
 Please specify the request ticket generated on your Icinga 2 master (optional).
- (Hint: # icinga2 pki ticket --cn &#39;node&#39;): 3bcb8a06466706f6a5d5f541c175004149e6dbb2 &lt;&lt;&lt;--- ENTER THIS AS DESCRIBED IN SECTION BEFORE
+ (Hint: # icinga2 pki ticket --cn &#39;ipm-client&#39;): 3bcb8a06466706f6a5d5f541c175004149e6dbb2 &lt;&lt;&lt;--- ENTER THIS AS DESCRIBED IN SECTION BEFORE
 Please specify the API bind host/port (optional):
 Bind Host []: &lt;&lt;&lt;--- PRESS ENTER
 Bind Port []: &lt;&lt;&lt;--- PRESS ENTER
@@ -318,7 +339,7 @@ Reconfiguring Icinga...
 Disabling feature notification. Make sure to restart Icinga 2 for these changes to take effect.
 Enabling feature api. Make sure to restart Icinga 2 for these changes to take effect.
 
-Local zone name [node]: &lt;&lt;&lt;--- PRESS ENTER
+Local zone name [ipm-client]: &lt;&lt;&lt;--- PRESS ENTER
 Parent zone name [master]: &lt;&lt;&lt;--- PRESS ENTER
 
 Default global zones: global-templates director-global
@@ -352,14 +373,14 @@ sudo ufw reload
 <p>As shown, the agent running on the node (192.168.0.125) is connected (ESTAB) with the server (192.168.0.115). The node uses a so-called high port number (here 51928/tcp) while the server uses 5665/tcp.</p>
 <aside class="warning"><p> Servers listen on a fixed port number so that clients will know where to connect. Clients do not need to use a fixed port number, since no one is initiating a connection to them, and in fact they cannot use a fixed port number if there may be more than one client running on the same machine (e.g. a web browser) connecting to the same server. IANA (Internet Assigned Numbers Authority) has designated ports in the range 0..49151 as fixed port numbers for specific services, and ports in the range 49152..65535 as dynamic (ephemeral) ports which are not assigned to any service and can be used when a fixed port number is not required. </p>
 </aside>
-<p>If you run the <strong>socket statistic</strong> command on the server, you will get similar output, this time from the server&#39;s point of view.</p>
+<p>If you run the <strong>socket statistic</strong> command on the server, you will get similar output but from the server&#39;s point of view.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Configure Agent Monitoring" duration="0">
         <p>Now that the master node and the client node are connected, it is time to configure the master so it can execute a remote check on the client node using the command endpoint.</p>
-<aside class="special"><p> Note that you have to work on the master node. Don&#39;t mix up the virtual machines. </p>
+<aside class="special"><p> Note that you have to work on the master node. Don&#39;t mix it up with the client node. </p>
 </aside>
 <p>First, login to master node and create a zone directory where you can add the configuration files for the host and service objects you want to monitor.</p>
 <pre><code>sudo mkdir /etc/icinga2/zones.d/master
@@ -476,17 +497,18 @@ sudo systemctl status icinga2
       <google-codelab-step label="Check now" duration="0">
         <p>When clicking on a service problem and trying to check the service again, you will notice the following error:</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/45dc5d9faf3321e9.png"></p>
-<p>To fix this error, we have to activate a feature named &#34;command&#34; on the Icinga2 master server. Run the following command:</p>
+<p>To fix this error, we have to activate a feature named <code>command</code> on the Icinga2 master server. Run the following command:</p>
 <pre><code>sudo icinga2 feature enable command
 </code></pre>
 <p>Icinga2 will prompt you that the command feature has been enabled and that Icinga2 needs to be restarted.</p>
 <pre><code>sudo systemctl restart icinga2
+sudo systemctl status icinga2
 </code></pre>
 <p>Now go back to the Icinga2 Dashboard and reload the browser&#39;s page. Next, click on the Critical message (caused by my_mem) in the left pane. This opens a detail view in the right pane. Now click the <code>Check now</code> button.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/403a62f26e15d48.png"></p>
 <p>A notification bar will appear indicating that the CheckCommand has been executed.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/1d3a1643cf9fd997.png"></p>
-<p>You can click the &#34;Check now&#34; button as many times as you want. You will notice changes of the Plugin Output (more or less free memory). Notification bars will pop up and disappear after a few seconds.</p>
+<p>You can click the <code>Check now</code> button as often as you want. You will notice changes of the Plugin Output (more or less free memory). Notification bars will pop up and disappear after a few seconds.</p>
 
 
       </google-codelab-step>
