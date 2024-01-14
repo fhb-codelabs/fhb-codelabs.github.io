@@ -184,7 +184,7 @@ sudo nano /etc/icinga2/conf.d/commands.conf
 <pre><code>sudo icinga2 daemon -C
 </code></pre>
 <p>Do you see errors? If yes, try to fix them. Otherwise, if not errors occur, restart and check the status of the Icinga2 service:</p>
-<pre><code>sudo systemctl start icinga2
+<pre><code>sudo systemctl restart icinga2
 sudo systemctl status icinga2
 </code></pre>
 <p>Any errors occur? Try to fix them. Otherwise, continue.</p>
@@ -193,7 +193,7 @@ sudo systemctl status icinga2
       </google-codelab-step>
     
       <google-codelab-step label="In action" duration="0">
-        <p>After restarting Icinga2, we will see our new CheckCommand called <code>my_mem</code>. Depending on the setup of your GuestOS, you may see different status messages. For example, the next screenshot shows a warning message:</p>
+        <p>After restarting Icinga2, we want to see our new CheckCommand <code>my_mem</code> in action. Depending on the setup of your GuestOS, you may see different status messages. For example, the next screenshot shows a warning message:</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/f62577dd857ef7ac.png"></p>
 <p>Click on the warning box to get more details.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/aab2263308974b62.png"></p>
