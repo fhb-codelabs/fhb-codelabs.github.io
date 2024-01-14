@@ -390,14 +390,14 @@ sudo ufw reload
 </code></pre>
 <p>Next, copy the following content in to the <code>hosts.conf</code> file:</p>
 <pre><code>// our node server
-object Endpoint &#34;node&#34; {
+object Endpoint &#34;ipm-client&#34; {
 }
 
-object Zone &#34;node&#34; {
-  endpoints = [ &#34;node&#34; ]
+object Zone &#34;ipm-client&#34; {
+  endpoints = [ &#34;ipm-client&#34; ]
   parent = &#34;master&#34;
 }
-object Host &#34;node&#34; {
+object Host &#34;ipm-client&#34; {
   check_command = &#34;hostalive&#34; //check is executed on the master
   address = &#34;192.168.0.125&#34; // replace this with the ip of your node
   vars.client_endpoint = name //follows the convention that host name == endpoint name
@@ -409,7 +409,8 @@ object Host &#34;node&#34; {
 <li><strong>Zone</strong> objects are used to specify which Icinga 2 instances are located in a zone. A Zone object accepts <strong>Endpoints</strong>, <strong>parent</strong> and <strong>global</strong> as attributes. <strong>Endpoints</strong> represent endpoints in a zone, <strong>parent</strong> is the name of the parent zone (here master), and <strong>global</strong> as a boolean value indicates if configuration file should be synced to all endpoints or not. Default = false.</li>
 <li><strong>Host</strong> objects represent hosts. Additionally, Icinga2 allows the definition of custom variables (<strong>vars</strong>) which can be used across all hosts and services (technically, Icinga2 inserts the variable&#39;s values in the http_header).</li>
 </ul>
-<p>After saving the <code>hosts.conf</code>, create a services configuration file for the node with the following command (here nano):</p>
+<p>Quit the configuration file with <code>CTRL-X</code> and confirm with <code>y</code> to save all changes.</p>
+<p>Next, create a services configuration file for the node with the following command (here: nano):</p>
 <pre><code>sudo nano /etc/icinga2/zones.d/master/services.conf
 </code></pre>
 <p>Next, copy the following content in to the <code>services.conf</code> file:</p>
@@ -461,7 +462,7 @@ apply Service &#34;Users&#34; {
 <li>The <strong>apply</strong> keyword is used to create new objects</li>
 <li><strong>Assign where</strong> represents a <code>Condition</code> which allows the use of expression operators such as <code>Equal to (==)</code>, <code>Less than (<)</code> or <code>Not Equal (!=)</code></li>
 </ul>
-<p>Save the changes here. We will validate the configuration on the master node in the next section.</p>
+<p>Quit the configuration file with <code>CTRL-X</code> and confirm with <code>y</code> to save all changes.</p>
 
 
       </google-codelab-step>
@@ -474,13 +475,13 @@ apply Service &#34;Users&#34; {
 <pre><code>sudo systemctl restart icinga2
 sudo systemctl status icinga2
 </code></pre>
-<p>Any errors? Try to fix them. Otherwise, go ahead.</p>
+<p>Any errors? Fix them or follow me.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="In action" duration="0">
-        <p>If the restart of the icinga2 service was successful, open the Icinga2 Dashboard.</p>
+        <p>Open the Icinga2 Dashboard.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/b18865db7a10486f.png"></p>
 <p>We will see our new checks (in Pending status) in the Icinga2 Dashboard in the <code>Service Problems</code> card.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/f6c9ccb764bdf52a.png"></p>
@@ -508,14 +509,14 @@ sudo systemctl status icinga2
 <p class="image-container"><img alt="Icinga Web 2" src="img/403a62f26e15d48.png"></p>
 <p>A notification bar will appear indicating that the CheckCommand has been executed.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/1d3a1643cf9fd997.png"></p>
-<p>You can click the <code>Check now</code> button as often as you want. You will notice changes of the Plugin Output (more or less free memory). Notification bars will pop up and disappear after a few seconds.</p>
+<p>You can click the <code>Check now</code> button multiple times. You will notice changes of the Plugin Output (more or less free memory). Notification bars will pop up and disappear after a few seconds.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Acknowledgements" duration="0">
-        <p>In addition, Icinga2 allows you to acknowledge a problem. When a problem is acknowledged, all future notifications about this problem are temporary disabled until the host or the service is recovered.</p>
-<p>Click on the <code>Acknowledge</code> button and the Acknowledge section shows up <img alt="Icinga Web 2" src="img/a6e8b5073886c5ef.png"></p>
+        <p>In addition, Icinga2 allows you to acknowledge a problem. When a problem is acknowledged, all future notifications are temporary disabled until the host or the service is recovered.</p>
+<p>Click on the <code>Acknowledge</code> button and the Acknowledge section shows up. <img alt="Icinga Web 2" src="img/a6e8b5073886c5ef.png"></p>
 <p>Enter a meaningful text in the comment field. Leave the rest as default. Press the button <code>Acknowledge problem</code>.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/795aa16d5e5d3828.png"></p>
 <p>A notification bar will appear indicating that the problem has been acknowledged.</p>

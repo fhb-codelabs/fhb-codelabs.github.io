@@ -543,14 +543,14 @@ Next, copy the following content in to the `hosts.conf` file:
 
 ```
 // our node server
-object Endpoint "node" {
+object Endpoint "ipm-client" {
 }
 
-object Zone "node" {
-  endpoints = [ "node" ]
+object Zone "ipm-client" {
+  endpoints = [ "ipm-client" ]
   parent = "master"
 }
-object Host "node" {
+object Host "ipm-client" {
   check_command = "hostalive" //check is executed on the master
   address = "192.168.0.125" // replace this with the ip of your node
   vars.client_endpoint = name //follows the convention that host name == endpoint name
@@ -563,7 +563,9 @@ Where,
 - **Zone** objects are used to specify which Icinga 2 instances are located in a zone. A Zone object accepts **Endpoints**, **parent** and **global** as attributes. **Endpoints** represent endpoints in a zone, **parent** is the name of the parent zone (here master), and **global** as a boolean value indicates if configuration file should be synced to all endpoints or not. Default = false.
 - **Host** objects represent hosts. Additionally, Icinga2 allows the definition of custom variables (**vars**) which can be used across all hosts and services (technically, Icinga2 inserts the variable's values in the http_header).
 
-After saving the `hosts.conf`, create a services configuration file for the node with the following command (here nano):
+Quit the configuration file with `CTRL-X` and confirm with `y` to save all changes.
+
+Next, create a services configuration file for the node with the following command (here: nano):
 
 ```
 sudo nano /etc/icinga2/zones.d/master/services.conf
@@ -621,7 +623,7 @@ Where,
 - The **apply** keyword is used to create new objects
 - **Assign where** represents a `Condition` which allows the use of expression operators such as `Equal to (==)`, `Less than (<)` or `Not Equal (!=)`
 
-Save the changes here. We will validate the configuration on the master node in the next section.
+Quit the configuration file with `CTRL-X` and confirm with `y` to save all changes.
 
 ## Test and restart
 
@@ -638,11 +640,11 @@ sudo systemctl restart icinga2
 sudo systemctl status icinga2
 ```
 
-Any errors? Try to fix them. Otherwise, go ahead.
+Any errors? Fix them or follow me.
 
 ## In action
 
-If the restart of the icinga2 service was successful, open the Icinga2 Dashboard.
+Open the Icinga2 Dashboard.
 
 ![Icinga Web 2](./img/biti-ipm-icinga-agentbased-1.png)
 
@@ -689,13 +691,13 @@ A notification bar will appear indicating that the CheckCommand has been execute
 
 ![Icinga Web 2](./img/biti-ipm-icinga-check-2.png)
 
-You can click the `Check now` button as often as you want. You will notice changes of the Plugin Output (more or less free memory). Notification bars will pop up and disappear after a few seconds.
+You can click the `Check now` button multiple times. You will notice changes of the Plugin Output (more or less free memory). Notification bars will pop up and disappear after a few seconds.
 
 ## Acknowledgements
 
-In addition, Icinga2 allows you to acknowledge a problem. When a problem is acknowledged, all future notifications about this problem are temporary disabled until the host or the service is recovered.
+In addition, Icinga2 allows you to acknowledge a problem. When a problem is acknowledged, all future notifications are temporary disabled until the host or the service is recovered.
 
-Click on the `Acknowledge` button and the Acknowledge section shows up
+Click on the `Acknowledge` button and the Acknowledge section shows up.
 ![Icinga Web 2](./img/biti-ipm-icinga-acknowledge-1.png)
 
 Enter a meaningful text in the comment field. Leave the rest as default. Press the button `Acknowledge problem`.
