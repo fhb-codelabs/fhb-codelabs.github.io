@@ -222,6 +222,7 @@ sudo systemctl status icinga2
 <p class="image-container"><img alt="Icinga Web 2 Director" src="img/3d53c7c936ef54fb.png"></p>
 <p>Select one line of the activity history. A brief overview of the selected command is displayed in the right-hand window.</p>
 <p class="image-container"><img alt="Icinga Web 2 Director" src="img/55a6a65c93daef3c.png"></p>
+<p>Did you notice the magnifier? You can search for logs. Try to find our custom check <code>my_mem</code>.</p>
 
 
       </google-codelab-step>
@@ -229,6 +230,15 @@ sudo systemctl status icinga2
       <google-codelab-step label="Cleanup" duration="0">
         <p>Congratulations !</p>
 <p>You have successfully set up Icinga2 Director.</p>
+<p>You can now try to setup your own monitoring solution with the Director.</p>
+<aside class="warning"><p> Warning:  <br> Director is not allowed to modify existing configuration in /etc/icinga2, and while importing existing config is possible (happens for example automagically at kickstart time) this is an advanced task you should not tackle at the early beginning. </p>
+</aside>
+<p>Good Practices:</p>
+<ul>
+<li>Set up templates for Hosts and Services</li>
+<li>Set up a specific host, use hostalive as default check_command</li>
+<li>Set up a simple service such as ping4.</li>
+</ul>
 
 
       </google-codelab-step>
