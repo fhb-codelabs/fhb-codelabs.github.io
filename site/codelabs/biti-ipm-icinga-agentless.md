@@ -300,21 +300,25 @@ object Host "localhost"{
 }
 
 object Service "ping4" {
+  import  "generic-service"
   host_name = "localhost"
   check_command = "ping4"
 }
 
 object Service "swap"{
+  import  "generic-service"
   host_name = "localhost"
   check_command = "swap"
 }
 
 object Service "load"{
+  import  "generic-service"
   host_name = "localhost"
   check_command = "load"
 }
 
 object Service "ssh"{
+  import  "generic-service"
   host_name = "localhost"
   check_command = "ssh"
 }
@@ -370,6 +374,7 @@ object Host "host_os"{
 }
 
 object Service "ping4" {
+  import  "generic-service"
   host_name = "host_os"
   check_command = "ping4"
 }
