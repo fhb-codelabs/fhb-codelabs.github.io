@@ -231,21 +231,25 @@ drwxr-x--- 9 nagios nagios 4096 Dec  7 14:19 ..
 }
 
 object Service &#34;ping4&#34; {
+  import  &#34;generic-service&#34;
   host_name = &#34;localhost&#34;
   check_command = &#34;ping4&#34;
 }
 
 object Service &#34;swap&#34;{
+  import  &#34;generic-service&#34;
   host_name = &#34;localhost&#34;
   check_command = &#34;swap&#34;
 }
 
 object Service &#34;load&#34;{
+  import  &#34;generic-service&#34;
   host_name = &#34;localhost&#34;
   check_command = &#34;load&#34;
 }
 
 object Service &#34;ssh&#34;{
+  import  &#34;generic-service&#34;
   host_name = &#34;localhost&#34;
   check_command = &#34;ssh&#34;
 }
@@ -280,6 +284,7 @@ object Service &#34;ssh&#34;{
 }
 
 object Service &#34;ping4&#34; {
+  import  &#34;generic-service&#34;
   host_name = &#34;host_os&#34;
   check_command = &#34;ping4&#34;
 }
