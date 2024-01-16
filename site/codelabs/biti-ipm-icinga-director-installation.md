@@ -84,7 +84,7 @@ Depending on the package upgrades, it is useful to restart the system here.
 
 ### Core App
 
-Now that Icinga 2 repos are in place, you can install the Icinga2 Director by running the command below:
+Now that Icinga 2 repos are available, you can install Icinga Web Directory by running the command below:
 
 ```
 sudo apt install icingaweb2-module-director
@@ -92,26 +92,30 @@ sudo apt install icingaweb2-module-director
 
 ### API User
 
-It is necessary to create a API user with full privileges for Icinga2 Director. Those privileges are necessary as Icinga2 Director should be able to control the complete Icinga2 instance.
+It is necessary to create an API user with full privileges for Icinga2 Director. This allows the director to control the entire Icinga2 instance.
 
-Configure the ApiUser file at `/etc/icinga2/conf.d/api-users.conf` with an editor of your choice (here nano).
+First, edit the ApiUser file `/etc/icinga2/conf.d/api-users.conf` with an editor of your choice (here: nano).
 
 ```
 sudo nano /etc/icinga2/conf.d/api-users.conf
 ```
 
-Now add the following information (without deleting existing ApiUser objects) at the end of the file:
-
+Next, add the following context at the end of the file (without deleting other existing ApiUser objects):
 ```
 object ApiUser "director" {
   password = "director"
   permissions = [ "*" ]
 }
 ```
-
 <aside class="negative">
 Do not use this password in other systems or environments, especially not in a production system. We use this password to ensure a smooth installation process during the lecture and to eliminate potential sources of error. 
 </aside>
+
+Last, transfer the ownership.
+
+```
+sudo chown nagios:nagios /etc/icinga2/conf.d/
+```
 
 ## Icinga2 Director Backend
 
@@ -144,7 +148,47 @@ Do not use this password in other systems or environments, especially not in a p
 Icinga2 Director requires UTF-8 encoding for its database, otherwise it will not work properly.
 </aside>
 
-Reload privileges tables with the following commands:
+Run the following command to get a list of databases installed.
+```
+show databases;
+```
+
+Sample output:
+```
++--------------------+
+| Database           |
++--------------------+
+| director           |
+| icinga2            |
+| icingaweb2         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+```
+
+Next, check if the newly created user exists:
+```
+select user from mysql.user;
+```
+
+Sample output:
+
+```
++-------------+
+| User        |
++-------------+
+| director    |
+| icinga2     |
+| icingaweb2  |
+| mariadb.sys |
+| mysql       |
+| root        |
++-------------+
+```
+
+Everything okay? Good. Now reload privileges tables with the following commands:
 
 ```
 flush privileges;
@@ -153,16 +197,15 @@ quit
 
 ### Mangement configuration
 
-Icinga Director uses a relational database such as MySQL, MariaDB or PostgreSQL. We use MySQL/MariaDB. Therefore, we have to tell Icingaweb2 how to connect need to the Director's database.
+Icinga Director needs a relational database (such as MySQL, MariaDB or PostgreSQL). Therefore, we need to tell Icingaweb2 how to connect need to the Director's database.
 
-For this purpose, open the file `/etc/icingaweb2/resources.ini`` with an editor of your choise (here nano):
+First, open and edit the file `/etc/icingaweb2/resources.ini`` with an editor of your choise (here: nano):
 
 ```
 sudo nano /etc/icingaweb2/resources.ini
 ```
 
-Remember to use the password you used during creation of the database user and also the type of database you are using. Also use the "utf8" for charset (important). Now add the following information to the end of the file but leave the rest untouched:
-
+Next, add the following context at the end of the file:
 ```
 [icinga_director]
 type = "db"
@@ -172,7 +215,18 @@ dbname = "director"
 username = "director"
 password = "director"
 charset = "utf8"
+
 ```
+
+<aside class="positive">
+The director needs the charset UTF-8!
+</aside>
+
+<aside class="negative">
+Warning: 
+<br>
+Do not use this password in other systems or environments, especially not in a production system. We use this password to ensure a smooth installation process during the lecture and to eliminate potential sources of error.
+</aside>
 
 ### Restart Icinga2
 
@@ -218,13 +272,14 @@ Next, the director wants you to run the `Kickstart wizard`. In simple terms: the
 
 For this, enter the following information:
 
-- Endpoint name - server
-- Icinga Host - your-server-ip-address
-- Port - don't change it, 5665 is fine
-- API-User - director
-- Password - director
+- `DB Resource` - icinga_director
+- `Endpoint name` - ipm-server
+- `Icinga Host` - your-server-ip-address (or FQDN)
+- `Port` - don't change it, 5665 is fine
+- `API-User` - director
+- `Password` - director
 
-Double-check your inputs. Click on `Run Import` to seed the database.
+Double-check your inputs. Click on `Run Import` to populate the database.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-6.png)
 
@@ -234,13 +289,11 @@ After a successful kickstart, the Icinga2 Director is ready to configure hosts a
 
 ### Activity Log
 
-Changes of all kinds can be easily tracked via the Activity Log. Which object was changed, what was the reason of the change, when was it made and by whom? Use the search function to browse through the activity log.
-
-Click on the 'Activity Log' menu and a list of all past activities will be displayed.
+Director provides a nice activity log. Click on the "Activity log" menu to see a list of all past activities.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-9.png)
 
-Click on a line of the activity log. A brief overview of the selected command appears in the right window.
+Select one line of the activity history. A brief overview of the selected command is displayed in the right-hand window.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-11.png)
 
