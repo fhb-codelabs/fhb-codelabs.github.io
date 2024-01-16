@@ -79,10 +79,10 @@ sudo apt upgrade
 </code></pre>
 <h2 is-upgraded>API User</h2>
 <p>It is necessary to create an API user with full privileges for Icinga2 Director. This allows the director to control the entire Icinga2 instance.</p>
-<p>First, edit the ApiUser file <code>/etc/icinga2/conf.d/api-users.conf</code> with an editor of your choice (here: nano).</p>
+<p>First, edit the file <code>api-users.conf</code> with an editor of your choice (here: nano).</p>
 <pre><code>sudo nano /etc/icinga2/conf.d/api-users.conf
 </code></pre>
-<p>Next, add the following context at the end of the file (without deleting other existing ApiUser objects):</p>
+<p>Next, add the following content at the end of the file (without deleting other existing ApiUser objects):</p>
 <pre><code>object ApiUser &#34;director&#34; {
   password = &#34;director&#34;
   permissions = [ &#34;*&#34; ]
@@ -150,11 +150,11 @@ GRANT ALL ON director.* TO director@localhost;
 quit
 </code></pre>
 <h2 is-upgraded>Mangement configuration</h2>
-<p>Icinga Director needs a relational database (such as MySQL, MariaDB or PostgreSQL). Therefore, we need to tell Icingaweb2 how to connect need to the Director&#39;s database.</p>
-<p>First, open and edit the file `/etc/icingaweb2/resources.ini`` with an editor of your choise (here: nano):</p>
+<p>Icinga Director needs a relational database (such as MySQL, MariaDB or PostgreSQL). Therefore, we need to tell Icingaweb2 how to connect to the Director&#39;s database.</p>
+<p>First, open and edit the <code>resources.ini</code> file with an editor of your choise (here: nano):</p>
 <pre><code>sudo nano /etc/icingaweb2/resources.ini
 </code></pre>
-<p>Next, add the following context at the end of the file:</p>
+<p>Next, add the following content at the end of the file:</p>
 <pre><code>[icinga_director]
 type = &#34;db&#34;
 db = &#34;mysql&#34;
@@ -189,7 +189,7 @@ sudo systemctl status icinga2
 <p>Enter the username and password from the previous codelabs.</p>
 <p class="image-container"><img alt="Icinga Web 2 Director" src="img/c4cb317a359cb6f5.png"></p>
 <h2 is-upgraded>Icinga2 Director</h2>
-<p>The first thing you will notice are ... <strong>problems</strong>. Ignore them. Here, as shown in the figure below, one of the virtual machines is offline because it was turned off while installing the Icinga Director due to performance reasons.</p>
+<p>The first thing you will notice are ... <strong>problems</strong>. Ignore them. Here, as shown in the screenshot below, one of the virtual machines is offline because it was turned off while installing the Icinga Director due to performance reasons.</p>
 <p class="image-container"><img alt="Icinga Web 2 Director" src="img/6a6f20bf78931b2d.png"></p>
 <p>The second thing you will notice is a new menu item called <code>Icinga Director</code>. Click on it and the director will guide you through the setup procedure.</p>
 <p>Next, the Director ask you for a database resource. <img alt="Icinga Web 2 Director" src="img/8ff1c1dbf9cd172b.png"></p>
@@ -209,7 +209,7 @@ sudo systemctl status icinga2
 <li><code>DB Resource</code> - icinga_director</li>
 <li><code>Endpoint name</code> - ipm-server</li>
 <li><code>Icinga Host</code> - your-server-ip-address (or FQDN)</li>
-<li><code>Port</code> - don&#39;t change it, 5665 is fine</li>
+<li><code>Port</code> - 5665 (don&#39;t change it)</li>
 <li><code>API-User</code> - director</li>
 <li><code>Password</code> - director</li>
 </ul>
@@ -227,18 +227,26 @@ sudo systemctl status icinga2
 
       </google-codelab-step>
     
+      <google-codelab-step label="In action" duration="0">
+        <p>You can now try to setup your own monitoring solution with the Director.</p>
+<aside class="warning"><p> Warning:  <br> Director is not allowed to modify existing configuration in /etc/icinga2. </p>
+</aside>
+<p>That means that you have to set up your Monitoring solution by yourself.</p>
+<p>Here are some good practices:</p>
+<ul>
+<li>First, set up templates for Hosts and Services. Use the existing templates but with different names.</li>
+<li>Second, set up a specific host, and use <code>hostalive</code> as default check_command.</li>
+<li>Finally, set up a simple service such as ping4 and assign it as a regular check_command to your host.</li>
+</ul>
+<aside class="special"><p> Tipp:  <br> Add, store, and deploy! That is the way. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Cleanup" duration="0">
         <p>Congratulations !</p>
 <p>You have successfully set up Icinga2 Director.</p>
-<p>You can now try to setup your own monitoring solution with the Director.</p>
-<aside class="warning"><p> Warning:  <br> Director is not allowed to modify existing configuration in /etc/icinga2, and while importing existing config is possible (happens for example automagically at kickstart time) this is an advanced task you should not tackle at the early beginning. </p>
-</aside>
-<p>Good Practices:</p>
-<ul>
-<li>Set up templates for Hosts and Services</li>
-<li>Set up a specific host, use hostalive as default check_command</li>
-<li>Set up a simple service such as ping4.</li>
-</ul>
 
 
       </google-codelab-step>

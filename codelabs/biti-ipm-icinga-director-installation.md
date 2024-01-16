@@ -94,13 +94,13 @@ sudo apt install icingaweb2-module-director
 
 It is necessary to create an API user with full privileges for Icinga2 Director. This allows the director to control the entire Icinga2 instance.
 
-First, edit the ApiUser file `/etc/icinga2/conf.d/api-users.conf` with an editor of your choice (here: nano).
+First, edit the file `api-users.conf` with an editor of your choice (here: nano).
 
 ```
 sudo nano /etc/icinga2/conf.d/api-users.conf
 ```
 
-Next, add the following context at the end of the file (without deleting other existing ApiUser objects):
+Next, add the following content at the end of the file (without deleting other existing ApiUser objects):
 ```
 object ApiUser "director" {
   password = "director"
@@ -200,15 +200,15 @@ quit
 
 ### Mangement configuration
 
-Icinga Director needs a relational database (such as MySQL, MariaDB or PostgreSQL). Therefore, we need to tell Icingaweb2 how to connect need to the Director's database.
+Icinga Director needs a relational database (such as MySQL, MariaDB or PostgreSQL). Therefore, we need to tell Icingaweb2 how to connect to the Director's database.
 
-First, open and edit the file `/etc/icingaweb2/resources.ini`` with an editor of your choise (here: nano):
+First, open and edit the `resources.ini` file with an editor of your choise (here: nano):
 
 ```
 sudo nano /etc/icingaweb2/resources.ini
 ```
 
-Next, add the following context at the end of the file:
+Next, add the following content at the end of the file:
 ```
 [icinga_director]
 type = "db"
@@ -262,7 +262,7 @@ Enter the username and password from the previous codelabs.
 
 ### Icinga2 Director
 
-The first thing you will notice are ... **problems**. Ignore them. Here, as shown in the figure below, one of the virtual machines is offline because it was turned off while installing the Icinga Director due to performance reasons.
+The first thing you will notice are ... **problems**. Ignore them. Here, as shown in the screenshot below, one of the virtual machines is offline because it was turned off while installing the Icinga Director due to performance reasons.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-2.png)
 
@@ -295,7 +295,7 @@ Where,
 - `DB Resource` - icinga_director
 - `Endpoint name` - ipm-server
 - `Icinga Host` - your-server-ip-address (or FQDN)
-- `Port` - don't change it, 5665 is fine
+- `Port` - 5665 (don't change it)
 - `API-User` - director
 - `Password` - director
 
@@ -319,21 +319,31 @@ Select one line of the activity history. A brief overview of the selected comman
 
 Did you notice the magnifier? You can search for logs. Try to find our custom check `my_mem`.
 
-## Cleanup
-
-Congratulations !
-
-You have successfully set up Icinga2 Director.
+## In action
 
 You can now try to setup your own monitoring solution with the Director. 
 
 <aside class="negative">
 Warning: 
 <br>
-Director is not allowed to modify existing configuration in /etc/icinga2, and while importing existing config is possible (happens for example automagically at kickstart time) this is an advanced task you should not tackle at the early beginning.
+Director is not allowed to modify existing configuration in /etc/icinga2.
 </aside>
 
-Good Practices:
-- Set up templates for Hosts and Services
-- Set up a specific host, use hostalive as default check_command
-- Set up a simple service such as ping4.
+That means that you have to set up your Monitoring solution by yourself.
+
+Here are some good practices:
+- First, set up templates for Hosts and Services. Use the existing templates but with different names.
+- Second, set up a specific host, and use `hostalive` as default check_command.
+- Finally, set up a simple service such as ping4 and assign it as a regular check_command to your host.
+
+<aside class="positive">
+Tipp: 
+<br>
+Add, store, and deploy! That is the way.
+</aside>
+
+## Cleanup
+
+Congratulations !
+
+You have successfully set up Icinga2 Director.
