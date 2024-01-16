@@ -183,7 +183,7 @@ A client (=Icinga2 satellite) that sends a Certificate Signing Request (CSR) mus
 Run the commands below on the master node to generate the ticket for your client node:
 
 ```
-icinga2 pki ticket --cn 'ipm-client'
+sudo icinga2 pki ticket --cn 'ipm-client'
 ```
 
 Sample output of a ticket:
@@ -651,7 +651,11 @@ Any errors? Fix them or follow me.
 
 ## In action
 
-Open the Icinga2 Dashboard.
+Open the Icinga2 Dashboard. Use the follwing ULR: 
+
+```
+http://<ip-address-of-icinga2>/icingaweb2/
+```
 
 ![Icinga Web 2](./img/biti-ipm-icinga-agentbased-1.png)
 

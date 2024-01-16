@@ -145,7 +145,7 @@ sudo ufw reload
 <h2 is-upgraded>Generate a client ticket</h2>
 <p>A client (=Icinga2 satellite) that sends a Certificate Signing Request (CSR) must authenticate itself in a trustworthy manner. The master generates a client ticket that is part in this request. The master can use this ticket to check whether the request matches the previously trusted ticket and sign the request.</p>
 <p>Run the commands below on the master node to generate the ticket for your client node:</p>
-<pre><code>icinga2 pki ticket --cn &#39;ipm-client&#39;
+<pre><code>sudo icinga2 pki ticket --cn &#39;ipm-client&#39;
 </code></pre>
 <p>Sample output of a ticket:</p>
 <pre><code>3bcb8a06466706f6a5d5f541c175004149e6dbb2
@@ -488,7 +488,9 @@ sudo systemctl status icinga2
       </google-codelab-step>
     
       <google-codelab-step label="In action" duration="0">
-        <p>Open the Icinga2 Dashboard.</p>
+        <p>Open the Icinga2 Dashboard. Use the follwing ULR:</p>
+<pre><code>http://&lt;ip-address-of-icinga2&gt;/icingaweb2/
+</code></pre>
 <p class="image-container"><img alt="Icinga Web 2" src="img/b18865db7a10486f.png"></p>
 <p>We will see our new checks (in Pending status) in the Icinga2 Dashboard in the <code>Service Problems</code> card.</p>
 <p class="image-container"><img alt="Icinga Web 2" src="img/f6c9ccb764bdf52a.png"></p>
