@@ -82,9 +82,9 @@ Depending on the package upgrades, it is useful to restart the system here.
 
 ## Icinga2 Director
 
-### Core App
+### Core Module
 
-Now that Icinga 2 repos are available, you can install Icinga Web Directory by running the command below:
+Now that Icinga 2 repos are available, you can install the corresponding module by executing the command below:
 
 ```
 sudo apt install icingaweb2-module-director
@@ -107,6 +107,9 @@ object ApiUser "director" {
   permissions = [ "*" ]
 }
 ```
+
+Quit the configuration file with `CTRL-X` and confirm with `y` to save all changes.
+
 <aside class="negative">
 Do not use this password in other systems or environments, especially not in a production system. We use this password to ensure a smooth installation process during the lecture and to eliminate potential sources of error. 
 </aside>
@@ -222,6 +225,8 @@ charset = "utf8"
 The director needs the charset UTF-8!
 </aside>
 
+Quit the configuration file with `CTRL-X` and confirm with `y` to save all changes.
+
 <aside class="negative">
 Warning: 
 <br>
@@ -243,35 +248,50 @@ Any problems? Try to fix them with appropriate tools.
 
 ### Icinga Web2 Login
 
-Time to log in. Open the browser and point to the URL of the Icinga2 Web Inferface (https://your-server-ip-address/icingaweb2).
+Time to see the Director in action. 
+
+Open the browser and point to the URL of the Icinga2 Web Inferface:
+
+```
+http://<ip-address-of-icinga>/icingaweb2
+```
+
 Enter the username and password from the previous codelabs.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-1.png)
 
 ### Icinga2 Director
 
-The first thing you will notice are problems. In most cases, you can simple ignore them. Here, as shown in the figure below, one of the virtual machines (hostname = node) is offline because it was turned off while installing the Icinga Director due to performance reasons.
+The first thing you will notice are ... **problems**. Ignore them. Here, as shown in the figure below, one of the virtual machines is offline because it was turned off while installing the Icinga Director due to performance reasons.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-2.png)
 
-The second thing you will notice is a new menu item called "Icinga Director. Click on the item. The director guides you through the setup procedure. Select `icinga_director` as DB Resource.
+The second thing you will notice is a new menu item called `Icinga Director`. Click on it and the director will guide you through the setup procedure.  
 
-<aside class="negative">
-Be careful here: The setup will switch to the next screen immediately after selecting the icinga_directory. There is no way back!
-</aside>
-
+Next, the Director ask you for a database resource.
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-3.png)
 
-Next, the director wants to you to create the database schema. In other words: no need to execute a sql script manually! Press on the button `Create schema`.
+Where,
+
+- `DB Resource` - icinga_director
+
+<aside class="negative">
+Warning: 
+<br>
+Be careful here. The setup will switch to the next screen immediately after selecting the Database resource.
+</aside>
+
+Next, the Director ask you to create a scheme.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-4.png)
 
-Next, the director wants you to run the `Kickstart wizard`. In simple terms: the director imports (=kickstarts or seeds) data into the database we have created.
+Click on the `Create Scheme` button.
+
+Next, the director wants you to run the `Kickstart wizard`. In simple terms: the director imports (=kickstarts, populates, seeds) data into the database we have created previously.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-5.png)
 
-For this, enter the following information:
-
+Where,
 - `DB Resource` - icinga_director
 - `Endpoint name` - ipm-server
 - `Icinga Host` - your-server-ip-address (or FQDN)
@@ -279,17 +299,17 @@ For this, enter the following information:
 - `API-User` - director
 - `Password` - director
 
-Double-check your inputs. Click on `Run Import` to populate the database.
+Double-check your inputs. Click on the `Run Import` button to populate the database.
 
-![Icinga Web 2 Director](./img/biti-ipm-icinga-director-6.png)
-
-After a successful kickstart, the Icinga2 Director is ready to configure hosts and services.
+After populating the database, the Icinga2 Director is ready to configure hosts and services.
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-7.png)
 
+But let's check the log first.
+
 ### Activity Log
 
-Director provides a nice activity log. Click on the "Activity log" menu to see a list of all past activities.
+Director provides a nice activity log. Click on the "Activity log" menu to see a list of all past activities (around 200 or more).
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-9.png)
 
