@@ -324,3 +324,16 @@ Did you notice the magnifier? You can search for logs. Try to find our custom ch
 Congratulations !
 
 You have successfully set up Icinga2 Director.
+
+You can now try to setup your own monitoring solution with the Director. 
+
+<aside class="negative">
+Warning: 
+<br>
+Director is not allowed to modify existing configuration in /etc/icinga2, and while importing existing config is possible (happens for example automagically at kickstart time) this is an advanced task you should not tackle at the early beginning.
+</aside>
+
+Good Practices:
+- Set up templates for Hosts and Services
+- Set up a specific host, use hostalive as default check_command
+- Set up a simple service such as ping4.
