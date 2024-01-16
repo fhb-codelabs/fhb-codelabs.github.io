@@ -317,6 +317,8 @@ Select one line of the activity history. A brief overview of the selected comman
 
 ![Icinga Web 2 Director](./img/biti-ipm-icinga-director-11.png)
 
+Did you notice the magnifier? You can search for logs. Try to find our custom check `my_mem`.
+
 ## Cleanup
 
 Congratulations !
