@@ -73,6 +73,87 @@ Depending on the package upgrades, it is useful to restart the system here.
 
 <!-- ------------------------ -->
 
+## Useful tip
+
+### IP or FQDN
+
+
+All Icinga2 codelabs use IP-addresses instead of hostnames. Or, to be more precise, full qualified domain names (FQDN).
+
+In Linux, `/etc/hosts` is a plain text file used by the operating system to translate hostnames to IP-addresses. Run the following command to see how the ***hosts*** file is structured:
+ 
+```
+sudo cat /etc/hosts
+```
+
+Sample output:
+```
+127.0.0.1       localhost
+127.0.1.1       ipm-server
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+
+It is common practice to create easy-to-remember computer names in a small test lab where no DNS server is available. Feel free to make the following changes.
+
+<aside class="negative">
+All Icinga2 codelabs use IP-addresses instead of hostnames. Please customize your settings accordingly. Skip the following instructions if you wish to use IP-adresses only.
+</aside>
+
+First, open the hosts file with an edirot of your choice (here: nano):
+
+```
+sudo nano /etc/hosts
+```
+
+Second, add the following lines and replace the IP-placeholders with the IP-addresses of your test lab.
+```
+127.0.0.1       localhost
+127.0.1.1       ipm-server
+
+<ip-address>    ipm-server.local
+<ip-address>    ipm-client.local
+<ip-address>    ipm-hostos.local
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```
+Exit the editor with `CTRL-X`. Confirm with `y` to save all changes.
+
+Make these changes on both machines, ipm-server and ipm-client.
+
+Test your changes. Run the following command on the `ipm-server` computer.
+
+```
+ping -c 3 ipm-client.local
+```
+
+Sample output:
+
+```
+root@ipm-server:/etc# ping -c 3 ipm-client.local
+PING ipm-client.local (192.168.0.208) 56(84) bytes of data.
+64 bytes from ipm-client.local (192.168.0.208): icmp_seq=1 ttl=64 time=0.727 ms
+64 bytes from ipm-client.local (192.168.0.208): icmp_seq=2 ttl=64 time=0.784 ms
+64 bytes from ipm-client.local (192.168.0.208): icmp_seq=3 ttl=64 time=1.80 ms
+
+--- ipm-client.local ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2044ms
+rtt min/avg/max/mdev = 0.727/1.105/1.804/0.494 ms
+```
+
+Test your changes on the second machine as well (ping from `ipm-client` to `ipm-server`).
+
+<aside class="negative">
+If the IP-address range of your test lab changes, you must also change the mapping on all machines.
+</aside>
+
+
 ## Icinga2 Core App
 
 ### Core App
