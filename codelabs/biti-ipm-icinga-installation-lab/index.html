@@ -69,6 +69,63 @@ sudo apt upgrade
 
       </google-codelab-step>
     
+      <google-codelab-step label="Useful tip" duration="0">
+        <h2 is-upgraded>IP or FQDN</h2>
+<p>All Icinga2 codelabs use IP-addresses instead of hostnames. Or, to be more precise, full qualified domain names (FQDN).</p>
+<p>In Linux, <code>/etc/hosts</code> is a plain text file used by the operating system to translate hostnames to IP-addresses. Run the following command to see how the <strong><em>hosts</em></strong> file is structured:</p>
+<pre><code>sudo cat /etc/hosts
+</code></pre>
+<p>Sample output:</p>
+<pre><code>127.0.0.1       localhost
+127.0.1.1       ipm-server
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+</code></pre>
+<p>It is common practice to create easy-to-remember computer names in a small test lab where no DNS server is available. Feel free to make the following changes.</p>
+<aside class="warning"><p> All Icinga2 codelabs use IP-addresses instead of hostnames. Please customize your settings accordingly. Skip the following instructions if you wish to use IP-adresses only. </p>
+</aside>
+<p>First, open the hosts file with an edirot of your choice (here: nano):</p>
+<pre><code>sudo nano /etc/hosts
+</code></pre>
+<p>Second, add the following lines and replace the IP-placeholders with the IP-addresses of your test lab.</p>
+<pre><code>127.0.0.1       localhost
+127.0.1.1       ipm-server
+
+&lt;ip-address&gt;    ipm-server.local
+&lt;ip-address&gt;    ipm-client.local
+&lt;ip-address&gt;    ipm-hostos.local
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+</code></pre>
+<p>Exit the editor with <code>CTRL-X</code>. Confirm with <code>y</code> to save all changes.</p>
+<p>Make these changes on both machines, ipm-server and ipm-client.</p>
+<p>Test your changes. Run the following command on the <code>ipm-server</code> computer.</p>
+<pre><code>ping -c 3 ipm-client.local
+</code></pre>
+<p>Sample output:</p>
+<pre><code>root@ipm-server:/etc# ping -c 3 ipm-client.local
+PING ipm-client.local (192.168.0.208) 56(84) bytes of data.
+64 bytes from ipm-client.local (192.168.0.208): icmp_seq=1 ttl=64 time=0.727 ms
+64 bytes from ipm-client.local (192.168.0.208): icmp_seq=2 ttl=64 time=0.784 ms
+64 bytes from ipm-client.local (192.168.0.208): icmp_seq=3 ttl=64 time=1.80 ms
+
+--- ipm-client.local ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2044ms
+rtt min/avg/max/mdev = 0.727/1.105/1.804/0.494 ms
+</code></pre>
+<p>Test your changes on the second machine as well (ping from <code>ipm-client</code> to <code>ipm-server</code>).</p>
+<aside class="warning"><p> If the IP-address range of your test lab changes, you must also change the mapping on all machines. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Icinga2 Core App" duration="0">
         <h2 is-upgraded>Core App</h2>
 <p>Now that Icinga 2 repos are available, you can install Icinga core by running the command below:</p>
