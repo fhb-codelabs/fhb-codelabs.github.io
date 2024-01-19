@@ -91,7 +91,7 @@ As you can see, we added the Helm provider to our `terraform.tf` file. We also a
 To deploy ArgoCD to your SKS Cluster, run the following command:
 
 ```bash
-opentofu apply
+tofu apply
 ```
 
 Like in our previous lab, the configuration will be applied to your SKS Cluster. After this is applied successfully, you can check the status of your deployment by running the following command:
@@ -182,7 +182,7 @@ The `depends_on` attribute ensures that the Helm release is only created after t
 After adding this code block to your `argocd.tf` file, you can deploy the application to your SKS Cluster by running the following command:
 
 ```bash
-opentofu apply
+tofu apply
 ```
 
 After the deployment is finished, you can connect to the ArgoCD UI and check if the application is deployed successfully. Your ArgoCD UI should look similar to this:
