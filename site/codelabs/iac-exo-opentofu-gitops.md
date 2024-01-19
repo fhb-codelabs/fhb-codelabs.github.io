@@ -11,7 +11,7 @@ authors: Thomas Schuetz
 
 ## What You’ll Learn
 
-![Big Picture](./img/iac-terra-exo-intro-big-picture.png)
+![Big Picture](img/iac-terra-exo-gitops-big-picture.png)
 
 In this lab, you will:
 
