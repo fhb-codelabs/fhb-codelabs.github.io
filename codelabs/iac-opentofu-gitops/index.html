@@ -1,0 +1,248 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Infrastructure-as-Code - Lab 2 - Combining OpenTofu and GitOps (Exoscale SKS Edition)</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="iac-opentofu-gitops"
+                  title="Infrastructure-as-Code - Lab 2 - Combining OpenTofu and GitOps (Exoscale SKS Edition)"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="What You&#39;ll Learn" duration="0">
+        <p class="image-container"><img alt="Big Picture" src="img/45a0696ffdbf6359.png"></p>
+<p>In this lab, you will:</p>
+<ul>
+<li>Add a GitOps Controller to your SKS Cluster</li>
+<li>Automatically deploy a simple application to your SKS Cluster</li>
+</ul>
+<h2 is-upgraded>Prerequisites</h2>
+<ul>
+<li><a href="https://opentofu.org/docs/intro/install/" target="_blank">OpenTofu CLI</a></li>
+<li>An SKS Cluster as created in Lab 1 (https://fhb-codelabs.netlify.app/codelabs/iac-opentofu-intro)</li>
+<li>An empty Git Repository (e.g. on Github)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add a GitOps Controller to your SKS Cluster using OpenTofu" duration="0">
+        <p>At the moment, your SKS Cluster is empty and does not contain any applications. To deploy applications to your cluster, you need to add a GitOps Controller to your cluster. This controller will watch a Git Repository for changes and deploy the applications defined in this repository to your cluster.</p>
+<p>Currently, there are two major GitOps Controllers available: <a href="https://fluxcd.io/" target="_blank">Flux</a> and <a href="https://argoproj.github.io/argo-cd/" target="_blank">ArgoCD</a>. In this lab, we will use ArgoCD.</p>
+<h2 is-upgraded>Install ArgoCD using OpenTofu</h2>
+<p>Create a new configuration file called <code>argocd.tf</code> in your directory and copy the following content into it:</p>
+<pre><code language="language-terraform" class="language-terraform">resource &#34;helm_release&#34; &#34;argo_cd&#34; {
+  name             = &#34;argocd&#34;
+  repository       = &#34;https://argoproj.github.io/argo-helm&#34;
+  chart            = &#34;argo-cd&#34;
+  version          = &#34;5.52.0&#34;
+  timeout          = 1200
+  create_namespace = true
+  namespace        = &#34;argocd&#34;
+  lint             = true
+  wait             = true
+
+  depends_on = [
+    exoscale_sks_kubeconfig.my_sks_kubeconfig
+  ]
+}
+</code></pre>
+<p>This configuration will install ArgoCD into your SKS Cluster using Helm. But wait ... What is Helm?</p>
+<h2 is-upgraded>Helm</h2>
+<p>Helm is a package manager for Kubernetes. It allows you to define applications in a standardized way and deploy them to your Kubernetes Cluster. Helm is a very powerful tool and we will use it in this lab to deploy ArgoCD to our SKS Cluster.</p>
+<p>A package in Helm is called a Chart. A Chart is a collection of files that describe a related set of Kubernetes resources. A single Chart might be used to deploy something simple, like a single pod, or something complex, like a full web app stack with HTTP servers, databases, caches, and so on. The configuration of a Chart is done in a file called <code>values.yaml</code>. This file contains all the configuration options for the Chart. In our case, we will use the default configuration of ArgoCD.</p>
+<p>As you might have noticed, we  will be using a new provider in this lab: The Helm Provider. This provider allows us to use Helm in our Terraform configuration. To use this provider, we need to add it to our <code>terraform.tf</code> file:</p>
+<pre><code language="language-terraform" class="language-terraform">terraform {
+  required_providers {
+    exoscale = {
+      source  = &#34;exoscale/exoscale&#34;
+      version = &#34;0.54.1&#34;
+    }
+    helm = {
+      source  = &#34;hashicorp/helm&#34;
+      version = &#34;2.12.1&#34;
+    }
+  }
+}
+
+provider &#34;helm&#34; {
+  kubernetes {
+    config_path = &#34;kubeconfig&#34;
+  }
+}
+
+provider &#34;exoscale&#34; {
+[
+...
+]
+}
+</code></pre>
+<p>As you can see, we added the Helm provider to our <code>terraform.tf</code> file. We also added the <code>kubernetes</code> block to the Helm provider. This block tells the Helm provider where to find the kubeconfig file for our SKS Cluster. We are using the kubeconfig file we created in Lab 1. There are prettier ways to do this, but for the sake of simplicity, we will use this approach in this lab.</p>
+<h2 is-upgraded>Deploy ArgoCD to your SKS Cluster</h2>
+<p>To deploy ArgoCD to your SKS Cluster, run the following command:</p>
+<pre><code language="language-bash" class="language-bash">tofu apply
+</code></pre>
+<p>Like in our previous lab, the configuration will be applied to your SKS Cluster. After this is applied successfully, you can check the status of your deployment by running the following command:</p>
+<pre><code language="language-bash" class="language-bash">export KUBECONFIG=./kubeconfig
+kubectl get pods -n argocd
+</code></pre>
+<p>After some time, you should see an output similar to this:</p>
+<pre><code language="language-bash" class="language-bash">NAME                                                READY   STATUS    RESTARTS   AGE
+argocd-application-controller-0                     1/1     Running   0          107s
+argocd-applicationset-controller-67ff5ff488-x5k7p   1/1     Running   0          107s
+argocd-dex-server-6867d888db-kz52l                  1/1     Running   0          107s
+argocd-notifications-controller-7fc686d5df-4mzr4    1/1     Running   0          107s
+argocd-redis-c89656499-j769p                        1/1     Running   0          107s
+argocd-repo-server-6bbfdd5f8c-k565m                 1/1     Running   0          107s
+argocd-server-6f69f5db45-g7xnl                      1/1     Running   0          107s
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="First Steps with ArgoCD" duration="0">
+        <p>After ArgoCD is deployed to your SKS Cluster, you can access the ArgoCD UI. At first, you need to get the password of the ArgoCD UI. To do so, run the following command:</p>
+<pre><code language="language-bash" class="language-bash">kubectl get secret -n argocd argocd-initial-admin-secret -ojsonpath=&#39;{.data.password}&#39; | base64 -d
+</code></pre>
+<p>This command will output the password of the ArgoCD UI. After that, you can set up a port-forward to the ArgoCD UI by running the following command</p>
+<pre><code language="language-bash" class="language-bash">kubectl port-forward -n argocd svc/argocd-server 8888:80
+</code></pre>
+<p>After that, you can access the ArgoCD UI by opening the following URL in your browser: https://localhost:8080 and log in with the username <code>admin</code> and the password you got from the previous command. The ArgoCD UI should open and be very empty. This is because we have not yet defined any applications in our Git Repository.</p>
+<aside class="special"><p> At this point, you can use the ArgoCD UI to deploy applications to your SKS Cluster. However, this is not the way we want to do it in this lab. We want to use GitOps to deploy applications to our SKS Cluster. Therefore, we will define our applications in a Git Repository and let ArgoCD watch this repository for changes. If you want to learn more about ArgoCD, you can check out the <a href="https://argoproj.github.io/argo-cd/" target="_blank">ArgoCD Documentation</a>. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Deploy a very simple application to your SKS Cluster" duration="0">
+        <p>In this section, we will deploy a very simple application to our SKS Cluster. As we are still in the first steps of this lab, we will add the configuration for this application using OpenTofu. Therefore, we will add two more blocks to our <code>argocd.tf</code> file.</p>
+<pre><code language="language-terraform" class="language-terraform">locals {
+  repo_url = &#34;https://github.com/podtato-head/podtato-head-app&#34;
+  repo_path = &#34;deploy&#34;
+  app_name = &#34;podtato-head&#34;
+  app_namespace = &#34;podtato-head&#34;
+}
+
+resource &#34;helm_release&#34; &#34;argo_cd_app&#34; {
+  name             = &#34;argocd-apps&#34;
+  repository       = &#34;https://argoproj.github.io/argo-helm&#34;
+  chart            = &#34;argocd-apps&#34;
+  version          = &#34;1.4.1&#34;
+  timeout          = 1200
+  create_namespace = true
+  namespace        = &#34;argocd&#34;
+  lint             = true
+  wait             = true
+  values = [templatefile(&#34;app-values.yaml&#34;, {
+    repo_url = local.repo_url
+    repo_path = local.repo_path
+    app_name = local.app_name
+    app_namespace = local.app_namespace
+  })]
+
+  depends_on = [
+    helm_release.argo_cd
+  ]
+}
+</code></pre>
+<p>This code block is written in Terraform and it&#39;s used to deploy an application to a Kubernetes cluster using ArgoCD and Helm.</p>
+<p>The <code>locals</code> block defines local variables that specify the Git repository URL, the path in the repository, the application name, and the namespace for the application.</p>
+<p>The <code>resource "helm_release" "argo_cd_app"</code> block deploys a Helm chart to the Kubernetes cluster. The chart is named <code>argocd-apps</code> and is fetched from the ArgoCD Helm repository. The chart version is <code>1.4.1</code>. The Helm release is deployed to the <code>argocd</code> namespace and a new namespace is created for it.</p>
+<p>The argocd-apps Helm chart is used to deploy applications to ArgoCD. An application in ArgoCD is a Kubernetes resource that points to a Git repository and a path in this repository. ArgoCD will watch this repository and deploy the application to the Kubernetes cluster if there are any changes in the repository.</p>
+<p>The <code>values</code> attribute of the <code>helm_release</code> block uses a template file named <code>app-values.yaml</code>. This file is expected to contain the configuration values for the Helm chart. The values are populated using the local variables defined earlier.</p>
+<p>The <code>depends_on</code> attribute ensures that the Helm release is only created after the ArgoCD Helm release is successfully deployed. This is because the ArgoCD Helm release is required for the application deployment.</p>
+<p>After adding this code block to your <code>argocd.tf</code> file, you can deploy the application to your SKS Cluster by running the following command:</p>
+<pre><code language="language-bash" class="language-bash">tofu apply
+</code></pre>
+<p>After the deployment is finished, you can connect to the ArgoCD UI and check if the application is deployed successfully. Your ArgoCD UI should look similar to this:</p>
+<p class="image-container"><img alt="ArgoCD Screen" src="img/97545ea7a7588b3c.png"></p>
+<aside class="special"><p> Congratulations! You have successfully deployed your first application to your SKS Cluster using GitOps! </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Manage your application using GitOps" duration="0">
+        <p>Until now, we have used OpenTofu to deploy our application to our SKS Cluster. However, our ultimate goal is to manage our applications using GitOps. Now is the time to create a Git Repository for your configuration, so if you haven&#39;t done this yet, please do so now.</p>
+<p>Please mind that this is a central Git Repository that will contain the configuration for all your applications. It will not contain any source code or manifests for your applications. It will only contain the configuration for ArgoCD.</p>
+<p>After you have created your Git Repository, you need to add it to your OpenTofu configuration. To do so, you need to change the locals block in your <code>argocd.tf</code> file:</p>
+<pre><code language="language-terraform" class="language-terraform">locals {
+  repo_url = &#34;&lt;your git repository url&gt;}&#34;
+  repo_path = &#34;deploy&#34;
+  app_name = &#34;gitops-base&#34;
+  app_namespace = &#34;argocd&#34;
+}
+</code></pre>
+<p>After you have changed the locals block, you can deploy the configuration to your SKS Cluster by running <code>tofu apply</code>. After the deployment is finished, you can check the ArgoCD UI. You should see that the application is now managed by ArgoCD, but pretty empty.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Add your application to your Git Repository" duration="0">
+        <p>Finally, we should be able to add our application to our Git Repository. To do so, we need to add a new file to our Git Repository. The file should be named <code>podtato-head.yaml</code> and should contain the following content:</p>
+<pre><code language="language-yaml" class="language-yaml">apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: podtato-head
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/podtato-head/podtato-head-app.git
+    targetRevision: v0.3.0
+    path: chart
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: podtato-helm
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+</code></pre>
+<p>After you added this file to your Git Repository, you can commit and push it. After that, you can check the ArgoCD UI. After a refresh or after some minutes, you should see that the application is now managed by ArgoCD and that it is deployed to your SKS Cluster.</p>
+<aside class="special"><p> Congratulations! You have successfully deployed your first application to your SKS Cluster using GitOps! You can now add more applications to your Git Repository and deploy them to your SKS Cluster using GitOps. </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Clean up" duration="0">
+        <p>After you are done with this lab, you can clean up your SKS Cluster by running the following command:</p>
+<pre><code language="language-bash" class="language-bash">tofu destroy
+</code></pre>
+<p>This will delete all resources that were created by this lab. Please mind that this will also delete your SKS Cluster. If you want to keep your SKS Cluster, you can delete the resources manually using the ArgoCD UI.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

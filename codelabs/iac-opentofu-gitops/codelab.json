@@ -4,12 +4,12 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2024-01-20T08:01:18Z",
-  "id": "iac-terraform-intro",
+  "id": "iac-opentofu-gitops",
   "duration": 0,
-  "title": "Infrastructure-as-Code - Lab 1 - Terraform Introduction",
+  "title": "Infrastructure-as-Code - Lab 2 - Combining OpenTofu and GitOps (Exoscale SKS Edition)",
   "authors": "Thomas Schuetz",
-  "summary": "Lab 1 - Terraform Introduction (Exoscale Edition)",
-  "source": "iac-exo-terraform-intro.md",
+  "summary": "Lab 2 - Combining OpenTofu and GitOps (Exoscale SKS Edition)",
+  "source": "iac-exo-opentofu-gitops.md",
   "theme": "",
   "status": [
     "published"
@@ -23,5 +23,5 @@
     "introduction",
     "mcce"
   ],
-  "url": "iac-terraform-intro"
+  "url": "iac-opentofu-gitops"
 }
