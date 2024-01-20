@@ -167,6 +167,25 @@ resource "helm_release" "argo_cd_app" {
 }
 ```
 
+Create a new file called `app-values.yaml` in your directory and copy the following content into it:
+
+```yaml
+applications:
+  - name: ${app_name}
+    project: default
+    source:
+      repoURL: ${repo_url}
+      targetRevision: HEAD
+      path: ${repo_path}
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: ${app_namespace}
+    syncPolicy:
+      automated: {}
+      syncOptions:
+        - CreateNamespace=true
+```
+
 This code block is written in Terraform and it's used to deploy an application to a Kubernetes cluster using ArgoCD and Helm.
 
 The `locals` block defines local variables that specify the Git repository URL, the path in the repository, the application name, and the namespace for the application.
@@ -176,6 +195,25 @@ The `resource "helm_release" "argo_cd_app"` block deploys a Helm chart to the Ku
 The argocd-apps Helm chart is used to deploy applications to ArgoCD. An application in ArgoCD is a Kubernetes resource that points to a Git repository and a path in this repository. ArgoCD will watch this repository and deploy the application to the Kubernetes cluster if there are any changes in the repository. 
 
 The `values` attribute of the `helm_release` block uses a template file named `app-values.yaml`. This file is expected to contain the configuration values for the Helm chart. The values are populated using the local variables defined earlier.
+
+Create a new file called `app-values.yaml` in your directory and copy the following content into it:
+
+```yaml
+applications:
+  - name: ${app_name}
+    project: default
+    source:
+      repoURL: ${repo_url}
+      targetRevision: HEAD
+      path: ${repo_path}
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: ${app_namespace}
+    syncPolicy:
+      automated: {}
+      syncOptions:
+        - CreateNamespace=true
+```
 
 The `depends_on` attribute ensures that the Helm release is only created after the ArgoCD Helm release is successfully deployed. This is because the ArgoCD Helm release is required for the application deployment.
 
