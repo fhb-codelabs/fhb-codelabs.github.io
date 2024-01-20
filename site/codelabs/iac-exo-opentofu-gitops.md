@@ -45,7 +45,7 @@ resource "helm_release" "argo_cd" {
   wait             = true
 
   depends_on = [
-    exoscale_sks_kubeconfig.my_sks_kubeconfig
+    local_sensitive_file.my_sks_kubeconfig_file
   ]
 }
 ```
@@ -98,7 +98,7 @@ Like in our previous lab, the configuration will be applied to your SKS Cluster.
 
 ```bash
 export KUBECONFIG=./kubeconfig
-kubectl get pods -n argocd
+kubectl --kubeconfig=kubeconfig get pods -n argocd
 ```
 
 After some time, you should see an output similar to this:
@@ -118,16 +118,16 @@ argocd-server-6f69f5db45-g7xnl                      1/1     Running   0         
 After ArgoCD is deployed to your SKS Cluster, you can access the ArgoCD UI. At first, you need to get the password of the ArgoCD UI. To do so, run the following command:
 
 ```bash
-kubectl get secret -n argocd argocd-initial-admin-secret -ojsonpath='{.data.password}' | base64 -d
+kubectl --kubeconfig=kubeconfig get secret -n argocd argocd-initial-admin-secret -ojsonpath='{.data.password}' | base64 -d
 ```
 
 This command will output the password of the ArgoCD UI. After that, you can set up a port-forward to the ArgoCD UI by running the following command
     
 ```bash
-kubectl port-forward -n argocd svc/argocd-server 8888:80
+kubectl --kubeconfig=kubeconfig port-forward -n argocd svc/argocd-server 8888:80
 ```
 
-After that, you can access the ArgoCD UI by opening the following URL in your browser: https://localhost:8080 and log in with the username `admin` and the password you got from the previous command. The ArgoCD UI should open and be very empty. This is because we have not yet defined any applications in our Git Repository.
+After that, you can access the ArgoCD UI by opening the following URL in your browser: https://localhost:8888 and log in with the username `admin` and the password you got from the previous command. The ArgoCD UI should open and be very empty. This is because we have not yet defined any applications in our Git Repository.
 
 <aside class="positive">
 At this point, you can use the ArgoCD UI to deploy applications to your SKS Cluster. However, this is not the way we want to do it in this lab. We want to use GitOps to deploy applications to our SKS Cluster. Therefore, we will define our applications in a Git Repository and let ArgoCD watch this repository for changes. If you want to learn more about ArgoCD, you can check out the <a href="https://argoproj.github.io/argo-cd/" target="_blank">ArgoCD Documentation</a>.
