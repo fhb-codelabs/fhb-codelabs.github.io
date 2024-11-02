@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2024-01-20T11:21:24Z",
+  "updated": "2024-11-02T19:22:02Z",
   "id": "virt-pt-terraform-ec2-modules-asg",
   "duration": 0,
   "title": "VIRT Lab 2 - Modularize a Terraform Configuration and Auto-Scale on AWS",

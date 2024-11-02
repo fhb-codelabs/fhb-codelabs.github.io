@@ -435,7 +435,7 @@ cpu:
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2463 MHz
 ```
 
-Finally, the hwinfo has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.
+Finally, the **hwinfo** command has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.
 
 ```
 hwinfo --all --log hardware_info.txt
@@ -973,4 +973,4 @@ killall stress
 
 - Finally, you can close all open terminals.
 
-This is the end of the hands-on.
+This is the end of this Hands-On.
