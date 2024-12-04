@@ -430,6 +430,56 @@ Reading the manual pages may answer open questions:
 man gdu
 ```
 
+## Low-Level I/O Operations
+
+### What You will learn:
+
+You can use the following command to perform Low Level I/O Operations under Linux:
+
+- dd
+
+## dd
+
+### Description
+
+**dd** is a command-line utility for converting and copying files, as well as performing low-level I/O operations on devices.
+
+### Sample code
+
+Here is a quick example:
+
+```
+dd if=/dev/zero of=./dumpfile.txt bs=1M count=10
+```
+
+Where,
+
+- **if** - This is the input file (here /dev/zero).
+- **of** - This is the output file (here ./dumpfile.txt).
+- **bs** - This is the blockssize for input (here 1 MB, default 512 B).
+- **count** - This specifies the number of blocks to copy (here 10 times)
+
+Sample output:
+```
+10+0 records in
+10+0 records out
+10485760 bytes (10 MB, 10 MiB) copied, 0,00739524 s, 1,4 GB/s
+```
+
+The output shows the number of blocks or records that have been read from the input and written to the output file. Additionally, the time required and the transfer speed are reported.     
+
+<aside class="positive">
+Consult the documentation and man-pages for more details.
+</aside>
+
+### References
+
+Don't blame it on the manual:
+
+```
+man dd   
+```
+
 ## Disk monitoring
 
 ### What You will learn:
