@@ -354,6 +354,46 @@ tmpfs                          394M  112K  394G   1% /run/user/1000
 
       </google-codelab-step>
     
+      <google-codelab-step label="Low-Level I/O Operations" duration="0">
+        <h2 is-upgraded>What You will learn:</h2>
+<p>You can use the following command to perform Low Level I/O Operations under Linux:</p>
+<ul>
+<li>dd</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="dd" duration="0">
+        <h2 is-upgraded>Description</h2>
+<p><strong>dd</strong> is a command-line utility for converting and copying files, as well as performing low-level I/O operations on devices.</p>
+<h2 is-upgraded>Sample code</h2>
+<p>Here is a quick example:</p>
+<pre><code>dd if=/dev/zero of=./dumpfile.txt bs=1M count=10
+</code></pre>
+<p>Where,</p>
+<ul>
+<li><strong>if</strong> - This is the input file (here /dev/zero).</li>
+<li><strong>of</strong> - This is the output file (here ./dumpfile.txt).</li>
+<li><strong>bs</strong> - This is the blockssize for input (here 1 MB, default 512 B).</li>
+<li><strong>count</strong> - This specifies the number of blocks to copy (here 10 times)</li>
+</ul>
+<p>Sample output:</p>
+<pre><code>10+0 records in
+10+0 records out
+10485760 bytes (10 MB, 10 MiB) copied, 0,00739524 s, 1,4 GB/s
+</code></pre>
+<p>The output shows the number of blocks or records that have been read from the input and written to the output file. Additionally, the time required and the transfer speed are reported.</p>
+<aside class="special"><p> Consult the documentation and man-pages for more details. </p>
+</aside>
+<h2 is-upgraded>References</h2>
+<p>Don&#39;t blame it on the manual:</p>
+<pre><code>man dd   
+</code></pre>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Disk monitoring" duration="0">
         <h2 is-upgraded>What You will learn:</h2>
 <p>You can use one of the following command to monitor disks on Linux:</p>
