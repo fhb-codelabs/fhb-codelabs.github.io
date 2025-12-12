@@ -153,6 +153,63 @@ Test your changes on the second machine as well (ping from `ipm-client` to `ipm-
 If the IP-address range of your test lab changes, you must also change the mapping on all machines.
 </aside>
 
+### 404 Not Found
+
+During `sudo apt install icinga2`, APT resolves dependencies and starts downloading packages from your configured Debian repository (`http://deb.debian.org/debian`).
+
+Most packages download successfully:
+
+- `icinga2`, `icinga2-bin`, `icinga2-common`, `icinga2-doc`
+- several `libboost-*` packages
+
+But two dependencies fail:
+
+- `monitoring-plugins-common_2.4.0-3_amd64.deb`
+- `monitoring-plugins-basic_2.4.0-3_amd64.deb`
+
+APT shows:
+
+- `Err: ... 404 Not Found`
+- `Failed to fetch ... 404 Not Found`
+
+A `404 Not Found` from a Debian mirror usually means:
+
+- your local APT package index still references an older package version (`2.4.0-3`), but
+- the mirror repository no longer contains that exact `.deb` file (it was replaced by a newer build, moved during mirror sync, or your mirror is temporarily out of sync).
+
+This is common on Debian *testing* (here: `trixie`), where package versions move quickly.
+
+#### How to fix it
+
+You have two (2) options:
+
+**Option A (recommended): refresh package lists and retry**
+
+Update your local package indexes and retry the install:
+
+```bash
+sudo apt-get update
+sudo apt-get install icinga2
+```
+
+If you still get 404s, force a clean re-download of package lists:
+```bash
+sudo rm -rf /var/lib/apt/lists/*
+sudo apt-get clean
+sudo apt-get update
+sudo apt-get install icinga2
+```
+
+**Option B: switch to a different mirror (my provided FIX)**
+
+If the mirror behind deb.debian.org is out of sync for your location, you can switch to a concrete mirror (Germany example) and update:
+
+```bash
+sudo sed -i 's|http://deb.debian.org/debian|http://ftp.de.debian.org/debian|g' /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install icinga2
+```
+This works because APT will fetch package lists and .deb files from the new mirror, which may already have the expected versions.
 
 ## Icinga2 Core App
 
@@ -182,7 +239,7 @@ Please do not restart any Icinga2 service here. We will do this later.
 On Debian, Icinga2 is started and activated during installation. You can check this by executing the command:
 
 ```
-systemctl status icinga2
+sudo systemctl status icinga2
 ```
 
 Sample output:

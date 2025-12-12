@@ -4,25 +4,24 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2025-12-12T16:10:44+01:00",
-  "id": "ssoa-pt-supply-chain-lab",
+  "id": "iac-opentofu-intro",
   "duration": 0,
-  "title": "SSOA Lab 2 - Supply Chain",
+  "title": "Infrastructure-as-Code - Lab 1 - OpenTofu Introduction",
   "authors": "Thomas Schuetz",
-  "summary": "Lab 2 - Supply Chain",
-  "source": "ssoa-pt-supply-chain-lab.md",
+  "summary": "Lab 1 - OpenTofu Introduction (Exoscale SKS Edition)",
+  "source": "iac-exo-opentofu-intro.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "github"
+    "terraform"
   ],
   "tags": [
     "aws",
-    "intermediate",
-    "mcce",
-    "ssoa-pt",
-    "supply-chain"
+    "iac",
+    "introduction",
+    "mcce"
   ],
-  "url": "ssoa-pt-supply-chain-lab"
+  "url": "iac-opentofu-intro"
 }

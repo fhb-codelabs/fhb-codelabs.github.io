@@ -296,7 +296,7 @@ https://linuxwiki.de/proc/cpuinfo
 <p>Hwinfo checks details of the hardware present in a Linux system and displays the extensive details of each hardware device. It reports information about most hardware units including CPU, HDD controllers, network card, graphics cards, and more.</p>
 <h2 is-upgraded>Sample code</h2>
 <p>Run the following command:</p>
-<pre><code>hwinfo | more
+<pre><code>sudo hwinfo | more
 </code></pre>
 <h2 is-upgraded>Sample output</h2>
 <p>The output may look like this:</p>
@@ -352,7 +352,7 @@ shm: attached segment 26 at 0x7f2ea7189000
   8be5d060  02 05 06 4d 69 63 72 6f 73 6f 66 74 20 43 6f 72  &#34;...Microsoft Cor&#34;
 --More--
 </code></pre>
-<p>The &#34;–short&#34; option will display brief information about the hardware and not the details. With the &#34;–cpu&#34; option, hwinfo would display only cpu information.</p>
+<p>The &#34;–short&#34; option will display brief information about the hardware but not in details. With the &#34;–cpu&#34; option, hwinfo displays CPU information only.</p>
 <pre><code>hwinfo --short --cpu
 </code></pre>
 <p>Sample output:</p>
@@ -362,7 +362,7 @@ shm: attached segment 26 at 0x7f2ea7189000
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 1841 MHz
                        Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz, 2463 MHz
 </code></pre>
-<p>Finally, the hwinfo has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.</p>
+<p>Finally, the <strong>hwinfo</strong> command has an option to log all data to a file. The following command will log detailed information about all hardware units to a text file.</p>
 <pre><code>hwinfo --all --log hardware_info.txt
 </code></pre>
 <h2 is-upgraded>References</h2>
@@ -699,7 +699,7 @@ MAX_INPUT                          255
 </code></pre>
 <p>This gives you time to run commands like htop or uptime to observe CPU usage. Remember that you can also start multiple workload generators simultaneously or delayed. This allows you to try multiple scenarios.</p>
 <h2 is-upgraded>Scenario</h2>
-<p>In this codelab, the GuestOS is a Virtual Machine with 2 CPU Cores and 4 GB RAM. The GuestOS is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM is installed and running on the Linux-based Hypervisor VirtualBox, Version 6.1.16 r140961 (QT 5.11.3). THe HostOS is based on Debian with Linux Kernel version 4.19.0-17-amd64. The Host hardware is HP Prodesk 400 G1 DN with a Intel Core i3-4160T CPU@3.10GHz, 16GB RAM, and an Intenso SATA III Top 512GB.</p>
+<p>In this Codelab, the GuestOS is a virtual machine with 2 CPU cores and 4 GB RAM. The guest operating system is based on Debian with Linux kernel version 5.10.0-8-amd64. The VM runs on the Linux-based hypervisor VirtualBox, version 6.1.16 r140961 (QT 5.11.3). The HostOS is based on Debian with Linux kernel version 4.19.0-17-amd64. The host hardware is an HP Prodesk 400 G1 DN with an Intel Core i3-4160T CPU@3.10GHz, 16GB RAM and an Intenso SATA III Top 512GB.</p>
 <h2 is-upgraded>Test Run</h2>
 <ul>
 <li>Open a shell terminal and execute the following command:</li>
@@ -748,7 +748,7 @@ MAX_INPUT                          255
 <ul>
 <li>Finally, you can close all open terminals.</li>
 </ul>
-<p>This is the end of the hands-on.</p>
+<p>This is the end of this Hands-On.</p>
 
 
       </google-codelab-step>
